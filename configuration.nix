@@ -63,6 +63,16 @@
   #   uid = 1000;
   # };
 
+  programs.zsh.enable = true;
+
+  users.extraUsers.tobias = {
+    group = "wheel";
+    home = "/home/tobias";
+    isNormalUser = true;
+    shell = pkgs.zsh;
+    uid = 1000;
+  };
+
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.03";
 
