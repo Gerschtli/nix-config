@@ -49,13 +49,21 @@
   # services.printing.enable = true;
 
   # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-  # services.xserver.layout = "us";
+  services.xserver.enable = true;
+  services.xserver.layout = "de";
   # services.xserver.xkbOptions = "eurosign:e";
 
   # Enable the KDE Desktop Environment.
   # services.xserver.displayManager.sddm.enable = true;
   # services.xserver.desktopManager.plasma5.enable = true;
+  services.xserver.displayManager.slim.defaultUser = "tobias";
+  services.xserver.displayManager.slim.enable = true;
+  services.xserver.windowManager.default = "none";
+  services.xserver.desktopManager.default = "none";
+  services.xserver.windowManager.session = [{
+    name = "dwm";
+    start = "/nix/var/nix/profiles/default/bin/dwm";
+  }];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.extraUsers.guest = {
