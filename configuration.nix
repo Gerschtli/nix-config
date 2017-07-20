@@ -19,20 +19,36 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Select internationalisation properties.
-  # i18n = {
+  i18n = {
   #   consoleFont = "Lat2-Terminus16";
-  #   consoleKeyMap = "us";
-  #   defaultLocale = "en_US.UTF-8";
-  # };
+    consoleKeyMap = "de";
+    defaultLocale = "en_US.UTF-8";
+  };
 
   # Set your time zone.
   # time.timeZone = "Europe/Amsterdam";
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  # environment.systemPackages = with pkgs; [
-  #   wget
-  # ];
+  environment.systemPackages = with pkgs; [
+    dmenu
+    dwm
+    git
+    neovim
+    tmux
+    xterm
+    zsh
+  ];
+
+  nixpkgs.config.allowUnfree = true;
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    dwm = pkgs.dwm.override {
+      patches =
+        [ ./dwm-config.diff ];
+    };
+  };
+
 
   # List services that you want to enable:
 
@@ -58,12 +74,7 @@
   # services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.displayManager.slim.defaultUser = "tobias";
   services.xserver.displayManager.slim.enable = true;
-  services.xserver.windowManager.default = "none";
-  services.xserver.desktopManager.default = "none";
-  services.xserver.windowManager.session = [{
-    name = "dwm";
-    start = "/nix/var/nix/profiles/default/bin/dwm";
-  }];
+  services.xserver.windowManager.dwm.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.extraUsers.guest = {
