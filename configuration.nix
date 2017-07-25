@@ -33,8 +33,13 @@
   environment.systemPackages = with pkgs; [
     dmenu
     dwm
+    fira-code
+    fira-mono
     git
+    gnome2.zenity
+    htop
     neovim
+#    slock
     tmux
     xterm
     zsh
@@ -47,6 +52,11 @@
       patches =
         [ ./dwm-config.diff ];
     };
+
+    #slock = pkgs.slock.override {
+    #  patches =
+    #    [ ./slock-config.diff ];
+    #};
   };
 
 

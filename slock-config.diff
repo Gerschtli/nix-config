@@ -1,0 +1,97 @@
+diff --git c/.gitignore w/.gitignore
+new file mode 100644
+index 0000000..b5f8115
+--- /dev/null
++++ w/.gitignore
+@@ -0,0 +1,4 @@
++*.o
++config.h
++slock
++slock-config.diff
+diff --git c/README w/README
+index a81290d..dcacd01 100644
+--- c/README
++++ w/README
+@@ -1,6 +1,6 @@
+ slock - simple screen locker
+ ============================
+-simple screen locker utility for X. 
++simple screen locker utility for X.
+ 
+ 
+ Requirements
+diff --git c/README.local w/README.local
+new file mode 100644
+index 0000000..5d2ed4f
+--- /dev/null
++++ w/README.local
+@@ -0,0 +1,11 @@
++# Build from source
++
++```sh
++$ sudo make config.h clean install
++```
++
++# Build diff
++
++```sh
++$ git diff 1.4 > slock-config.diff
++```
+diff --git c/config.def.h w/config.def.h
+index 9855e21..4e6ef6b 100644
+--- c/config.def.h
++++ w/config.def.h
+@@ -3,10 +3,10 @@ static const char *user  = "nobody";
+ static const char *group = "nogroup";
+ 
+ static const char *colorname[NUMCOLS] = {
+-	[INIT] =   "black",     /* after initialization */
+-	[INPUT] =  "#005577",   /* during input */
+-	[FAILED] = "#CC3333",   /* wrong password */
++	[INIT] =   "#3077a0",   /* after initialization */
++	[INPUT] =  "#2c7f1f",   /* during input */
++	[FAILED] = "#330606",   /* wrong password */
+ };
+ 
+ /* treat a cleared input like a wrong password (color) */
+-static const int failonclear = 1;
++static const int failonclear = 0;
+diff --git c/slock.c w/slock.c
+index d2f0886..5ae738c 100644
+--- c/slock.c
++++ w/slock.c
+@@ -177,7 +177,7 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
+ 				break;
+ 			case XK_BackSpace:
+ 				if (len)
+-					passwd[len--] = '\0';
++					passwd[--len] = '\0';
+ 				break;
+ 			default:
+ 				if (num && !iscntrl((int)buf[0]) &&
+@@ -201,13 +201,21 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
+ 			rre = (XRRScreenChangeNotifyEvent*)&ev;
+ 			for (screen = 0; screen < nscreens; screen++) {
+ 				if (locks[screen]->win == rre->window) {
+-					XResizeWindow(dpy, locks[screen]->win,
+-					              rre->width, rre->height);
++					if (rre->rotation == RR_Rotate_90 ||
++					    rre->rotation == RR_Rotate_270)
++						XResizeWindow(dpy, locks[screen]->win,
++						              rre->height, rre->width);
++					else
++						XResizeWindow(dpy, locks[screen]->win,
++						              rre->width, rre->height);
+ 					XClearWindow(dpy, locks[screen]->win);
++					break;
+ 				}
+ 			}
+-		} else for (screen = 0; screen < nscreens; screen++)
+-			XRaiseWindow(dpy, locks[screen]->win);
++		} else {
++			for (screen = 0; screen < nscreens; screen++)
++				XRaiseWindow(dpy, locks[screen]->win);
++		}
+ 	}
+ }
+ 
