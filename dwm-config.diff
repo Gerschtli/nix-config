@@ -60,7 +60,7 @@ index 0000000..0c825d4
 +$ git diff 6.1 > dwm-config.diff
 +```
 diff --git c/config.def.h w/config.def.h
-index 7054c06..d95ddbd 100644
+index 7054c06..c4ba483 100644
 --- c/config.def.h
 +++ w/config.def.h
 @@ -1,20 +1,28 @@
@@ -87,8 +87,8 @@ index 7054c06..d95ddbd 100644
 +static const int showsystray        = 1;     /* 0 means no systray */
  static const int showbar            = 1;        /* 0 means no bar */
  static const int topbar             = 1;        /* 0 means bottom bar */
-+static const char *fonts[]          = { "Fira Mono:size=8" };
-+static const char dmenufont[]       = "Fira Mono:size=8";
++static const char *fonts[]          = { "monospace:size=8" };
++static const char dmenufont[]       = "monospace:size=8";
 +static const char col_gray1[]       = "#222222";
 +static const char col_gray2[]       = "#444444";
 +static const char col_gray3[]       = "#bbbbbb";
@@ -130,7 +130,7 @@ index 7054c06..d95ddbd 100644
 +static const char *uplight[]   = { "xbacklight", "+5", NULL };
 +static const char *downlight[] = { "xbacklight", "-5", NULL };
 +
-+static const char *lockscreen[] = { "slock", NULL };
++static const char *lockscreen[] = { "lock-screen", NULL };
  
  static Key keys[] = {
  	/* modifier                     key        function        argument */
