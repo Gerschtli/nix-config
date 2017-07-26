@@ -62,7 +62,11 @@
     };
   };
 
-  security.wrappers.slock.source = "${pkgs.slock.out}/bin/slock";
+  security = {
+    sudo.extraConfig = "tobias ALL= NOPASSWD: /run/current-system/sw/sbin/shutdown";
+
+    wrappers.slock.source = "${pkgs.slock.out}/bin/slock";
+  };
 
 
   # List services that you want to enable:
