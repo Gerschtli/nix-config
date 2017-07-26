@@ -39,7 +39,7 @@
     gnome2.zenity
     htop
     neovim
-#    slock
+    slock
     tmux
     xterm
     zsh
@@ -53,11 +53,13 @@
         [ ./dwm-config.diff ];
     };
 
-    #slock = pkgs.slock.override {
-    #  patches =
-    #    [ ./slock-config.diff ];
-    #};
+#    slock = pkgs.slock.override {
+#      patchPhase =
+#        "sed -i '/chmod u+s/d' Makefile && patch < /etc/nixos/slock-config.diff";
+#    };
   };
+
+  security.wrappers.slock.source = "${pkgs.slock.out}/bin/slock";
 
 
   # List services that you want to enable:
@@ -84,7 +86,7 @@
   # services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.displayManager.slim.defaultUser = "tobias";
   services.xserver.displayManager.slim.enable = true;
-  services.xserver.windowManager.dwm.enable = true;
+  #services.xserver.windowManager.dwm.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.extraUsers.guest = {
