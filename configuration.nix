@@ -96,12 +96,19 @@
 
   programs.zsh.enable = true;
 
-  users.extraUsers.tobias = {
-    group = "wheel";
-    home = "/home/tobias";
-    isNormalUser = true;
-    shell = pkgs.zsh;
-    uid = 1000;
+  users.users = {
+    root = {
+      isSystemUser = true;
+      shell = pkgs.zsh;
+    };
+
+    tobias = {
+      group = "wheel";
+      home = "/home/tobias";
+      isNormalUser = true;
+      shell = pkgs.zsh;
+      uid = 1000;
+    };
   };
 
   # The NixOS release to be compatible with for stateful data such as databases.
