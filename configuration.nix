@@ -17,9 +17,6 @@
     systemd-boot.enable = true;
   };
 
-  # networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
   # Select internationalisation properties.
   i18n = {
     consoleKeyMap = "de";
@@ -79,14 +76,11 @@
       # Enable the X11 windowing system.
       enable = true;
       layout = "de";
-      # xkbOptions = "eurosign:e";
 
       displayManager.slim = {
         defaultUser = "tobias";
         enable = true;
       };
-
-      #windowManager.dwm.enable = true;
     };
   };
 
@@ -102,5 +96,4 @@
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.03";
-
 }
