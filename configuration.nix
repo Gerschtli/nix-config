@@ -79,6 +79,7 @@
       # Enable the X11 windowing system.
       enable = true;
       layout = "de";
+      xkbVariant = "nodeadkeys";
 
       displayManager.slim = {
         defaultUser = "tobias";
