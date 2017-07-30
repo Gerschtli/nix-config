@@ -17,6 +17,8 @@
     systemd-boot.enable = true;
   };
 
+  hardware.pulseaudio.enable = true;
+
   # Select internationalisation properties.
   i18n = {
     consoleKeyMap = "de";
@@ -37,6 +39,7 @@
     gnome2.zenity
     htop
     neovim
+    pavucontrol
     slock
     tmux
     xterm
