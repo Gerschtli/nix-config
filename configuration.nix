@@ -33,8 +33,6 @@
   environment.systemPackages = with pkgs; [
     dmenu
     dwm
-    fira-code
-    fira-mono
     git
     gnome2.zenity
     htop
@@ -45,6 +43,14 @@
     xterm
     zsh
   ];
+
+  fonts = {
+    fonts = with pkgs; [
+      fira-code
+      fira-mono
+    ];
+  };
+
 
   nixpkgs.config = {
     allowUnfree = true;
