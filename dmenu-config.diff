@@ -144,7 +144,7 @@ index d3ab805..9eab758 100644
  dmenu is completely controlled by the keyboard.  Items are selected using the
  arrow keys, page up, page down, home, and end.
 diff --git c/dmenu.c w/dmenu.c
-index a07f8e3..720beec 100644
+index a07f8e3..13d4bb1 100644
 --- c/dmenu.c
 +++ w/dmenu.c
 @@ -22,8 +22,7 @@
@@ -398,8 +398,8 @@ index a07f8e3..720beec 100644
 +			sidx = eidx = -1;
 +			/* walk through item text */
 +			for (i = 0; i < itext_len && (c = item->text[i]); i++) {
-+				/* fuzzy match pattern */
-+				if (text[pidx] == c) {
++				/* case-insensitive fuzzy match pattern */
++				if (tolower(text[pidx]) == c || toupper(text[pidx]) == c) {
 +					if (sidx == -1)
 +						sidx = i;
 +					pidx++;
