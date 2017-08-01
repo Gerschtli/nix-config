@@ -100,7 +100,6 @@
 
   users.users = {
     root = {
-      isSystemUser = true;
       shell = pkgs.zsh;
     };
 
