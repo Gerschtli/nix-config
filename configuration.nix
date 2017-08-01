@@ -33,6 +33,7 @@
   environment.systemPackages = with pkgs; [
     dmenu
     dwm
+    ntfs3g
     git
     gnome2.zenity
     htop
