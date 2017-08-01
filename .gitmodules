@@ -1,0 +1,3 @@
+[submodule "dwm"]
+	path = dwm
+	url = git@bitbucket.org:Gerschtli/dwm.git
