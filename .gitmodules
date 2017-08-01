@@ -5,3 +5,7 @@
 [submodule "dwm"]
     path = dwm
     url = git@bitbucket.org:Gerschtli/dwm.git
+
+[submodule "slock"]
+    path = slock
+    url = git@bitbucket.org:Gerschtli/slock.git

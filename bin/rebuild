@@ -18,5 +18,8 @@ create_diff dmenu 4.6
 # dwm
 create_diff dwm 6.1
 
+# slock
+create_diff slock 1.4
+
 echo "nixos-rebuild"
 nixos-rebuild "${1}"
