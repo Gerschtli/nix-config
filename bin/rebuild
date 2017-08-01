@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+cd /etc/nixos
+
+# dwm
+echo "create dwm-config.diff"
+cd dwm
+git diff 6.1 > ../dwm-config.diff
+cd - > /dev/null
+
+echo "nixos-rebuild"
+nixos-rebuild "${1}"
