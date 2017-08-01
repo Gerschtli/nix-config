@@ -1,3 +1,7 @@
+[submodule "dmenu"]
+    path = dmenu
+    url = git@bitbucket.org:Gerschtli/dmenu.git
+
 [submodule "dwm"]
-	path = dwm
-	url = git@bitbucket.org:Gerschtli/dwm.git
+    path = dwm
+    url = git@bitbucket.org:Gerschtli/dwm.git
