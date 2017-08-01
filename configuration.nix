@@ -52,6 +52,7 @@
     ];
   };
 
+  networking.usePredictableInterfaceNames = true;
 
   nixpkgs.config = {
     allowUnfree = true;
