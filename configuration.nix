@@ -104,6 +104,7 @@
 
     tobias = {
       group = "wheel";
+      extraGroups = [ "vboxusers" ];
       home = "/home/tobias";
       isNormalUser = true;
       shell = pkgs.zsh;
