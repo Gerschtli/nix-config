@@ -30,6 +30,7 @@
     git
     gnome2.zenity
     htop
+    keychain
     neovim
     pavucontrol
     slock
