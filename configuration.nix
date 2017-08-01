@@ -34,6 +34,7 @@
     pavucontrol
     slock
     tmux
+    wget
     xterm
     zsh
   ];
