@@ -53,6 +53,11 @@
     allowUnfree = true;
 
     packageOverrides = pkgs: {
+      dmenu = pkgs.dmenu.override {
+        patches =
+          [ ./dmenu-config.diff ];
+      };
+
       dwm = pkgs.dwm.override {
         patches =
           [ ./dwm-config.diff ];

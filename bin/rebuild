@@ -1,12 +1,22 @@
 #!/usr/bin/env bash
 
+create_diff() {
+    local name="${1}"
+    local tag="${2}"
+
+    echo "create ${name}-config.diff"
+    cd "${name}"
+    git diff "${tag}" > "../${name}-config.diff"
+    cd - > /dev/null
+}
+
 cd /etc/nixos
 
+# dmenu
+create_diff dmenu 4.6
+
 # dwm
-echo "create dwm-config.diff"
-cd dwm
-git diff 6.1 > ../dwm-config.diff
-cd - > /dev/null
+create_diff dwm 6.1
 
 echo "nixos-rebuild"
 nixos-rebuild "${1}"
