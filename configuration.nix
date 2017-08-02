@@ -63,10 +63,10 @@
           [ ./dwm-config.diff ];
       };
 
-#      slock = pkgs.slock.override {
-#        patchPhase =
-#          "sed -i '/chmod u+s/d' Makefile && patch < /etc/nixos/slock-config.diff";
-#      };
+      # see: https://github.com/NixOS/nixpkgs/issues/4017
+      slock = pkgs.lib.overrideDerivation pkgs.slock (attrs: {
+        patchPhase = attrs.patchPhase + " && patch < /etc/nixos/slock-config.diff";
+      });
     };
   };
 
