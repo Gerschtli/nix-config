@@ -55,17 +55,17 @@
     packageOverrides = pkgs: {
       dmenu = pkgs.dmenu.override {
         patches =
-          [ ./dmenu-config.diff ];
+          [ patches/dmenu-config.diff ];
       };
 
       dwm = pkgs.dwm.override {
         patches =
-          [ ./dwm-config.diff ];
+          [ patches/dwm-config.diff ];
       };
 
       # see: https://github.com/NixOS/nixpkgs/issues/4017
       slock = pkgs.lib.overrideDerivation pkgs.slock (attrs: {
-        patchPhase = attrs.patchPhase + " && patch < /etc/nixos/slock-config.diff";
+        patchPhase = attrs.patchPhase + " && patch < /etc/nixos/patches/slock-config.diff";
       });
     };
   };

@@ -5,7 +5,7 @@ create_diff() {
     local tag="${2}"
 
     echo "create ${name}-config.diff"
-    cd "${name}"
+    cd "patches/${name}"
     git diff "${tag}" > "../${name}-config.diff"
     cd - > /dev/null
 }
