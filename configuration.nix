@@ -94,6 +94,7 @@
       displayManager.slim = {
         defaultUser = "tobias";
         enable = true;
+        extraConfig = "numlock on";
       };
     };
   };
