@@ -22,7 +22,6 @@
   };
 
   # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     dmenu
     dwm
@@ -75,7 +74,7 @@
   security = {
     sudo.extraConfig = "tobias ALL= NOPASSWD: /run/current-system/sw/sbin/shutdown";
 
-    wrappers.slock.source = "${pkgs.slock.out}/bin/slock";
+    wrappers.slock.source = "${pkgs.slock}/bin/slock";
   };
 
 
@@ -90,6 +89,8 @@
       enable = true;
       layout = "de";
       xkbVariant = "nodeadkeys";
+
+      desktopManager.xterm.enable = false;
 
       displayManager.slim = {
         defaultUser = "tobias";
@@ -106,9 +107,7 @@
   time.timeZone = "Europe/Amsterdam";
 
   users.users = {
-    root = {
-      shell = pkgs.zsh;
-    };
+    root.shell = pkgs.zsh;
 
     tobias = {
       group = "wheel";
