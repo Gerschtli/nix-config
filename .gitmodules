@@ -1,11 +1,11 @@
 [submodule "dmenu"]
     path = patches/dmenu
-    url = git@bitbucket.org:Gerschtli/dmenu.git
+    url = git@bitbucket.org:tobiashapp/dmenu.git
 
 [submodule "dwm"]
     path = patches/dwm
-    url = git@bitbucket.org:Gerschtli/dwm.git
+    url = git@bitbucket.org:tobiashapp/dwm.git
 
 [submodule "slock"]
     path = patches/slock
-    url = git@bitbucket.org:Gerschtli/slock.git
+    url = git@bitbucket.org:tobiashapp/slock.git
