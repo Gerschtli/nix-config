@@ -46,7 +46,25 @@
     ];
   };
 
-  networking.usePredictableInterfaceNames = true;
+  networking = {
+    extraHosts = ''
+      # cbn/frontend
+      192.168.56.201  www.accessoire.local.de
+      192.168.56.201  www.getprice.local.at
+      192.168.56.201  www.getprice.local.ch
+      192.168.56.201  www.getprice.local.de
+      192.168.56.201  www.handys.local.com
+      192.168.56.201  www.preisvergleich.local.at
+      192.168.56.201  www.preisvergleich.local.ch
+      192.168.56.201  www.preisvergleich.local.eu
+      192.168.56.201  www.preisvergleich.local.org
+      192.168.56.201  www.shopping.local.at
+      192.168.56.201  www.shopping.local.ch
+      192.168.56.201  www.testit.local.de
+    '';
+
+    usePredictableInterfaceNames = true;
+  };
 
   nixpkgs.config = {
     allowUnfree = true;
