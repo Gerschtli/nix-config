@@ -48,6 +48,9 @@
 
   networking = {
     extraHosts = ''
+      # cbn/backend
+      192.168.56.202  backend.local
+
       # cbn/frontend
       192.168.56.201  www.accessoire.local.de
       192.168.56.201  www.getprice.local.at
