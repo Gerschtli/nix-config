@@ -48,6 +48,10 @@
 
   networking = {
     extraHosts = ''
+      # astarget
+      192.168.35.10   www.astarget.local   fb.astarget.local
+      192.168.35.10   test.astarget.local  test.fb.astarget.local
+
       # cbn/backend
       192.168.56.202  backend.local
 
