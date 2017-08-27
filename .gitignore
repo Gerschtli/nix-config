@@ -1,3 +1,4 @@
+configuration.nix
 hardware-configuration.nix
 patches/*-config.diff
 result
