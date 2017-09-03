@@ -1,10 +1,20 @@
 #!/usr/bin/env bash
 
+VERBOSE=false
+if [[ "${1}" == "-v" ]]; then
+    VERBOSE=true
+    shift
+fi
+
+log() {
+    $VERBOSE && echo "${1}"
+}
+
 create_diff() {
     local name="${1}"
     local tag="${2}"
 
-    echo "create ${name}-config.diff"
+    log "create ${name}-config.diff"
     cd "patches/${name}"
     git diff "${tag}" > "../${name}-config.diff"
     cd - > /dev/null
@@ -21,5 +31,11 @@ create_diff dwm 6.1
 # slock
 create_diff slock 1.4
 
-echo "nixos-rebuild"
+# set permissions of deploy keys
+log "set permissions for bitbucket deploy keys"
+chown root:nixbld misc/id_rsa.bitbucket-deploy*
+chmod g+r misc/id_rsa.bitbucket-deploy*
+
+# nixos-rebuild
+log "nixos-rebuild"
 nixos-rebuild "${1:-test}"
