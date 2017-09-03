@@ -6,6 +6,7 @@
 
     allowedTCPPorts = [
       30033 10011 41144 # TS3
+      80 443 # httpd
     ];
 
     allowedUDPPorts = [
@@ -17,6 +18,13 @@
 
   services = {
     fail2ban.enable = true;
+
+    httpd = {
+      enable = true;
+      logPerVirtualHost = true;
+      enablePHP = true;
+      adminAddr = "tobias.happ@gmx.de";
+    };
 
     mysql = {
       # set password with:
