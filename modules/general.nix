@@ -2,11 +2,13 @@
 
 {
   environment.systemPackages = with pkgs; [
+    bc
     git
     htop
     keychain
     neovim
     tmux
+    tree
     wget
     zsh
   ];
