@@ -30,6 +30,6 @@
   };
 
   users.users.tobias.openssh.authorizedKeys.keyFiles = [
-    ../misc/id_rsa.pub
+    ../misc/id_rsa.tobias-login.pub
   ];
 }
