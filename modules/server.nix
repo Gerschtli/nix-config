@@ -18,6 +18,14 @@
   services = {
     fail2ban.enable = true;
 
+    mysql = {
+      # set password with:
+      # SET PASSWORD FOR root@localhost = PASSWORD('password');
+      enable = true;
+      package = pkgs.mariadb;
+      dataDir = "/var/db/mysql";
+    };
+
     openssh = {
       enable = true;
       permitRootLogin = "yes";
