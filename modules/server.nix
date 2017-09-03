@@ -21,6 +21,7 @@
     openssh = {
       enable = true;
       permitRootLogin = "yes";
+      passwordAuthentication = false;
       extraConfig = ''
         MaxAuthTries 3
       '';
