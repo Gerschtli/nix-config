@@ -18,8 +18,6 @@
     defaultLocale = "en_US.UTF-8";
   };
 
-  networking.usePredictableInterfaceNames = true;
-
   programs.zsh.enable = true;
 
   system.stateVersion = "17.03";
