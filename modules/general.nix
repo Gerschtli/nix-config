@@ -22,7 +22,7 @@
 
   system.stateVersion = "17.03";
 
-  time.timeZone = "Europe/Amsterdam";
+  time.timeZone = "Europe/Berlin";
 
   users.users = {
     root.shell = pkgs.zsh;
