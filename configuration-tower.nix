@@ -9,7 +9,7 @@
     ./services/cups.nix
     ./services/pulseaudio.nix
 
-    ./modules/devHosts.nix
+    ./modules/dev-hosts.nix
     ./modules/xserver.nix
   ];
 

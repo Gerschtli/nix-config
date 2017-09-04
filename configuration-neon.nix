@@ -9,8 +9,8 @@
     ./services/firewall.nix
     ./services/ssh.nix
 
-    ./applications/goldenRiverJazztett.nix
-    ./applications/autoGoldenRiverJazztett.nix
+    ./applications/golden-river-jazztett.nix
+    ./applications/auto-golden-river-jazztett.nix
     ./applications/teamspeak.nix
   ];
 

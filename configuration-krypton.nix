@@ -8,10 +8,6 @@
 
     ./services/firewall.nix
     ./services/ssh.nix
-
-    ./applications/goldenRiverJazztett.nix
-    ./applications/autoGoldenRiverJazztett.nix
-    ./applications/teamspeak.nix
   ];
 
   boot.loader.grub = {
