@@ -7,14 +7,17 @@
 
   environment.systemPackages = with pkgs; [
     networkmanagerapplet
-    upower
     xorg.xbacklight
   ];
 
-  services.xserver.synaptics = {
-    enable = true;
-    twoFingerScroll = true;
-    buttonsMap = [ 1 3 2 ];
+  services = {
+    upower.enable = true;
+
+    xserver.synaptics = {
+      enable = true;
+      twoFingerScroll = true;
+      buttonsMap = [ 1 3 2 ];
+    };
   };
 
   networking.networkmanager.enable = true;
