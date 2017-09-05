@@ -3,9 +3,19 @@
 {
   environment.systemPackages = with pkgs; [
     dmenu
+    dropbox-cli
     dwm
     gnome2.zenity
+    google-chrome
+    qpdfview
     slock
+    spotify
+    sublime3
+    libreoffice
+    thunderbird
+    wmname
+    xclip
+    xss-lock
     xterm
   ];
 

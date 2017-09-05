@@ -4,12 +4,15 @@
   environment.systemPackages = with pkgs; [
     bc
     git
+    gzip
     htop
     keychain
     neovim
     tmux
     tree
     wget
+    xz
+    zip
     zsh
   ];
 
