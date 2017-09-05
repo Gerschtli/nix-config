@@ -26,20 +26,24 @@
     ];
   };
 
-  nixpkgs.config.packageOverrides = pkgs: {
-    dmenu = pkgs.dmenu.override {
-      patches =
-        [ ../patches/dmenu-config.diff ];
-    };
+  nixpkgs.config = {
+    allowUnfree = true;
 
-    dwm = pkgs.dwm.override {
-      patches =
-        [ ../patches/dwm-config.diff ];
-    };
+    packageOverrides = pkgs: {
+      dmenu = pkgs.dmenu.override {
+        patches =
+          [ ../patches/dmenu-config.diff ];
+      };
 
-    slock = pkgs.lib.overrideDerivation pkgs.slock (attrs: {
-      patchPhase = attrs.patchPhase + " && patch < " + ../patches/slock-config.diff;
-    });
+      dwm = pkgs.dwm.override {
+        patches =
+          [ ../patches/dwm-config.diff ];
+      };
+
+      slock = pkgs.lib.overrideDerivation pkgs.slock (attrs: {
+        patchPhase = attrs.patchPhase + " && patch < " + ../patches/slock-config.diff;
+      });
+    };
   };
 
   security = {
