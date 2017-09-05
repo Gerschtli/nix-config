@@ -9,22 +9,17 @@
 
     ./services/pulseaudio.nix
 
-    ./modules/xserver.nix
+    ./modules/xserver-laptop.nix
   ];
 
   boot.loader = {
     efi.canTouchEfiVariables = true;
     grub.device = "/dev/sda";
-    systemd-boot.enable = true;
+    systemd-boot = {
+      enable = true;
+      editor = false;
+    };
   };
-
-  services.xserver.synaptics = {
-    enable = true;
-    twoFingerScroll = true;
-    buttonsMap = [ 1 3 2 ];
-  };
-
-  networking.networkmanager.enable = true;
 
   networking.hostName = "argon";
 }
