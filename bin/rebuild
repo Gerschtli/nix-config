@@ -38,4 +38,4 @@ chmod 640 keys/id_rsa.bitbucket-deploy
 
 # nixos-rebuild
 log "nixos-rebuild"
-nixos-rebuild "${1:-test}"
+nixos-rebuild "${1:-test}" ${@:2}
