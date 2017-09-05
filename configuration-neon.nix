@@ -12,7 +12,7 @@
 
     ./applications/golden-river-jazztett.nix
     ./applications/auto-golden-river-jazztett.nix
-    ./applications/teamspeak.nix
+    ./services/teamspeak.nix
   ];
 
   boot.loader.grub = {
