@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
 
     ./modules/general.nix
+    ./modules/pass.nix
 
     ./services/cups.nix
     ./services/pulseaudio.nix
@@ -23,5 +24,5 @@
     ntfs3g
   ];
 
-  networking.hostName = "tower";
+  networking.hostName = "helium";
 }
