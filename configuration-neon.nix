@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
 
     ./modules/general.nix
+    ./modules/pass.nix
 
     ./services/firewall.nix
     ./services/ssh.nix
