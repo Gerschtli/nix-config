@@ -24,5 +24,19 @@
     ntfs3g
   ];
 
+
+#  imports = [
+#    ./modules/interface.nix
+#  ];
+#
+#  custom.desktop = {
+#    enable = true;
+#    isLaptop = true;
+#    grubDevice = "/dev/sda2";
+#    additionalPackages = [ pkgs.ntfs3g ];
+#    dev = true;
+#    cups = true;
+#  };
+
   networking.hostName = "helium";
 }

@@ -21,5 +21,19 @@
     version = 2;
   };
 
+
+#  imports = [
+#    ./modules/interface.nix
+#  ];
+#
+#  custom.server = {
+#    enable = true;
+#    programs = {
+#      autoGoldenRiverJazztett = true;
+#      goldenRiverJazztett = true;
+#      teamspeak = true;
+#    };
+#  };
+
   networking.hostName = "neon";
 }

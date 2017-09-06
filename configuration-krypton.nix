@@ -16,5 +16,13 @@
     version = 2;
   };
 
+
+
+#  imports = [
+#    ./modules/interface.nix
+#  ];
+#
+#  custom.server.enable = true;
+
   networking.hostName = "krypton";
 }
