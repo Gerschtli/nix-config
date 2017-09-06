@@ -30,35 +30,11 @@ in
         '';
       };
 
-      grubDevice = mkOption {
-        type = types.str;
-        default = "/dev/sda";
-        description = ''
-          Device for GRUB boot loader.
-        '';
-      };
-
-      additionalPackages = mkOption {
-        type = types.listOf types.package;
-        default = [];
-        description = ''
-          List of additional packages.
-        '';
-      };
-
-      dev = mkOption {
+      printing = mkOption {
         type = types.bool;
         default = false;
         description = ''
-          Whether to enable virtualbox and set /etc/hosts.
-        '';
-      };
-
-      cups = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to activate cups.
+          Whether to activate printing service.
         '';
       };
 
@@ -73,10 +49,7 @@ in
 
     custom = {
 
-      boot = {
-        isEFI = true;
-        device = cfg.grubDevice;
-      };
+      boot.isEFI = true;
 
       general.enable = true;
 
@@ -86,6 +59,8 @@ in
       };
 
     };
+
+    services.printing.enable = cfg.printing;
 
   };
 
