@@ -2,23 +2,12 @@
 
 {
   imports = [
-    ./hardware-configuration.nix
-
-    ./modules/general.nix
-    ./modules/pass.nix
-
-    ./services/pulseaudio.nix
-
-    ./modules/xserver-laptop.nix
+    ./lib/interface.nix
   ];
 
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    grub.device = "/dev/sda";
-    systemd-boot = {
-      enable = true;
-      editor = false;
-    };
+  custom.desktop = {
+    enable = true;
+    laptop = true;
   };
 
   networking.hostName = "argon";
