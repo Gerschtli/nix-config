@@ -44,12 +44,9 @@ in
         dropbox-cli
         dwm
         gnome2.zenity
-        gnupg1
         google-chrome
         libreoffice
-        pass
         pavucontrol
-        pinentry_ncurses
         qpdfview
         slock
         spotify

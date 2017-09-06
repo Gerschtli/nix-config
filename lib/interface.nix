@@ -7,6 +7,7 @@
     ./desktop.nix
     ./dev.nix
     ./general.nix
+    ./server.nix
     ./xserver.nix
   ];
 }

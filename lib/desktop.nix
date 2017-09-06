@@ -48,16 +48,14 @@ in
   config = mkIf cfg.enable {
 
     custom = {
-
       boot.isEFI = true;
 
-      general.enable = true;
+      general.pass = true;
 
       xserver = {
         enable = true;
         laptop = cfg.laptop;
       };
-
     };
 
     services.printing.enable = cfg.printing;

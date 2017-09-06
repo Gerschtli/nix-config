@@ -16,9 +16,17 @@ in
 
       enable = mkOption {
         type = types.bool;
-        default = false;
+        default = true;
         description = ''
           Whether to enable basic config.
+        '';
+      };
+
+      pass = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          Whether to enable pass.
         '';
       };
 
@@ -44,7 +52,15 @@ in
       xz
       zip
       zsh
-    ];
+    ] ++ (
+      if cfg.pass
+      then [
+        gnupg1
+        pass
+        pinentry_ncurses
+      ]
+      else []
+    );
 
     i18n = {
       consoleKeyMap = "de";
