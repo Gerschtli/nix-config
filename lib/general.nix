@@ -39,6 +39,8 @@ in
 
   config = mkIf cfg.enable {
 
+    boot.cleanTmpDir = true;
+
     environment.systemPackages = with pkgs; [
       bc
       git
@@ -66,6 +68,8 @@ in
       consoleKeyMap = "de";
       defaultLocale = "en_US.UTF-8";
     };
+
+    networking.usePredictableInterfaceNames = false;
 
     programs.zsh.enable = true;
 
