@@ -2,38 +2,22 @@
 
 {
   imports = [
-    ./hardware-configuration.nix
-
-    ./modules/general.nix
-    ./modules/pass.nix
-
-    ./services/firewall.nix
-    ./services/ssh.nix
-
-    ./applications/golden-river-jazztett.nix
-    ./applications/auto-golden-river-jazztett.nix
-    ./services/teamspeak.nix
+    ./lib/interface.nix
   ];
 
-  boot.loader.grub = {
-    device = "/dev/sda";
-    enable = true;
-    version = 2;
+
+  custom = {
+    applications = {
+      auto-golden-river-jazztett.enable = true;
+      golden-river-jazztett.enable = true;
+    };
+
+    general.pass = true;
+
+    server.enable = true;
+
+    services.teamspeak.enable = true;
   };
-
-
-#  imports = [
-#    ./modules/interface.nix
-#  ];
-#
-#  custom.server = {
-#    enable = true;
-#    programs = {
-#      autoGoldenRiverJazztett = true;
-#      goldenRiverJazztett = true;
-#      teamspeak = true;
-#    };
-#  };
 
   networking.hostName = "neon";
 }
