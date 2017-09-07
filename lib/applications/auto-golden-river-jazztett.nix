@@ -53,25 +53,18 @@ in
   config = mkIf cfg.enable {
 
     custom.services = {
-      httpd.enable = true;
-      mysql.enable = true;
-    };
+      httpd = {
+        enable = true;
+        virtualHosts = [
+          {
+            hostName = "auto.goldenriverjazztett.de";
+            documentRoot = "${autoGoldenRiverJazztett}";
+            php = true;
+          }
+        ];
+      };
 
-    services.httpd = {
-      enablePHP = true;
-      virtualHosts = [
-        {
-          hostName = "auto.goldenriverjazztett.de";
-          documentRoot = "${autoGoldenRiverJazztett}";
-          extraConfig = ''
-            <Directory ${autoGoldenRiverJazztett}>
-              Options -Indexes
-              DirectoryIndex index.php
-              AllowOverride All
-            </Directory>
-          '';
-        }
-      ];
+      mysql.enable = true;
     };
 
   };
