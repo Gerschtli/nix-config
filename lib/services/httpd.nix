@@ -37,7 +37,8 @@ in
                   type = types.listOf types.str;
                   default = [];
                   description = ''
-                    Additional names of virtual hosts served by this virtual host configuration.
+                    Additional names of virtual hosts served by this virtual
+                    host configuration.
                   '';
                 };
 
@@ -86,6 +87,7 @@ in
       logPerVirtualHost = true;
       adminAddr = "tobias.happ@gmx.de";
       enablePHP = any (host: host.php) cfg.virtualHosts;
+      maxClients = 4;
       virtualHosts = flip map cfg.virtualHosts (
         host:
         {
