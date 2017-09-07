@@ -39,6 +39,12 @@ in
 
     networking.firewall.enable = true;
 
+    nix.gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 14d";
+    };
+
     services = {
       fail2ban.enable = true;
 
