@@ -120,6 +120,10 @@ in
         ];
 
         services = {
+          logind.extraConfig = ''
+            HandlePowerKey=ignore
+          '';
+
           upower.enable = true;
 
           xserver.synaptics = {
