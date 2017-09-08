@@ -5,7 +5,6 @@
     ./lib/interface.nix
   ];
 
-
   custom = {
     applications = {
       auto-golden-river-jazztett.enable = true;
