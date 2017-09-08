@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  config._module.args.fetchBitBucket = import ./util/fetchBitBucket.nix;
+  config._module.args.fetchBitBucket = import ./util/fetchBitBucket.nix { };
 
   imports = [
     ../hardware-configuration.nix
