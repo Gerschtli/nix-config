@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  config._module.args.fetchBitBucket = import ./util/fetchBitBucket.nix;
+
   imports = [
     ../hardware-configuration.nix
     ./applications/auto-golden-river-jazztett.nix
