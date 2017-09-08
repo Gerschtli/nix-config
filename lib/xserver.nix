@@ -81,11 +81,19 @@ in
               [ ../patches/dwm-config.diff ];
           };
 
+          # slock = pkgs.slock.override {
+          #   patches =
+          #     [ ../patches/slock-config.diff ];
+          # };
+
           slock = pkgs.lib.overrideDerivation pkgs.slock (attrs: {
             patchPhase = attrs.patchPhase + " && patch < " + ../patches/slock-config.diff;
           });
         };
       };
+
+      # for future releases
+      # programs.slock.enable = true;
 
       security.wrappers.slock.source = "${pkgs.slock}/bin/slock";
 
