@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs ?  import <nixpkgs> { } }:
 
 pkgs.callPackage (
   builtins.scopedImport
