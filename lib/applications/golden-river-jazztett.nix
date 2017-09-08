@@ -1,10 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, fetchBitBucket, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.custom.applications.golden-river-jazztett;
-  fetchBitBucket = import ../util/fetchBitBucket.nix pkgs;
 
   goldenRiverJazztett = pkgs.stdenv.mkDerivation rec {
     name = "golden-river-jazztett-${version}";
