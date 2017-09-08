@@ -43,6 +43,7 @@ in
 
     environment.systemPackages = with pkgs; [
       bc
+      file
       git
       gzip
       htop
