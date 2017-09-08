@@ -42,6 +42,7 @@ in
       environment.systemPackages = with pkgs; [
         dmenu
         dropbox-cli
+        dunst
         dwm
         gnome2.zenity
         google-chrome
