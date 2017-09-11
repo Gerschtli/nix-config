@@ -49,6 +49,7 @@ in
       htop
       keychain
       neovim
+      psmisc
       tmux
       tree
       wget
