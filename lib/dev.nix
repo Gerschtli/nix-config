@@ -80,6 +80,9 @@ in
           192.168.56.201  www.shopping.local.at
           192.168.56.201  www.shopping.local.ch
           192.168.56.201  www.testit.local.de
+
+          # snippie
+          192.168.56.101  snippie
         '';
       }
     )
