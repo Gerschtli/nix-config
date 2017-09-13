@@ -82,7 +82,8 @@ in
           192.168.56.201  www.testit.local.de
 
           # snippie
-          192.168.56.101  snippie
+          192.168.56.101  snippie.local
+          94.130.105.174  snippie.de
         '';
       }
     )
