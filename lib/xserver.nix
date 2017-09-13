@@ -46,6 +46,7 @@ in
         dwm
         gnome3.zenity
         google-chrome
+        libnotify
         libreoffice
         pavucontrol
         qpdfview
