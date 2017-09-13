@@ -44,7 +44,7 @@ in
         dropbox-cli
         dunst
         dwm
-        gnome2.zenity
+        gnome3.zenity
         google-chrome
         libreoffice
         pavucontrol
@@ -57,7 +57,21 @@ in
         xclip
         xss-lock
         xterm
+
+        arc-icon-theme
+        arc-theme
+        xfce.thunar
+        xfce.thunar_volman
       ];
+
+      # GTK-Configuration
+      environment.extraInit = ''
+        export GTK2_RC_FILES=${pkgs.writeText "iconrc" ''gtk-icon-theme-name="Arc"''}:${pkgs.arc-theme}/share/themes/Arc-Darker/gtk-2.0/gtkrc:$GTK2_RC_FILES
+        export GTK_THEME=Arc-Darker
+        export GTK_DATA_PREFIX=${config.system.path}
+      '';
+
+      environment.pathsToLink = [ "/share" ];
 
       fonts = {
         fonts = with pkgs; [
