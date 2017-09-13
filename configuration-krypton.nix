@@ -5,7 +5,10 @@
     ./lib/interface.nix
   ];
 
-  custom.server.enable = true;
+  custom.server = {
+    enable = true;
+    rootLogin = true;
+  };
 
   networking.hostName = "krypton";
 }
