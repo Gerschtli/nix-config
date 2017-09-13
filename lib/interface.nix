@@ -7,6 +7,7 @@
     ../hardware-configuration.nix
     ./applications/auto-golden-river-jazztett.nix
     ./applications/golden-river-jazztett.nix
+    ./applications/snippie.nix
     ./boot.nix
     ./desktop.nix
     ./dev.nix
