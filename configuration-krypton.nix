@@ -5,9 +5,13 @@
     ./lib/interface.nix
   ];
 
-  custom.server = {
-    enable = true;
-    rootLogin = true;
+  custom = {
+    applications.snippie.enable = true;
+
+    server = {
+      enable = true;
+      rootLogin = true;
+    };
   };
 
   networking.hostName = "krypton";
