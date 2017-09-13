@@ -14,6 +14,7 @@
     ./server.nix
     ./services/httpd.nix
     ./services/mysql.nix
+    ./services/nginx.nix
     ./services/teamspeak.nix
     ./xserver.nix
   ];
