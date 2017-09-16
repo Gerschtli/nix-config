@@ -58,15 +58,10 @@ in
       xz
       zip
       zsh
-    ] ++ (
-      if cfg.pass
-      then [
-        gnupg1
-        pass
-        pinentry_ncurses
-      ]
-      else []
-    );
+    ] ++ (optionals cfg.pass [
+      gnupg1
+      pass
+    ]) ++ (optional (cfg.pass && config.custom.server.enable) pinentry_ncurses);
 
     i18n = {
       consoleKeyMap = "de";
