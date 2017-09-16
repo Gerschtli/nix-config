@@ -5,9 +5,7 @@ with lib;
 let
   cfg = config.custom.applications.snippie;
 
-  hostName = "snippie.de";
-  containerAddress = "10.233.1.2";
-  containerPort = "8080";
+  hostName = "snippie.tobias-happ.de";
 in
 
 {
@@ -26,6 +24,22 @@ in
         '';
       };
 
+      containerAddress = mkOption {
+        type = types.str;
+        default = "10.233.1.2";
+        description = ''
+          Container address.
+        '';
+      };
+
+      containerPort = mkOption {
+        type = types.str;
+        default = "8080";
+        description = ''
+          Container port.
+        '';
+      };
+
     };
 
   };
@@ -39,7 +53,9 @@ in
 
     services.nginx = {
       virtualHosts."${hostName}" = {
-        locations."/".proxyPass = "http://${containerAddress}:${containerPort}/";
+        enableACME = true;
+        forceSSL = true;
+        locations."/".proxyPass = "http://${cfg.containerAddress}:${cfg.containerPort}/";
       };
     };
 
