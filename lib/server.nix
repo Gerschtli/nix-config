@@ -43,9 +43,16 @@ in
       boot.isEFI = false;
 
       general.enable = true;
-    };
 
-    networking.firewall.enable = true;
+      services = {
+        firewall.enable = true;
+
+        openssh = {
+          enable = true;
+          rootLogin = cfg.rootLogin;
+        };
+      };
+    };
 
     nix = {
       gc = {
@@ -59,27 +66,6 @@ in
         dates = [ "Mon *-*-* 01:00:00" ];
       };
     };
-
-    services = {
-      fail2ban.enable = true;
-
-      openssh = {
-        enable = true;
-        permitRootLogin = mkIf (!cfg.rootLogin) "no";
-        passwordAuthentication = false;
-        extraConfig = ''
-          MaxAuthTries 3
-        '';
-      };
-    };
-
-    users.users.root.openssh.authorizedKeys.keyFiles = mkIf cfg.rootLogin [
-      ../keys/id_rsa.tobias-login.pub
-    ];
-
-    users.users.tobias.openssh.authorizedKeys.keyFiles = [
-      ../keys/id_rsa.tobias-login.pub
-    ];
 
   };
 

@@ -13,9 +13,11 @@
     ./dev.nix
     ./general.nix
     ./server.nix
+    ./services/firewall.nix
     ./services/httpd.nix
     ./services/mysql.nix
     ./services/nginx.nix
+    ./services/openssh.nix
     ./services/teamspeak.nix
     ./xserver.nix
   ];
