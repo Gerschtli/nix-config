@@ -6,7 +6,11 @@
   ];
 
   custom = {
-    applications.snippie.enable = true;
+    applications = {
+      snippie.enable = true;
+
+      tobias-happ.enable = true;
+    };
 
     server = {
       enable = true;

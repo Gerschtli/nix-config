@@ -8,6 +8,7 @@
     ./applications/auto-golden-river-jazztett.nix
     ./applications/golden-river-jazztett.nix
     ./applications/snippie.nix
+    ./applications/tobias-happ.nix
     ./boot.nix
     ./desktop.nix
     ./dev.nix
