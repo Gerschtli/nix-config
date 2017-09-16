@@ -41,6 +41,8 @@ in
 
     boot.cleanTmpDir = true;
 
+    custom.services.firewall.enable = true;
+
     environment.systemPackages = with pkgs; [
       bc
       file

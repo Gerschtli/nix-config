@@ -44,13 +44,9 @@ in
 
       general.enable = true;
 
-      services = {
-        firewall.enable = true;
-
-        openssh = {
-          enable = true;
-          rootLogin = cfg.rootLogin;
-        };
+      services.openssh = {
+        enable = true;
+        rootLogin = cfg.rootLogin;
       };
     };
 
