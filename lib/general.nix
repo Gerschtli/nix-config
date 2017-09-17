@@ -80,10 +80,8 @@ in
       defaultUserShell = pkgs.zsh;
 
       users.tobias = {
-        group = "wheel";
-        home = "/home/tobias";
+        extraGroups = [ "wheel" ];
         isNormalUser = true;
-        uid = 1000;
       };
     };
 
