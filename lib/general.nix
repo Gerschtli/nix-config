@@ -76,14 +76,13 @@ in
 
     time.timeZone = "Europe/Berlin";
 
-    users.users = {
-      root.shell = pkgs.zsh;
+    users = {
+      defaultUserShell = pkgs.zsh;
 
-      tobias = {
+      users.tobias = {
         group = "wheel";
         home = "/home/tobias";
         isNormalUser = true;
-        shell = pkgs.zsh;
         uid = 1000;
       };
     };
