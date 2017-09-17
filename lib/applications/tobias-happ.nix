@@ -46,10 +46,11 @@ in
         enableACME = true;
         forceSSL = true;
         root = "${cfg.root}";
+        locations."/".tryFiles = "$uri /index.html";
       };
 
       "*.tobias-happ.de" = {
-        globalRedirect = "tobias-happ.de";
+        extraConfig = "return 302 https://tobias-happ.de/;";
       };
     };
 
