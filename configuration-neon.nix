@@ -9,6 +9,11 @@
     applications = {
       auto-golden-river-jazztett.enable = true;
       golden-river-jazztett.enable = true;
+
+      weechat = {
+        enable = true;
+        port = 8000;
+      };
     };
 
     general.pass = true;
@@ -18,7 +23,6 @@
     services.teamspeak.enable = true;
   };
 
-  environment.systemPackages = [ pkgs.weechat ];
 
   networking.hostName = "neon";
 }

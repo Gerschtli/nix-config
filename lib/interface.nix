@@ -9,6 +9,7 @@
     ./applications/golden-river-jazztett.nix
     ./applications/snippie.nix
     ./applications/tobias-happ.nix
+    ./applications/weechat.nix
     ./boot.nix
     ./desktop.nix
     ./dev.nix
