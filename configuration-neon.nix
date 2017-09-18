@@ -18,5 +18,7 @@
     services.teamspeak.enable = true;
   };
 
+  environment.systemPackages = [ pkgs.weechat ];
+
   networking.hostName = "neon";
 }
