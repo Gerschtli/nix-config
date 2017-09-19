@@ -54,6 +54,7 @@ in
       psmisc
       tmux
       tree
+      unzip
       wget
       xz
       zip
