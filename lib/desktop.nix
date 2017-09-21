@@ -58,6 +58,11 @@ in
       };
     };
 
+    environment.systemPackages = with pkgs; [
+      exfat
+      ntfs3g
+    ];
+
     services.printing.enable = cfg.printing;
 
   };

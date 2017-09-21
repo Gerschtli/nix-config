@@ -16,10 +16,6 @@
     dev.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    ntfs3g
-  ];
-
   hardware.opengl.driSupport32Bit = true;
 
   services.xserver.videoDrivers = [ "nvidia" ];

@@ -45,17 +45,19 @@ in
 
     environment.systemPackages = with pkgs; [
       bc
+      bind # dig
       file
       git
       gzip
       htop
       keychain
       neovim
-      psmisc
+      psmisc # killall
       tmux
       tree
       unzip
       wget
+      whois
       xz
       zip
       zsh
