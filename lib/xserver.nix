@@ -49,8 +49,6 @@ in
           export GTK_DATA_PREFIX=${config.system.path}
         '';
 
-        pathsToLink = [ "/share" ];
-
         systemPackages = with pkgs; [
           arc-icon-theme
           arc-theme
