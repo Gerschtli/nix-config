@@ -39,40 +39,44 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-      environment.systemPackages = with pkgs; [
-        dmenu
-        dropbox-cli
-        dunst
-        dwm
-        gnome3.zenity
-        google-chrome
-        libnotify
-        libreoffice
-        pavucontrol
-        qpdfview
-        slock
-        spotify
-        sublime3
-        thunderbird
-        wmname
-        xclip
-        xss-lock
-        xterm
+      environment = {
 
-        arc-icon-theme
-        arc-theme
-        xfce.thunar
-        xfce.thunar_volman
-      ];
+        # GTK-Configuration
+        extraInit = ''
+          export GTK2_RC_FILES=${pkgs.writeText "iconrc" ''gtk-icon-theme-name="Arc"''
+            }:${pkgs.arc-theme}/share/themes/Arc-Darker/gtk-2.0/gtkrc:$GTK2_RC_FILES
+          export GTK_THEME=Arc-Darker
+          export GTK_DATA_PREFIX=${config.system.path}
+        '';
 
-      # GTK-Configuration
-      environment.extraInit = ''
-        export GTK2_RC_FILES=${pkgs.writeText "iconrc" ''gtk-icon-theme-name="Arc"''}:${pkgs.arc-theme}/share/themes/Arc-Darker/gtk-2.0/gtkrc:$GTK2_RC_FILES
-        export GTK_THEME=Arc-Darker
-        export GTK_DATA_PREFIX=${config.system.path}
-      '';
+        pathsToLink = [ "/share" ];
 
-      environment.pathsToLink = [ "/share" ];
+        systemPackages = with pkgs; [
+          arc-icon-theme
+          arc-theme
+          dmenu
+          dropbox-cli
+          dunst
+          dwm
+          gnome3.zenity
+          google-chrome
+          libnotify
+          libreoffice
+          pavucontrol
+          qpdfview
+          slock
+          spotify
+          sublime3
+          thunderbird
+          wmname
+          xclip
+          xfce.thunar
+          xfce.thunar_volman
+          xss-lock
+          xterm
+        ];
+
+      };
 
       fonts = {
         fonts = with pkgs; [
@@ -86,15 +90,13 @@ in
       nixpkgs.config = {
         allowUnfree = true;
 
+        dwm.patches =
+          [ ../patches/dwm-config.diff ];
+
         packageOverrides = pkgs: {
           dmenu = pkgs.dmenu.override {
             patches =
               [ ../patches/dmenu-config.diff ];
-          };
-
-          dwm = pkgs.dwm.override {
-            patches =
-              [ ../patches/dwm-config.diff ];
           };
 
           # slock = pkgs.slock.override {
