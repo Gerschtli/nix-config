@@ -45,18 +45,18 @@ in
       enable = true;
       permitRootLogin = mkIf (!cfg.rootLogin) "no";
       passwordAuthentication = false;
-      extraConfig = ''
-        MaxAuthTries 3
-      '';
+      extraConfig = "MaxAuthTries 3";
     };
 
-    users.users.root.openssh.authorizedKeys.keyFiles = mkIf cfg.rootLogin [
-      ../../keys/id_rsa.tobias-login.pub
-    ];
+    users.users = {
+      root.openssh.authorizedKeys.keyFiles = mkIf cfg.rootLogin [
+        ../../keys/id_rsa.tobias-login.pub
+      ];
 
-    users.users.tobias.openssh.authorizedKeys.keyFiles = [
-      ../../keys/id_rsa.tobias-login.pub
-    ];
+      tobias.openssh.authorizedKeys.keyFiles = [
+        ../../keys/id_rsa.tobias-login.pub
+      ];
+    };
 
   };
 

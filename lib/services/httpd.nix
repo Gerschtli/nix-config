@@ -93,16 +93,13 @@ in
         {
           inherit (host) hostName serverAliases documentRoot;
 
-          extraConfig =
-            if host.php
-            then ''
-              <Directory ${host.documentRoot}>
-                Options -Indexes
-                DirectoryIndex index.php
-                AllowOverride All
-              </Directory>
-            ''
-            else "";
+          extraConfig = mkIf host.php ''
+            <Directory ${host.documentRoot}>
+              Options -Indexes
+              DirectoryIndex index.php
+              AllowOverride All
+            </Directory>
+          '';
         }
       );
     };

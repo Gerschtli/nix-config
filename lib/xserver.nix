@@ -76,12 +76,10 @@ in
 
       };
 
-      fonts = {
-        fonts = with pkgs; [
-          fira-code
-          fira-mono
-        ];
-      };
+      fonts.fonts = with pkgs; [
+        fira-code
+        fira-mono
+      ];
 
       hardware.pulseaudio.enable = true;
 
