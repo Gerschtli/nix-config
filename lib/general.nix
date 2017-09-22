@@ -45,22 +45,24 @@ in
 
     environment.systemPackages = with pkgs; [
       bc
-      bind # dig
       file
       git
-      gzip
       htop
       keychain
       neovim
-      psmisc # killall
       tmux
       tree
-      unzip
       wget
-      whois
+
+      gzip
+      unzip
       xz
       zip
-      zsh
+
+      bind # dig
+      netcat
+      psmisc # killall
+      whois
     ] ++ (optionals cfg.pass [
       gnupg1
       pass
