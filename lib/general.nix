@@ -75,7 +75,10 @@ in
 
     networking.usePredictableInterfaceNames = false;
 
-    programs.zsh.enable = true;
+    programs.zsh = {
+      enable = true;
+      enableAutosuggestions = true;
+    };
 
     system.stateVersion = "17.03";
 
