@@ -86,24 +86,12 @@ in
       nixpkgs.config = {
         allowUnfree = true;
 
-        dwm.patches =
-          [ ../patches/dwm-config.diff ];
-
-        packageOverrides = pkgs: {
-          dmenu = pkgs.dmenu.override {
-            patches =
-              [ ../patches/dmenu-config.diff ];
-          };
-
-          # slock = pkgs.slock.override {
-          #   patches =
-          #     [ ../patches/slock-config.diff ];
-          # };
-
-          slock = pkgs.lib.overrideDerivation pkgs.slock (attrs: {
-            patchPhase = attrs.patchPhase + " && patch < " + ../patches/slock-config.diff;
-          });
-        };
+        packageOverrides = pkgs:
+          genAttrs
+            [ "dmenu" "dwm" "slock" ]
+            (name: pkgs.${name}.overrideDerivation (old: {
+              patches = [ (../patches + "/${name}-config.diff") ];
+            }));
       };
 
       # for future releases
