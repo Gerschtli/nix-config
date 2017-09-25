@@ -56,6 +56,7 @@ in
           dropbox-cli
           dunst
           dwm
+          gitAndTools.tig
           gnome3.zenity
           google-chrome
           libnotify
