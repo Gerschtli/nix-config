@@ -84,20 +84,28 @@ in
 
       hardware.pulseaudio.enable = true;
 
-      nixpkgs.config = {
-        allowUnfree = true;
+      nixpkgs = {
+        config.allowUnfree = true;
 
-        packageOverrides = pkgs:
-          (genAttrs
-            [ "dmenu" "dwm" "slock" ]
-            (name: pkgs.${name}.overrideDerivation (old: {
-              patches = [ (../patches + "/${name}-config.diff") ];
-            })))
-          // {
-            slock = pkgs.slock.overrideDerivation (old: {
-              patchPhase = old.patchPhase + " && patch < " + ../patches/slock-config.diff;
+        overlays = [
+
+          (self: super:
+            genAttrs
+              [ "dmenu" "dwm" "slock" ]
+              (name: super.${name}.overrideDerivation (old: {
+                patches = [ (../patches + "/${name}-config.diff") ];
+              }))
+          )
+
+          # remove for future releases
+          (self: super: {
+            slock = super.slock.overrideDerivation (old: {
+              patchPhase = null;
+              postPatch = old.patchPhase;
             });
-          };
+          })
+
+        ];
       };
 
       # for future releases
