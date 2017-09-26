@@ -88,11 +88,16 @@ in
         allowUnfree = true;
 
         packageOverrides = pkgs:
-          genAttrs
+          (genAttrs
             [ "dmenu" "dwm" "slock" ]
             (name: pkgs.${name}.overrideDerivation (old: {
               patches = [ (../patches + "/${name}-config.diff") ];
-            }));
+            })))
+          // {
+            slock = pkgs.slock.overrideDerivation (old: {
+              patchPhase = old.patchPhase + " && patch < " + ../patches/slock-config.diff;
+            });
+          };
       };
 
       # for future releases
