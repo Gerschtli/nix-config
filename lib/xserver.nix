@@ -65,7 +65,7 @@ in
           qpdfview
           slock
           spotify
-          sublime3
+          # sublime3
           thunderbird
           wmname
           xclip
