@@ -56,6 +56,7 @@ in
           dropbox-cli
           dunst
           dwm
+          gimp
           gitAndTools.tig
           gnome3.zenity
           google-chrome
@@ -64,8 +65,9 @@ in
           pavucontrol
           qpdfview
           slock
+          soapui
           spotify
-          # sublime3
+          sublime3
           thunderbird
           wmname
           xclip
@@ -87,25 +89,11 @@ in
       nixpkgs = {
         config.allowUnfree = true;
 
-        overlays = [
-
-          (self: super:
-            genAttrs
-              [ "dmenu" "dwm" "slock" ]
-              (name: super.${name}.overrideDerivation (old: {
-                patches = [ (../patches + "/${name}-config.diff") ];
-              }))
-          )
-
-          # remove for future releases
-          (self: super: {
-            slock = super.slock.overrideDerivation (old: {
-              patchPhase = null;
-              postPatch = old.patchPhase;
-            });
-          })
-
-        ];
+        overlays = with builtins; map
+          (n: import (./overlays + ("/" + n)))
+          (filter
+            (n: match ".*\\.nix" n != null)
+            (attrNames (readDir ./overlays)));
       };
 
       # for future releases
