@@ -1,4 +1,4 @@
-{ package, rev, sha256 }:
+{ package, rev, sha256, allowUnfree ? false }:
 
 self: super:
 
@@ -7,7 +7,10 @@ let
     inherit rev sha256;
     owner = "NixOS";
     repo  = "nixpkgs";
-  }) { overlays = []; };
+  }) {
+    config = { inherit allowUnfree; };
+    overlays = [];
+  };
 in
 
 { ${package} = nixpkgs.${package}; }
