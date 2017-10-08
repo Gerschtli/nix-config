@@ -64,7 +64,6 @@ in
           libreoffice
           pavucontrol
           qpdfview
-          slock
           soapui
           spotify
           sublime3
@@ -76,7 +75,6 @@ in
           xss-lock
           xterm
         ];
-
       };
 
       fonts.fonts = with pkgs; [
@@ -96,10 +94,7 @@ in
             (attrNames (readDir ./overlays)));
       };
 
-      # for future releases
-      # programs.slock.enable = true;
-
-      security.wrappers.slock.source = "${pkgs.slock}/bin/slock";
+      programs.slock.enable = true;
 
       services.xserver = {
         enable = true;
