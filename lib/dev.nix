@@ -59,31 +59,37 @@ in
 
     (mkIf cfg.hosts
       {
-        networking.extraHosts = ''
+        networking.hosts = {
           # astarget
-          192.168.35.10   www.astarget.local   fb.astarget.local
-          192.168.35.10   test.astarget.local  test.fb.astarget.local
+          "192.168.35.10" = [
+            "www.astarget.local"
+            "fb.astarget.local"
+            "test.astarget.local"
+            "test.fb.astarget.local"
+          ];
 
           # cbn/backend
-          192.168.56.202  backend.local
+          "192.168.56.202" = [ "backend.local" ];
 
           # cbn/frontend
-          192.168.56.201  www.accessoire.local.de
-          192.168.56.201  www.getprice.local.at
-          192.168.56.201  www.getprice.local.ch
-          192.168.56.201  www.getprice.local.de
-          192.168.56.201  www.handys.local.com
-          192.168.56.201  www.preisvergleich.local.at
-          192.168.56.201  www.preisvergleich.local.ch
-          192.168.56.201  www.preisvergleich.local.eu
-          192.168.56.201  www.preisvergleich.local.org
-          192.168.56.201  www.shopping.local.at
-          192.168.56.201  www.shopping.local.ch
-          192.168.56.201  www.testit.local.de
+          "192.168.56.201" = [
+            "www.accessoire.local.de"
+            "www.getprice.local.at"
+            "www.getprice.local.ch"
+            "www.getprice.local.de"
+            "www.handys.local.com"
+            "www.preisvergleich.local.at"
+            "www.preisvergleich.local.ch"
+            "www.preisvergleich.local.eu"
+            "www.preisvergleich.local.org"
+            "www.shopping.local.at"
+            "www.shopping.local.ch"
+            "www.testit.local.de"
+          ];
 
           # snippie
-          192.168.56.101  snippie.local
-        '';
+          "192.168.56.101" = [ "snippie.local" ];
+        };
       }
     )
 
