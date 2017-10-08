@@ -23,7 +23,7 @@ create_diff() {
 cd /etc/nixos
 
 # dmenu
-create_diff dmenu 4.6
+create_diff dmenu 4.7
 
 # dwm
 create_diff dwm 6.1
