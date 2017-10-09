@@ -16,13 +16,12 @@
       };
     };
 
-    general.pass = true;
+    pass.enable = true;
 
     server.enable = true;
 
     services.teamspeak.enable = true;
   };
-
 
   networking.hostName = "neon";
 }

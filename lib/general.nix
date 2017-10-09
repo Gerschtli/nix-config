@@ -22,14 +22,6 @@ in
         '';
       };
 
-      pass = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to enable pass.
-        '';
-      };
-
     };
 
   };
@@ -63,10 +55,7 @@ in
       netcat
       psmisc # killall
       whois
-    ] ++ (optionals cfg.pass [
-      gnupg1
-      pass
-    ]) ++ (optional (cfg.pass && config.custom.server.enable) pinentry_ncurses);
+    ];
 
     i18n = {
       consoleKeyMap = "de";

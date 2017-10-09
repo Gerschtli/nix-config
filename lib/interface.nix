@@ -14,6 +14,7 @@
     ./desktop.nix
     ./dev.nix
     ./general.nix
+    ./pass.nix
     ./server.nix
     ./services/firewall.nix
     ./services/httpd.nix

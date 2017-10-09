@@ -50,7 +50,7 @@ in
     custom = {
       boot.isEFI = true;
 
-      general.pass = true;
+      pass.enable = true;
 
       xserver = {
         enable = true;
