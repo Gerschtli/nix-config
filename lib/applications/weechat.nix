@@ -39,7 +39,7 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.weechat ];
+    users.users.tobias.packages = [ pkgs.weechat ];
 
     networking.firewall.allowedTCPPorts = optional (cfg.port != null) cfg.port;
 

@@ -39,43 +39,13 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-      environment = {
-
-        # GTK-Configuration
-        extraInit = ''
-          export GTK2_RC_FILES=${pkgs.writeText "iconrc" ''gtk-icon-theme-name="Arc"''
-            }:${pkgs.arc-theme}/share/themes/Arc-Darker/gtk-2.0/gtkrc:$GTK2_RC_FILES
-          export GTK_THEME=Arc-Darker
-          export GTK_DATA_PREFIX=${config.system.path}
-        '';
-
-        systemPackages = with pkgs; [
-          arc-icon-theme
-          arc-theme
-          dmenu
-          dropbox-cli
-          dunst
-          dwm
-          gimp
-          gitAndTools.tig
-          gnome3.zenity
-          google-chrome
-          libnotify
-          libreoffice
-          pavucontrol
-          qpdfview
-          soapui
-          spotify
-          sublime3
-          thunderbird
-          wmname
-          xclip
-          xfce.thunar
-          xfce.thunar_volman
-          xss-lock
-          xterm
-        ];
-      };
+      # GTK-Configuration
+      environment.extraInit = ''
+        export GTK2_RC_FILES=${pkgs.writeText "iconrc" ''gtk-icon-theme-name="Arc"''
+          }:${pkgs.arc-theme}/share/themes/Arc-Darker/gtk-2.0/gtkrc:$GTK2_RC_FILES
+        export GTK_THEME=Arc-Darker
+        export GTK_DATA_PREFIX=${config.system.path}
+      '';
 
       fonts.fonts = with pkgs; [
         fira-code
@@ -117,14 +87,37 @@ in
 
         windowManager.dwm.enable = true;
       };
+
+      users.users.tobias.packages = with pkgs; [
+        arc-icon-theme
+        arc-theme
+        dmenu
+        dropbox-cli
+        dunst
+        gimp
+        gitAndTools.tig
+        gnome3.zenity
+        google-chrome
+        libnotify
+        libreoffice
+        pavucontrol
+        qpdfview
+        soapui
+        spotify
+        sublime3
+        thunderbird
+        wmname
+        xclip
+        xfce.thunar
+        xfce.thunar_volman
+        xss-lock
+        xterm
+      ];
     }
 
     (mkIf cfg.laptop
       {
-        environment.systemPackages = with pkgs; [
-          networkmanagerapplet
-          xorg.xbacklight
-        ];
+        networking.networkmanager.enable = true;
 
         services = {
           logind.extraConfig = ''
@@ -140,7 +133,10 @@ in
           };
         };
 
-        networking.networkmanager.enable = true;
+        users.users.tobias.packages = with pkgs; [
+          networkmanagerapplet
+          xorg.xbacklight
+        ];
       }
     )
 

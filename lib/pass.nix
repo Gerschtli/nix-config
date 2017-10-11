@@ -47,12 +47,12 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = with pkgs; [
+    programs.browserpass.enable = cfg.browserpass;
+
+    users.users.tobias.packages = with pkgs; [
       gnupg1
       pass
     ] ++ (optional cfg.ncurses pinentry_ncurses);
-
-    programs.browserpass.enable = cfg.browserpass;
 
   };
 
