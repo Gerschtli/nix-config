@@ -1,4 +1,6 @@
 configuration.nix
 hardware-configuration.nix
+keys/id_rsa.bitbucket-deploy
+keys/id_rsa.bitbucket-deploy.pub
 patches/*-config.diff
 result
