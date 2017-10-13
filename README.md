@@ -14,10 +14,12 @@ modules.
 
 You need to link any configuration file first:
 ```bash
+$ git clone --recursive git@github.com:Gerschtli/nixos-configurations.git /etc/nixos
+$ nixos-generate-config
 $ ln -sf configuration-<host>.nix configuration.nix
 ```
 
 ## Rebuild system
 
 It is recommended to use `bin/rebuild <test|switch|...>` instead of plain `nixos-rebuild` because
-the script will generate necessary diffs and will ensure the right permissions of ssh keys.
+the script will generate neccessary diffs and will ensure the right permissions of ssh keys.
