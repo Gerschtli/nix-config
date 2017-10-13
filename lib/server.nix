@@ -50,6 +50,8 @@ in
       };
     };
 
+    sound.enable = false;
+
     nix = {
       gc = {
         automatic = true;
