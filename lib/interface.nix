@@ -7,6 +7,7 @@
     ../hardware-configuration.nix
     ./applications/auto-golden-river-jazztett.nix
     ./applications/golden-river-jazztett.nix
+    ./applications/pass.nix
     ./applications/snippie.nix
     ./applications/tobias-happ.nix
     ./applications/weechat.nix
@@ -14,7 +15,6 @@
     ./desktop.nix
     ./dev.nix
     ./general.nix
-    ./pass.nix
     ./server.nix
     ./services/firewall.nix
     ./services/httpd.nix

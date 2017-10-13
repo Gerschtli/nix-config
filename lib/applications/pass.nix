@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.pass;
+  cfg = config.custom.applications.pass;
 in
 
 {
@@ -12,7 +12,7 @@ in
 
   options = {
 
-    custom.pass = {
+    custom.applications.pass = {
 
       enable = mkOption {
         type = types.bool;
@@ -24,7 +24,7 @@ in
 
       ncurses = mkOption {
         type = types.bool;
-        default = config.custom.server.enable;
+        default = false;
         description = ''
           Whether to install pinentry ncurses.
         '';
@@ -32,7 +32,7 @@ in
 
       browserpass = mkOption {
         type = types.bool;
-        default = config.custom.desktop.enable;
+        default = false;
         description = ''
           Whether to install and configure browserpass.
         '';

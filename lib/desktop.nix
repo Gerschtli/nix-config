@@ -48,9 +48,12 @@ in
   config = mkIf cfg.enable {
 
     custom = {
-      boot.isEFI = true;
+      applications.pass = {
+        enable = true;
+        browserpass = true;
+      };
 
-      pass.enable = true;
+      boot.isEFI = true;
 
       xserver = {
         enable = true;

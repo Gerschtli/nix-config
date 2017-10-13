@@ -10,13 +10,16 @@
       auto-golden-river-jazztett.enable = true;
       golden-river-jazztett.enable = true;
 
+      pass = {
+        enable = true;
+        ncurses = true;
+      };
+
       weechat = {
         enable = true;
         port = 8000;
       };
     };
-
-    pass.enable = true;
 
     server.enable = true;
 
