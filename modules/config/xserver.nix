@@ -4,6 +4,8 @@ with lib;
 
 let
   cfg = config.custom.xserver;
+
+  getRecursiveFileList = import ../lib/get-recursive-file-list.nix { inherit lib; };
 in
 
 {
@@ -57,11 +59,7 @@ in
       nixpkgs = {
         config.allowUnfree = true;
 
-        overlays = with builtins; map
-          (n: import (../overlays + ("/" + n)))
-          (filter
-            (n: match ".*\\.nix" n != null)
-            (attrNames (readDir ../overlays)));
+        overlays = map (file: import file) (getRecursiveFileList ../overlays);
       };
 
       programs.slock.enable = true;
