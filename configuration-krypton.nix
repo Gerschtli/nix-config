@@ -1,9 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./lib/interface.nix
-  ];
+  imports = [ ./modules ];
 
   custom = {
     applications = {

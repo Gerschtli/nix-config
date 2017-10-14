@@ -58,10 +58,10 @@ in
         config.allowUnfree = true;
 
         overlays = with builtins; map
-          (n: import (./overlays + ("/" + n)))
+          (n: import (../overlays + ("/" + n)))
           (filter
             (n: match ".*\\.nix" n != null)
-            (attrNames (readDir ./overlays)));
+            (attrNames (readDir ../overlays)));
       };
 
       programs.slock.enable = true;
