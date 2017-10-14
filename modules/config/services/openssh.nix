@@ -50,11 +50,11 @@ in
 
     users.users = {
       root.openssh.authorizedKeys.keyFiles = mkIf cfg.rootLogin [
-        ../../keys/id_rsa.tobias-login.pub
+        ../../../keys/id_rsa.tobias-login.pub
       ];
 
       tobias.openssh.authorizedKeys.keyFiles = [
-        ../../keys/id_rsa.tobias-login.pub
+        ../../../keys/id_rsa.tobias-login.pub
       ];
     };
 
