@@ -49,7 +49,14 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.services.nginx.enable = true;
+    custom.services = {
+      redis.enable = true;
+      nginx.enable = true;
+    };
+
+    networking.firewall.extraCommands = ''
+      iptables -I INPUT -p tcp -s ${cfg.containerAddress} --dport ${toString config.services.redis.port} -j ACCEPT
+    '';
 
     services.nginx = {
       virtualHosts."${hostName}" = {
