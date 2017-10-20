@@ -17,7 +17,10 @@ in
 
     buildInputs = [ oraclejdk8 maven ];
 
-    installPhase = "cp -R . \$out/";
+    installPhase = ''
+      mkdir -p $out
+      cp -R bin lib $out
+    '';
 
     patches = [
       (writeText "soapui-${version}.patch" ''
