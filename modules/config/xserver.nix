@@ -116,7 +116,7 @@ in
     (mkIf cfg.laptop
       {
         environment.systemPackages = with pkgs; [
-          # install globally because of error icon
+          # install globally because of icons not found
           networkmanagerapplet
         ];
 
@@ -129,10 +129,12 @@ in
 
           upower.enable = true;
 
-          xserver.synaptics = {
+          xserver.libinput = {
             enable = true;
-            twoFingerScroll = true;
-            buttonsMap = [ 1 3 2 ];
+            accelProfile = "flat";
+            additionalOptions = ''
+              Option "TappingButtonMap" "lmr"
+            '';
           };
         };
 
