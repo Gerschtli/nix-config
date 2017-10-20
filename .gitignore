@@ -2,5 +2,7 @@ configuration.nix
 hardware-configuration.nix
 keys/id_rsa.bitbucket-deploy
 keys/id_rsa.bitbucket-deploy.pub
+modules/secrets/*
+!modules/secrets/.gitkeep
 patches/*-config.diff
 result
