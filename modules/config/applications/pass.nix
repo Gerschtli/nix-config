@@ -50,7 +50,7 @@ in
     programs.browserpass.enable = cfg.browserpass;
 
     users.users.tobias.packages = with pkgs; [
-      gnupg1
+      gnupg
       pass
     ] ++ (optional cfg.ncurses pinentry_ncurses);
 
