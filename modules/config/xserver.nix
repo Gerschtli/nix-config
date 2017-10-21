@@ -89,27 +89,29 @@ in
       users.users.tobias.packages = with pkgs; [
         arc-icon-theme
         arc-theme
+
         dmenu
-        dropbox-cli
         dunst
+        gnome3.zenity
+        libnotify
+        pavucontrol
+        wmname
+        xclip
+        xss-lock
+        xterm
+
+        dropbox-cli
         gimp
         gitAndTools.tig
-        gnome3.zenity
         google-chrome
-        libnotify
         libreoffice
-        pavucontrol
         qpdfview
         soapui
         spotify
         sublime3
         thunderbird
-        wmname
-        xclip
         xfce.thunar
         xfce.thunar_volman
-        xss-lock
-        xterm
       ];
     }
 
