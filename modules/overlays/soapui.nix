@@ -1,7 +1,7 @@
 self: super:
 
 let
-  inherit (self) maven oraclejdk8;
+  inherit (self) jdk maven;
   inherit (super) fetchurl stdenv writeText;
 in
 
@@ -15,7 +15,7 @@ in
       sha256 = "1x270zs9947jdpg9wziiyfh147i1ly535wg0wxfiayr6x3fwlakd";
     };
 
-    buildInputs = [ oraclejdk8 maven ];
+    buildInputs = [ jdk maven ];
 
     installPhase = ''
       mkdir -p $out
@@ -31,7 +31,7 @@ in
 
          JAVA_OPTS="-Xms128m -Xmx1024m -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 -Dsoapui.properties=soapui.properties -Dsoapui.home=$SOAPUI_HOME/bin -splash:SoapUI-Spashscreen.png"
         -JFXRTPATH=`java -cp $SOAPUI_CLASSPATH com.eviware.soapui.tools.JfxrtLocator`
-        +JFXRTPATH=`${oraclejdk8}/bin/java -cp $SOAPUI_CLASSPATH com.eviware.soapui.tools.JfxrtLocator`
+        +JFXRTPATH=`${jdk}/bin/java -cp $SOAPUI_CLASSPATH com.eviware.soapui.tools.JfxrtLocator`
          SOAPUI_CLASSPATH=$JFXRTPATH:$SOAPUI_CLASSPATH
 
          if $darwin
@@ -40,7 +40,7 @@ in
          echo ================================
 
         -java $JAVA_OPTS -cp $SOAPUI_CLASSPATH com.eviware.soapui.SoapUI "$@"
-        +${oraclejdk8}/bin/java $JAVA_OPTS -cp $SOAPUI_CLASSPATH com.eviware.soapui.SoapUI "$@"
+        +${jdk}/bin/java $JAVA_OPTS -cp $SOAPUI_CLASSPATH com.eviware.soapui.SoapUI "$@"
       '')
     ];
   };
