@@ -41,14 +41,6 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-      # GTK-Configuration
-      environment.extraInit = ''
-        export GTK2_RC_FILES=${pkgs.writeText "iconrc" ''gtk-icon-theme-name="Arc"''
-          }:${pkgs.arc-theme}/share/themes/Arc-Darker/gtk-2.0/gtkrc:$GTK2_RC_FILES
-        export GTK_THEME=Arc-Darker
-        export GTK_DATA_PREFIX=${config.system.path}
-      '';
-
       fonts.fonts = with pkgs; [
         fira-code
         fira-mono
@@ -87,9 +79,6 @@ in
       };
 
       users.users.tobias.packages = with pkgs; [
-        arc-icon-theme
-        arc-theme
-
         dmenu
         dunst
         gnome3.zenity
@@ -110,8 +99,6 @@ in
         spotify
         sublime3
         thunderbird
-        xfce.thunar
-        xfce.thunar_volman
       ];
     }
 
