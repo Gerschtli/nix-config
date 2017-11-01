@@ -94,6 +94,8 @@ in
         gitAndTools.tig
         google-chrome
         libreoffice
+        nix-repl
+        nox
         qpdfview
         soapui
         spotify
