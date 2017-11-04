@@ -35,27 +35,31 @@ in
 
     custom.services.firewall.enable = true;
 
-    environment.systemPackages = with pkgs; [
-      bc
-      file
-      git
-      htop
-      keychain
-      neovim
-      tmux
-      tree
-      wget
+    environment = {
+      shellAliases = mkForce { };
 
-      gzip
-      unzip
-      xz
-      zip
+      systemPackages = with pkgs; [
+        bc
+        file
+        git
+        htop
+        keychain
+        neovim
+        tmux
+        tree
+        wget
 
-      bind # dig
-      netcat
-      psmisc # killall
-      whois
-    ];
+        gzip
+        unzip
+        xz
+        zip
+
+        bind # dig
+        netcat
+        psmisc # killall
+        whois
+      ];
+    };
 
     i18n = {
       consoleKeyMap = "de";
@@ -64,7 +68,10 @@ in
 
     networking.usePredictableInterfaceNames = false;
 
-    programs.zsh.enable = true;
+    programs.zsh = {
+      enable = true;
+      promptInit = "";
+    };
 
     system.stateVersion = "17.03";
 
