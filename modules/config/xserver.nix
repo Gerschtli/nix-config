@@ -90,6 +90,7 @@ in
         xterm
 
         dropbox-cli
+        eclipses.eclipse-sdk
         gimp
         gitAndTools.tig
         google-chrome
