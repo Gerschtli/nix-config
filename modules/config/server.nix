@@ -42,8 +42,6 @@ in
     custom = {
       boot.isEFI = false;
 
-      general.enable = true;
-
       services.openssh = {
         enable = true;
         rootLogin = cfg.rootLogin;
