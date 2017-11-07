@@ -54,7 +54,11 @@ in
         overlays = map (file: import file) (getRecursiveFileList ../overlays);
       };
 
-      programs.slock.enable = true;
+      programs = {
+        slock.enable = true;
+
+        ssh.askPassword = "";
+      };
 
       services.xserver = {
         enable = true;
