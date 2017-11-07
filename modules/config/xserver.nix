@@ -92,6 +92,7 @@ in
         xss-lock
         xterm
 
+        atom
         dropbox-cli
         eclipses.eclipse-sdk
         gimp
