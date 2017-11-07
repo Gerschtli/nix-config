@@ -86,7 +86,6 @@ in
         dmenu
         dunst
         gnome3.zenity
-        libnotify
         pavucontrol
         wmname
         xclip
