@@ -42,6 +42,7 @@ in
         bc
         file
         git
+        gitAndTools.tig
         htop
         keychain
         neovim

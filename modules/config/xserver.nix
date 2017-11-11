@@ -96,7 +96,6 @@ in
         dropbox-cli
         eclipses.eclipse-sdk
         gimp
-        gitAndTools.tig
         google-chrome
         libreoffice
         nix-repl
