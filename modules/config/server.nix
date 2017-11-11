@@ -67,6 +67,11 @@ in
 
     sound.enable = false;
 
+    system.autoUpgrade = {
+      enable = true;
+      dates = "07:00";
+    };
+
   };
 
 }
