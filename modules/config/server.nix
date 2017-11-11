@@ -48,7 +48,9 @@ in
       };
     };
 
-    sound.enable = false;
+    environment.noXlibs = true;
+
+    fonts.fontconfig.enable = false;
 
     nix = {
       gc = {
@@ -62,6 +64,8 @@ in
         dates = [ "Mon *-*-* 01:00:00" ];
       };
     };
+
+    sound.enable = false;
 
   };
 
