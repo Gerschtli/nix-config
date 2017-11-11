@@ -50,8 +50,6 @@ in
 
     environment.noXlibs = true;
 
-    fonts.fontconfig.enable = false;
-
     nix = {
       gc = {
         automatic = true;
