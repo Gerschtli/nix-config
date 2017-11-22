@@ -1,10 +1,6 @@
-{ config
-, extraConfig ? (cfg: {})
-, hostName
-, lib
-, name
-, pkgs
-}:
+{ config, lib, pkgs }:
+
+{ extraConfig ? (cfg: {}), hostName, name }:
 
 with lib;
 

@@ -1,8 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... } @ args:
 
-import ../../lib/container-app.nix rec {
-  inherit config lib pkgs;
+let
+  customLib = import ../../lib args;
+in
 
+customLib.containerApp rec {
   name = "spring-rest-api";
 
   hostName = "${name}.tobias-happ.de";

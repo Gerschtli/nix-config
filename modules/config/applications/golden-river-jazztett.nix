@@ -1,17 +1,17 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... } @ args:
 
 with lib;
 
 let
   cfg = config.custom.applications.golden-river-jazztett;
 
-  fetchBitbucket = pkgs.callPackage ../../lib/fetch-bitbucket.nix { };
+  customLib = import ../../lib args;
 
   goldenRiverJazztett = pkgs.stdenv.mkDerivation rec {
     name = "golden-river-jazztett-${version}";
     version = "2017-09-03";
 
-    src = fetchBitbucket {
+    src = customLib.fetchBitbucket {
       url = "git@bitbucket.org:tobiashapp/golden-river-jazztett.git";
       rev = "eac760aafff855f1bbb5430c54cec5b890df5d04";
       sha256 = "147v84r5p1hvdj9qx54q3p6xynf8hkic4lhh245rilvsmkawj28f";

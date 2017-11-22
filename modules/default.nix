@@ -1,10 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... } @ args:
 
 let
-  getRecursiveFileList = import ./lib/get-recursive-file-list.nix { inherit lib; };
+  customLib = import ./lib args;
 in
 
 {
   imports = [ ../hardware-configuration.nix ]
-    ++ (getRecursiveFileList ./config);
+    ++ (customLib.getRecursiveFileList ./config);
 }

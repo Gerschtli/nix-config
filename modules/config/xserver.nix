@@ -1,11 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... } @ args:
 
 with lib;
 
 let
   cfg = config.custom.xserver;
 
-  getRecursiveFileList = import ../lib/get-recursive-file-list.nix { inherit lib; };
+  customLib = import ../lib args;
 in
 
 {
@@ -51,7 +51,7 @@ in
       nixpkgs = {
         config.allowUnfree = true;
 
-        overlays = map (file: import file) (getRecursiveFileList ../overlays);
+        overlays = map (file: import file) (customLib.getRecursiveFileList ../overlays);
       };
 
       programs = {
