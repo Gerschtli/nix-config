@@ -5,7 +5,10 @@
 
   custom = {
     applications = {
-      snippie.enable = true;
+      snippie = {
+        enable = true;
+        containerID = 1;
+      };
 
       tobias-happ.enable = true;
     };
