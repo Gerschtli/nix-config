@@ -22,6 +22,42 @@ in
         '';
       };
 
+      openPortsForIps = mkOption {
+        type = types.listOf (
+          types.submodule {
+            options = {
+
+              ip = mkOption {
+                type = types.str;
+                description = ''
+                  IP to open port for.
+                '';
+              };
+
+              port = mkOption {
+                type = types.int;
+                description = ''
+                  Port to open.
+                '';
+              };
+
+              protocol = mkOption {
+                type = types.enum [ "tcp" "udp" ];
+                default = "tcp";
+                description = ''
+                  Protocol.
+                '';
+              };
+
+            };
+          }
+        );
+        default = [];
+        description = ''
+          Open ports for specific IPs.
+        '';
+      };
+
     };
 
   };
@@ -34,6 +70,11 @@ in
     networking.firewall = {
       enable = true;
       allowPing = true;
+
+      extraCommands = foldl (acc: option: ''
+        ${acc}
+        iptables -I INPUT -p ${option.protocol} -s ${option.ip} --dport ${toString option.port} -j ACCEPT
+      '') "" cfg.openPortsForIps;
     };
 
     services.fail2ban.enable = true;

@@ -10,10 +10,15 @@ customLib.containerApp rec {
   hostName = "${name}.tobias-happ.de";
 
   extraConfig = cfg: {
-    custom.services.redis.enable = true;
+    custom.services = {
+      firewall.openPortsForIps = [
+        {
+          ip = cfg.containerAddress;
+          port = config.services.redis.port;
+        }
+      ];
 
-    networking.firewall.extraCommands = ''
-      iptables -I INPUT -p tcp -s ${cfg.containerAddress} --dport ${toString config.services.redis.port} -j ACCEPT
-    '';
+      redis.enable = true;
+    };
   };
 }
