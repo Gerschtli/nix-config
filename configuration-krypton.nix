@@ -5,6 +5,11 @@
 
   custom = {
     applications = {
+      plc-web-java = {
+        enable = true;
+        containerID = 3;
+      };
+
       snippie = {
         enable = true;
         containerID = 1;
