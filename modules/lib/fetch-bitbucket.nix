@@ -1,11 +1,11 @@
-{ callPackage, writeText }:
+{ pkgs }:
 
-callPackage (
+pkgs.callPackage (
   builtins.scopedImport
     {
       __nixPath = [
         {
-          path = writeText "ssh_config" ''
+          path = pkgs.writeText "ssh_config" ''
             Host bitbucket.org
               IdentityFile /etc/nixos/keys/id_rsa.bitbucket-deploy
               StrictHostKeyChecking no
