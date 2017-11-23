@@ -15,11 +15,6 @@
         containerID = 1;
       };
 
-      spring-rest-api = {
-        enable = true;
-        containerID = 2;
-      };
-
       tobias-happ.enable = true;
     };
 
