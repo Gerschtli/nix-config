@@ -38,6 +38,14 @@ in
         '';
       };
 
+      docker = mkOption {
+        type = types.bool;
+        default = cfg.enable;
+        description = ''
+          Whether to install and configure docker.
+        '';
+      };
+
     };
 
   };
@@ -90,6 +98,14 @@ in
           # snippie
           "192.168.56.101" = [ "snippie.local" ];
         };
+      }
+    )
+
+    (mkIf cfg.docker
+      {
+        users.users.tobias.extraGroups = [ "docker" ];
+
+        virtualisation.docker.enable = true;
       }
     )
 
