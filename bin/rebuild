@@ -7,7 +7,7 @@ if [[ "${1}" == "-v" ]]; then
 fi
 
 log() {
-    $VERBOSE && echo "${1}"
+    $VERBOSE && echo ">> ${1}"
 }
 
 create_diff() {
@@ -41,3 +41,12 @@ fi
 # nixos-rebuild
 log "nixos-rebuild"
 nixos-rebuild "${1:-test}" ${@:2}
+
+if [[ "${1}" == "build" ]]; then
+    log "nox-update"
+    # see https://github.com/madjar/nox/issues/63#issuecomment-303280129
+    nox-update --quiet /run/current-system result | \
+        grep -v '\.drv : $' | \
+        sed 's|^ */nix/store/[a-z0-9]*-||' | \
+        sort -u
+fi
