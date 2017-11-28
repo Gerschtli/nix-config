@@ -46,6 +46,7 @@ in
         htop
         keychain
         neovim
+        nox
         tmux
         tree
         wget
