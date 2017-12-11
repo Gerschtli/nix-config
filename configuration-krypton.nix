@@ -5,6 +5,12 @@
 
   custom = {
     applications = {
+      plc-web-hack = {
+        enable = true;
+        containerID = 4;
+        containerPort = 80;
+      };
+
       plc-web-java = {
         enable = true;
         containerID = 3;

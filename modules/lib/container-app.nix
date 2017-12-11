@@ -41,8 +41,8 @@ in
       };
 
       containerPort = mkOption {
-        type = types.str;
-        default = "8080";
+        type = types.int;
+        default = 8080;
         description = ''
           Container port.
         '';
@@ -64,7 +64,7 @@ in
           virtualHosts."${hostName}" = {
             enableACME = true;
             forceSSL = true;
-            locations."/".proxyPass = "http://${cfg.containerAddress}:${cfg.containerPort}/";
+            locations."/".proxyPass = "http://${cfg.containerAddress}:${toString cfg.containerPort}/";
           };
         };
       }
