@@ -94,9 +94,6 @@ in
             "www.shopping.local.ch"
             "www.testit.local.de"
           ];
-
-          # snippie
-          "192.168.56.101" = [ "snippie.local" ];
         };
       }
     )
