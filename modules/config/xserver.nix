@@ -67,16 +67,10 @@ in
 
         desktopManager.xterm.enable = false;
 
-        displayManager = {
-          job.logsXsession = false;
-
-          logToJournal = false;
-
-          slim = {
-            defaultUser = "tobias";
-            enable = true;
-            extraConfig = "numlock on";
-          };
+        displayManager.slim = {
+          enable = true;
+          defaultUser = "tobias";
+          extraConfig = "numlock on";
         };
 
         windowManager.dwm.enable = true;
