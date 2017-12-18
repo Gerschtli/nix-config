@@ -55,6 +55,8 @@ in
 
       boot.isEFI = true;
 
+      dev.enable = true;
+
       xserver = {
         enable = true;
         laptop = cfg.laptop;

@@ -9,7 +9,7 @@
       laptop = true;
     };
 
-    dev.enable = true;
+    # services.openssh.enable = true;
   };
 
   networking.hostName = "argon";

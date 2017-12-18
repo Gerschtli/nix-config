@@ -6,12 +6,9 @@
   custom = {
     boot.device = "/dev/sda2";
 
-    desktop = {
-      enable = true;
-      printing = true;
-    };
+    desktop.enable = true;
 
-    dev.enable = true;
+    # services.openssh.enable = true;
   };
 
   hardware.opengl.driSupport32Bit = true;
