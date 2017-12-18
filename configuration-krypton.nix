@@ -8,7 +8,6 @@
       plc-web-hack = {
         enable = true;
         containerID = 4;
-        containerPort = 80;
       };
 
       plc-web-java = {

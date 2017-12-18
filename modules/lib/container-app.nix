@@ -1,6 +1,6 @@
 { config, lib, pkgs }:
 
-{ extraConfig ? (cfg: {}), hostName, name }:
+{ containerPort ? 8080, extraConfig ? (cfg: {}), hostName, name }:
 
 with lib;
 
@@ -42,7 +42,7 @@ in
 
       containerPort = mkOption {
         type = types.int;
-        default = 8080;
+        default = containerPort;
         description = ''
           Container port.
         '';

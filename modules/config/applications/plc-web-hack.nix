@@ -8,4 +8,6 @@ customLib.containerApp rec {
   name = "plc-web-hack";
 
   hostName = "hack.plc.tobias-happ.de";
+
+  containerPort = 80;
 }
