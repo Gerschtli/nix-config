@@ -75,7 +75,7 @@ in
       promptInit = "";
     };
 
-    system.stateVersion = "17.03";
+    system.stateVersion = "17.09";
 
     time.timeZone = "Europe/Berlin";
 
