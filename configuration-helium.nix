@@ -8,7 +8,7 @@
 
     desktop.enable = true;
 
-    # services.openssh.enable = true;
+    services.openssh.enable = true;
   };
 
   hardware.opengl.driSupport32Bit = true;
