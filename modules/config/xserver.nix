@@ -63,6 +63,7 @@ in
       services.xserver = {
         enable = true;
         layout = "de";
+        xkbOptions = "ctrl:nocaps";
         xkbVariant = "nodeadkeys";
 
         desktopManager.xterm.enable = false;
