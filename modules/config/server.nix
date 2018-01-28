@@ -42,9 +42,13 @@ in
     custom = {
       boot.isEFI = false;
 
-      services.openssh = {
-        enable = true;
-        rootLogin = cfg.rootLogin;
+      services = {
+        firewall.dropPackets = import ../secrets/blocked-ips.nix;
+
+        openssh = {
+          enable = true;
+          rootLogin = cfg.rootLogin;
+        };
       };
     };
 

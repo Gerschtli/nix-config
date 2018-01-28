@@ -22,6 +22,14 @@ in
         '';
       };
 
+      dropPackets = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        description = ''
+          List of IPs or subnets, whose ssh packages are dropped by default.
+        '';
+      };
+
       openPortsForIps = mkOption {
         type = types.listOf (
           types.submodule {
@@ -71,10 +79,17 @@ in
       enable = true;
       allowPing = true;
 
-      extraCommands = foldl (acc: option: ''
-        ${acc}
-        iptables -I INPUT -p ${option.protocol} -s ${option.ip} --dport ${toString option.port} -j ACCEPT
-      '') "" cfg.openPortsForIps;
+      extraCommands = (
+        foldl (acc: address: ''
+          ${acc}
+          iptables -A INPUT -p tcp -s ${address} --destination-port 22 -j DROP
+        '') "" cfg.dropPackets
+      ) + (
+         foldl (acc: option: ''
+          ${acc}
+          iptables -I INPUT -p ${option.protocol} -s ${option.ip} --dport ${toString option.port} -j ACCEPT
+        '') "" cfg.openPortsForIps
+      );
     };
 
     services.fail2ban.enable = true;
