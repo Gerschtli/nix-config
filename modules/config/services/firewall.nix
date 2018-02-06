@@ -75,6 +75,11 @@ in
 
   config = mkIf cfg.enable {
 
+    environment.etc."fail2ban/filter.d/port-scan.conf".text = ''
+      [Definition]
+      failregex = rejected connection: .* SRC=<HOST>
+    '';
+
     networking.firewall = {
       enable = true;
       allowPing = true;
@@ -92,7 +97,29 @@ in
       );
     };
 
-    services.fail2ban.enable = true;
+    services.fail2ban = {
+      enable = true;
+
+      jails = {
+        ssh-iptables = ''
+          bantime  = 86400
+        '';
+
+        ssh-ddos = ''
+          filter   = sshd-ddos
+          action   = iptables[name=ssh, port=ssh, protocol=tcp]
+          bantime  = 86400
+          maxretry = 2
+        '';
+
+        port-scan = ''
+          filter   = port-scan
+          action   = iptables-allports[name=port-scan]
+          bantime  = 86400
+          maxretry = 2
+        '';
+      };
+    };
 
   };
 
