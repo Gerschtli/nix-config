@@ -43,9 +43,10 @@ in
 
     services.nginx.virtualHosts = {
       "tobias-happ.de" = {
+        inherit (cfg) root;
+        default = true;
         enableACME = true;
         forceSSL = true;
-        root = "${cfg.root}";
         locations."/".tryFiles = "$uri /index.html";
       };
 
