@@ -89,7 +89,6 @@ in
         xterm
 
         atom
-        dropbox-cli
         eclipses.eclipse-sdk
         gimp
         google-chrome
