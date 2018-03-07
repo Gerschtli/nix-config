@@ -43,6 +43,7 @@ log "nixos-rebuild"
 nixos-rebuild "${1:-test}" ${@:2}
 
 if [[ "${1}" == "build" ]]; then
+    echo
     log "nox-update"
     # see https://github.com/madjar/nox/issues/63#issuecomment-303280129
     nox-update --quiet /run/current-system result | \
