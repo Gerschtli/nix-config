@@ -4,14 +4,7 @@
   imports = [ ./modules ];
 
   custom = {
-    applications = {
-      # snippie = {
-      #   enable = true;
-      #   containerID = 1;
-      # };
-
-      tobias-happ.enable = true;
-    };
+    applications.tobias-happ.enable = true;
 
     server = {
       enable = true;
