@@ -41,10 +41,22 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-      fonts.fonts = with pkgs; [
-        fira-code
-        fira-mono
-      ];
+
+      fonts = {
+        enableFontDir = true;
+        enableGhostscriptFonts = true;
+        fonts = with pkgs; [
+          corefonts
+          dejavu_fonts
+          fira-code
+          fira-mono
+          google-fonts
+          powerline-fonts
+          source-code-pro
+          terminus_font
+          ubuntu_font_family
+        ];
+      };
 
       hardware.pulseaudio.enable = true;
 
