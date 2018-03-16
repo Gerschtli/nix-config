@@ -43,7 +43,13 @@ in
       boot.isEFI = false;
 
       services = {
-        firewall.dropPackets = import ../secrets/blocked-ips.nix;
+        firewall.dropPackets =
+          let
+            path = ../secrets/blocked-ips.nix;
+          in
+            if builtins.pathExists path
+            then import path
+            else [];
 
         openssh = {
           enable = true;
