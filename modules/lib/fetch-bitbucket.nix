@@ -1,5 +1,9 @@
 { pkgs }:
 
+# run for first time
+# $ chown root:nixbld modules/secrets/id_rsa.bitbucket-deploy
+# $ chmod 640 modules/secrets/id_rsa.bitbucket-deploy
+
 pkgs.callPackage (
   builtins.scopedImport
     {
