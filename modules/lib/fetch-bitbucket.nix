@@ -7,7 +7,7 @@ pkgs.callPackage (
         {
           path = pkgs.writeText "ssh_config" ''
             Host bitbucket.org
-              IdentityFile /etc/nixos/keys/id_rsa.bitbucket-deploy
+              IdentityFile /etc/nixos/modules/secrets/id_rsa.bitbucket-deploy
               StrictHostKeyChecking no
               UserKnownHostsFile=/dev/null
           '';

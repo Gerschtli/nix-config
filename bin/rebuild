@@ -32,10 +32,10 @@ create_diff dwm 6.1
 create_diff slock 1.4
 
 # set permissions of deploy key
-if [[ -e keys/id_rsa.bitbucket-deploy ]]; then
+if [[ -e modules/secrets/id_rsa.bitbucket-deploy ]]; then
     log "set permissions for bitbucket deploy key"
-    chown root:nixbld keys/id_rsa.bitbucket-deploy
-    chmod 640 keys/id_rsa.bitbucket-deploy
+    chown root:nixbld modules/secrets/id_rsa.bitbucket-deploy
+    chmod 640 modules/secrets/id_rsa.bitbucket-deploy
 fi
 
 # nixos-rebuild
