@@ -3,7 +3,11 @@
 with lib;
 
 let
+  inherit (builtins) listToAttrs;
+
   cfg = config.custom.applications.tobias-happ;
+
+  path = "nginx/tobias-happ.de";
 in
 
 {
@@ -33,14 +37,20 @@ in
 
     custom.services.nginx.enable = true;
 
-    environment.etc = {
-      "nginx/tobias-happ.de/index.html".source = ../../files/tobias-happ.de/index.html;
-      "nginx/tobias-happ.de/robots.txt".source = ../../files/tobias-happ.de/robots.txt;
-    };
+    environment.etc = listToAttrs
+      (map
+        (file:
+          let filePath = "${path}/${file}"; in
+          nameValuePair
+            filePath
+            { source = ../../files + "/${filePath}"; }
+        )
+        ["index.html" "robots.txt"]
+      );
 
     services.nginx.virtualHosts = {
       "tobias-happ.de" = {
-        root = "/etc/nginx/tobias-happ.de";
+        root = "/etc/${path}";
         default = true;
         enableACME = true;
         forceSSL = true;
