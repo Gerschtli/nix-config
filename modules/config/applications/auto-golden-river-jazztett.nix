@@ -1,11 +1,11 @@
-{ config, lib, pkgs, ... } @ args:
+{ config, dirs, lib, pkgs, ... } @ args:
 
 with lib;
 
 let
   cfg = config.custom.applications.auto-golden-river-jazztett;
 
-  customLib = import ../../lib args;
+  customLib = import dirs.lib args;
 
   autoGoldenRiverJazztett = pkgs.stdenv.mkDerivation rec {
     name = "auto-golden-river-jazztett-${version}";

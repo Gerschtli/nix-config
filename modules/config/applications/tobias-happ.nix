@@ -1,9 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ config, dirs, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.custom.applications.tobias-happ;
+
+  path = "nginx/tobias-happ.de";
 in
 
 {
@@ -34,13 +36,13 @@ in
     custom.services.nginx.enable = true;
 
     environment.etc = {
-      "nginx/tobias-happ.de/index.html".source = ../../files/tobias-happ.de/index.html;
-      "nginx/tobias-happ.de/robots.txt".source = ../../files/tobias-happ.de/robots.txt;
+      "${path}/index.html".source = dirs.files + "/tobias-happ.de/index.html";
+      "${path}/robots.txt".source = dirs.files + "/tobias-happ.de/robots.txt";
     };
 
     services.nginx.virtualHosts = {
       "tobias-happ.de" = {
-        root = "/etc/nginx/tobias-happ.de";
+        root = "/etc/${path}";
         default = true;
         enableACME = true;
         forceSSL = true;
