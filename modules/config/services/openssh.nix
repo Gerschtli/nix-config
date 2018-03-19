@@ -1,11 +1,9 @@
-{ config, dirs, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.custom.services.openssh;
-
-  tobiasKey = dirs.keys + "/id_rsa.tobias-login.pub";
 in
 
 {
@@ -52,11 +50,11 @@ in
 
     users.users = {
       root.openssh.authorizedKeys.keyFiles = mkIf cfg.rootLogin [
-        tobiasKey
+        ../../../keys/id_rsa.tobias-login.pub
       ];
 
       tobias.openssh.authorizedKeys.keyFiles = [
-        tobiasKey
+        ../../../keys/id_rsa.tobias-login.pub
       ];
     };
 

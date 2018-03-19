@@ -1,4 +1,4 @@
-{ config, dirs, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -33,7 +33,7 @@ in
 
     services.redis = {
       enable = true;
-      requirePass = import dirs.secrets + "/redis";
+      requirePass = import ../../secrets/redis;
     };
 
   };

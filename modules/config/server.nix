@@ -1,4 +1,4 @@
-{ config, dirs, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -45,7 +45,7 @@ in
       services = {
         firewall.dropPackets =
           let
-            path = dirs.secrets + "/blocked-ips.nix";
+            path = ../secrets/blocked-ips.nix;
           in
             if builtins.pathExists path
             then import path

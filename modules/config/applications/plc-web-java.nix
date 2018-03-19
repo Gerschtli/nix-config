@@ -1,7 +1,7 @@
-{ config, dirs, lib, pkgs, ... } @ args:
+{ config, lib, pkgs, ... } @ args:
 
 let
-  customLib = import dirs.lib args;
+  customLib = import ../../lib args;
 in
 
 customLib.containerApp rec {

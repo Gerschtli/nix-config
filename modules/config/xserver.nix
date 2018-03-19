@@ -1,11 +1,11 @@
-{ config, dirs, lib, pkgs, ... } @ args:
+{ config, lib, pkgs, ... } @ args:
 
 with lib;
 
 let
   cfg = config.custom.xserver;
 
-  customLib = import dirs.lib args;
+  customLib = import ../lib args;
 in
 
 {
@@ -63,7 +63,7 @@ in
       nixpkgs = {
         config.allowUnfree = true;
 
-        overlays = map (file: import file) (customLib.getRecursiveFileList dirs.overlays);
+        overlays = map (file: import file) (customLib.getRecursiveFileList ../overlays);
       };
 
       programs = {
