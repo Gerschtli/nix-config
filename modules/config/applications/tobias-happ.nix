@@ -22,14 +22,6 @@ in
         '';
       };
 
-      root = mkOption {
-        type = types.str;
-        default = "/var/www/tobias-happ.de/";
-        description = ''
-          Default root folder.
-        '';
-      };
-
     };
 
   };
@@ -41,9 +33,14 @@ in
 
     custom.services.nginx.enable = true;
 
+    environment.etc = {
+      "nginx/tobias-happ.de/index.html".source = ../../files/tobias-happ.de/index.html;
+      "nginx/tobias-happ.de/robots.txt".source = ../../files/tobias-happ.de/robots.txt;
+    };
+
     services.nginx.virtualHosts = {
       "tobias-happ.de" = {
-        inherit (cfg) root;
+        root = "/etc/nginx/tobias-happ.de";
         default = true;
         enableACME = true;
         forceSSL = true;
