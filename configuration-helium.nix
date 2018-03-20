@@ -4,8 +4,6 @@
   imports = [ ./modules ];
 
   custom = {
-    boot.device = "/dev/sda2";
-
     desktop.enable = true;
 
     services.openssh.enable = true;

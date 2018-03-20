@@ -38,8 +38,6 @@ in
 
   config = mkMerge [
 
-    { boot.loader.grub.device = cfg.device; }
-
     (mkIf cfg.isEFI
       {
         boot.loader = {
@@ -55,6 +53,7 @@ in
     (mkIf (! cfg.isEFI)
       {
         boot.loader.grub = {
+          inherit (cfg) device;
           enable = true;
           version = 2;
         };
