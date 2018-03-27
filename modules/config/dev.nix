@@ -22,30 +22,6 @@ in
         '';
       };
 
-      virtualbox = mkOption {
-        type = types.bool;
-        default = cfg.enable;
-        description = ''
-          Whether to install and configure virtualbox.
-        '';
-      };
-
-      hosts = mkOption {
-        type = types.bool;
-        default = cfg.enable;
-        description = ''
-          Whether to append custom hosts to /etc/hosts file.
-        '';
-      };
-
-      docker = mkOption {
-        type = types.bool;
-        default = cfg.enable;
-        description = ''
-          Whether to install and configure docker.
-        '';
-      };
-
     };
 
   };
@@ -53,59 +29,46 @@ in
 
   ###### implementation
 
-  config = mkMerge [
+  config = {
 
-    (mkIf cfg.virtualbox
-      {
-        nixpkgs.config.allowUnfree = true;
+    networking.hosts = {
+      # astarget
+      "192.168.35.10" = [
+        "www.astarget.local"
+        "fb.astarget.local"
+        "test.astarget.local"
+        "test.fb.astarget.local"
+      ];
 
-        users.users.tobias.extraGroups = [ "vboxusers" ];
+      # profitmax/frontend
+      "192.168.56.201" = [
+        "www.accessoire.local.de"
+        "www.getprice.local.at"
+        "www.getprice.local.ch"
+        "www.getprice.local.de"
+        "www.handys.local.com"
+        "www.preisvergleich.local.at"
+        "www.preisvergleich.local.ch"
+        "www.preisvergleich.local.eu"
+        "www.preisvergleich.local.org"
+        "www.shopping.local.at"
+        "www.shopping.local.ch"
+        "www.testit.local.de"
+      ];
 
-        virtualisation.virtualbox.host.enable = true;
-      }
-    )
+      # profitmax/backend
+      "192.168.56.202" = [ "backend.local" ];
+    };
 
-    (mkIf cfg.hosts
-      {
-        networking.hosts = {
-          # astarget
-          "192.168.35.10" = [
-            "www.astarget.local"
-            "fb.astarget.local"
-            "test.astarget.local"
-            "test.fb.astarget.local"
-          ];
+    nixpkgs.config.allowUnfree = true;
 
-          # cbn/backend
-          "192.168.56.202" = [ "backend.local" ];
+    users.users.tobias.extraGroups = [ "docker" "vboxusers" ];
 
-          # cbn/frontend
-          "192.168.56.201" = [
-            "www.accessoire.local.de"
-            "www.getprice.local.at"
-            "www.getprice.local.ch"
-            "www.getprice.local.de"
-            "www.handys.local.com"
-            "www.preisvergleich.local.at"
-            "www.preisvergleich.local.ch"
-            "www.preisvergleich.local.eu"
-            "www.preisvergleich.local.org"
-            "www.shopping.local.at"
-            "www.shopping.local.ch"
-            "www.testit.local.de"
-          ];
-        };
-      }
-    )
+    virtualisation = {
+      docker.enable = true;
+      virtualbox.host.enable = true;
+    };
 
-    (mkIf cfg.docker
-      {
-        users.users.tobias.extraGroups = [ "docker" ];
-
-        virtualisation.docker.enable = true;
-      }
-    )
-
-  ];
+  };
 
 }
