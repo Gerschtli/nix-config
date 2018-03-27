@@ -51,10 +51,13 @@ in
           fira-code
           fira-mono
           google-fonts
+          inconsolata
+          ipafont
           powerline-fonts
           source-code-pro
           terminus_font
           ubuntu_font_family
+          unifont
         ];
       };
 
