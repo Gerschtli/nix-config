@@ -31,6 +31,12 @@ in
 
   config = {
 
+    custom.services.firewall.openPortsForIps = [
+      # open php xdebug port
+      { ip = "192.168.56.201"; port = 9000; }
+      { ip = "192.168.56.202"; port = 9000; }
+    ];
+
     networking.hosts = {
       # astarget
       "192.168.35.10" = [
