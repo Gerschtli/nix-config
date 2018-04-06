@@ -70,6 +70,8 @@ in
 
     services.printing.enable = cfg.printing;
 
+    sound.enable = true;
+
   };
 
 }
