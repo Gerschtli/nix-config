@@ -29,7 +29,7 @@ in
 
   ###### implementation
 
-  config = {
+  config = mkIf cfg.enable {
 
     custom.services.firewall.openPortsForIps = [
       # open php xdebug port
