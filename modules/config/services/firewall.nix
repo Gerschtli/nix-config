@@ -105,13 +105,6 @@ in
           bantime  = 86400
         '';
 
-        ssh-ddos = ''
-          filter   = sshd-ddos
-          action   = iptables[name=ssh, port=ssh, protocol=tcp]
-          bantime  = 86400
-          maxretry = 2
-        '';
-
         port-scan = ''
           filter   = port-scan
           action   = iptables-allports[name=port-scan]
