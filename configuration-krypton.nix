@@ -4,7 +4,10 @@
   imports = [ ./modules ];
 
   custom = {
-    applications.tobias-happ.enable = true;
+    applications = {
+      gitea.enable = true;
+      tobias-happ.enable = true;
+    };
 
     server = {
       enable = true;
