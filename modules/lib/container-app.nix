@@ -60,12 +60,10 @@ in
       {
         custom.services.nginx.enable = true;
 
-        services.nginx = {
-          virtualHosts."${hostName}" = {
-            enableACME = true;
-            forceSSL = true;
-            locations."/".proxyPass = "http://${cfg.containerAddress}:${toString cfg.containerPort}/";
-          };
+        services.nginx.virtualHosts.${hostName} = {
+          enableACME = true;
+          forceSSL = true;
+          locations."/".proxyPass = "http://${cfg.containerAddress}:${toString cfg.containerPort}/";
         };
       }
 
