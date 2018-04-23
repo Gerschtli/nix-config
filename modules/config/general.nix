@@ -41,12 +41,15 @@ in
       systemPackages = with pkgs; [
         bc
         file
+        fzf
         git
         gitAndTools.tig
         htop
+        httpie
         keychain
         neovim
         nox
+        ripgrep
         tmux
         tree
         wget
