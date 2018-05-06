@@ -53,6 +53,7 @@ in
           google-fonts
           inconsolata
           ipafont
+          nerdfonts
           powerline-fonts
           source-code-pro
           terminus_font
