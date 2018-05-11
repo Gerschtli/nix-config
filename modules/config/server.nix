@@ -75,7 +75,7 @@ in
 
     system.autoUpgrade = {
       enable = true;
-      dates = "07:00";
+      dates = "Mon *-*-* 07:00:00";
     };
 
   };
