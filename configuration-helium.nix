@@ -6,7 +6,10 @@
   custom = {
     desktop.enable = true;
 
-    services.openssh.enable = true;
+    services.openssh = {
+      enable = true;
+      forwardX11 = true;
+    };
   };
 
   hardware.opengl.driSupport32Bit = true;

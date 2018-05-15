@@ -30,6 +30,14 @@ in
         '';
       };
 
+      forwardX11 = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          Whether to enable x11 forwarding.
+        '';
+      };
+
     };
 
   };
@@ -39,9 +47,8 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.services.firewall.enable = true;
-
     services.openssh = {
+      inherit (cfg) forwardX11;
       enable = true;
       permitRootLogin = mkIf (!cfg.rootLogin) "no";
       passwordAuthentication = false;
