@@ -9,10 +9,7 @@
       tobias-happ.enable = true;
     };
 
-    server = {
-      enable = true;
-      rootLogin = true;
-    };
+    server.enable = true;
   };
 
   networking.hostName = "krypton";
