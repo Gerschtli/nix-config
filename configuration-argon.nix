@@ -3,13 +3,9 @@
 {
   imports = [ ./modules ];
 
-  custom = {
-    desktop = {
-      enable = true;
-      laptop = true;
-    };
-
-    # services.openssh.enable = true;
+  custom.desktop = {
+    enable = true;
+    laptop = true;
   };
 
   networking.hostName = "argon";
