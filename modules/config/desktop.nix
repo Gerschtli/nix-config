@@ -32,6 +32,14 @@ in
         '';
       };
 
+      wm = mkOption {
+        type = types.enum [ "dwm" "i3" ];
+        default = "dwm";
+        description = ''
+          Set whether dwm or i3 should be used as windows manager.
+        '';
+      };
+
     };
 
   };
@@ -66,6 +74,7 @@ in
           dejavu_fonts
           fira-code
           fira-mono
+          font-awesome-ttf
           google-fonts
           inconsolata
           ipafont
@@ -106,7 +115,12 @@ in
           extraConfig = "numlock on";
         };
 
-        windowManager.dwm.enable = true;
+        windowManager.dwm.enable = cfg.wm == "dwm";
+
+        windowManager.i3 = {
+          enable = cfg.wm == "i3";
+          extraPackages = [ ];
+        };
       };
 
       sound.enable = true;
