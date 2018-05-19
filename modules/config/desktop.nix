@@ -30,14 +30,6 @@ in
         '';
       };
 
-      printing = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to activate printing service.
-        '';
-      };
-
     };
 
   };
@@ -67,8 +59,6 @@ in
       exfat
       ntfs3g
     ];
-
-    services.printing.enable = cfg.printing;
 
     sound.enable = true;
 
