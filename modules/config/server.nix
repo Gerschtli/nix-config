@@ -18,15 +18,7 @@ in
         type = types.bool;
         default = false;
         description = ''
-          Whether to enable basic desktop config with dwm.
-        '';
-      };
-
-      rootLogin = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to enable root login via pubkey.
+          Whether to enable basic server config.
         '';
       };
 
@@ -42,20 +34,7 @@ in
     custom = {
       boot.isEFI = false;
 
-      services = {
-        firewall.dropPackets =
-          let
-            path = ../secrets/blocked-ips.nix;
-          in
-            if builtins.pathExists path
-            then import path
-            else [];
-
-        openssh = {
-          enable = true;
-          rootLogin = cfg.rootLogin;
-        };
-      };
+      services.openssh.enable = true;
     };
 
     environment.noXlibs = true;
