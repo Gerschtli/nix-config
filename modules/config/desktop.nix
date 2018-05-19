@@ -119,7 +119,7 @@ in
 
         windowManager.i3 = {
           enable = cfg.wm == "i3";
-          extraPackages = [ ];
+          extraPackages = with pkgs; [ i3status-rust ];
         };
       };
 
