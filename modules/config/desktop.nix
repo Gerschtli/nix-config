@@ -120,6 +120,7 @@ in
         windowManager.i3 = {
           enable = cfg.wm == "i3";
           extraPackages = with pkgs; [ i3status-rust ];
+          package = pkgs.i3-gaps;
         };
       };
 
@@ -131,6 +132,7 @@ in
         gnome3.zenity
         libnotify # for notify-send
         pavucontrol
+        playerctl
         wmname
         xclip
         xss-lock
