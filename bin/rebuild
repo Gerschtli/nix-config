@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
+BASE_DIR="/etc/nixos"
 VERBOSE=false
+
 if [[ "${1}" == "-v" ]]; then
     VERBOSE=true
     shift
@@ -15,12 +17,8 @@ create_diff() {
     local tag="${2}"
 
     log "create ${name}-config.diff"
-    cd "patches/${name}"
-    git diff "${tag}" > "../${name}-config.diff"
-    cd - > /dev/null
+    git -C "${BASE_DIR}/patches/${name}" diff "${tag}" > "${BASE_DIR}/patches/${name}-config.diff"
 }
-
-cd /etc/nixos
 
 # dmenu
 create_diff dmenu 4.7
@@ -39,8 +37,10 @@ if [[ "${1}" == "build" ]]; then
     echo
     log "nox-update"
     # see https://github.com/madjar/nox/issues/63#issuecomment-303280129
-    nox-update --quiet /run/current-system result | \
+    nox-update --quiet /run/current-system "${BASE_DIR}/result" | \
         grep -v '\.drv : $' | \
         sed 's|^ */nix/store/[a-z0-9]*-||' | \
         sort -u
+
+    rm "${BASE_DIR}/result"
 fi
