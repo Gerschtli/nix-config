@@ -37,10 +37,10 @@ if [[ "${1}" == "build" ]]; then
     echo
     log "nox-update"
     # see https://github.com/madjar/nox/issues/63#issuecomment-303280129
-    nox-update --quiet /run/current-system "${BASE_DIR}/result" | \
+    nox-update --quiet /run/current-system result | \
         grep -v '\.drv : $' | \
         sed 's|^ */nix/store/[a-z0-9]*-||' | \
         sort -u
 
-    rm "${BASE_DIR}/result"
+    rm result
 fi
