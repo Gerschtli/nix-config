@@ -70,20 +70,11 @@ in
         enableFontDir = true;
         enableGhostscriptFonts = true;
         fonts = with pkgs; [
-          corefonts
           dejavu_fonts
           fira-code
           fira-mono
-          font-awesome-ttf
-          google-fonts
-          inconsolata
-          ipafont
           nerdfonts
-          powerline-fonts
           source-code-pro
-          terminus_font
-          ubuntu_font_family
-          unifont
         ];
       };
 
