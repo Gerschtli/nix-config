@@ -144,11 +144,6 @@ in
 
     (mkIf cfg.laptop
       {
-        environment.systemPackages = with pkgs; [
-          # install globally because of icons not found
-          networkmanagerapplet
-        ];
-
         networking.networkmanager.enable = true;
 
         services = {
@@ -168,6 +163,7 @@ in
         };
 
         users.users.tobias.packages = with pkgs; [
+          networkmanagerapplet
           xorg.xbacklight
         ];
       }
