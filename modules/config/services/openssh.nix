@@ -50,6 +50,7 @@ in
     services.openssh = {
       inherit (cfg) forwardX11;
       enable = true;
+      openFirewall = true;
       permitRootLogin = mkIf (!cfg.rootLogin) "no";
       passwordAuthentication = false;
       extraConfig = "MaxAuthTries 3";
