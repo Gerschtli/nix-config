@@ -31,7 +31,10 @@ in
 
   config = mkIf cfg.enable {
 
-    boot.cleanTmpDir = true;
+    boot = {
+      cleanTmpDir = true;
+      tmpOnTmpfs = true;
+    };
 
     custom.services.firewall.enable = true;
 
