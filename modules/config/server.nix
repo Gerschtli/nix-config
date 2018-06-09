@@ -22,6 +22,13 @@ in
         '';
       };
 
+      ipv6Address = mkOption {
+        type = types.str;
+        description = ''
+          IPv6 address.
+        '';
+      };
+
     };
 
   };
@@ -38,6 +45,20 @@ in
     };
 
     environment.noXlibs = true;
+
+    networking = {
+      defaultGateway6 = {
+        address = "fe80::1";
+        interface = "eth0";
+      };
+
+      interfaces.eth0.ipv6.addresses = [
+        {
+          address = cfg.ipv6Address;
+          prefixLength = 64;
+        }
+      ];
+    };
 
     nix = {
       gc = {
