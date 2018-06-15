@@ -50,6 +50,8 @@ in
   config = mkIf cfg.enable (mkMerge [
     {
 
+      boot.tmpOnTmpfs = true;
+
       custom = {
         applications.pass = {
           enable = true;
@@ -116,6 +118,14 @@ in
       };
 
       sound.enable = true;
+
+      systemd.mounts = [
+        {
+          where = "/tmp";
+          what = "tmpfs";
+          options = "mode=1777,strictatime,nosuid,nodev,size=8G";
+        }
+      ];
 
       users.users.tobias.packages = with pkgs; [
         dmenu
