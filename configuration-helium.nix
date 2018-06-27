@@ -12,9 +12,5 @@
     };
   };
 
-  hardware.opengl.driSupport32Bit = true;
-
-  services.xserver.videoDrivers = [ "nvidia" ];
-
   networking.hostName = "helium";
 }
