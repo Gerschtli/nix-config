@@ -140,11 +140,14 @@ in
         xterm
 
         atom
+        audacity
         eclipses.eclipse-sdk
         gimp
         google-chrome
         libreoffice
+        musescore
         qpdfview
+        quodlibet
         soapui
         spotify
         sublime3
