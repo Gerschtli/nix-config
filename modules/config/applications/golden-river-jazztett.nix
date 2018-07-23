@@ -3,11 +3,11 @@
 with lib;
 
 let
-  inherit (builtins) listToAttrs;
-
   cfg = config.custom.applications.golden-river-jazztett;
 
-  path = "httpd/golden-river-jazztett.de";
+  customLib = import ../../lib args;
+
+  static-page = customLib.staticPage "httpd/golden-river-jazztett.de";
 in
 
 {
@@ -42,23 +42,13 @@ in
           {
             hostName = "goldenriverjazztett.de";
             serverAliases = [ "www.goldenriverjazztett.de" ];
-            documentRoot = "/etc/${path}";
+            documentRoot = static-page.root;
           }
         ];
       };
     };
 
-    environment.etc = listToAttrs
-      (map
-        (file:
-          let filePath = "${path}/${file}"; in
-          nameValuePair
-            filePath
-            { source = ../../files + "/${filePath}"; }
-        )
-        ["index.html" "robots.txt"]
-      );
-
+    environment.etc = static-page.environment.etc;
   };
 
 }
