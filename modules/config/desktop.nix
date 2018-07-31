@@ -94,26 +94,33 @@ in
         ssh.askPassword = "";
       };
 
-      services.xserver = {
-        enable = true;
-        layout = "de";
-        xkbOptions = "ctrl:nocaps";
-        xkbVariant = "nodeadkeys";
-
-        desktopManager.xterm.enable = false;
-
-        displayManager.slim = {
+      services = {
+        unclutter = {
           enable = true;
-          defaultUser = "tobias";
-          extraConfig = "numlock on";
+          keystroke = true;
         };
 
-        windowManager.dwm.enable = cfg.wm == "dwm";
+        xserver = {
+          enable = true;
+          layout = "de";
+          xkbOptions = "ctrl:nocaps";
+          xkbVariant = "nodeadkeys";
 
-        windowManager.i3 = {
-          enable = cfg.wm == "i3";
-          extraPackages = with pkgs; [ i3status-rust ];
-          package = pkgs.i3-gaps;
+          desktopManager.xterm.enable = false;
+
+          displayManager.slim = {
+            enable = true;
+            defaultUser = "tobias";
+            extraConfig = "numlock on";
+          };
+
+          windowManager.dwm.enable = cfg.wm == "dwm";
+
+          windowManager.i3 = {
+            enable = cfg.wm == "i3";
+            extraPackages = with pkgs; [ i3status-rust ];
+            package = pkgs.i3-gaps;
+          };
         };
       };
 
