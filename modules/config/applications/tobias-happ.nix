@@ -1,13 +1,13 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... } @ args:
 
 with lib;
 
 let
-  inherit (builtins) listToAttrs;
-
   cfg = config.custom.applications.tobias-happ;
 
-  path = "nginx/tobias-happ.de";
+  customLib = import ../../lib args;
+
+  static-page = customLib.staticPage "nginx/tobias-happ.de";
 in
 
 {
@@ -37,20 +37,11 @@ in
 
     custom.services.nginx.enable = true;
 
-    environment.etc = listToAttrs
-      (map
-        (file:
-          let filePath = "${path}/${file}"; in
-          nameValuePair
-            filePath
-            { source = ../../files + "/${filePath}"; }
-        )
-        ["index.html" "robots.txt"]
-      );
+    environment.etc = static-page.environment.etc;
 
     services.nginx.virtualHosts = {
       "tobias-happ.de" = {
-        root = "/etc/${path}";
+        root = static-page.root;
         default = true;
         enableACME = true;
         forceSSL = true;
