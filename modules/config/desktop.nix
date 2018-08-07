@@ -66,6 +66,10 @@ in
       environment.systemPackages = with pkgs; [
         exfat
         ntfs3g
+
+        # for android mtp
+        jmtpfs
+        go-mtpfs
       ];
 
       fonts = {
@@ -94,26 +98,35 @@ in
         ssh.askPassword = "";
       };
 
-      services.xserver = {
-        enable = true;
-        layout = "de";
-        xkbOptions = "ctrl:nocaps";
-        xkbVariant = "nodeadkeys";
+      services = {
+        udev.packages = with pkgs; [ android-udev-rules ];
 
-        desktopManager.xterm.enable = false;
-
-        displayManager.slim = {
+        unclutter-xfixes = {
           enable = true;
-          defaultUser = "tobias";
-          extraConfig = "numlock on";
+          timeout = 3;
         };
 
-        windowManager.dwm.enable = cfg.wm == "dwm";
+        xserver = {
+          enable = true;
+          layout = "de";
+          xkbOptions = "ctrl:nocaps";
+          xkbVariant = "nodeadkeys";
 
-        windowManager.i3 = {
-          enable = cfg.wm == "i3";
-          extraPackages = with pkgs; [ i3status-rust ];
-          package = pkgs.i3-gaps;
+          desktopManager.xterm.enable = false;
+
+          displayManager.slim = {
+            enable = true;
+            defaultUser = "tobias";
+            extraConfig = "numlock on";
+          };
+
+          windowManager.dwm.enable = cfg.wm == "dwm";
+
+          windowManager.i3 = {
+            enable = cfg.wm == "i3";
+            extraPackages = with pkgs; [ i3status-rust ];
+            package = pkgs.i3-gaps;
+          };
         };
       };
 
