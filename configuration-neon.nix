@@ -5,7 +5,6 @@
 
   custom = {
     applications = {
-      auto-golden-river-jazztett.enable = true;
       golden-river-jazztett.enable = true;
 
       pass = {
