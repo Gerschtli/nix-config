@@ -95,9 +95,9 @@ in
       };
 
       services = {
-        unclutter = {
+        unclutter-xfixes = {
           enable = true;
-          keystroke = true;
+          timeout = 3;
         };
 
         xserver = {
