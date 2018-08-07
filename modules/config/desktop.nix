@@ -66,6 +66,10 @@ in
       environment.systemPackages = with pkgs; [
         exfat
         ntfs3g
+
+        # for android mtp
+        jmtpfs
+        go-mtpfs
       ];
 
       fonts = {
@@ -95,6 +99,8 @@ in
       };
 
       services = {
+        udev.packages = with pkgs; [ android-udev-rules ];
+
         unclutter-xfixes = {
           enable = true;
           timeout = 3;
