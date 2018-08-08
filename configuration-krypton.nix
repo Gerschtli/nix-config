@@ -11,7 +11,18 @@
       };
 
       gitea.enable = true;
+
+      pass = {
+        enable = true;
+        ncurses = true;
+      };
+
       tobias-happ.enable = true;
+
+      weechat = {
+        enable = true;
+        port = 8000;
+      };
     };
 
     server = {
