@@ -7,7 +7,7 @@ let
 
   customLib = import ../../lib args;
 
-  static-page = customLib.staticPage "httpd/golden-river-jazztett.de";
+  static-page = customLib.staticPage "nginx/golden-river-jazztett.de";
 in
 
 {
