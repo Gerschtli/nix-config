@@ -4,19 +4,7 @@
   imports = [ ./modules ];
 
   custom = {
-    applications = {
-      golden-river-jazztett.enable = true;
-
-      pass = {
-        enable = true;
-        ncurses = true;
-      };
-
-      weechat = {
-        enable = true;
-        port = 8000;
-      };
-    };
+    applications.golden-river-jazztett.enable = true;
 
     server = {
       enable = true;
