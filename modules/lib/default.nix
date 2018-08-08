@@ -6,7 +6,6 @@ in
 
 {
   containerApp = callPackage ./container-app.nix { };
-  fetchBitbucket = callPackage ./fetch-bitbucket.nix { };
   getRecursiveFileList = callPackage ./get-recursive-file-list.nix { };
   staticPage = callPackage ./static-page.nix { };
 }
