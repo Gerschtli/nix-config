@@ -41,7 +41,7 @@ in
 
     services.nginx.virtualHosts = {
       "tobias-happ.de" = {
-        root = static-page.root;
+        inherit (static-page) root;
         default = true;
         enableACME = true;
         forceSSL = true;

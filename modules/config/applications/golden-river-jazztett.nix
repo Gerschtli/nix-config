@@ -35,20 +35,24 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.services = {
-      httpd = {
-        enable = true;
-        virtualHosts = [
-          {
-            hostName = "goldenriverjazztett.de";
-            serverAliases = [ "www.goldenriverjazztett.de" ];
-            documentRoot = static-page.root;
-          }
-        ];
+    custom.services.nginx.enable = true;
+
+    environment.etc = static-page.environment.etc;
+
+    services.nginx.virtualHosts = {
+      "goldenriverjazztett.de" = {
+        inherit (static-page) root;
+        default = true;
+        enableACME = true;
+        forceSSL = true;
+        locations."/".tryFiles = "$uri /index.html";
+      };
+
+      "*.goldenriverjazztett.de" = {
+        extraConfig = "return 302 https://goldenriverjazztett.de/;";
       };
     };
 
-    environment.etc = static-page.environment.etc;
   };
 
 }
