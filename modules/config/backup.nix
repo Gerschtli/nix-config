@@ -54,6 +54,14 @@ let
         '';
       };
 
+      extraOptions = mkOption {
+        type = types.attrs;
+        default = {};
+        description = ''
+          Extra options for systemd service.
+        '';
+      };
+
     };
 
     config = {
@@ -146,24 +154,28 @@ in
             };
           };
 
-          services.${serviceName} = {
-            description = "${service.description} backup service";
-            enable = true;
-            serviceConfig = {
-              Group = cfg.group;
-              User = service.user;
-            };
-            preStart = ''
-              mkdir -p ${location}
-              chmod 0750 ${location}
-            '';
-            script = ''
-              cd ${location}
-              ${service.script}
+          services.${serviceName} = mkMerge [
+            {
+              description = "${service.description} backup service";
+              enable = true;
+              serviceConfig = {
+                Type = "oneshot";
+                Group = cfg.group;
+                User = service.user;
+              };
+              preStart = ''
+                mkdir -p ${location}
+                chmod 0750 ${location}
+              '';
+              script = ''
+                cd ${location}
+                ${service.script}
 
-              find ${location} -mtime +${toString service.expiresAfter} -exec rm -r {} \+
-            '';
-          };
+                find ${location} -mtime +${toString service.expiresAfter} -exec rm -r {} \+
+              '';
+            }
+            service.extraOptions
+          ];
         }
     ));
 
