@@ -82,12 +82,13 @@ in
 
     time.timeZone = "Europe/Berlin";
 
-    users = {
-      defaultUserShell = pkgs.zsh;
+    users.users = {
+      root.shell = pkgs.zsh;
 
-      users.tobias = {
+      tobias = {
         extraGroups = [ "wheel" ];
         isNormalUser = true;
+        shell = pkgs.zsh;
       };
     };
 
