@@ -21,8 +21,12 @@ customLib.containerApp rec {
       ];
 
       # Need to run:
-      # GRANT ALL PRIVILEGES ON *.* TO 'root'@'10.233.%.2' IDENTIFIED BY '<password>' WITH GRANT OPTION;
-      mysql.enable = true;
+      # CREATE USER 'car_stats'@'10.233.%.2' IDENTIFIED BY 'password';
+      # GRANT ALL PRIVILEGES ON car_stats.* TO 'car_stats'@'10.233.%.2';
+      mysql = {
+        enable = true;
+        backups = [ "car_stats" ];
+      };
     };
   };
 }

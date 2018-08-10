@@ -25,6 +25,7 @@ let
 
       user = mkOption {
         type = types.str;
+        default = cfg.user;
         description = ''
           User to run the backup script with.
         '';
