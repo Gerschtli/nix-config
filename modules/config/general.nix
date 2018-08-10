@@ -49,6 +49,7 @@ in
         keychain
         neovim
         nox
+        pwgen
         ripgrep
         tmux
         tree
