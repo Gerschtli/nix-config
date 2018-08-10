@@ -47,12 +47,17 @@ in
       interval = "Tue *-*-* 04:10:00";
       expiresAfter = 28;
 
-      script = foldl
-        (acc: database: ''
-          ${acc}
-          mysqldump -ubackup -p$(cat ${toString ../../secrets/mysql-backup-password}) ${database} | \
-            gzip -c > ${database}-$(date +%s).gz
-        '') "" cfg.backups;
+      script =
+        let
+          passwordFile = toString ../../secrets/mysql-backup-password;
+        in
+
+        foldl
+          (acc: database: ''
+            ${acc}
+            ${pkgs.mariadb}/bin/mysqldump -ubackup -p$(cat ${passwordFile}) ${database} | \
+              ${pkgs.gzip}/bin/gzip -c > ${database}-$(date +%s).gz
+          '') "" cfg.backups;
     };
 
     services.mysql = {
