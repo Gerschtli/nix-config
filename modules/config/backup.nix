@@ -39,6 +39,13 @@ let
         '';
       };
 
+      expiresAfter = mkOption {
+        type = types.int;
+        description = ''
+          Maximum age of backups in days.
+        '';
+      };
+
       script = mkOption {
         type = types.str;
         description = ''
@@ -152,6 +159,8 @@ in
             script = ''
               cd ${location}
               ${service.script}
+
+              find ${location} -mtime +${toString service.expiresAfter} -exec rm -r {} \+
             '';
           };
         }
@@ -163,6 +172,7 @@ in
       users.${cfg.user} = {
         inherit (cfg) group;
         isSystemUser = true;
+        useDefaultShell = true;
 
         openssh.authorizedKeys.keyFiles = [
           ../files/keys/id_rsa.backup-login.pub

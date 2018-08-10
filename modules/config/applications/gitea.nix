@@ -38,6 +38,8 @@ in
       inherit (config.services.gitea) user;
       description = "Gitea";
       interval = "Tue *-*-* 04:00:00";
+      expiresAfter = 28;
+
       script = ''
         ${pkgs.gitea}/bin/gitea dump -c ${config.services.gitea.stateDir}/custom/conf/app.ini
         chmod g+r *
