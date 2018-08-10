@@ -34,6 +34,16 @@ in
 
   config = mkIf cfg.enable {
 
+    custom.backup.services.gitea = {
+      inherit (config.services.gitea) user;
+      description = "Gitea";
+      interval = "Tue *-*-* 04:00:00";
+      script = ''
+        ${pkgs.gitea}/bin/gitea dump -c ${config.services.gitea.stateDir}/custom/conf/app.ini
+        chmod g+r *
+      '';
+    };
+
     services = {
       gitea = {
         enable = true;
