@@ -42,7 +42,6 @@ in
     services.nginx.virtualHosts = {
       "goldenriverjazztett.de" = {
         inherit (static-page) root;
-        default = true;
         enableACME = true;
         forceSSL = true;
         locations."/".tryFiles = "$uri /index.html";
