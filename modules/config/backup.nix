@@ -129,11 +129,9 @@ in
   config = mkIf cfg.enable {
 
     system.activationScripts.backup = ''
-      if [ ! -d "${cfg.location}" ]; then
-        mkdir -p ${cfg.location}
-        chown ${cfg.user}:${cfg.group} ${cfg.location}
-        chmod 0770 ${cfg.location}
-      fi
+      mkdir -p ${cfg.location}
+      chown ${cfg.user}:${cfg.group} ${cfg.location}
+      chmod 0770 ${cfg.location}
     '';
 
     systemd = mkMerge (flip map (attrValues cfg.services) (
