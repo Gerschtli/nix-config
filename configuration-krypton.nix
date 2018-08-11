@@ -32,7 +32,11 @@
       ipv6Address = "2a01:4f8:1c0c:7161::2";
     };
 
-    services.openssh.rootLogin = true;
+    services = {
+      openssh.rootLogin = true;
+
+      teamspeak.enable = true;
+    };
   };
 
   networking.hostName = "krypton";
