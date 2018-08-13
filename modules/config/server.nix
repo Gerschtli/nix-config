@@ -38,11 +38,7 @@ in
 
   config = mkIf cfg.enable {
 
-    custom = {
-      boot.isEFI = false;
-
-      services.openssh.enable = true;
-    };
+    custom.services.openssh.enable = true;
 
     environment.noXlibs = true;
 

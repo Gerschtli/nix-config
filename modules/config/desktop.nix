@@ -58,7 +58,7 @@ in
           browserpass = true;
         };
 
-        boot.isEFI = true;
+        boot.mode = "efi";
 
         dev.enable = true;
       };

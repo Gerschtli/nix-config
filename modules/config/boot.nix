@@ -14,10 +14,10 @@ in
 
     custom.boot = {
 
-      isEFI = mkOption {
-        type = types.bool;
+      mode = mkOption {
+        type = types.enum [ "efi" "grub" "raspberry" ];
         description = ''
-          Whether to boot in efi mode.
+          Sets mode for boot options.
         '';
       };
 
@@ -38,7 +38,7 @@ in
 
   config = mkMerge [
 
-    (mkIf cfg.isEFI
+    (mkIf (cfg.mode == "efi")
       {
         boot.loader = {
           efi.canTouchEfiVariables = true;
@@ -50,12 +50,26 @@ in
       }
     )
 
-    (mkIf (! cfg.isEFI)
+    (mkIf (cfg.mode == "grub")
       {
         boot.loader.grub = {
           inherit (cfg) device;
           enable = true;
           version = 2;
+        };
+      }
+    )
+
+    (mkIf (cfg.mode == "raspberry")
+      {
+        boot = {
+          loader = {
+            grub.enable = false;
+            generic-extlinux-compatible.enable = true;
+          };
+
+          kernelParams = ["cma=32M"];
+          kernelPackages = pkgs.linuxPackages_latest;
         };
       }
     )
