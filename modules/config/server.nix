@@ -23,7 +23,8 @@ in
       };
 
       ipv6Address = mkOption {
-        type = types.str;
+        type = with types; nullOr str;
+        default = null;
         description = ''
           IPv6 address.
         '';
@@ -42,7 +43,7 @@ in
 
     environment.noXlibs = true;
 
-    networking = {
+    networking = mkIf (cfg.ipv6Address != null) {
       defaultGateway6 = {
         address = "fe80::1";
         interface = "eth0";
