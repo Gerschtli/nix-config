@@ -9,6 +9,7 @@ modules.
 * *neon*: server
 * *argon*: laptop
 * *krypton*: server
+* *xenon*: raspberry
 
 ## Set up
 
