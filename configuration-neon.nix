@@ -4,8 +4,6 @@
   imports = [ ./modules ];
 
   custom = {
-    applications.golden-river-jazztett.enable = true;
-
     boot.mode = "grub";
 
     server = {
