@@ -1,11 +1,9 @@
-{ config, lib, pkgs, ... } @ args:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.custom.desktop;
-
-  customLib = import ../lib args;
 in
 
 {
@@ -86,11 +84,7 @@ in
 
       hardware.pulseaudio.enable = true;
 
-      nixpkgs = {
-        config.allowUnfree = true;
-
-        overlays = map (file: import file) (customLib.getRecursiveFileList ../overlays);
-      };
+      nixpkgs.config.allowUnfree = true;
 
       programs = {
         slock.enable = true;

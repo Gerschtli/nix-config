@@ -1,9 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... } @ args:
 
 with lib;
 
 let
   cfg = config.custom.general;
+
+  customLib = import ../lib args;
 in
 
 {
@@ -73,6 +75,8 @@ in
     };
 
     networking.usePredictableInterfaceNames = false;
+
+    nixpkgs.overlays = map (file: import file) (customLib.getRecursiveFileList ../overlays);
 
     programs.zsh = {
       enable = true;
