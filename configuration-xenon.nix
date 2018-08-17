@@ -9,5 +9,12 @@
     server.enable = true;
   };
 
-  networking.hostName = "xenon";
+  hardware.bluetooth.enable = true;
+
+  networking = {
+    hostName = "xenon";
+
+    # Need to run: wpa_passphrase ESSID PSK > /etc/wpa_supplicant.conf
+    wireless.enable = true;
+  };
 }
