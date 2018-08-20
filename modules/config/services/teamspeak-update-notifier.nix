@@ -57,11 +57,13 @@ in
 
       after = [ "teamspeak3-server.service" ];
       requires = [ "teamspeak3-server.service" ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = [ "multi-user.target" "teamspeak3-server.service" ];
 
       serviceConfig = {
         User = cfg.user;
         ExecStart = "${pkgs.teamspeak-update-notifier}/bin/teamspeak-update-notifier ${configFile}";
+        Restart = "always";
+        RestartSec = 5;
       };
     };
 
