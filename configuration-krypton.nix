@@ -12,8 +12,6 @@
 
       gitea.enable = true;
 
-      golden-river-jazztett.enable = true;
-
       pass = {
         enable = true;
         ncurses = true;
