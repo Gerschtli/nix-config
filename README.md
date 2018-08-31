@@ -6,7 +6,6 @@ modules.
 ## Nodes
 
 * *helium*: tower
-* *neon*: server
 * *argon*: laptop
 * *krypton*: server
 * *xenon*: raspberry
