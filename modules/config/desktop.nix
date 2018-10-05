@@ -138,6 +138,7 @@ in
         dmenu
         dunst
         gnome3.zenity
+        imagemagick
         libnotify # for notify-send
         pavucontrol
         playerctl
