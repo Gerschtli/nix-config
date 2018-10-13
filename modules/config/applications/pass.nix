@@ -30,6 +30,14 @@ in
         '';
       };
 
+      x11Support = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          Whether to enable X11 support.
+        '';
+      };
+
       browserpass = mkOption {
         type = types.bool;
         default = false;
@@ -51,7 +59,7 @@ in
 
     users.users.tobias.packages = with pkgs; [
       gnupg
-      pass
+      (pass.override { inherit (cfg) x11Support; })
     ] ++ (optional cfg.ncurses pinentry_ncurses);
 
   };

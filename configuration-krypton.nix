@@ -14,6 +14,7 @@
 
       pass = {
         enable = true;
+        x11Support = false;
         ncurses = true;
       };
 
