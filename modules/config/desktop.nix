@@ -192,6 +192,7 @@ in
         };
 
         users.users.tobias.packages = with pkgs; [
+          hicolor-icon-theme
           networkmanagerapplet
           xorg.xbacklight
         ];
