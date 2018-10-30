@@ -48,6 +48,7 @@ in
         gitAndTools.tig
         htop
         httpie
+        iotop
         keychain
         neovim
         nox
