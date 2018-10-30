@@ -68,6 +68,11 @@ in
             generic-extlinux-compatible.enable = true;
           };
 
+          kernel.sysctl = {
+            "vm.dirty_background_ratio" = 5;
+            "vm.dirty_ratio" = 80;
+          };
+
           kernelParams = ["cma=32M"];
           kernelPackages = pkgs.linuxPackages_latest;
         };
