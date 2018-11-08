@@ -79,6 +79,7 @@ in
           fira-mono
           nerdfonts
           source-code-pro
+          ubuntu_font_family
         ];
       };
 
@@ -142,10 +143,10 @@ in
         libnotify # for notify-send
         pavucontrol
         playerctl
+        rxvt_unicode
         wmname
         xclip
         xss-lock
-        xterm
 
         atom
         audacity
