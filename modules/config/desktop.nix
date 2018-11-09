@@ -109,10 +109,12 @@ in
 
           desktopManager.xterm.enable = false;
 
-          displayManager.slim = {
-            enable = true;
-            defaultUser = "tobias";
-            extraConfig = "numlock on";
+          displayManager = {
+            job.logToFile = mkForce false;
+
+            lightdm.extraSeatDefaults = ''
+              greeter-setup-script=${pkgs.numlockx}/bin/numlockx on
+            '';
           };
 
           windowManager.dwm.enable = cfg.wm == "dwm";
