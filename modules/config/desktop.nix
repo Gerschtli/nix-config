@@ -145,7 +145,7 @@ in
         libnotify # for notify-send
         pavucontrol
         playerctl
-        rxvt_unicode
+        rxvt_unicode-with-plugins
         wmname
         xclip
         xss-lock
