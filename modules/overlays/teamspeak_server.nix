@@ -1,4 +1,4 @@
-# FIXME: remove when https://github.com/NixOS/nixpkgs/pull/45161 gets merged
+# FIXME: remove when https://github.com/NixOS/nixpkgs/pull/50327 gets merged
 
 self: super:
 
@@ -6,7 +6,7 @@ self: super:
 let
   inherit (super) fetchurl stdenv;
 
-  version = "3.4.0";
+  version = "3.5.0";
   arch = if stdenv.is64bit then "amd64" else "x86";
 in
 
@@ -20,8 +20,8 @@ in
         "http://teamspeak.gameserver.gamed.de/ts3/releases/${version}/teamspeak3-server_linux_${arch}-${version}.tar.bz2"
       ];
       sha256 = if stdenv.is64bit
-        then "12wis5sbbx502g86irhi3g2gvpczbxzjw7z0lw9rk7jagplwhvkx"
-        else "01ajiqizy4f8niqipxccimvvsqlfypr4a28rwxk6zran7m1kjpp6";
+        then "0zk7rbi6mvs2nnsjhv4aizl5ydiyr46ng2i3lr8r78gyb88nxmcv"
+        else "0nahsmcnykgchgv50jb22fin74sab1zl8gy6m6s8mjk570qlvzzm";
     };
   });
 }
