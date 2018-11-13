@@ -128,6 +128,13 @@ in
 
   config = mkIf cfg.enable {
 
+    custom.systemUsers.${cfg.user} = {
+      inherit (cfg) group;
+      sshKeys = [
+        ../files/keys/id_rsa.backup-login.pub
+      ];
+    };
+
     system.activationScripts.backup = ''
       mkdir -p ${cfg.location}
       chown ${cfg.user}:${cfg.group} ${cfg.location}
@@ -176,20 +183,6 @@ in
           ];
         }
     ));
-
-    users = {
-      groups.${cfg.group} = { };
-
-      users.${cfg.user} = {
-        inherit (cfg) group;
-        isSystemUser = true;
-        useDefaultShell = true;
-
-        openssh.authorizedKeys.keyFiles = [
-          ../files/keys/id_rsa.backup-login.pub
-        ];
-      };
-    };
 
   };
 

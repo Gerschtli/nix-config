@@ -52,6 +52,8 @@ in
 
   config = mkIf cfg.enable {
 
+    custom.systemUsers.${cfg.user} = { };
+
     systemd.services.teamspeak-update-notifier = {
       description = "Teamspeak update notifier service";
 
@@ -66,8 +68,6 @@ in
         RestartSec = 5;
       };
     };
-
-    users.users.${cfg.user}.isSystemUser = true;
 
   };
 

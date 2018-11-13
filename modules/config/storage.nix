@@ -126,6 +126,8 @@ in
 
   config = mkIf cfg.enable {
 
+    custom.systemUsers.${cfg.user} = { inherit (cfg) group; };
+
     system.activationScripts.backup = mkIf (! useMount) ''
       mkdir -p ${cfg.location}
     '';
@@ -179,16 +181,6 @@ in
 
           find ${backupDir} -type f -mtime +${toString cfg.expiresAfter} -exec rm {} \+
         '';
-      };
-    };
-
-    users = {
-      groups.${cfg.group} = { };
-
-      users.${cfg.user} = {
-        inherit (cfg) group;
-        isSystemUser = true;
-        useDefaultShell = true;
       };
     };
 
