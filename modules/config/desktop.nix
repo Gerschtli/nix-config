@@ -140,6 +140,7 @@ in
       users.users.tobias.packages = with pkgs; [
         dmenu
         dunst
+        dwm-status
         gnome3.zenity
         imagemagick
         libnotify # for notify-send
