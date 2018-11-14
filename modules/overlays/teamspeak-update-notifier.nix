@@ -21,7 +21,7 @@ in
 
     propagatedBuildInputs = with python36Packages; [
       beautifulsoup4
-      dependency_injector
+      dependency-injector
       requests
     ];
   };
