@@ -65,7 +65,7 @@ in
         User = cfg.user;
         ExecStart = "${pkgs.teamspeak-update-notifier}/bin/teamspeak-update-notifier ${configFile}";
         Restart = "always";
-        RestartSec = 5;
+        RestartSec = 30;
       };
     };
 
