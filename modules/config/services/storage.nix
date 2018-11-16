@@ -126,63 +126,55 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.utils.systemUsers.${cfg.user} = { inherit (cfg) group; };
+    custom.utils = {
+      systemd.timers.storage-backup = {
+        inherit (cfg) interval;
+        description = "Storage backup";
+
+        serviceConfig = {
+          serviceConfig = {
+            Group = cfg.group;
+            User = cfg.user;
+            PermissionsStartOnly = true;
+          };
+          unitConfig.RequiresMountsFor = mkIf useMount cfg.location;
+          preStart = ''
+            mkdir -p ${backupDir}
+            chown ${cfg.user}:${cfg.group} ${backupDir}
+            chmod 0750 ${backupDir}
+          '';
+          script = ''
+            cd ${backupDir}
+
+            ${foldl (acc: server: ''
+              ${acc}
+              ${pkgs.rsync}/bin/rsync --archive --verbose --compress --whole-file \
+                --rsh "${pkgs.openssh}/bin/ssh \
+                  -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
+                  -i ${toString ../../secrets/id_rsa.backup}" \
+                "${server.user}@${server.ip}:${server.location}/*" \
+                ${backupDir}/${server.name}
+            '') "" cfg.server}
+
+            find ${backupDir} -type f -mtime +${toString cfg.expiresAfter} -exec rm {} \+
+          '';
+        };
+      };
+
+      systemUsers.${cfg.user} = { inherit (cfg) group; };
+    };
 
     system.activationScripts.backup = mkIf (! useMount) ''
       mkdir -p ${cfg.location}
     '';
 
-    systemd = {
-      mounts = mkIf useMount [
-        {
-          what = cfg.mountDevice;
-          where = cfg.location;
-          type = "ext4";
-        }
-      ];
-
-      timers.storage-backup = {
-        description = "Storage backup timer";
-        wantedBy = [ "timers.target" ];
-        timerConfig = {
-          OnCalendar = cfg.interval;
-          AccuracySec = "5m";
-          Unit = "storage-backup.service";
-        };
-      };
-
-      services.storage-backup = {
-        description = "Storage backup service";
-        enable = true;
-        serviceConfig = {
-          Type = "oneshot";
-          Group = cfg.group;
-          User = cfg.user;
-          PermissionsStartOnly = true;
-        };
-        unitConfig.RequiresMountsFor = mkIf useMount cfg.location;
-        preStart = ''
-          mkdir -p ${backupDir}
-          chown ${cfg.user}:${cfg.group} ${backupDir}
-          chmod 0750 ${backupDir}
-        '';
-        script = ''
-          cd ${backupDir}
-
-          ${foldl (acc: server: ''
-            ${acc}
-            ${pkgs.rsync}/bin/rsync --archive --verbose --compress --whole-file \
-              --rsh "${pkgs.openssh}/bin/ssh \
-                -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
-                -i ${toString ../../secrets/id_rsa.backup}" \
-              "${server.user}@${server.ip}:${server.location}/*" \
-              ${backupDir}/${server.name}
-          '') "" cfg.server}
-
-          find ${backupDir} -type f -mtime +${toString cfg.expiresAfter} -exec rm {} \+
-        '';
-      };
-    };
+    systemd.mounts = mkIf useMount [
+      {
+        what = cfg.mountDevice;
+        where = cfg.location;
+        type = "ext4";
+      }
+    ];
 
   };
 

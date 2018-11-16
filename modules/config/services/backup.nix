@@ -128,11 +128,46 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.utils.systemUsers.${cfg.user} = {
-      inherit (cfg) group;
-      sshKeys = [
-        ../../files/keys/id_rsa.backup-login.pub
-      ];
+    custom.utils = {
+      systemd.timers = flip map (attrValues cfg.services) (
+        service:
+          let
+            location = "${cfg.location}/${service.name}";
+          in
+
+          {
+            inherit (service) interval;
+            name = "${service.name}-backup";
+            description = "${service.description} backup";
+
+            serviceConfig = mkMerge [
+              {
+                serviceConfig = {
+                  Group = cfg.group;
+                  User = service.user;
+                };
+                preStart = ''
+                  mkdir -p ${location}
+                  chmod 0750 ${location}
+                '';
+                script = ''
+                  cd ${location}
+                  ${service.script}
+
+                  find ${location} -mtime +${toString service.expiresAfter} -exec rm -r {} \+
+                '';
+              }
+              service.extraOptions
+            ];
+          }
+      );
+
+      systemUsers.${cfg.user} = {
+        inherit (cfg) group;
+        sshKeys = [
+          ../../files/keys/id_rsa.backup-login.pub
+        ];
+      };
     };
 
     system.activationScripts.backup = ''
@@ -140,49 +175,6 @@ in
       chown ${cfg.user}:${cfg.group} ${cfg.location}
       chmod 0770 ${cfg.location}
     '';
-
-    systemd = mkMerge (flip map (attrValues cfg.services) (
-      service:
-        let
-          serviceName = "${service.name}-backup";
-          location = "${cfg.location}/${service.name}";
-        in
-
-        {
-          timers.${serviceName} = {
-            description = "${service.description} backup timer";
-            wantedBy = [ "timers.target" ];
-            timerConfig = {
-              OnCalendar = service.interval;
-              AccuracySec = "5m";
-              Unit = "${serviceName}.service";
-            };
-          };
-
-          services.${serviceName} = mkMerge [
-            {
-              description = "${service.description} backup service";
-              enable = true;
-              serviceConfig = {
-                Type = "oneshot";
-                Group = cfg.group;
-                User = service.user;
-              };
-              preStart = ''
-                mkdir -p ${location}
-                chmod 0750 ${location}
-              '';
-              script = ''
-                cd ${location}
-                ${service.script}
-
-                find ${location} -mtime +${toString service.expiresAfter} -exec rm -r {} \+
-              '';
-            }
-            service.extraOptions
-          ];
-        }
-    ));
 
   };
 
