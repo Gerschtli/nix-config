@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom;
+  cfg = config.custom.utils;
 
   opts = { name, config, ... }: {
 
@@ -46,7 +46,7 @@ in
 
   options = {
 
-    custom.systemUsers = mkOption {
+    custom.utils.systemUsers = mkOption {
       type = with types; loaOf (submodule opts);
       default = [];
       description = ''

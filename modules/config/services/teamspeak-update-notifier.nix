@@ -52,7 +52,7 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.systemUsers.${cfg.user} = { };
+    custom.utils.systemUsers.${cfg.user} = { };
 
     systemd.services.teamspeak-update-notifier = {
       description = "Teamspeak update notifier service";

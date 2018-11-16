@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.backup;
+  cfg = config.custom.services.backup;
 
   serviceOpts = { name, config, ... }: {
 
@@ -77,7 +77,7 @@ in
 
   options = {
 
-    custom.backup = {
+    custom.services.backup = {
 
       enable = mkOption {
         type = types.bool;
@@ -128,10 +128,10 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.systemUsers.${cfg.user} = {
+    custom.utils.systemUsers.${cfg.user} = {
       inherit (cfg) group;
       sshKeys = [
-        ../files/keys/id_rsa.backup-login.pub
+        ../../files/keys/id_rsa.backup-login.pub
       ];
     };
 

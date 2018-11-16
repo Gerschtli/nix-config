@@ -34,7 +34,7 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.backup.services.gitea = {
+    custom.services.backup.services.gitea = {
       inherit (config.services.gitea) user;
       description = "Gitea";
       interval = "Tue *-*-* 04:00:00";

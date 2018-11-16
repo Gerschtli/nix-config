@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.storage;
+  cfg = config.custom.services.storage;
 
   backupDir = "${cfg.location}/backup";
   useMount = cfg.mountDevice != null;
@@ -15,7 +15,7 @@ in
 
   options = {
 
-    custom.storage = {
+    custom.services.storage = {
 
       enable = mkOption {
         type = types.bool;
@@ -94,7 +94,7 @@ in
 
               location = mkOption {
                 type = types.str;
-                default = config.custom.backup.location;
+                default = config.custom.services.backup.location;
                 description = ''
                   Backup directory on server.
                 '';
@@ -102,7 +102,7 @@ in
 
               user = mkOption {
                 type = types.str;
-                default = config.custom.backup.user;
+                default = config.custom.services.backup.user;
                 description = ''
                   Backup user on server.
                 '';
@@ -126,7 +126,7 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.systemUsers.${cfg.user} = { inherit (cfg) group; };
+    custom.utils.systemUsers.${cfg.user} = { inherit (cfg) group; };
 
     system.activationScripts.backup = mkIf (! useMount) ''
       mkdir -p ${cfg.location}
@@ -174,7 +174,7 @@ in
             ${pkgs.rsync}/bin/rsync --archive --verbose --compress --whole-file \
               --rsh "${pkgs.openssh}/bin/ssh \
                 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
-                -i ${toString ../secrets/id_rsa.backup}" \
+                -i ${toString ../../secrets/id_rsa.backup}" \
               "${server.user}@${server.ip}:${server.location}/*" \
               ${backupDir}/${server.name}
           '') "" cfg.server}

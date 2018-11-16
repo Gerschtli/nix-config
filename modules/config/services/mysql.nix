@@ -42,7 +42,7 @@ in
     # Need to run:
     # CREATE USER 'backup'@'localhost' IDENTIFIED BY 'password';
     # GRANT SELECT, LOCK TABLES ON *.* TO 'backup'@'localhost';
-    custom.backup.services.mysql = {
+    custom.services.backup.services.mysql = {
       description = "Mysql";
       interval = "Tue *-*-* 04:10:00";
       expiresAfter = 28;

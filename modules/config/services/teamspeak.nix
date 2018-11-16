@@ -31,7 +31,7 @@ in
 
   config = mkIf cfg.enable {
 
-    custom = {
+    custom.services = {
       # FIXME: solve dependency to teamspeak3-server service via systemd and change user to non-root
       backup.services.teamspeak3 = {
         description = "Teamspeak3 server";
@@ -55,7 +55,7 @@ in
         };
       };
 
-      services.teamspeak-update-notifier.enable = true;
+      teamspeak-update-notifier.enable = true;
     };
 
     networking.firewall = {

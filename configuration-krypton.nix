@@ -26,7 +26,6 @@
       };
     };
 
-    backup.enable = true;
 
     boot.mode = "grub";
 
@@ -36,6 +35,8 @@
     };
 
     services = {
+      backup.enable = true;
+
       openssh.rootLogin = true;
 
       teamspeak.enable = true;
