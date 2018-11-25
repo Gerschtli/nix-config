@@ -153,7 +153,6 @@ in
 
         atom
         audacity
-        dropbox-cli
         eclipses.eclipse-sdk
         gimp
         google-chrome
