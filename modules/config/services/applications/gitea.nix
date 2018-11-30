@@ -49,7 +49,7 @@ in
     services = {
       gitea = {
         enable = true;
-        database.passwordFile = toString ../../secrets/gitea-dbpassword;
+        database.passwordFile = toString ../../../secrets/gitea-dbpassword;
         rootUrl = "https://${domain}/";
         cookieSecure = true;
         extraConfig = ''

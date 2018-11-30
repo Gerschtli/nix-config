@@ -151,7 +151,7 @@ in
               ${pkgs.rsync}/bin/rsync --archive --verbose --compress --whole-file \
                 --rsh "${pkgs.openssh}/bin/ssh \
                   -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
-                  -i ${toString ../../secrets/id_rsa.backup}" \
+                  -i ${toString ../../../secrets/id_rsa.backup}" \
                 "${server.user}@${server.ip}:${server.location}/*" \
                 ${backupDir}/${server.name}
             '') "" cfg.server}

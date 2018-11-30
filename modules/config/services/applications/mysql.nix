@@ -49,7 +49,7 @@ in
 
       script =
         let
-          passwordFile = toString ../../secrets/mysql-backup-password;
+          passwordFile = toString ../../../secrets/mysql-backup-password;
         in
 
         foldl

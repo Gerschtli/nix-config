@@ -33,7 +33,7 @@ in
 
     services.redis = {
       enable = true;
-      requirePass = import ../../secrets/redis;
+      requirePass = import ../../../secrets/redis;
     };
 
   };
