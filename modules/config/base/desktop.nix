@@ -111,6 +111,11 @@ in
         slock.enable = true;
 
         ssh.askPassword = "";
+
+        xss-lock = {
+          enable = true;
+          lockerCommand = "${pkgs.slock}/bin/slock";
+        };
       };
 
       services = {
