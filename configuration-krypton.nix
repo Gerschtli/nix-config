@@ -10,6 +10,8 @@
         containerID = 1;
       };
 
+      downloads.enable = true;
+
       tobias-happ.enable = true;
     };
 
