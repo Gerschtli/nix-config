@@ -165,7 +165,7 @@ in
       systemUsers.${cfg.user} = {
         inherit (cfg) group;
         sshKeys = [
-          ../../../files/keys/id_rsa.backup-login.pub
+          ../../../files/keys/id_rsa.backup.pub
         ];
       };
     };

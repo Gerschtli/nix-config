@@ -58,11 +58,11 @@ in
 
     users.users = {
       root.openssh.authorizedKeys.keyFiles = mkIf cfg.rootLogin [
-        ../../../files/keys/id_rsa.tobias-login.pub
+        ../../../files/keys/id_rsa.tobias.pub
       ];
 
       tobias.openssh.authorizedKeys.keyFiles = [
-        ../../../files/keys/id_rsa.tobias-login.pub
+        ../../../files/keys/id_rsa.tobias.pub
       ];
     };
 
