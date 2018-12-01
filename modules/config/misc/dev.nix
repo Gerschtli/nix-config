@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.dev;
+  cfg = config.custom.misc.dev;
 in
 
 {
@@ -12,7 +12,7 @@ in
 
   options = {
 
-    custom.dev = {
+    custom.misc.dev = {
 
       enable = mkOption {
         type = types.bool;
@@ -31,7 +31,7 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.services.firewall.openPortsForIps = [
+    custom.system.firewall.openPortsForIps = [
       # open php xdebug port
       { ip = "192.168.56.201"; port = 9000; }
       { ip = "192.168.56.202"; port = 9000; }

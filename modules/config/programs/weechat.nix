@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.applications.weechat;
+  cfg = config.custom.programs.weechat;
 in
 
 {
@@ -12,7 +12,7 @@ in
 
   options = {
 
-    custom.applications.weechat = {
+    custom.programs.weechat = {
 
       enable = mkOption {
         type = types.bool;

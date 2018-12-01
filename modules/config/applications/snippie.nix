@@ -10,15 +10,15 @@ customLib.containerApp rec {
   hostName = "${name}.tobias-happ.de";
 
   extraConfig = cfg: {
-    custom.services = {
-      firewall.openPortsForIps = [
+    custom = {
+      services.redis.enable = true;
+
+      system.firewall.openPortsForIps = [
         {
           ip = cfg.containerAddress;
           port = config.services.redis.port;
         }
       ];
-
-      redis.enable = true;
     };
   };
 }

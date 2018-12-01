@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.desktop;
+  cfg = config.custom.base.desktop;
 in
 
 {
@@ -12,7 +12,7 @@ in
 
   options = {
 
-    custom.desktop = {
+    custom.base.desktop = {
 
       enable = mkOption {
         type = types.bool;
@@ -51,14 +51,14 @@ in
       boot.tmpOnTmpfs = true;
 
       custom = {
-        applications.pass = {
+        misc.dev.enable = true;
+
+        programs.pass = {
           enable = true;
           browserpass = true;
         };
 
-        boot.mode = "efi";
-
-        dev.enable = true;
+        system.boot.mode = "efi";
       };
 
       environment.systemPackages = with pkgs; [

@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.applications.pass;
+  cfg = config.custom.programs.pass;
 in
 
 {
@@ -12,7 +12,7 @@ in
 
   options = {
 
-    custom.applications.pass = {
+    custom.programs.pass = {
 
       enable = mkOption {
         type = types.bool;

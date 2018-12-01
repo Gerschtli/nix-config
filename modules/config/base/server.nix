@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.server;
+  cfg = config.custom.base.server;
 in
 
 {
@@ -12,7 +12,7 @@ in
 
   options = {
 
-    custom.server = {
+    custom.base.server = {
 
       enable = mkOption {
         type = types.bool;

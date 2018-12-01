@@ -2,7 +2,6 @@
 
 path:
 
-
 {
   environment = {
     etc = builtins.listToAttrs

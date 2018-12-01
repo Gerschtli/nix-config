@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.services.firewall;
+  cfg = config.custom.system.firewall;
 in
 
 {
@@ -12,7 +12,7 @@ in
 
   options = {
 
-    custom.services.firewall = {
+    custom.system.firewall = {
 
       enable = mkOption {
         type = types.bool;

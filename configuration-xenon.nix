@@ -4,9 +4,7 @@
   imports = [ ./modules ];
 
   custom = {
-    boot.mode = "raspberry";
-
-    server.enable = true;
+    base.server.enable = true;
 
     services.storage = {
       enable = true;
@@ -20,6 +18,8 @@
         }
       ];
     };
+
+    system.boot.mode = "raspberry";
   };
 
   hardware.bluetooth.enable = true;

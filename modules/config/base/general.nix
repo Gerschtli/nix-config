@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.general;
+  cfg = config.custom.base.general;
 
   customLib = import ../../lib args;
 in
@@ -14,7 +14,7 @@ in
 
   options = {
 
-    custom.general = {
+    custom.base.general = {
 
       enable = mkOption {
         type = types.bool;
@@ -35,7 +35,7 @@ in
 
     boot.cleanTmpDir = true;
 
-    custom.services.firewall.enable = true;
+    custom.system.firewall.enable = true;
 
     environment = {
       shellAliases = mkForce { };

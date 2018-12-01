@@ -31,9 +31,11 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.services = {
+    custom = {
+      programs.teamspeak-update-notifier.enable = true;
+
       # FIXME: solve dependency to teamspeak3-server service via systemd and change user to non-root
-      backup.services.teamspeak3 = {
+      services.backup.services.teamspeak3 = {
         description = "Teamspeak3 server";
         user = "root";
         interval = "Tue *-*-* 10:00:00";
@@ -54,8 +56,6 @@ in
           path = [ pkgs.gzip ];
         };
       };
-
-      teamspeak-update-notifier.enable = true;
     };
 
     networking.firewall = {

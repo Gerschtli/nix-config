@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.boot;
+  cfg = config.custom.system.boot;
 in
 
 {
@@ -12,7 +12,7 @@ in
 
   options = {
 
-    custom.boot = {
+    custom.system.boot = {
 
       mode = mkOption {
         type = types.enum [ "efi" "grub" "raspberry" ];

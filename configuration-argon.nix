@@ -3,7 +3,7 @@
 {
   imports = [ ./modules ];
 
-  custom.desktop = {
+  custom.base.desktop = {
     enable = true;
     laptop = true;
   };

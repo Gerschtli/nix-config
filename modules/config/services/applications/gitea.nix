@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.applications.gitea;
+  cfg = config.custom.services.gitea;
   giteaCfg = config.services.gitea;
 
   domain = "git.tobias-happ.de";
@@ -15,7 +15,7 @@ in
 
   options = {
 
-    custom.applications.gitea = {
+    custom.services.gitea = {
 
       enable = mkOption {
         type = types.bool;

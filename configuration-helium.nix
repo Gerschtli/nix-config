@@ -4,7 +4,7 @@
   imports = [ ./modules ];
 
   custom = {
-    desktop.enable = true;
+    base.desktop.enable = true;
 
     services.openssh = {
       enable = true;

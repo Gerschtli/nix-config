@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.services.teamspeak-update-notifier;
+  cfg = config.custom.programs.teamspeak-update-notifier;
 
   configFile = pkgs.writeText "config.ini" ''
     [ts3]
@@ -25,7 +25,7 @@ in
 
   options = {
 
-    custom.services.teamspeak-update-notifier = {
+    custom.programs.teamspeak-update-notifier = {
 
       enable = mkOption {
         type = types.bool;
