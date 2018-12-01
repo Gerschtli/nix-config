@@ -201,17 +201,21 @@ in
 
     (mkIf cfg.laptop
       {
-        custom.programs.dwm-status.extraConfig = ''
-          [backlight]
-          template = "{ICO} {BL}%"
-          icons = ["", "", ""]
+        custom.programs = {
+          dwm-status.extraConfig = ''
+            [backlight]
+            template = "{ICO} {BL}%"
+            icons = ["", "", ""]
 
-          [battery]
-          charging = ""
-          discharging = ""
-          no_battery = ""
-          icons = ["", "", "", "", "", "", "", "", "", "", ""]
-        '';
+            [battery]
+            charging = ""
+            discharging = ""
+            no_battery = ""
+            icons = ["", "", "", "", "", "", "", "", "", "", ""]
+          '';
+
+          nm-applet.enable = true;
+        };
 
         networking.networkmanager.enable = true;
 
@@ -232,8 +236,6 @@ in
         };
 
         users.users.tobias.packages = with pkgs; [
-          hicolor-icon-theme
-          networkmanagerapplet
           xorg.xbacklight
         ];
       }
