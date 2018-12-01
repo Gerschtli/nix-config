@@ -173,7 +173,6 @@ in
         rxvt_unicode-with-plugins
         wmname
         xclip
-        xss-lock
 
         atom
         audacity
