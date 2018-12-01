@@ -36,6 +36,8 @@
 
       gitea.enable = true;
 
+      ip-watcher.server.enable = true;
+
       openssh.rootLogin = true;
 
       teamspeak.enable = true;
