@@ -53,9 +53,29 @@ in
       custom = {
         misc.dev.enable = true;
 
-        programs.pass = {
-          enable = true;
-          browserpass = true;
+        programs = {
+          dwm-status = {
+            enable = cfg.wm == "dwm";
+            order =
+              if cfg.laptop
+              then [ "cpu_load" "backlight" "audio" "battery" "time" ]
+              else [ "cpu_load" "audio" "time" ];
+
+            extraConfig = ''
+              debug = true
+              separator = "    "
+
+              [audio]
+              mute = "ﱝ"
+              template = "{ICO} {VOL}%"
+              icons = ["奄", "奔", "墳"]
+            '';
+          };
+
+          pass = {
+            enable = true;
+            browserpass = true;
+          };
         };
 
         system.boot.mode = "efi";
@@ -140,7 +160,6 @@ in
       users.users.tobias.packages = with pkgs; [
         dmenu
         dunst
-        dwm-status
         gnome3.zenity
         imagemagick
         libnotify # for notify-send
@@ -177,6 +196,18 @@ in
 
     (mkIf cfg.laptop
       {
+        custom.programs.dwm-status.extraConfig = ''
+          [backlight]
+          template = "{ICO} {BL}%"
+          icons = ["", "", ""]
+
+          [battery]
+          charging = ""
+          discharging = ""
+          no_battery = ""
+          icons = ["", "", "", "", "", "", "", "", "", "", ""]
+        '';
+
         networking.networkmanager.enable = true;
 
         services = {
