@@ -22,14 +22,6 @@ in
         '';
       };
 
-      location = mkOption {
-        type = types.str;
-        default = "/var/lib/ip-watcher";
-        description = ''
-          Path to ip-watcher data directory.
-        '';
-      };
-
       group = mkOption {
         type = types.str;
         default = cfg.user;
@@ -57,15 +49,12 @@ in
 
     custom.utils.systemUsers.${cfg.user} = {
       inherit (cfg) group;
+      createHome = true;
+
       sshKeys = [
         ../../../files/keys/id_rsa.ip-watcher.pub
       ];
     };
-
-    system.activationScripts.ip-watcher = ''
-      mkdir -p ${cfg.location}
-      chown ${cfg.user}:${cfg.group} ${cfg.location}
-    '';
 
   };
 

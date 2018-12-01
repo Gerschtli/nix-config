@@ -23,6 +23,22 @@ let
         '';
       };
 
+      createHome = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          Whether to create home directory.
+        '';
+      };
+
+      home = mkOption {
+        type = types.str;
+        default = "/var/lib/${name}";
+        description = ''
+          Path of home directory.
+        '';
+      };
+
       sshKeys = mkOption {
         type = types.listOf types.path;
         default = [];
@@ -67,9 +83,11 @@ in
         groups.${user.group} = mkIf (user.group != null) { };
 
         users.${user.name} = {
+          inherit (user) createHome;
           group = mkIf (user.group != null) user.group;
           isSystemUser = true;
           useDefaultShell = true;
+          home = mkIf user.createHome user.home;
 
           openssh.authorizedKeys.keyFiles = user.sshKeys;
         };
