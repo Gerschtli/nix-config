@@ -2,7 +2,6 @@
 
 self: super:
 
-
 let
   inherit (super) fetchurl stdenv;
 

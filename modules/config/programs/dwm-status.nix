@@ -1,3 +1,5 @@
+# FIXME: remove when https://github.com/NixOS/nixpkgs/pull/51319 get merged
+
 { config, lib, pkgs, ... }:
 
 with lib;

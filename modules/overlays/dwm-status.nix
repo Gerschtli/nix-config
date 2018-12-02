@@ -1,3 +1,5 @@
+# FIXME: remove when https://github.com/NixOS/nixpkgs/pull/51318 get merged
+
 self: super:
 
 let
