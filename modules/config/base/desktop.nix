@@ -77,6 +77,8 @@ in
             browserpass = true;
             x11Support = true;
           };
+
+          pmount.enable = true;
         };
 
         system.boot.mode = "efi";
