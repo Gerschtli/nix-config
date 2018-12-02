@@ -75,6 +75,7 @@ in
           pass = {
             enable = true;
             browserpass = true;
+            x11Support = true;
           };
         };
 

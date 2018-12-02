@@ -32,7 +32,7 @@ in
 
       x11Support = mkOption {
         type = types.bool;
-        default = true;
+        default = false;
         description = ''
           Whether to enable X11 support.
         '';
