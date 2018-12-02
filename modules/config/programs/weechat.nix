@@ -39,9 +39,15 @@ in
 
   config = mkIf cfg.enable {
 
-    users.users.tobias.packages = [ pkgs.weechat ];
-
     networking.firewall.allowedTCPPorts = optional (cfg.port != null) cfg.port;
+
+    programs.screen.screenrc = ''
+      multiuser on
+      acladd tobias
+      escape ^Bb
+    '';
+
+    services.weechat.enable = true;
 
   };
 
