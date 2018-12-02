@@ -115,7 +115,7 @@ in
 
         xss-lock = {
           enable = true;
-          lockerCommand = "${pkgs.slock}/bin/slock";
+          lockerCommand = "${config.security.wrapperDir}/slock";
         };
       };
 
