@@ -51,8 +51,6 @@ in
       boot.tmpOnTmpfs = true;
 
       custom = {
-        misc.dev.enable = true;
-
         programs = {
           dwm-status = {
             enable = cfg.wm == "dwm";
