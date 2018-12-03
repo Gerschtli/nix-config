@@ -188,6 +188,7 @@ in
         spotify
         sublime3
         thunderbird
+        udisks
         vscode
       ];
 
