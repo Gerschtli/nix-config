@@ -50,7 +50,6 @@ in
         httpie
         iotop
         keychain
-        neovim
         nox
         pwgen
         ripgrep
@@ -67,6 +66,12 @@ in
         netcat
         psmisc # killall
         whois
+
+        ( # FIXME: use always neovim after https://github.com/NixOS/nixpkgs/issues/45026 got fixed
+          if stdenv.hostPlatform.system == "aarch64-linux"
+          then vim
+          else neovim
+        )
       ];
     };
 
