@@ -1,15 +1,15 @@
-# FIXME: remove when https://github.com/NixOS/nixpkgs/pull/51318 get merged
+# FIXME: remove when https://github.com/NixOS/nixpkgs/pull/52716 got merged
 
 self: super:
 
 let
-  # PR branch to update dwm-status to 1.4.1
+  # PR branch to update dwm-status to 1.5.0
   pkgs = let
     pinnedPkgs = super.fetchFromGitHub {
       owner = "Gerschtli";
       repo = "nixpkgs";
-      rev = "bc2d26fd8f5f0e179cb739817b220bfa81da950e";
-      sha256 = "00wagg5c6vsyk8fvb8wcv1y5mg1y6qd35qpzs03n86csq8sqdr2b";
+      rev = "a08b98f0c17650da609e4331f5058ca2177471af";
+      sha256 = "009k2f00dma2441rcghci3dsglar30skjlfjz45cd19inb9b4d3x";
     };
   in import pinnedPkgs { overlays = []; };
 in

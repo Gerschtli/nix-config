@@ -60,7 +60,6 @@ in
               else [ "cpu_load" "audio" "time" ];
 
             extraConfig = ''
-              debug = true
               separator = "    "
 
               [audio]
