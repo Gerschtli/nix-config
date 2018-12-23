@@ -136,9 +136,19 @@ in
           displayManager = {
             job.logToFile = mkForce false;
 
-            lightdm.extraSeatDefaults = ''
-              greeter-setup-script=${pkgs.numlockx}/bin/numlockx on
-            '';
+            # FIXME: enable lightdm after https://github.com/NixOS/nixpkgs/issues/26687 got fixed
+            lightdm = {
+              enable = false;
+              extraSeatDefaults = ''
+                greeter-setup-script=${pkgs.numlockx}/bin/numlockx on
+              '';
+            };
+
+            slim = {
+              enable = true;
+              defaultUser = "tobias";
+              extraConfig = "numlock on";
+            };
           };
 
           windowManager.dwm.enable = cfg.wm == "dwm";
