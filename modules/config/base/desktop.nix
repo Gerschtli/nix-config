@@ -220,6 +220,9 @@ in
             discharging = ""
             no_battery = ""
             icons = ["", "", "", "", "", "", "", "", "", "", ""]
+
+            [network]
+            template = "{ESSID}"
           '';
 
           nm-applet.enable = true;
