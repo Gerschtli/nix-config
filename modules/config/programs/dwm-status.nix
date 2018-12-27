@@ -67,6 +67,7 @@ in
         let
           package = pkgs.dwm-status.override {
             enableAlsaUtils = builtins.elem "audio" cfg.order;
+            enableNetwork = builtins.elem "network" cfg.order;
           };
         in
           "${pkgs.dwm-status}/bin/dwm-status ${configFile}";
