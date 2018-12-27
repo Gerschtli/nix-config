@@ -56,7 +56,7 @@ in
             enable = cfg.wm == "dwm";
             order =
               if cfg.laptop
-              then [ "cpu_load" "backlight" "audio" "battery" "time" ]
+              then [ "cpu_load" "network" "backlight" "audio" "battery" "time" ]
               else [ "cpu_load" "audio" "time" ];
 
             extraConfig = ''
