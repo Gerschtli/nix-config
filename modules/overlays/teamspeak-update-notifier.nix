@@ -8,21 +8,23 @@ in
 {
   teamspeak-update-notifier = python36.pkgs.buildPythonPackage rec {
     pname = "teamspeak-update-notifier";
-    version = "1.3.1";
+    version = "1.4.1";
 
     src = fetchFromGitHub {
       owner = "Gerschtli";
       repo = "teamspeak-update-notifier";
       rev = version;
-      sha256 = "1hrvw8q928cnqxbhz1dl550g6zy33agwxgbf4vk6yj04j72x141v";
+      sha256 = "1pzlzbinwb9fbif99ckaca9awd7mz6i827bw5i2hprrzwmhqzr1q";
     };
-
-    doCheck = false;
 
     propagatedBuildInputs = with python36Packages; [
       beautifulsoup4
-      dependency-injector
       requests
+    ];
+
+    checkInputs = with python36Packages; [
+      pytest
+      pytestrunner
     ];
   };
 }
