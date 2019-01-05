@@ -70,7 +70,7 @@ in
             enableNetwork = builtins.elem "network" cfg.order;
           };
         in
-          "${pkgs.dwm-status}/bin/dwm-status ${configFile}";
+          "${package}/bin/dwm-status ${configFile}";
     };
 
   };
