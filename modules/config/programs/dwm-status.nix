@@ -33,7 +33,7 @@ in
       };
 
       order = mkOption {
-        type = types.listOf types.str;
+        type = types.listOf (types.enum [ "audio" "backlight" "battery" "cpu_load" "network" "time" ]);
         description = ''
           List of enabled features in order.
         '';
