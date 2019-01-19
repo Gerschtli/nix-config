@@ -133,6 +133,7 @@ in
         service:
           let
             location = "${cfg.location}/${service.name}";
+            locationGpg = "${location}/gpg-home";
           in
 
           {
@@ -147,13 +148,19 @@ in
                   User = service.user;
                 };
                 preStart = ''
-                  mkdir -p ${location}
+                  mkdir -p ${location} ${locationGpg}
                   chmod 0750 ${location}
+                  chmod 0700 ${locationGpg}
                 '';
                 script = ''
                   cd ${location}
                   ${service.script}
 
+                  find ${location} -type f -not -iname "*.gpg" -exec ${pkgs.gnupg}/bin/gpg2 \
+                    --homedir ${locationGpg} --recipient-file ${../../../secrets/gpg-public-key} --encrypt {} \;
+                  rm -r ${locationGpg}
+
+                  find ${location} -type f -not -iname "*.gpg" -exec rm -r {} \+
                   find ${location} -mtime +${toString service.expiresAfter} -exec rm -r {} \+
                 '';
               }

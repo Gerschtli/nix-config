@@ -149,6 +149,7 @@ in
             ${foldl (acc: server: ''
               ${acc}
               ${pkgs.rsync}/bin/rsync --archive --verbose --compress --whole-file \
+                --prune-empty-dirs --include "*/"  --include="*.gpg" --exclude="*" \
                 --rsh "${pkgs.openssh}/bin/ssh \
                   -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
                   -i ${toString ../../../secrets/id_rsa.backup}" \
