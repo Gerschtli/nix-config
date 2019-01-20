@@ -34,7 +34,7 @@ in
     system.boot.mode = "raspberry";
   };
 
-  hardware.bluetooth.enable = true;
+  # hardware.bluetooth.enable = true;
 
   networking = {
     hostName = "xenon";
