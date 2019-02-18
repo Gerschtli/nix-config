@@ -5,6 +5,11 @@
 
   custom = {
     applications = {
+      betting-game-backend = {
+        enable = true;
+        containerID = 2;
+      };
+
       car-stats = {
         enable = true;
         containerID = 1;
