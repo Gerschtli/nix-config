@@ -183,6 +183,7 @@ in
         rxvt_unicode-with-plugins
         wmname
         xclip
+        xorg.xkill
 
         atom
         audacity
