@@ -82,7 +82,7 @@ in
 
     networking.usePredictableInterfaceNames = false;
 
-    nixpkgs.overlays = map (file: import file) (customLib.getRecursiveFileList ../../overlays);
+    nixpkgs.overlays = map (file: import file) (customLib.getFileList ../../overlays);
 
     programs.zsh = {
       enable = true;
