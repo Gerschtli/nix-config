@@ -2,10 +2,13 @@
 
 let
   callPackage = lib.callPackageWith args;
+
+  fileList = callPackage ./file-list.nix { };
 in
 
 {
+  inherit (fileList) getFileList getRecursiveFileList;
+
   containerApp = callPackage ./container-app.nix { };
-  getRecursiveFileList = callPackage ./get-recursive-file-list.nix { };
   staticPage = callPackage ./static-page.nix { };
 }
