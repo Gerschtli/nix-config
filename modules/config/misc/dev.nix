@@ -33,10 +33,15 @@ in
 
     nixpkgs.config.allowUnfree = true;
 
-    users.users.tobias.extraGroups = [ "docker" "vboxusers" ];
+    users.users.tobias = {
+      extraGroups = [ "docker" "vboxusers" ];
+
+      packages = with pkgs; [ postman ];
+    };
 
     virtualisation = {
       docker.enable = true;
+
       virtualbox.host.enable = true;
     };
 
