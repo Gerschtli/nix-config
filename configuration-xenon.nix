@@ -34,6 +34,11 @@ in
     system.boot.mode = "raspberry";
   };
 
+  environment.systemPackages = with pkgs; [
+    exfat
+    ntfs3g
+  ];
+
   # hardware.bluetooth.enable = true;
 
   networking = {
