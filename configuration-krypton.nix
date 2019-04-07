@@ -20,7 +20,7 @@
         containerID = 1;
       };
 
-      downloads.enable = true;
+      # downloads.enable = true;
 
       tobias-happ.enable = true;
     };
