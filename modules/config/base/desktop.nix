@@ -225,13 +225,14 @@ in
             icons = ["", "", "", "", "", "", "", "", "", "", ""]
           '';
 
-          nm-applet.enable = true;
         };
 
         networking.networkmanager.enable = true;
 
         programs = {
           light.enable = true;
+
+          nm-applet.enable = true;
         };
 
         services = {
