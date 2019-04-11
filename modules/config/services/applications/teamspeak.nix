@@ -74,9 +74,6 @@ in
 
     services.teamspeak3.enable = true;
 
-    # FIXME: remove when https://github.com/NixOS/nixpkgs/pull/45161 gets merged
-    systemd.services.teamspeak3-server.serviceConfig.Environment = "TS3SERVER_LICENSE=accept";
-
   };
 
 }
