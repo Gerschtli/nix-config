@@ -207,6 +207,7 @@ in
         icons.enable = true;
         menus.enable = true;
         mime.enable = true;
+        sounds.enable = true;
       };
     }
 
