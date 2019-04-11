@@ -21,10 +21,10 @@ create_diff() {
 }
 
 # dmenu
-create_diff dmenu 4.8
+create_diff dmenu 4.9
 
 # dwm
-create_diff dwm 6.1
+create_diff dwm 6.2
 
 # slock
 create_diff slock 1.4

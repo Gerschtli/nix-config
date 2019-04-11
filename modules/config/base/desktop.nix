@@ -193,7 +193,7 @@ in
         libreoffice
         musescore
         qpdfview
-        quodlibet
+        # quodlibet
         soapui
         spotify
         sublime3
