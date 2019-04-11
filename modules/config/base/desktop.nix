@@ -230,6 +230,10 @@ in
 
         networking.networkmanager.enable = true;
 
+        programs = {
+          light.enable = true;
+        };
+
         services = {
           logind.extraConfig = ''
             HandlePowerKey=ignore
@@ -246,9 +250,7 @@ in
           };
         };
 
-        users.users.tobias.packages = with pkgs; [
-          xorg.xbacklight
-        ];
+        users.users.tobias.extraGroups = [ "video" ];
       }
     )
 
