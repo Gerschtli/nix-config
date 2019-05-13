@@ -63,14 +63,7 @@ in
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
 
-      serviceConfig.ExecStart =
-        let
-          package = pkgs.dwm-status.override {
-            enableAlsaUtils = builtins.elem "audio" cfg.order;
-            enableNetwork = builtins.elem "network" cfg.order;
-          };
-        in
-          "${package}/bin/dwm-status ${configFile}";
+      serviceConfig.ExecStart = "${pkgs.dwm-status}/bin/dwm-status ${configFile}";
     };
 
   };
