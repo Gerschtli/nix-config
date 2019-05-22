@@ -190,8 +190,10 @@ in
         eclipses.eclipse-sdk
         gimp
         google-chrome
+        jetbrains.idea-ultimate
         libreoffice
         musescore
+        nomacs
         qpdfview
         # quodlibet
         soapui
