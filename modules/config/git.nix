@@ -135,7 +135,7 @@ in
         bnc = externGitAlias "git branch-name | xclip -selection clipboard && echo 'Branch name copied to clipboard!'";
         ca = "commit -q --branch --status --verbose --amend";
         cf = "checkout --quiet --force";
-        cl = externGitAlias "git clone --recursive --progress --template=\${HOME}/.git/template";
+        cl = externGitAlias "git clone --recursive --progress";
         cm = "commit --branch --status --verbose";
         cn = externGitAlias "git reflog expire --all && git fsck --unreachable --full && git prune && \\\
           git gc --aggressive --quiet && git repack -Adq && git prune-packed --quiet";
@@ -238,6 +238,7 @@ in
           compression = 9;
           eol = "lf";
           editor = "nvim"; # TODO: replace with path
+          hooksPath = "${../files/git/hooks}";
           loosecompression = 9;
           preloadindex = true;
         };
