@@ -31,7 +31,11 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.htop.enable = true;
+    custom = {
+      git.enable = true;
+
+      htop.enable = true;
+    };
 
     home.stateVersion = "19.03";
 
