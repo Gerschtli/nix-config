@@ -31,6 +31,8 @@ in
 
   config = mkIf cfg.enable {
 
+    custom.htop.enable = true;
+
     home.stateVersion = "19.03";
 
     nixpkgs = {
