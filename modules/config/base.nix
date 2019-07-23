@@ -8,6 +8,33 @@ let
   customLib = import ../lib args;
 
   overlays = customLib.getFileList ../overlays;
+
+  localeGerman = "de_DE.UTF-8";
+  localeEnglish = "en_US.UTF-8";
+
+  sessionVariables = {
+    LC_CTYPE = localeEnglish;
+    LC_NUMERIC = localeEnglish;
+    LC_TIME = localeGerman;
+    LC_COLLATE = localeEnglish;
+    LC_MONETARY = localeEnglish;
+    LC_MESSAGES = localeEnglish;
+    LC_PAPER = localeGerman;
+    LC_NAME = localeEnglish;
+    LC_ADDRESS = localeEnglish;
+    LC_TELEPHONE = localeEnglish;
+    LC_MEASUREMENT = localeGerman;
+    LC_IDENTIFICATION = localeEnglish;
+    LC_ALL = "";
+
+    LANG = localeEnglish;
+    LANGUAGE = localeEnglish;
+
+    TERM = "screen-256color";
+
+    PAGER = "${pkgs.less}/bin/less -FRX";
+    EDITOR = "${pkgs.neovim}/bin/nvim";
+  };
 in
 
 {
@@ -41,7 +68,11 @@ in
       zsh.enable = true;
     };
 
-    home.stateVersion = "19.03";
+    home = {
+      inherit sessionVariables;
+
+      stateVersion = "19.03";
+    };
 
     nixpkgs = {
       config = import ../files/config.nix;
