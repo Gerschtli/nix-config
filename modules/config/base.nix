@@ -32,9 +32,13 @@ in
   config = mkIf cfg.enable {
 
     custom = {
+      bash.enable = true;
+
       git.enable = true;
 
       htop.enable = true;
+
+      zsh.enable = true;
     };
 
     home.stateVersion = "19.03";
