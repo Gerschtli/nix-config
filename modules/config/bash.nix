@@ -28,6 +28,12 @@ in
       historySize = 1000;
       historyFileSize = 2000;
       historyControl = [ "ignorespace" "ignoredups" ];
+
+      initExtra = ''
+        shell-reload() {
+            [[ -r "$HOME/.bash_profile" ]] && source "$HOME/.bash_profile"
+        }
+      '';
     };
 
   };
