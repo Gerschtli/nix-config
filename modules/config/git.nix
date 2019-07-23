@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.custom.git;
 
-  externGitAlias = alias: "!\"${alias}\"";
+  externGitAlias = alias: "!\"${builtins.replaceStrings [''"''] [''\"''] alias}\"";
 
   ignoreList = [
 
@@ -132,13 +132,13 @@ in
         bc = "checkout -b";
         bd = "branch --verbose --delete";
         bdd = "branch --verbose -D";
-        bnc = externGitAlias "git branch-name | xclip -selection clipboard && echo 'Branch name copied to clipboard!'";
+        bnc = externGitAlias ''git branch-name | xclip -selection clipboard && echo "Branch name copied to clipboard!"'';
         ca = "commit -q --branch --status --verbose --amend";
         cf = "checkout --quiet --force";
         cl = externGitAlias "git clone --recursive --progress";
         cm = "commit --branch --status --verbose";
-        cn = externGitAlias "git reflog expire --all && git fsck --unreachable --full && git prune && \\\
-          git gc --aggressive --quiet && git repack -Adq && git prune-packed --quiet";
+        cn = externGitAlias ''git reflog expire --all && git fsck --unreachable --full && git prune && \
+          git gc --aggressive --quiet && git repack -Adq && git prune-packed --quiet'';
         co = "checkout";
         fa = externGitAlias "git fe --all && git fe --all --tags";
         fe = "fetch --progress";
@@ -176,12 +176,12 @@ in
         cma = externGitAlias "git co master && git rebase -n origin/master";
         mma = "merge origin/master";
 
-        aliases = "config --get-regexp '^alias'";
+        aliases = ''config --get-regexp "^alias"'';
 
-        bclean = externGitAlias "git for-each-ref --format '%(refname:short)' refs/heads | \\\
-          grep -Ev \"master|$(git branch-name)\" | xargs git bd";
+        bclean = externGitAlias ''git for-each-ref --format "%(refname:short)" refs/heads | \
+          grep -Ev "master|$(git branch-name)" | xargs git bd'';
 
-        branch-name = externGitAlias "git for-each-ref --format='%(refname:short)' $(git symbolic-ref HEAD)";
+        branch-name = externGitAlias ''git for-each-ref --format="%(refname:short)" $(git symbolic-ref HEAD)'';
         total-clean = externGitAlias "git co -f && git clean -dfx && git clean -dfX";
 
         set-upstream = externGitAlias "git branch --set-upstream-to=origin/$(git branch-name) $(git branch-name)";
