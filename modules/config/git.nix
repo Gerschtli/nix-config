@@ -100,6 +100,30 @@ let
     ''
 
   ];
+
+  commitMsgTemplate = link: ''
+
+    # ^ (If applied, this commit will...) <subject>
+
+    # Explain why this change is being made
+
+
+    # Provide links or keys to any relevant tickets, articles or other resources
+    # Example: Github issue #23
+    ${link}
+
+
+    # --- COMMIT END ---
+    # Remember to
+    #    Capitalize the subject line
+    #    Use the imperative mood in the subject line
+    #    Do not end the subject line with a period
+    #    Separate subject from body with a blank line
+    #    Use the body to explain what and why vs. how
+    #    Can use multiple lines with "-" for bullet points in body
+  '';
+
+  writeFile = name: content: "${pkgs.writeText name content}";
 in
 
 {
@@ -231,7 +255,7 @@ in
 
         commit = {
           status = true;
-          template = "${../files/git/commit.msg}";
+          template = writeFile "commit.msg" (commitMsgTemplate "");
         };
 
         core = {
@@ -346,18 +370,14 @@ in
           condition = "gitdir:~/projects/pveu/*";
 
           contents = {
-            commit.template = "${../files/git/commit-pveu.msg}";
+            commit.template = writeFile "commit.msg" (commitMsgTemplate "BRANCHNAME");
 
-            core.excludesfile = "${../files/git/gitignore-pveu}";
-
-            /*
-             FIXME: use following expression which currently fails to build
             core.excludesfile =
               let
                 ignoreListPveu = ignoreList ++ [ ".envrc" "shell.nix" ];
+                content = concatStringsSep "\n" ignoreListPveu + "\n";
               in
-                pkgs.writeText "ignore" (concatStringsSep "\n" ignoreListPveu + "\n");
-            */
+                writeFile "gitignore" content;
 
             user.email = "th@preisvergleich.eu";
           };
