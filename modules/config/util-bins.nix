@@ -26,6 +26,7 @@ in
   config = mkIf cfg.enable {
 
     home.packages = [
+      # TODO: add system-update and csv-check
       (pkgs.stdenv.mkDerivation {
         name = "util-bins";
 
