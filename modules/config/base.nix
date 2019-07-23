@@ -65,6 +65,8 @@ in
 
       htop.enable = true;
 
+      util-bins.enable = true;
+
       zsh.enable = true;
     };
 
