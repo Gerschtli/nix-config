@@ -4,6 +4,21 @@ with lib;
 
 let
   cfg = config.custom.xsession;
+
+  lock-screen = pkgs.writeScriptBin "lock-screen" ''
+    #!${pkgs.bash}/bin/bash
+
+    revert() {
+      ${pkgs.xorg.xset}/bin/xset -dpms
+    }
+
+    trap revert HUP INT TERM
+    ${pkgs.xorg.xset}/bin/xset +dpms dpms 3 3 3
+
+    ${pkgs.i3lock-fancy}/bin/i3lock-fancy --nofork --text "" -- ${pkgs.scrot}/bin/scrot --silent
+
+    revert
+  '';
 in
 
 {
@@ -30,7 +45,7 @@ in
 
       packages = with pkgs; [
         dmenu
-        dwm
+        dwm # TODO: wrap with runtime dependencies
 
         (pkgs.writeScriptBin "inhibit-suspend" ''
           #!${pkgs.bash}/bin/bash
@@ -39,20 +54,7 @@ in
           ${pkgs.systemd}/bin/systemd-inhibit --what=handle-lid-switch lock-screen
         '')
 
-        (pkgs.writeScriptBin "lock-screen" ''
-          #!${pkgs.bash}/bin/bash
-
-          revert() {
-            ${pkgs.xorg.xset}/bin/xset -dpms
-          }
-
-          trap revert HUP INT TERM
-          ${pkgs.xorg.xset}/bin/xset +dpms dpms 3 3 3
-
-          ${pkgs.i3lock-fancy}/bin/i3lock-fancy --nofork --text "" -- ${pkgs.scrot}/bin/scrot --silent
-
-          revert
-        '')
+        lock-screen
 
         # TODO: remove?
         (pkgs.writeScriptBin "chrome" ''
@@ -82,6 +84,15 @@ in
           ]
       );
     };
+
+    # TODO: use service after https://github.com/rycee/home-manager/issues/773 got resolved
+    services.screen-locker = {
+      # enable = true;
+      lockCmd = "${lock-screen}/bin/lock-screen";
+      inactiveInterval = 20;
+    };
+
+    systemd.user.startServices = true;
 
     xresources.properties =
       let
