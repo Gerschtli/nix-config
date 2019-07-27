@@ -40,7 +40,7 @@ in
           # <http://developer.gnome.org/pango/stable/PangoMarkupFormat.html>.
           # If markup is not allowed, those tags will be stripped out of the
           # message.
-          allow_markup = true;
+          markup = true;
 
           # The format of the message.  Possible variables are:
           #   %a  appname
@@ -50,7 +50,7 @@ in
           #   %I  iconname (without its path)
           #   %p  progress value if set ([  0%] to [100%]) or nothing
           # Markup is allowed
-          format = "<b>%s</b>\n%b";
+          format = ''<b>%s</b>\n%b'';
 
           # Sort messages by urgency.
           sort = true;
@@ -173,11 +173,9 @@ in
 
           # Align icons left/right/off
           icon_position = "off";
-        };
 
-        frame = {
-          width = 3;
-          color = "#aaaaaa";
+          frame_width = 3;
+          frame_color = "#aaaaaa";
         };
 
         shortcuts = {
@@ -190,15 +188,13 @@ in
           close = "ctrl+space";
 
           # Close all notifications.
-          close_all = "ctrl+shift+space";
+          close_all = "ctrl+mod1+space";
 
           # Redisplay last message(s).
-          # On the US keyboard layout "grave" is normally above TAB and left
-          # of "1".
-          history = "ctrl+grave";
+          history = "ctrl+mod1+h";
 
           # Context menu.
-          context = "ctrl+shift+period";
+          context = "ctrl+mod1+period";
         };
 
         urgency_low = {
