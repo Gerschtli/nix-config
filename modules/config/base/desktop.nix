@@ -107,16 +107,7 @@ in
 
       nixpkgs.config.allowUnfree = true;
 
-      programs = {
-        slock.enable = true;
-
-        ssh.askPassword = "";
-
-        xss-lock = {
-          enable = true;
-          lockerCommand = "${config.security.wrapperDir}/slock";
-        };
-      };
+      programs.ssh.askPassword = "";
 
       services = {
         udev.packages = with pkgs; [ android-udev-rules ];
@@ -128,9 +119,6 @@ in
 
         xserver = {
           enable = true;
-          layout = "de";
-          xkbOptions = "ctrl:nocaps";
-          xkbVariant = "nodeadkeys";
 
           desktopManager.xterm.enable = false;
 
@@ -152,8 +140,6 @@ in
             };
           };
 
-          windowManager.dwm.enable = cfg.wm == "dwm";
-
           windowManager.i3 = {
             enable = cfg.wm == "i3";
             extraPackages = with pkgs; [ i3status-rust ];
@@ -173,15 +159,9 @@ in
       ];
 
       users.users.tobias.packages = with pkgs; [
-        dmenu
-        dunst
-        gnome3.zenity
         imagemagick
-        libnotify # for notify-send
         pavucontrol
         playerctl
-        rxvt_unicode-with-plugins
-        wmname
         xclip
         xorg.xkill
 
