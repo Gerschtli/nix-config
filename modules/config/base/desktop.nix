@@ -53,29 +53,21 @@ in
       custom = {
         misc.dev.enable = true;
 
-        programs = {
-          dwm-status = {
-            enable = cfg.wm == "dwm";
-            order =
-              if cfg.laptop
-              then [ "cpu_load" "backlight" "audio" "battery" "time" ]
-              else [ "cpu_load" "audio" "time" ];
+        programs.dwm-status = {
+          enable = cfg.wm == "dwm";
+          order =
+            if cfg.laptop
+            then [ "cpu_load" "backlight" "audio" "battery" "time" ]
+            else [ "cpu_load" "audio" "time" ];
 
-            extraConfig = ''
-              separator = "    "
+          extraConfig = ''
+            separator = "    "
 
-              [audio]
-              mute = "ﱝ"
-              template = "{ICO} {VOL}%"
-              icons = ["奄", "奔", "墳"]
-            '';
-          };
-
-          pass = {
-            enable = true;
-            browserpass = true;
-            x11Support = true;
-          };
+            [audio]
+            mute = "ﱝ"
+            template = "{ICO} {VOL}%"
+            icons = ["奄", "奔", "墳"]
+          '';
         };
 
         system.boot.mode = "efi";
