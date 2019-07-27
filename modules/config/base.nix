@@ -61,6 +61,8 @@ in
     custom = {
       bash.enable = true;
 
+      dunst.enable = true;
+
       git.enable = true;
 
       htop.enable = true;
