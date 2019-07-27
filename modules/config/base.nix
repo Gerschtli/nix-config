@@ -69,6 +69,8 @@ in
 
       util-bins.enable = true;
 
+      xsession.enable = true;
+
       zsh.enable = true;
     };
 
