@@ -69,6 +69,8 @@ in
 
       liquidprompt.enable = true;
 
+      urxvt.enable = true;
+
       util-bins.enable = true;
 
       xsession.enable = true;
