@@ -2,5 +2,4 @@ configuration.nix
 hardware-configuration.nix
 modules/secrets/*
 !modules/secrets/.gitkeep
-patches/*-config.diff
 result
