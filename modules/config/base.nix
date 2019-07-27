@@ -69,6 +69,12 @@ in
 
       liquidprompt.enable = true;
 
+      pass = {
+        enable = true;
+        browserpass = true;
+        x11Support = true;
+      };
+
       urxvt.enable = true;
 
       util-bins.enable = true;
