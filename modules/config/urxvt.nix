@@ -56,7 +56,7 @@ in
           "URxvt.keysym.M-r"          = "perl:keyboard-select:search";
 
           "URxvt.keysym.M-u"          = "perl:url-select:select_next";
-          "URxvt.url-select.launcher" = "${pkgs.google-chrome}";
+          "URxvt.url-select.launcher" = "${pkgs.google-chrome}/bin/google-chrome-stable";
 
           "URxvt*color4"              = colorBlue;
           "URxvt*color12"             = colorBlue;
