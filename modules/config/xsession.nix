@@ -89,9 +89,8 @@ in
       );
     };
 
-    # TODO: use service after https://github.com/rycee/home-manager/issues/773 got resolved
     services.screen-locker = {
-      # enable = true;
+      enable = true;
       lockCmd = "${lock-screen}/bin/lock-screen";
       inactiveInterval = 20;
     };
