@@ -73,6 +73,8 @@ in
 
       liquidprompt.enable = true;
 
+      lorri.enable = true;
+
       pass = {
         enable = true;
         browserpass = true;
