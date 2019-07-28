@@ -33,16 +33,6 @@ in
 
     nixpkgs.config.allowUnfree = true;
 
-    programs = {
-      bash.interactiveShellInit = ''
-        eval "$(${pkgs.direnv}/bin/direnv hook bash)"
-      '';
-
-      zsh.interactiveShellInit = ''
-        eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
-      '';
-    };
-
     users.users.tobias = {
       extraGroups = [
         # "docker"
@@ -50,7 +40,6 @@ in
       ];
 
       packages = with pkgs; [
-        direnv
         postman
       ];
     };
