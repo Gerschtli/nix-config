@@ -91,6 +91,27 @@ in
     home = {
       inherit sessionVariables;
 
+      packages = with pkgs; [
+        file
+        httpie
+        iotop
+        nox
+        pwgen
+        ripgrep
+        tree
+        wget
+
+        gzip
+        unzip
+        xz
+        zip
+
+        bind # dig
+        netcat
+        psmisc # killall
+        whois
+      ];
+
       stateVersion = "19.03";
     };
 
