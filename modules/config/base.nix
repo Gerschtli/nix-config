@@ -33,7 +33,6 @@ let
     TERM = "screen-256color";
 
     PAGER = "${pkgs.less}/bin/less -FRX";
-    EDITOR = "${pkgs.neovim}/bin/nvim";
   };
 in
 
@@ -75,6 +74,8 @@ in
 
       lorri.enable = true;
 
+      neovim.enable = true;
+
       nodejs.enable = true;
 
       pass = {
@@ -86,6 +87,8 @@ in
       urxvt.enable = true;
 
       util-bins.enable = true;
+
+      vim.enable = true;
 
       xsession.enable = true;
 
