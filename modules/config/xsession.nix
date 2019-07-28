@@ -97,6 +97,23 @@ in
 
     systemd.user.startServices = true;
 
+    xdg.configFile."mimeapps.list".text = generators.toINI {} {
+      "Default Applications" = {
+        "application/pdf" = "qpdfview.desktop";
+        "image/jpeg" = "qpdfview.desktop";
+        "image/png" = "qpdfview.desktop";
+
+        "message/rfc822" = "thunderbird.desktop";
+        "x-scheme-handler/mailto" = "thunderbird.desktop";
+
+        "text/html" = "google-chrome.desktop";
+        "x-scheme-handler/http" = "google-chrome.desktop";
+        "x-scheme-handler/https" = "google-chrome.desktop";
+        "x-scheme-handler/about" = "google-chrome.desktop";
+        "x-scheme-handler/unknown" = "google-chrome.desktop";
+      };
+    };
+
     xsession = {
       enable = true;
       windowManager.command = "${pkgs.dwm}/bin/dwm";
