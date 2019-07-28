@@ -141,6 +141,8 @@ in
 
   config = mkIf cfg.enable {
 
+    home.packages = [ pkgs.gitAndTools.tig ];
+
     programs.git = {
       enable = true;
 
