@@ -34,7 +34,7 @@ in
       enableAutosuggestions = true;
 
       initExtra = ''
-        hash sudo > /dev/null 2>&1 && alias sudo='nocorrect sudo '
+        available sudo && alias sudo='nocorrect sudo '
 
         alias -g C="| ${pkgs.xclip}/bin/xclip -selection clipboard"
         alias -g G="| grep"

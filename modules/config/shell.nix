@@ -5,7 +5,12 @@ with lib;
 let
   cfg = config.custom.shell;
 
-  initExtra = ''
+  # mkBefore is needed because available needs to be defined early in the config
+  initExtra = mkBefore ''
+    available() {
+      hash "$1" > /dev/null 2>&1
+    }
+
     eval "$(dircolors -b)"
   '';
 
