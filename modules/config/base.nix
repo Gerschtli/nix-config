@@ -75,6 +75,8 @@ in
 
       lorri.enable = true;
 
+      nodejs.enable = true;
+
       pass = {
         enable = true;
         browserpass = true;
