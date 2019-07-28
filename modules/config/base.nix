@@ -65,6 +65,8 @@ in
 
       dunst.enable = true;
 
+      fzf.enable = true;
+
       git.enable = true;
 
       htop.enable = true;
