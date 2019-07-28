@@ -29,10 +29,14 @@ in
       historyFileSize = 2000;
       historyControl = [ "ignorespace" "ignoredups" ];
 
-      initExtra = ''
+      # mkBefore is needed because hashing needs to be enabled early in the config
+      initExtra = mkBefore ''
         shell-reload() {
-            [[ -r "$HOME/.bash_profile" ]] && source "$HOME/.bash_profile"
+          [[ -r "$HOME/.bash_profile" ]] && source "$HOME/.bash_profile"
         }
+
+        # enable hashing
+        set -h
       '';
     };
 
