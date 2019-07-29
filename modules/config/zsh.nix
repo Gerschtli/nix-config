@@ -44,6 +44,7 @@ in
           [[ -r "$HOME/${dotDir}/.zshenv" ]]   && source "$HOME/${dotDir}/.zshenv"
           [[ -r "$HOME/${dotDir}/.zprofile" ]] && source "$HOME/${dotDir}/.zprofile"
           [[ -r "$HOME/${dotDir}/.zshrc" ]]    && source "$HOME/${dotDir}/.zshrc"
+          [[ -r "$HOME/${dotDir}/.zlogin" ]]   && source "$HOME/${dotDir}/.zlogin"
         }
 
         source ${../files/zsh/completion.zsh}
