@@ -5,14 +5,20 @@ with lib;
 let
   cfg = config.custom.shell;
 
-  # mkBefore is needed because available needs to be defined early in the config
-  initExtra = mkBefore ''
-    available() {
-      hash "$1" > /dev/null 2>&1
-    }
+  initExtra = mkMerge [
+    # mkBefore is needed because available needs to be defined early in the config
+    (mkBefore ''
+      available() {
+        hash "$1" > /dev/null 2>&1
+      }
+    '')
 
-    eval "$(dircolors -b)"
-  '';
+    ''
+      eval "$(dircolors -b)"
+    ''
+
+    cfg.initExtra
+  ];
 
   logoutExtra = ''
     [[ -e "$HOME/.lesshst" ]]             && rm -f "$HOME/.lesshst"
@@ -75,6 +81,14 @@ in
     custom.shell = {
 
       enable = mkEnableOption "basic shell config";
+
+      initExtra = mkOption {
+        default = "";
+        type = types.lines;
+        description = ''
+          Extra commands that should be executed when starting an interactive shell.
+        '';
+      };
 
       shellAliases = mkOption {
         default = {};
