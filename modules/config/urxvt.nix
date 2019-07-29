@@ -4,6 +4,16 @@ with lib;
 
 let
   cfg = config.custom.urxvt;
+
+  colorBlue = "#6d68ff";
+  fontName = "UbuntuMono Nerd Font";
+  fontSize = "11";
+
+  buildFont = modifier: concatStringsSep ":" (
+    [ "xft" fontName ]
+      ++ modifier
+      ++ [ "pixelsize=${fontSize}" ]
+  );
 in
 
 {
@@ -21,46 +31,50 @@ in
 
   config = mkIf cfg.enable {
 
-    home.packages = [ pkgs.rxvt_unicode-with-plugins ];
+    programs.urxvt = {
+      enable = true;
+      package = pkgs.rxvt_unicode-with-plugins;
 
-    xresources.properties =
-      let
-        colorBlue = "#6d68ff";
-        fontName = "UbuntuMono Nerd Font";
-        fontSize = "11";
-      in
-        {
-          "Xft.dpi"                   = "96";
-          "Xft.antialias"             = "true";
-          "Xft.rgba"                  = "rgb";
-          "Xft.hinting"               = "true";
-          "Xft.hintstyle"             = "hintslight";
+      scroll.bar.enable = false;
 
-          "URxvt*background"          = "black";
-          "URxvt*boldFont"            = "xft:${fontName}:bold:pixelsize=${fontSize}";
-          "URxvt*boldItalicFont"      = "xft:${fontName}:bold:italic:pixelsize=${fontSize}";
-          "URxvt*font"                = "xft:${fontName}:pixelsize=${fontSize}";
-          "URxvt*foreground"          = "white";
-          "URxvt*italicFont"          = "xft:${fontName}:italic:pixelsize=${fontSize}";
-          "URxvt*modifier"            = "alt";
-          "URxvt*scrollBar"           = "false";
+      extraConfig = {
+        "font" = buildFont [];
+        "boldFont" = buildFont [ "bold" ];
+        "italicFont" = buildFont [ "italic" ];
+        "boldItalicFont" = buildFont [ "bold" "italic" ];
 
-          "URxvt*perl-ext-common"     = "default,font-size,keyboard-select,selection-to-clipboard,url-select";
+        "background" = "black";
+        "foreground" = "white";
+        "modifier" = "alt";
 
-          "URxvt.keysym.C-minus"      = "perl:font-size:decrease";
-          "URxvt.keysym.C-plus"       = "perl:font-size:increase";
-          "URxvt.keysym.C-equal"      = "perl:font-size:reset";
-          "URxvt.font-size.step"      = "2";
+        "perl-ext-common" = "default,font-size,keyboard-select,selection-to-clipboard,url-select";
 
-          "URxvt.keysym.M-s"          = "perl:keyboard-select:activate";
-          "URxvt.keysym.M-r"          = "perl:keyboard-select:search";
+        "font-size.step" = 2;
+        "url-select.launcher" = "${pkgs.google-chrome}/bin/google-chrome-stable";
 
-          "URxvt.keysym.M-u"          = "perl:url-select:select_next";
-          "URxvt.url-select.launcher" = "${pkgs.google-chrome}/bin/google-chrome-stable";
+        "color4" = colorBlue;
+        "color12" = colorBlue;
+      };
 
-          "URxvt*color4"              = colorBlue;
-          "URxvt*color12"             = colorBlue;
-        };
+      keybindings = {
+        "C-minus" = "perl:font-size:decrease";
+        "C-plus" = "perl:font-size:increase";
+        "C-equal" = "perl:font-size:reset";
+
+        "M-s" = "perl:keyboard-select:activate";
+        "M-r" = "perl:keyboard-select:search";
+
+        "M-u" = "perl:url-select:select_next";
+      };
+    };
+
+    xresources.properties = {
+      "Xft.dpi" = 96;
+      "Xft.antialias" = true;
+      "Xft.rgba" = "rgb";
+      "Xft.hinting" = true;
+      "Xft.hintstyle" = "hintslight";
+    };
 
   };
 
