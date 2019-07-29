@@ -84,6 +84,8 @@ in
         x11Support = true;
       };
 
+      php.enable = true;
+
       urxvt.enable = true;
 
       util-bins.enable = true;
