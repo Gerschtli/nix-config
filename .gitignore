@@ -1,1 +1,3 @@
+/modules/secrets/*
+!/modules/secrets/.gitkeep
 result
