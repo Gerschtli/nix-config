@@ -30,6 +30,8 @@ let
 
   profileExtra = ''
     umask 022
+
+    ${cfg.profileExtra}
   '';
 
   shellAliases = {
@@ -87,6 +89,14 @@ in
         type = types.lines;
         description = ''
           Extra commands that should be executed when starting an interactive shell.
+        '';
+      };
+
+      profileExtra = mkOption {
+        default = "";
+        type = types.lines;
+        description = ''
+          Extra commands that should be run when initializing a login shell.
         '';
       };
 
