@@ -92,11 +92,6 @@ zstyle ':completion:*:urls' local 'www' '/var/www/' 'public_html'
 
 # host completion
 [[ -r ~/.ssh/config ]] && _ssh_config_hosts=(${${(s: :)${(ps:\t:)${${(@M)${(f)"$(<$HOME/.ssh/config)"}:#Host *}#Host }}}:#*[*?]*}) || _ssh_config_hosts=()
-if [[ -d ~/.ssh/modules ]]; then
-    for file in ~/.ssh/modules/*/config.d/*; do
-        [[ -r $file ]] && _ssh_config_hosts+=(${${(s: :)${(ps:\t:)${${(@M)${(f)"$(<$file)"}:#Host *}#Host }}}:#*[*?]*})
-    done
-fi
 [[ -r ~/.ssh/known_hosts ]] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
 [[ -r /etc/hosts ]] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
 
