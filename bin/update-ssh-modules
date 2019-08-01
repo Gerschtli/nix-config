@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+PROJECT_ROOT="$(dirname "$(dirname "$(readlink -f "${0}")")")"
+
+SSH_MODULES_DIR="${PROJECT_ROOT}/modules/secrets/ssh/modules"
+
+for module in "${SSH_MODULES_DIR}"/*/; do
+    echo -e "\n=== $(basename "${module}") ===\n"
+    git -C "${module}" fetch --prune
+    git -C "${module}" checkout master
+    git -C "${module}" pull
+    echo
+done
