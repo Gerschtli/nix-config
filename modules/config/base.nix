@@ -86,6 +86,8 @@ in
 
       php.enable = true;
 
+      ssh.enable = true;
+
       urxvt.enable = true;
 
       util-bins.enable = true;
