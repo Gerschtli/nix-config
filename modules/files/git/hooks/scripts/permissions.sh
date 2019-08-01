@@ -14,9 +14,6 @@ install() {
     done
 }
 
-echo $PWD
-echo $HOOK_TYPE
-
 if [[ -r "${SECRET_FILES}" ]]; then
     case "${HOOK_TYPE}" in
         post-checkout | post-merge) install ;;
