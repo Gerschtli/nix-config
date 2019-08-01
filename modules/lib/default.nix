@@ -7,5 +7,9 @@ let
 in
 
 {
-  inherit (fileList) getFileList getRecursiveFileList;
+  inherit (fileList)
+    getDirectoryList
+    getRecursiveDirectoryList1
+    getFileList
+    getRecursiveFileList;
 }
