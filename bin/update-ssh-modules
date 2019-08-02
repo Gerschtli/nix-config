@@ -6,8 +6,7 @@ SSH_MODULES_DIR="${PROJECT_ROOT}/modules/secrets/ssh/modules"
 
 for module in "${SSH_MODULES_DIR}"/*/; do
     echo -e "\n=== $(basename "${module}") ===\n"
-    git -C "${module}" fetch --prune
     git -C "${module}" checkout master
-    git -C "${module}" pull
+    git -C "${module}" pull --prune
     echo
 done
