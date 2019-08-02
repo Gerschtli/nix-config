@@ -4,6 +4,6 @@ stdenv.mkDerivation {
   name = "java";
 
   buildInputs = [
-    maven
+    maven35
   ];
 }
