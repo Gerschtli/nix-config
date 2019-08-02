@@ -88,6 +88,8 @@ in
 
       ssh.enable = true;
 
+      tmux.enable = true;
+
       urxvt.enable = true;
 
       util-bins.enable = true;
