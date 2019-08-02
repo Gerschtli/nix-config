@@ -95,7 +95,12 @@ in
 
         matchBlocks = mkMerge (
           map
-            (module: (import module { path = "${toString module}"; }).matchBlocks)
+            (module: (
+              import module {
+                inherit lib;
+                path = "${directoryDestination}/${baseNameOf module}";
+              }
+            ).matchBlocks)
             modules
         );
       };
