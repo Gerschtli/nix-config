@@ -9,7 +9,8 @@ install() {
         local file="${PWD}/${line}"
         if [[ -e "${file}" ]]; then
             chmod 0640 "${file}"
-            chgrp secret-files "${file}"
+            # try to set group if group is available
+            chgrp secret-files "${file}" 2> /dev/null || :
         fi
     done < "${SECRET_FILES}"
 }
