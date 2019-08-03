@@ -97,13 +97,17 @@ in
 
     time.timeZone = "Europe/Berlin";
 
-    users.users = {
-      root.shell = pkgs.zsh;
+    users = {
+      groups.secret-files = { };
 
-      tobias = {
-        extraGroups = [ "wheel" ];
-        isNormalUser = true;
-        shell = pkgs.zsh;
+      users = {
+        root.shell = pkgs.zsh;
+
+        tobias = {
+          extraGroups = [ "secret-files" "wheel" ];
+          isNormalUser = true;
+          shell = pkgs.zsh;
+        };
       };
     };
 
