@@ -61,29 +61,51 @@ in
       '';
     };
 
-    home.packages = [
-      (pkgs.writeTextFile {
-        name = "_kadd";
-        destination = "/share/zsh/site-functions/_kadd";
-        text = ''
-          #compdef kadd
+    home = {
+      activationExtra = ''
+        if [[ ! -d "${directorySource}" || ! -r "${directorySource}" ]]; then
+          >&2 echo "${directorySource} has to be a readable directory for user '${config.home.username}'"
+          exit 1
+        fi
 
-          LIST=()
+        $DRY_RUN_CMD rm --verbose --recursive --force "${directoryDestination}"
+        $DRY_RUN_CMD mkdir --parents "${directoryDestination}"
 
-          for module in "${directoryDestination}/"*; do
-            prefix="$module/keys/id_rsa."
-            suffix=".pub"
+        $DRY_RUN_CMD pushd "${directorySource}"
 
-            for keyfile in "$prefix"*"$suffix"; do
-                tmp="''${keyfile#$prefix}"
-                LIST=("''${tmp//$suffix}" "$LIST")
+        # use xargs so that activation fails if one cp/chmod command fails
+        $DRY_RUN_CMD find . -type f -path "*/keys/*" -print0 | \
+          xargs -0 -n 1 -I % cp --archive --verbose --parents "%" "${directoryDestination}"
+        $DRY_RUN_CMD find "${directoryDestination}" -type f -path "*/keys/*" -print0 | \
+          xargs -0 -n 1 -I % chmod 0600 "%"
+
+        $DRY_RUN_CMD popd
+      '';
+
+      packages = [
+        (pkgs.writeTextFile {
+          name = "_kadd";
+          destination = "/share/zsh/site-functions/_kadd";
+          text = ''
+            #compdef kadd
+
+            LIST=()
+
+            for module in "${directoryDestination}/"*; do
+              prefix="$module/keys/id_rsa."
+              suffix=".pub"
+
+              for keyfile in "$prefix"*"$suffix"; do
+                  tmp="''${keyfile#$prefix}"
+                  LIST=("''${tmp//$suffix}" "$LIST")
+              done
             done
-          done
 
-          _arguments "*:ssh keys:($LIST)"
-        '';
-      })
-    ];
+            _arguments "*:ssh keys:($LIST)"
+          '';
+        })
+      ];
+    };
 
     programs = {
       keychain = {
@@ -127,36 +149,6 @@ in
             ).matchBlocks)
             modules
         );
-      };
-    };
-
-    systemd.user.services.install-ssh-keys = {
-      Unit = {
-        Description = "Install ssh keys";
-      };
-
-      Install = {
-        WantedBy = [ "multi-user.target" ];
-      };
-
-      Service = {
-        Type = "oneshot";
-        RemainAfterExit = "yes";
-
-        ExecStart = "${pkgs.writeScript "install-ssh-keys.sh" ''
-          #!${pkgs.runtimeShell} -e
-
-          if [[ ! -d "${directorySource}" || ! -r "${directorySource}" ]]; then
-            >&2 echo "${directorySource} has to be a readable directory for user '${config.home.username}'"
-            exit 1
-          fi
-
-          rm --verbose --recursive --force "${directoryDestination}"
-          mkdir --parents "${directoryDestination}"
-
-          cd "${directorySource}"
-          find . -type f -path "*/keys/*" -exec cp --archive --verbose --parents "{}" "${directoryDestination}" \;
-        ''}";
       };
     };
 
