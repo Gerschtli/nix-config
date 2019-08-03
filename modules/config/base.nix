@@ -108,6 +108,7 @@ in
         file
         httpie
         iotop
+        jq
         nox
         pwgen
         ripgrep
