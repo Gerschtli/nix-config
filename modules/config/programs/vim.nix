@@ -3,8 +3,10 @@
 with lib;
 
 let
-  cfgNeovim = config.custom.programs.neovim;
-  cfgVim = config.custom.programs.vim;
+  cfg = config.custom.programs.neovim;
+
+  # FIXME: use always neovim after https://github.com/NixOS/nixpkgs/issues/45026 got fixed
+  useVim = pkgs.stdenv.hostPlatform.system == "aarch64-linux";
 
   customRC = ''
     "" Encoding
@@ -164,41 +166,35 @@ in
 
     custom.programs.neovim.enable = mkEnableOption "neovim config";
 
-    custom.programs.vim.enable = mkEnableOption "vim config";
-
   };
 
 
   ###### implementation
 
-  config = mkMerge [
+  config = mkIf cfg.enable {
 
-    (mkIf (cfgNeovim.enable or cfgVim.enable) {
-      home.sessionVariables.EDITOR = if cfgNeovim.enable then "nvim" else "vim";
-    })
+    home.sessionVariables.EDITOR = "vim";
 
-    (mkIf cfgNeovim.enable {
-      programs.neovim = {
-        enable = true;
+    programs = {
+      neovim = {
+        enable = !useVim;
         configure = {
           inherit customRC;
 
           packages.custom.start = plugins;
         };
-        viAlias = !cfgVim.enable;
-        vimAlias = !cfgVim.enable;
+        viAlias = true;
+        vimAlias = true;
       };
-    })
 
-    (mkIf cfgVim.enable {
-      programs.vim = {
-        enable = true;
+      vim = {
+        enable = useVim;
         extraConfig = customRC;
         # TODO: change in home-manager that it accepts derivations
         plugins = map (plugin: plugin.pname) plugins;
       };
-    })
+    };
 
-  ];
+  };
 
 }
