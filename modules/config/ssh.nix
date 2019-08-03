@@ -61,6 +61,30 @@ in
       '';
     };
 
+    home.packages = [
+      (pkgs.writeTextFile {
+        name = "_kadd";
+        destination = "/share/zsh/site-functions/_kadd";
+        text = ''
+          #compdef kadd
+
+          LIST=()
+
+          for module in "${directoryDestination}/"*; do
+            prefix="$module/keys/id_rsa."
+            suffix=".pub"
+
+            for keyfile in "$prefix"*"$suffix"; do
+                tmp="''${keyfile#$prefix}"
+                LIST=("''${tmp//$suffix}" "$LIST")
+            done
+          done
+
+          _arguments "*:ssh keys:($LIST)"
+        '';
+      })
+    ];
+
     programs = {
       keychain = {
         enable = true;
@@ -104,29 +128,6 @@ in
             modules
         );
       };
-
-      zsh.plugins = [
-        {
-          name = "kadd completion";
-          src = pkgs.writeTextDir "_kadd" ''
-            #compdef kadd
-
-            LIST=()
-
-            for module in "${directoryDestination}/"*; do
-              prefix="$module/keys/id_rsa."
-              suffix=".pub"
-
-              for keyfile in "$prefix"*"$suffix"; do
-                  tmp="''${keyfile#$prefix}"
-                  LIST=("''${tmp//$suffix}" "$LIST")
-              done
-            done
-
-            _arguments "*:ssh keys:($LIST)"
-          '';
-        }
-      ];
     };
 
     systemd.user.services.install-ssh-keys = {
