@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.zsh;
+  cfg = config.custom.programs.zsh;
 
   dotDir = ".config/zsh";
 in
@@ -14,7 +14,7 @@ in
 
   options = {
 
-    custom.zsh.enable = mkEnableOption "zsh config";
+    custom.programs.zsh.enable = mkEnableOption "zsh config";
 
   };
 
@@ -23,7 +23,7 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.shell.enable = true;
+    custom.programs.shell.enable = true;
 
     programs.zsh = {
       inherit dotDir;
@@ -47,9 +47,9 @@ in
           [[ -r "$HOME/${dotDir}/.zlogin" ]]   && source "$HOME/${dotDir}/.zlogin"
         }
 
-        source ${../files/zsh/completion.zsh}
-        source ${../files/zsh/directory-hash.zsh}
-        source ${../files/zsh/keybindings.zsh}
+        source ${../../files/zsh/completion.zsh}
+        source ${../../files/zsh/directory-hash.zsh}
+        source ${../../files/zsh/keybindings.zsh}
       '';
 
       plugins = [

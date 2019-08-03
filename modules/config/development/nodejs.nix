@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.nodejs;
+  cfg = config.custom.development.nodejs;
 
   # TODO: add in nixpkgs
   zsh-better-npm-completion = pkgs.stdenv.mkDerivation {
@@ -30,7 +30,7 @@ in
 
   options = {
 
-    custom.nodejs.enable = mkEnableOption "nodejs config";
+    custom.development.nodejs.enable = mkEnableOption "nodejs config";
 
   };
 

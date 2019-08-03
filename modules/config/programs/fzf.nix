@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.fzf;
+  cfg = config.custom.programs.fzf;
 in
 
 {
@@ -12,7 +12,7 @@ in
 
   options = {
 
-    custom.fzf.enable = mkEnableOption "fzf config";
+    custom.programs.fzf.enable = mkEnableOption "fzf config";
 
   };
 

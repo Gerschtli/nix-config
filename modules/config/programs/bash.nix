@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.bash;
+  cfg = config.custom.programs.bash;
 in
 
 {
@@ -12,7 +12,7 @@ in
 
   options = {
 
-    custom.bash.enable = mkEnableOption "bash config";
+    custom.programs.bash.enable = mkEnableOption "bash config";
 
   };
 
@@ -21,7 +21,7 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.shell.enable = true;
+    custom.programs.shell.enable = true;
 
     programs.bash = {
       enable = true;

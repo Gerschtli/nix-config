@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.direnv;
+  cfg = config.custom.development.direnv;
 in
 
 {
@@ -12,7 +12,7 @@ in
 
   options = {
 
-    custom.direnv.enable = mkEnableOption "direnv config";
+    custom.development.direnv.enable = mkEnableOption "direnv config";
 
   };
 

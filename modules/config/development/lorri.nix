@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.lorri;
+  cfg = config.custom.development.lorri;
 in
 
 {
@@ -12,7 +12,7 @@ in
 
   options = {
 
-    custom.lorri.enable = mkOption {
+    custom.development.lorri.enable = mkOption {
       type = types.bool;
       default = false;
       description = ''
@@ -28,7 +28,7 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.direnv.enable = true;
+    custom.development.direnv.enable = true;
 
     home.packages = [
       (pkgs.writeScriptBin "lorri-init" ''
@@ -118,7 +118,7 @@ in
     '';
 
     xdg.configFile."nix/profiles" = {
-      source = ../files/nix/profiles;
+      source = ../../files/nix/profiles;
       recursive = true;
     };
 

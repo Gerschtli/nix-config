@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.pass;
+  cfg = config.custom.programs.pass;
 in
 
 {
@@ -12,7 +12,7 @@ in
 
   options = {
 
-    custom.pass = {
+    custom.programs.pass = {
       enable = mkEnableOption "pass config";
 
       ncurses = mkOption {
@@ -47,7 +47,7 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.dotfiles.modules = [ "gpg" ];
+    custom.misc.dotfiles.modules = [ "gpg" ];
 
     home.packages = with pkgs; [
       (pass.override { inherit (cfg) x11Support; })

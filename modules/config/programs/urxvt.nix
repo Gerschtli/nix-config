@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.urxvt;
+  cfg = config.custom.programs.urxvt;
 
   colorBlue = "#6d68ff";
   fontName = "UbuntuMono Nerd Font";
@@ -22,7 +22,7 @@ in
 
   options = {
 
-    custom.urxvt.enable = mkEnableOption "urxvt config";
+    custom.programs.urxvt.enable = mkEnableOption "urxvt config";
 
   };
 

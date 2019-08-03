@@ -3,11 +3,11 @@
 with lib;
 
 let
-  cfg = config.custom.ssh;
+  cfg = config.custom.programs.ssh;
 
-  customLib = import ../lib args;
+  customLib = import ../../lib args;
 
-  directorySource = toString ../secrets/ssh/modules;
+  directorySource = toString ../../secrets/ssh/modules;
   directoryDestination = "${config.home.homeDirectory}/.ssh/modules";
 
   modules = customLib.getDirectoryList directorySource;
@@ -19,7 +19,7 @@ in
 
   options = {
 
-    custom.ssh.enable = mkEnableOption "ssh config";
+    custom.programs.ssh.enable = mkEnableOption "ssh config";
 
   };
 
@@ -28,7 +28,7 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.shell = {
+    custom.programs.shell = {
       initExtra = ''
         keygen() {
           if [[ -z "$1" ]]; then

@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.vagrant;
+  cfg = config.custom.development.vagrant;
 in
 
 {
@@ -12,7 +12,7 @@ in
 
   options = {
 
-    custom.vagrant.enable = mkEnableOption "vagrant aliases";
+    custom.development.vagrant.enable = mkEnableOption "vagrant aliases";
 
   };
 
@@ -21,7 +21,7 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.shell.initExtra = ''
+    custom.programs.shell.initExtra = ''
       if available vagrant; then
         alias cdv="cd vagrant"
 

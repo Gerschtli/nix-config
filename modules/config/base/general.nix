@@ -3,11 +3,11 @@
 with lib;
 
 let
-  cfg = config.custom.base;
+  cfg = config.custom.base.general;
 
-  customLib = import ../lib args;
+  customLib = import ../../lib args;
 
-  overlays = customLib.getFileList ../overlays;
+  overlays = customLib.getFileList ../../overlays;
 
   localeGerman = "de_DE.UTF-8";
   localeEnglish = "en_US.UTF-8";
@@ -42,7 +42,7 @@ in
 
   options = {
 
-    custom.base = {
+    custom.base.general = {
       enable = mkOption {
         type = types.bool;
         default = true;
@@ -68,60 +68,34 @@ in
   config = mkIf cfg.enable {
 
     custom = {
-      bash.enable = true;
+      programs = {
+        bash.enable = true;
 
-      fzf.enable = true;
+        fzf.enable = true;
 
-      git.enable = true;
+        git.enable = true;
 
-      htop.enable = true;
+        htop.enable = true;
 
-      liquidprompt.enable = true;
+        neovim.enable = true;
 
-      neovim.enable = true;
+        prompts.liquidprompt.enable = true;
 
-      # pure.enable = true:
+        shell.envExtra = mkIf (cfg.extendedPath != []) ''
+          export PATH="${concatStringsSep ":" cfg.extendedPath}:$PATH"
+        '';
 
-      ssh.enable = true;
+        ssh.enable = true;
 
-      tmux.enable = true;
+        tmux.enable = true;
 
-      util-bins = {
+        zsh.enable = true;
+      };
+
+      misc.util-bins = {
         enable = true;
         bins = [ "system-update" ];
       };
-
-      # vim.enable = true;
-
-      zsh.enable = true;
-
-      /*
-      # desktop / pass
-      dotfiles.enable = true;
-      pass = {
-        enable = true;
-        browserpass = true;
-        x11Support = true;
-      };
-
-      # development
-      direnv.enable = true;
-      lorri.enable = true;
-      nodejs.enable = true;
-      php.enable = true;
-      vagrant.enable = true;
-´
-      # desktop
-      dunst.enable = true;
-      urxvt.enable = true;
-      xsession.enable = true;
-
-      # ubuntu
-      shell.envExtra = mkIf (cfg.extendedPath != []) ''
-        export PATH="${concatStringsSep ":" cfg.extendedPath}:$PATH"
-      '';
-      nonNixos.enable = true;
-      */
     };
 
     home = {
@@ -154,7 +128,7 @@ in
     };
 
     nixpkgs = {
-      config = import ../files/config.nix;
+      config = import ../../files/config.nix;
       overlays = map (file: import file) overlays;
     };
 
@@ -164,7 +138,7 @@ in
     };
 
     xdg.configFile = {
-      "nixpkgs/config.nix".source = ../files/config.nix;
+      "nixpkgs/config.nix".source = ../../files/config.nix;
     } // builtins.listToAttrs (
       map (file: {
         name = "nixpkgs/overlays/${baseNameOf file}";

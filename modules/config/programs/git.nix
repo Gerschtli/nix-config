@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.git;
+  cfg = config.custom.programs.git;
 
   externGitAlias = alias: "!\"${builtins.replaceStrings [''"''] [''\"''] alias}\"";
 
@@ -132,7 +132,7 @@ in
 
   options = {
 
-    custom.git.enable = mkEnableOption "git config";
+    custom.programs.git.enable = mkEnableOption "git config";
 
   };
 
@@ -264,7 +264,7 @@ in
           compression = 9;
           eol = "lf";
           editor = "nvim"; # TODO: replace with path
-          hooksPath = "${../files/git/hooks}";
+          hooksPath = "${../../files/git/hooks}";
           loosecompression = 9;
           preloadindex = true;
         };

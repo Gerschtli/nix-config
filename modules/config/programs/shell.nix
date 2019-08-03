@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.shell;
+  cfg = config.custom.programs.shell;
 
   initExtra = mkMerge [
     # mkBefore is needed because available needs to be defined early in the config
@@ -80,7 +80,7 @@ in
 
   options = {
 
-    custom.shell = {
+    custom.programs.shell = {
 
       enable = mkEnableOption "basic shell config";
 

@@ -4,24 +4,29 @@
   imports = [ ../../modules ];
 
   custom = {
-    # desktop / pass
-    dotfiles = {
+    development = {
+      direnv.enable = true;
+
+      lorri.enable = true;
+    };
+
+    misc.dotfiles = {
       enable = true;
       modules = [ "atom" ];
     };
-    pass = {
-      enable = true;
-      browserpass = true;
-      x11Support = true;
+
+    programs = {
+      pass = {
+        enable = true;
+        browserpass = true;
+        x11Support = true;
+      };
+
+      urxvt.enable = true;
     };
 
-    # development
-    direnv.enable = true;
-    lorri.enable = true;
+    services.dunst.enable = true;
 
-    # desktop
-    dunst.enable = true;
-    urxvt.enable = true;
     xsession.enable = true;
   };
 }

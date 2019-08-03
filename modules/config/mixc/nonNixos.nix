@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.nonNixos;
+  cfg = config.custom.misc.nonNixos;
 in
 
 {
@@ -12,7 +12,7 @@ in
 
   options = {
 
-    custom.nonNixos.enable = mkEnableOption "config for non NixOS systems";
+    custom.misc.nonNixos.enable = mkEnableOption "config for non NixOS systems";
 
   };
 

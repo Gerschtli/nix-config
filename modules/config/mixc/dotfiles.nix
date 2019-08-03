@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.dotfiles;
+  cfg = config.custom.misc.dotfiles;
 in
 
 {
@@ -12,7 +12,7 @@ in
 
   options = {
 
-    custom.dotfiles = {
+    custom.misc.dotfiles = {
       enable = mkEnableOption "dotfiles config";
 
       modules = mkOption {
@@ -32,7 +32,7 @@ in
   config = mkIf cfg.enable (mkMerge [
 
     {
-      custom.util-bins = {
+      custom.misc.util-bins = {
         enable = true;
         bins = [ "dotfiles-update" ];
       };
@@ -47,7 +47,7 @@ in
     })
 
     (mkIf (builtins.elem "gpg" cfg.modules) {
-      custom.shell.profileExtra = ''
+      custom.programs.shell.profileExtra = ''
         # remove existing keys
         if [[ $SHLVL -eq 1 ]]; then
           ${pkgs.procps}/bin/pkill -SIGHUP gpg-agent

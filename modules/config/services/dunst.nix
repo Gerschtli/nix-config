@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.dunst;
+  cfg = config.custom.services.dunst;
 in
 
 {
@@ -12,7 +12,7 @@ in
 
   options = {
 
-    custom.dunst.enable = mkEnableOption "dunst config";
+    custom.services.dunst.enable = mkEnableOption "dunst config";
 
   };
 

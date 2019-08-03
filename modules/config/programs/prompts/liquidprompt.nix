@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.liquidprompt;
+  cfg = config.custom.programs.prompts.liquidprompt;
 
   # TODO: add in nixpkgs
   liquidprompt = pkgs.stdenv.mkDerivation {
@@ -67,7 +67,7 @@ in
 
   options = {
 
-    custom.liquidprompt.enable = mkEnableOption "liquidprompt config";
+    custom.programs.prompts.liquidprompt.enable = mkEnableOption "liquidprompt config";
 
   };
 

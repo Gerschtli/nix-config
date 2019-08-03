@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.tmux;
+  cfg = config.custom.programs.tmux;
 
   extraConfig = ''
     set-option -g allow-rename off
@@ -177,7 +177,7 @@ in
 
   options = {
 
-    custom.tmux.enable = mkEnableOption "tmux config";
+    custom.programs.tmux.enable = mkEnableOption "tmux config";
 
   };
 
@@ -186,13 +186,13 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.shell.shellAliases.tmux = "tmux -2";
+    custom.programs.shell.shellAliases.tmux = "tmux -2";
 
     home.packages = [
       (pkgs.writeScriptBin "tprofile" ''
         #!${pkgs.runtimeShell} -e
 
-        exec ${../files/tmux/bin/tprofile} ${../files/tmux/profiles} $@
+        exec ${../../files/tmux/bin/tprofile} ${../../files/tmux/profiles} $@
       '')
 
       (pkgs.writeTextFile {
@@ -208,9 +208,9 @@ in
           }
 
           LIST=()
-          PATH_TO_CONF_DIR="${../files/tmux/profiles}"
+          PATH_TO_CONF_DIR="${../../files/tmux/profiles}"
 
-          prefix="${../files/tmux/profiles}/"
+          prefix="${../../files/tmux/profiles}/"
           suffix=".sh"
 
           for file in "$prefix"*"$suffix"; do

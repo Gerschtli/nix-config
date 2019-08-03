@@ -36,7 +36,7 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.shell.shellAliases = {
+    custom.programs.shell.shellAliases = {
       fix-java = "${pkgs.wmname}/bin/wmname LG3D && export AWT_TOOLKIT=MToolkit";
     };
 

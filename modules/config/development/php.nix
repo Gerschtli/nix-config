@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.php;
+  cfg = config.custom.development.php;
 in
 
 {
@@ -12,7 +12,7 @@ in
 
   options = {
 
-    custom.php.enable = mkEnableOption "php aliases";
+    custom.development.php.enable = mkEnableOption "php aliases";
 
   };
 
@@ -21,7 +21,7 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.shell.initExtra = ''
+    custom.programs.shell.initExtra = ''
       if available php; then
         alias cinstall="composer install"
         alias cupdate="composer update"

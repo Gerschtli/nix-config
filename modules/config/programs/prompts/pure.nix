@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.pure;
+  cfg = config.custom.programs.prompts.pure;
 
   # TODO: add in nixpkgs
   pure = pkgs.stdenv.mkDerivation {
@@ -31,7 +31,7 @@ in
 
   options = {
 
-    custom.pure.enable = mkEnableOption "pure prompt";
+    custom.programs.prompts.pure.enable = mkEnableOption "pure prompt";
 
   };
 

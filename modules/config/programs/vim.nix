@@ -3,8 +3,8 @@
 with lib;
 
 let
-  cfgNeovim = config.custom.neovim;
-  cfgVim = config.custom.vim;
+  cfgNeovim = config.custom.programs.neovim;
+  cfgVim = config.custom.programs.vim;
 
   customRC = ''
     "" Encoding
@@ -162,9 +162,9 @@ in
 
   options = {
 
-    custom.neovim.enable = mkEnableOption "neovim config";
+    custom.programs.neovim.enable = mkEnableOption "neovim config";
 
-    custom.vim.enable = mkEnableOption "vim config";
+    custom.programs.vim.enable = mkEnableOption "vim config";
 
   };
 

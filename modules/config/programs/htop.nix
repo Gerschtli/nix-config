@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.htop;
+  cfg = config.custom.programs.htop;
 in
 
 {
@@ -12,7 +12,7 @@ in
 
   options = {
 
-    custom.htop.enable = mkEnableOption "htop config";
+    custom.programs.htop.enable = mkEnableOption "htop config";
 
   };
 

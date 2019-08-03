@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.custom.util-bins;
+  cfg = config.custom.misc.util-bins;
 
   bins = [ "$" "256colors.pl" ] ++ cfg.bins;
 in
@@ -14,7 +14,7 @@ in
 
   options = {
 
-    custom.util-bins = {
+    custom.misc.util-bins = {
 
       enable = mkEnableOption "some utility binaries";
 
@@ -37,7 +37,7 @@ in
       (pkgs.stdenv.mkDerivation {
         name = "util-bins";
 
-        src = ../files/util-bins;
+        src = ../../files/util-bins;
 
         installPhase = ''
           mkdir -p $out/bin
