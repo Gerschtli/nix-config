@@ -53,7 +53,7 @@ in
         }
       '';
 
-      profileExtra = ''
+      loginExtra = ''
         # remove existing keys
         if [[ $SHLVL == 1 ]]; then
           keychain --clear --quiet

@@ -47,7 +47,7 @@ in
     })
 
     (mkIf (builtins.elem "gpg" cfg.modules) {
-      custom.programs.shell.profileExtra = ''
+      custom.programs.shell.loginExtra = ''
         # remove existing keys
         if [[ $SHLVL -eq 1 ]]; then
           ${pkgs.procps}/bin/pkill -SIGHUP gpg-agent

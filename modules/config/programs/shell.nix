@@ -30,8 +30,6 @@ let
 
   profileExtra = ''
     umask 022
-
-    ${cfg.profileExtra}
   '';
 
   shellAliases = {
@@ -100,7 +98,7 @@ in
         '';
       };
 
-      profileExtra = mkOption {
+      loginExtra = mkOption {
         default = "";
         type = types.lines;
         description = ''
@@ -129,13 +127,14 @@ in
 
     programs = {
       bash = {
-        inherit initExtra logoutExtra shellAliases;
-        profileExtra = cfg.envExtra + profileExtra;
+        inherit logoutExtra shellAliases;
+        profileExtra = profileExtra + cfg.envExtra;
+        initExtra = mkMerge [ initExtra cfg.loginExtra ];
       };
 
       zsh = {
+        inherit (cfg) envExtra loginExtra;
         inherit initExtra logoutExtra profileExtra shellAliases;
-        inherit (cfg) envExtra;
       };
     };
 
