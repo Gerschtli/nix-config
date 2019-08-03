@@ -84,6 +84,14 @@ in
 
       enable = mkEnableOption "basic shell config";
 
+      envExtra = mkOption {
+        default = "";
+        type = types.lines;
+        description = ''
+          Extra commands that should be run when setting up a shell.
+        '';
+      };
+
       initExtra = mkOption {
         default = "";
         type = types.lines;
@@ -121,11 +129,13 @@ in
 
     programs = {
       bash = {
-        inherit initExtra logoutExtra profileExtra shellAliases;
+        inherit initExtra logoutExtra shellAliases;
+        profileExtra = cfg.envExtra + profileExtra;
       };
 
       zsh = {
         inherit initExtra logoutExtra profileExtra shellAliases;
+        inherit (cfg) envExtra;
       };
     };
 

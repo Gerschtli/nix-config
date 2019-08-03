@@ -42,12 +42,22 @@ in
 
   options = {
 
-    custom.base.enable = mkOption {
-      type = types.bool;
-      default = true;
-      description = ''
-        Whether to enable basic config.
-      '';
+    custom.base = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          Whether to enable basic config.
+        '';
+      };
+
+      extendedPath = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = ''
+          Extend PATH with provided list of directories.
+        '';
+      };
     };
 
   };
@@ -85,6 +95,10 @@ in
       };
 
       php.enable = true;
+
+      shell.envExtra = mkIf (cfg.extendedPath != []) ''
+        export PATH="${concatStringsSep ":" cfg.extendedPath}:$PATH"
+      '';
 
       ssh.enable = true;
 
