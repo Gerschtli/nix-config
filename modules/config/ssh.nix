@@ -151,7 +151,7 @@ in
             exit 1
           fi
 
-          rm --verbose --recursive "${directoryDestination}"
+          rm --verbose --recursive --force "${directoryDestination}"
           mkdir --parents "${directoryDestination}"
 
           cd "${directorySource}"
