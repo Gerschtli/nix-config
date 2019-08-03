@@ -157,7 +157,6 @@ in
         xclip
         xorg.xkill
 
-        atom
         audacity
         eclipses.eclipse-sdk
         gimp
@@ -170,10 +169,8 @@ in
         # quodlibet
         soapui
         spotify
-        sublime3
         thunderbird
         udisks
-        vscode
       ];
 
       xdg = {
