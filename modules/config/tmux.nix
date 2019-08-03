@@ -242,6 +242,7 @@ in
       shortcut = "a";
       clock24 = true;
       secureSocket = false;
+      escapeTime = 100;
     };
 
   };
