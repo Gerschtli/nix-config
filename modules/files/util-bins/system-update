@@ -1,0 +1,127 @@
+#!/usr/bin/env bash
+set -e
+
+if [[ -r "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]]; then
+    source "${HOME}/.nix-profile/etc/profile.d/nix.sh"
+fi
+
+source "${HOME}/.dotfiles-variables"
+source "${DOTFILES_ROOT}/util/script-functions"
+
+get_sudo_prefix() {
+    if ! is_root; then
+        echo "sudo"
+    fi
+}
+
+has_unit_enabled() {
+    [[ "$(systemctl is-enabled "${1}" 2> /dev/null)" == "enabled" ]]
+}
+
+is_root() {
+    [[ $(id -u) == 0 ]]
+}
+
+log() {
+    echo
+    echo -e "\033[00;35m===================== \033[00;32m SYSTEM-UPDATE \033[00;35m ======================\033[0m"
+    echo -e "\033[00;35m============================================================\033[0m"
+    echo -e "[\033[00;34m${1}\033[0m] => ${2}"
+    echo
+}
+
+
+update_apt() {
+    if ! _d_available apt; then
+        return
+    fi
+
+    local sudo_prefix="$(get_sudo_prefix)"
+
+    log "apt" "update"
+    "${sudo_prefix}" apt update
+    log "apt" "upgrade"
+    "${sudo_prefix}" apt upgrade -y
+    log "apt" "autoclean"
+    "${sudo_prefix}" apt autoclean -y
+    log "apt" "autoremove"
+    "${sudo_prefix}" apt autoremove -y
+}
+
+update_dotfiles() {
+    log "dotfiles" "add key"
+    keychain "${HOME}/.ssh/modules/vcs/keys/id_rsa.vcs"
+
+    log "dotfiles" "update"
+    dotfiles-update
+}
+
+update_nix() {
+    if ! _d_available nix; then
+        return
+    fi
+
+    if _d_available lorri; then
+        log "nix" "lorri self-upgrade"
+        lorri self-upgrade
+    fi
+
+    if [[ -r "${HOME}/.nix-channels" ]] && ! has_unit_enabled "nixos-upgrade.timer" &&
+       [[ $(find /nix/var/nix/profiles/per-user -type l -iname "channels-*" -mtime -7 | wc -l) == 0 ]]; then
+        log "nix" "update nix-channel"
+        nix-channel --update
+    fi
+
+    if [[ "$(nix-env -q | wc -l)" != "0" ]]; then
+        log "nix" "update packages installed via nix-env"
+        nix-env -u --always
+    fi
+
+    if [[ -r "${HOME}/.nix-channels" ]] && is_root; then
+        log "nix" "add key"
+        keychain "${HOME}/.ssh/modules/vcs/keys/id_rsa.vcs"
+
+        log "nix" "update nixos project"
+        git -C /etc/nixos pull
+        git -C /etc/nixos submodule update
+        log "nix" "builds nixos configuration"
+        /etc/nixos/bin/rebuild build
+        log "nix" "switches nixos configuration"
+        /etc/nixos/bin/rebuild switch
+    fi
+
+    if ! has_unit_enabled "nix-gc.timer"; then
+        log "nix" "nix-collect-garbage"
+        nix-collect-garbage --delete-older-than 14d
+    fi
+
+    if ! has_unit_enabled "nix-optimise.timer"; then
+        log "nix" "nix-store --optimise"
+        nix-store --optimise
+    fi
+}
+
+update_pass() {
+    if ! _d_available pass || is_root; then
+        return
+    fi
+
+    log "pass" "update repo"
+    pass git pull
+}
+
+update_snap() {
+    if ! _d_available snap || ! $(snap list > /dev/null 2>&1); then
+        return
+    fi
+
+    log "snap" "refresh"
+    "$(get_sudo_prefix)" snap refresh
+}
+
+
+update_dotfiles
+update_pass
+update_apt
+update_snap
+update_nix

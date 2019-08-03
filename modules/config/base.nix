@@ -92,7 +92,10 @@ in
 
       urxvt.enable = true;
 
-      util-bins.enable = true;
+      util-bins = {
+        enable = true;
+        bins = [ "dotfiles-update" "system-update" ];
+      };
 
       vim.enable = true;
 

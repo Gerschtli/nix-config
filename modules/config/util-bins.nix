@@ -4,6 +4,8 @@ with lib;
 
 let
   cfg = config.custom.util-bins;
+
+  bins = [ "$" "256colors.pl" ] ++ cfg.bins;
 in
 
 {
@@ -16,6 +18,12 @@ in
 
       enable = mkEnableOption "some utility binaries";
 
+      bins = mkOption {
+        type = types.listOf (types.enum [ "csv-check" "dotfiles-update" "system-update" ]);
+        default = [];
+        description = "List of bins to install.";
+      };
+
     };
 
   };
@@ -26,7 +34,6 @@ in
   config = mkIf cfg.enable {
 
     home.packages = [
-      # TODO: add system-update and csv-check
       (pkgs.stdenv.mkDerivation {
         name = "util-bins";
 
@@ -35,8 +42,7 @@ in
         installPhase = ''
           mkdir -p $out/bin
 
-          install -m 0755 $ $out/bin
-          install -m 0755 256colors.pl $out/bin
+          ${lib.concatMapStringsSep "\n" (bin: "install -m 0755 ${bin} $out/bin") bins}
         '';
       })
     ];

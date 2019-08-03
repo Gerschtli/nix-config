@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -e
+
+source "${HOME}/.dotfiles-variables"
+source "${DOTFILES_ROOT}/util/script-functions"
+
+if [[ -z "${1}" ]]; then
+    _d_info "========= DOTFILES ========="
+    _d_pull "${DOTFILES_ROOT}"
+
+    if [[ -d "${DOTFILES_ROOT}/gpg" ]]; then
+        echo
+        _d_info "============ GPG ==========="
+        _d_pull "${DOTFILES_ROOT}/gpg"
+    fi
+
+    echo
+    _d_info "===== SUBMOUDLE UPDATE ====="
+    _d_indent git -C "${DOTFILES_ROOT}" submodule update --init
+    _d_indent git -C "${DOTFILES_ROOT}" submodule foreach git checkout master
+    _d_indent git -C "${DOTFILES_ROOT}" submodule foreach git pull
+fi
+
+echo
+_d_info "========= BOOTSTRAP ========"
+_d_indent "${DOTFILES_ROOT}/bootstrap.sh"
