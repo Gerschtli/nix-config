@@ -47,8 +47,9 @@ in
 
   config = mkIf cfg.enable {
 
+    custom.dotfiles.modules = [ "gpg" ];
+
     home.packages = with pkgs; [
-      gnupg
       (pass.override { inherit (cfg) x11Support; })
     ] ++ (optional cfg.ncurses pinentry_ncurses);
 

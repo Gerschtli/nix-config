@@ -72,6 +72,8 @@ in
 
       direnv.enable = true;
 
+      dotfiles.enable = true;
+
       dunst.enable = true;
 
       fzf.enable = true;
