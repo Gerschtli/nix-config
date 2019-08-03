@@ -5,11 +5,13 @@ source "${HOOKS_DIR}/helpers/util.sh"
 SECRET_FILES="${PWD}/.secret-files"
 
 install() {
-    cat "${SECRET_FILES}" | while read -r line; do
-        if [[ -e "${PWD}/${line}" ]]; then
-            chmod 0600 "${PWD}/${line}"
+    while read -r line; do
+        local file="${PWD}/${line}"
+        if [[ -e "${file}" ]]; then
+            chmod 0640 "${file}"
+            chgrp secret-files "${file}"
         fi
-    done
+    done < "${SECRET_FILES}"
 }
 
 if [[ -r "${SECRET_FILES}" ]]; then
