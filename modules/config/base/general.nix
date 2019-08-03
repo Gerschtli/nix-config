@@ -9,6 +9,7 @@ let
 in
 
 {
+  imports = [ <home-manager/nixos> ];
 
   ###### interface
 
@@ -74,6 +75,8 @@ in
         )
       ];
     };
+
+    home-manager.useUserPackages = true;
 
     i18n = {
       consoleKeyMap = "de";
