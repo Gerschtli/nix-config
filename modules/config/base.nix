@@ -128,6 +128,7 @@ in
       inherit sessionVariables;
 
       packages = with pkgs; [
+        bc
         file
         httpie
         iotop
