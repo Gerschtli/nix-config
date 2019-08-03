@@ -237,7 +237,6 @@ in
 
       terminal = "screen-256color";
       baseIndex = 1;
-      newSession = true;
       keyMode = "vi";
       customPaneNavigationAndResize = true;
       shortcut = "a";
