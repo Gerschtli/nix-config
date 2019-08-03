@@ -9,8 +9,6 @@ let
 
   directorySource = toString ../../secrets/ssh/modules;
   directoryDestination = "${config.home.homeDirectory}/.ssh/modules";
-
-  modules = customLib.getDirectoryList directorySource;
 in
 
 {
@@ -19,7 +17,17 @@ in
 
   options = {
 
-    custom.programs.ssh.enable = mkEnableOption "ssh config";
+    custom.programs.ssh = {
+
+      enable = mkEnableOption "ssh config";
+
+      modules = mkOption {
+        type = types.listOf (types.enum [ "private" "pveu" "vcs" ]);
+        default = [];
+        description = "SSH modules to enable.";
+      };
+
+    };
 
   };
 
@@ -74,8 +82,11 @@ in
         $DRY_RUN_CMD pushd "${directorySource}"
 
         # use xargs so that activation fails if one cp/chmod command fails
-        $DRY_RUN_CMD find . -type f -path "*/keys/*" -print0 | \
-          xargs -0 -n 1 -I % cp --archive --verbose --parents "%" "${directoryDestination}"
+        ${concatMapStringsSep "\n" (module: ''
+          $DRY_RUN_CMD find . -type f -path "./${module}/keys/*" -print0 | \
+            xargs -0 -n 1 -I % cp --archive --verbose --parents "%" "${directoryDestination}"
+        '') cfg.modules}
+
         $DRY_RUN_CMD find "${directoryDestination}" -type f -path "*/keys/*" -print0 | \
           xargs -0 -n 1 -I % chmod 0600 "%"
 
@@ -142,12 +153,12 @@ in
         matchBlocks = mkMerge (
           map
             (module: (
-              import module {
+              import "${directorySource}/${module}" {
                 inherit lib;
-                path = "${directoryDestination}/${baseNameOf module}";
+                path = "${directoryDestination}/${module}";
               }
             ).matchBlocks)
-            modules
+            cfg.modules
         );
       };
     };

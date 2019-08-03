@@ -22,6 +22,8 @@
         x11Support = true;
       };
 
+      ssh.modules = [ "private" ];
+
       urxvt.enable = true;
     };
 

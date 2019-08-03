@@ -85,7 +85,10 @@ in
           export PATH="${concatStringsSep ":" cfg.extendedPath}:$PATH"
         '';
 
-        ssh.enable = true;
+        ssh = {
+          enable = true;
+          modules = [ "vcs" ];
+        };
 
         tmux.enable = true;
 
