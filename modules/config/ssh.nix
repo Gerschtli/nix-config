@@ -135,8 +135,14 @@ in
         Description = "Install ssh keys";
       };
 
+      Install = {
+        WantedBy = [ "multi-user.target" ];
+      };
+
       Service = {
         Type = "oneshot";
+        RemainAfterExit = "yes";
+
         ExecStart = "${pkgs.writeScript "install-ssh-keys.sh" ''
           #!${pkgs.runtimeShell} -e
 
