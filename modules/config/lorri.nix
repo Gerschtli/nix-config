@@ -32,7 +32,7 @@ in
 
     home.packages = [
       (pkgs.writeScriptBin "lorri-init" ''
-        #!${pkgs.bash}/bin/bash
+        #!${pkgs.runtimeShell} -e
 
         shell_name="$1"
         force="$2"
@@ -78,7 +78,7 @@ in
       })
 
       (pkgs.writeScriptBin "lorri-one-shot" ''
-        #!${pkgs.bash}/bin/bash
+        #!${pkgs.runtimeShell} -e
 
         FILE="$(mktemp --suffix=-lorri-one-shot)"
 

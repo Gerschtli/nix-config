@@ -137,7 +137,7 @@ in
       Service = {
         Type = "oneshot";
         ExecStart = "${pkgs.writeScript "install-ssh-keys.sh" ''
-          #!${pkgs.bash}/bin/bash
+          #!${pkgs.runtimeShell} -e
 
           if [[ ! -d "${directorySource}" || ! -r "${directorySource}" ]]; then
             >&2 echo "${directorySource} has to be a readable directory for user '${config.home.username}'"

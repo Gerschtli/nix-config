@@ -6,7 +6,7 @@ let
   cfg = config.custom.xsession;
 
   lock-screen = pkgs.writeScriptBin "lock-screen" ''
-    #!${pkgs.bash}/bin/bash
+    #!${pkgs.runtimeShell} -e
 
     revert() {
       ${pkgs.xorg.xset}/bin/xset -dpms
@@ -52,7 +52,7 @@ in
         dwm # TODO: wrap with runtime dependencies
 
         (pkgs.writeScriptBin "inhibit-suspend" ''
-          #!${pkgs.bash}/bin/bash
+          #!${pkgs.runtimeShell} -e
           # Disable suspend on lid close until screen gets unlocked
 
           ${pkgs.systemd}/bin/systemd-inhibit --what=handle-lid-switch lock-screen
@@ -62,7 +62,7 @@ in
 
         # TODO: remove?
         (pkgs.writeScriptBin "chrome" ''
-          #!${pkgs.bash}/bin/bash
+          #!${pkgs.runtimeShell} -e
 
           ${pkgs.google-chrome}/bin/google-chrome-stable
         '')
@@ -71,7 +71,7 @@ in
           (item: pkgs.writeScriptBin
             (if item ? name then item.name else item.command)
             ''
-              #!${pkgs.bash}/bin/bash
+              #!${pkgs.runtimeShell} -e
 
               if ${pkgs.gnome3.zenity}/bin/zenity --question \
                   --text="Are you sure you want to ${item.message}?" 2> /dev/null; then
