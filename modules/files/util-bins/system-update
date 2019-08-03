@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-if [[ -r "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]]; then
-    source "${HOME}/.nix-profile/etc/profile.d/nix.sh"
-fi
-
-source "${HOME}/.dotfiles-variables"
-source "${DOTFILES_ROOT}/util/script-functions"
-
 get_sudo_prefix() {
     if ! is_root; then
         echo "sudo"
@@ -32,7 +25,7 @@ log() {
 
 
 update_apt() {
-    if ! _d_available apt; then
+    if ! hash apt > /dev/null 2>&1; then
         return
     fi
 
@@ -49,6 +42,10 @@ update_apt() {
 }
 
 update_dotfiles() {
+    if ! hash dotfiles-update > /dev/null 2>&1; then
+        return
+    fi
+
     log "dotfiles" "add key"
     keychain "${HOME}/.ssh/modules/vcs/keys/id_rsa.vcs"
 
@@ -57,11 +54,11 @@ update_dotfiles() {
 }
 
 update_nix() {
-    if ! _d_available nix; then
+    if ! hash nix > /dev/null 2>&1; then
         return
     fi
 
-    if _d_available lorri; then
+    if hash lorri > /dev/null 2>&1; then
         log "nix" "lorri self-upgrade"
         lorri self-upgrade
     fi
@@ -70,11 +67,6 @@ update_nix() {
        [[ $(find /nix/var/nix/profiles/per-user -type l -iname "channels-*" -mtime -7 | wc -l) == 0 ]]; then
         log "nix" "update nix-channel"
         nix-channel --update
-    fi
-
-    if [[ "$(nix-env -q | wc -l)" != "0" ]]; then
-        log "nix" "update packages installed via nix-env"
-        nix-env -u --always
     fi
 
     if [[ -r "${HOME}/.nix-channels" ]] && is_root; then
@@ -102,7 +94,7 @@ update_nix() {
 }
 
 update_pass() {
-    if ! _d_available pass || is_root; then
+    if ! hash pass > /dev/null 2>&1 || is_root; then
         return
     fi
 
@@ -111,7 +103,7 @@ update_pass() {
 }
 
 update_snap() {
-    if ! _d_available snap || ! $(snap list > /dev/null 2>&1); then
+    if ! hash snap > /dev/null 2>&1 || ! $(snap list > /dev/null 2>&1); then
         return
     fi
 
