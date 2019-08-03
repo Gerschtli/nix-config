@@ -135,10 +135,7 @@ in
       overlays = map (file: import file) overlays;
     };
 
-    programs.home-manager = {
-      enable = true;
-      path = "$HOME/projects/home-manager";
-    };
+    programs.home-manager.enable = true;
 
     xdg.configFile = {
       "nixpkgs/config.nix".source = ../../files/config.nix;
