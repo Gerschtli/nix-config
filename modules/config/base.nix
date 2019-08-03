@@ -70,12 +70,6 @@ in
     custom = {
       bash.enable = true;
 
-      direnv.enable = true;
-
-      dotfiles.enable = true;
-
-      dunst.enable = true;
-
       fzf.enable = true;
 
       git.enable = true;
@@ -84,40 +78,50 @@ in
 
       liquidprompt.enable = true;
 
-      lorri.enable = true;
-
       neovim.enable = true;
 
-      nodejs.enable = true;
+      # pure.enable = true:
 
+      ssh.enable = true;
+
+      tmux.enable = true;
+
+      util-bins = {
+        enable = true;
+        bins = [ "system-update" ];
+      };
+
+      # vim.enable = true;
+
+      zsh.enable = true;
+
+      /*
+      # desktop / pass
+      dotfiles.enable = true;
       pass = {
         enable = true;
         browserpass = true;
         x11Support = true;
       };
 
+      # development
+      direnv.enable = true;
+      lorri.enable = true;
+      nodejs.enable = true;
       php.enable = true;
+      vagrant.enable = true;
+´
+      # desktop
+      dunst.enable = true;
+      urxvt.enable = true;
+      xsession.enable = true;
 
+      # ubuntu
       shell.envExtra = mkIf (cfg.extendedPath != []) ''
         export PATH="${concatStringsSep ":" cfg.extendedPath}:$PATH"
       '';
-
-      ssh.enable = true;
-
-      tmux.enable = true;
-
-      urxvt.enable = true;
-
-      util-bins = {
-        enable = true;
-        bins = [ "dotfiles-update" "system-update" ];
-      };
-
-      vim.enable = true;
-
-      xsession.enable = true;
-
-      zsh.enable = true;
+      nonNixos.enable = true;
+      */
     };
 
     home = {
