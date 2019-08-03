@@ -241,6 +241,7 @@ in
       customPaneNavigationAndResize = true;
       shortcut = "a";
       clock24 = true;
+      secureSocket = false;
     };
 
   };
