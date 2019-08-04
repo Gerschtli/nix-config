@@ -58,5 +58,12 @@
     xsession.enable = true;
   };
 
-  services.network-manager-applet.enable = true;
+  services = {
+    network-manager-applet.enable = true;
+
+    unclutter = {
+      enable = true;
+      timeout = 3;
+    };
+  };
 }
