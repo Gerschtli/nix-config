@@ -87,11 +87,6 @@ in
       services = {
         udev.packages = with pkgs; [ android-udev-rules ];
 
-        unclutter-xfixes = {
-          enable = true;
-          timeout = 3;
-        };
-
         xserver = {
           enable = true;
 
