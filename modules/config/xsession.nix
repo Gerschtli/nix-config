@@ -121,6 +121,10 @@ in
       enable = true;
       windowManager.command = "${pkgs.dwm}/bin/dwm";
 
+      profileExtra = ''
+        ${pkgs.numlockx}/bin/numlockx on
+      '';
+
       initExtra = ''
         # Show screen saver after 20 min
         ${pkgs.xorg.xset}/bin/xset s 1200
