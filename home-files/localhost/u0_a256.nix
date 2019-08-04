@@ -6,7 +6,10 @@
   custom = {
     misc.dotfiles.enable = true;
 
-    programs.ssh.modules = [ "private" ];
+    programs.ssh = {
+      enableKeychain = false;
+      modules = [ "private" ];
+    };
   };
 
   home.packages = with pkgs; [
@@ -15,6 +18,11 @@
     coreutils
     bashInteractive
 
+    glibc
+    glibcLocales
+    gawk
+    procps
+    ncurses
     diffutils
     findutils
     gnugrep
