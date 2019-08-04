@@ -58,7 +58,7 @@ let
     LP_ENABLE_SCREEN_TITLE = 0;
     LP_ENABLE_SSH_COLORS = 0;
     LP_DISABLED_VCS_PATH = "";
-  };
+  } // cfg.config;
 in
 
 {
@@ -67,7 +67,17 @@ in
 
   options = {
 
-    custom.programs.prompts.liquidprompt.enable = mkEnableOption "liquidprompt config";
+    custom.programs.prompts.liquidprompt = {
+
+      enable = mkEnableOption "liquidprompt config";
+
+      config = mkOption {
+        type = types.attrsOf (types.either types.int types.str);
+        default = {};
+        description = "Liquidprompt config.";
+      };
+
+    };
 
   };
 
@@ -91,7 +101,7 @@ in
     };
 
     xdg.configFile."liquidpromptrc".text = ''
-      ${concatMapStringsSep "\n" (key: "${key}=${toString liquidpromptConfig.${key}}") (attrNames liquidpromptConfig)}
+      ${concatStringsSep "\n" (mapAttrsToList (key: value: "${key}=${toString value}") liquidpromptConfig)}
 
       # PS1 Modifications
 

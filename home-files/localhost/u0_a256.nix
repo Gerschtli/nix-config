@@ -6,9 +6,15 @@
   custom = {
     misc.dotfiles.enable = true;
 
-    programs.ssh = {
-      enableKeychain = false;
-      modules = [ "private" ];
+    programs = {
+      prompts.liquidprompt.config = {
+        LP_ENABLE_LOAD = 0;
+      };
+
+      ssh = {
+        enableKeychain = false;
+        modules = [ "private" ];
+      };
     };
   };
 
