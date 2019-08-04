@@ -4,7 +4,10 @@
   imports = [ ../../modules ];
 
   custom = {
-    misc.dotfiles.enable = true;
+    misc.dotfiles = {
+      enable = true;
+      modules = [ "home-manager" ];
+    };
 
     programs = {
       prompts.liquidprompt.config = {
