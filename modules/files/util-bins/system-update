@@ -60,15 +60,20 @@ update_nix() {
         return
     fi
 
+    if [[ -r "${HOME}/.nix-channels" ]] && ! has_unit_enabled "nixos-upgrade.timer" &&
+       [[ $(find /nix/var/nix/profiles/per-user -type l -iname "channels-*" -mtime -7 | wc -l) == 0 ]]; then
+        log "nix" "update nix-channel"
+        nix-channel --update
+    fi
+
     if hash lorri > /dev/null 2>&1; then
         log "nix" "lorri self-upgrade"
         lorri self-upgrade
     fi
 
-    if [[ -r "${HOME}/.nix-channels" ]] && ! has_unit_enabled "nixos-upgrade.timer" &&
-       [[ $(find /nix/var/nix/profiles/per-user -type l -iname "channels-*" -mtime -7 | wc -l) == 0 ]]; then
-        log "nix" "update nix-channel"
-        nix-channel --update
+    if [[ -r "${HOME}/.nix-channels" && -r "${HOME}/.config/nixpkgs/home.nix" ]]; then
+        log "nix" "home-manager switch"
+        home-manager switch
     fi
 
     if [[ -r "${HOME}/.nix-channels" ]] && is_root; then
