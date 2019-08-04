@@ -25,6 +25,14 @@ in
         default = true;
       };
 
+      controlMaster = mkOption {
+        type = types.enum ["yes" "no" "ask" "auto" "autoask"];
+        default = "auto";
+        description = ''
+          Configure sharing of multiple sessions over a single network connection.
+        '';
+      };
+
       modules = mkOption {
         type = types.listOf (types.enum [ "private" "pveu" "vcs" ]);
         default = [];
@@ -135,12 +143,13 @@ in
       };
 
       ssh = {
+        inherit (cfg) controlMaster;
+
         enable = true;
 
         compression = true;
         serverAliveInterval = 30;
         hashKnownHosts = true;
-        controlMaster = "auto";
         controlPath = "~/.ssh/socket-%r@%h-%p";
         controlPersist = "10m";
 

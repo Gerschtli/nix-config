@@ -13,6 +13,7 @@
 
       ssh = {
         enableKeychain = false;
+        controlMaster = "no";
         modules = [ "private" ];
       };
     };
