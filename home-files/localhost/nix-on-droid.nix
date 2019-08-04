@@ -8,6 +8,7 @@
       enable = true;
       modules = [ "home-manager" ];
     };
+    misc.nonNixos.enable = true;
 
     programs = {
       prompts.liquidprompt.config = {
