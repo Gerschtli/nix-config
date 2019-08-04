@@ -17,7 +17,7 @@ builtins.mapAttrs
     dwm = super.fetchFromGitHub {
       owner = "Gerschtli";
       repo = "dwm";
-      rev = "692e5fe38f841bd37f3502820ebb66ec16b86590";
-      sha256 = "0slcg3jgk1ksxrg1pbfgjyf03jb2dcsrc6aw2zwcy1ig1drqpbb4";
+      rev = "c3e28890c0578c722ef48f823b0eb3e0710682d5";
+      sha256 = "01bqn2b23yvx33hhjck1jghvpz4cq7nck3nq4h27l5farfr5krbc";
     };
   }
