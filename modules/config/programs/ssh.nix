@@ -87,7 +87,7 @@ in
         $DRY_RUN_CMD rm $VERBOSE_ARG --recursive --force "${directoryDestination}"
         $DRY_RUN_CMD mkdir --parents "${directoryDestination}"
 
-        $DRY_RUN_CMD pushd "${directorySource}"
+        $DRY_RUN_CMD pushd "${directorySource}" > /dev/null
 
         # use xargs so that activation fails if one cp/chmod command fails
         ${concatMapStringsSep "\n" (module: ''
@@ -98,7 +98,7 @@ in
         $DRY_RUN_CMD find "${directoryDestination}" -type f -path "*/keys/*" -print0 | \
           xargs -0 -n 1 -I % chmod 0600 "%"
 
-        $DRY_RUN_CMD popd
+        $DRY_RUN_CMD popd > /dev/null
       '';
 
       packages = mkIf cfg.enableKeychain [
