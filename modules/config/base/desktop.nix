@@ -124,29 +124,6 @@ in
         }
       ];
 
-      users.users.tobias.packages = with pkgs; [
-        imagemagick
-        pavucontrol
-        playerctl
-        xclip
-        xorg.xkill
-
-        audacity
-        eclipses.eclipse-sdk
-        gimp
-        google-chrome
-        jetbrains.idea-ultimate
-        libreoffice
-        musescore
-        nomacs
-        qpdfview
-        # quodlibet
-        soapui
-        spotify
-        thunderbird
-        udisks
-      ];
-
       xdg = {
         autostart.enable = true;
         icons.enable = true;
