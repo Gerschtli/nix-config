@@ -27,7 +27,33 @@
       urxvt.enable = true;
     };
 
-    services.dunst.enable = true;
+    services = {
+      dunst.enable = true;
+
+      dwm-status = {
+        enable = true;
+        order = [ "cpu_load" "backlight" "audio" "battery" "time" ];
+
+        extraConfig = ''
+          separator = "    "
+
+          [audio]
+          mute = "ﱝ"
+          template = "{ICO} {VOL}%"
+          icons = ["奄", "奔", "墳"]
+
+          [backlight]
+          template = "{ICO} {BL}%"
+          icons = ["", "", ""]
+
+          [battery]
+          charging = ""
+          discharging = ""
+          no_battery = ""
+          icons = ["", "", "", "", "", "", "", "", "", "", ""]
+        '';
+      };
+    };
 
     xsession.enable = true;
   };
