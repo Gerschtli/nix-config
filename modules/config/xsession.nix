@@ -49,22 +49,22 @@ in
 
       packages = with pkgs; [
         dmenu
-        dwm # TODO: wrap with runtime dependencies
+        dwm
+        google-chrome
+        lock-screen
+        nomacs
+        pavucontrol
+        playerctl
+        qpdfview
+        scrot
+        xclip
+        xorg.xkill
 
         (pkgs.writeScriptBin "inhibit-suspend" ''
           #!${pkgs.runtimeShell} -e
           # Disable suspend on lid close until screen gets unlocked
 
           ${pkgs.systemd}/bin/systemd-inhibit --what=handle-lid-switch lock-screen
-        '')
-
-        lock-screen
-
-        # TODO: remove?
-        (pkgs.writeScriptBin "chrome" ''
-          #!${pkgs.runtimeShell} -e
-
-          ${pkgs.google-chrome}/bin/google-chrome-stable
         '')
       ] ++ (
         map
