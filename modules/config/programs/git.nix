@@ -263,7 +263,7 @@ in
         core = {
           compression = 9;
           eol = "lf";
-          editor = "nvim"; # TODO: replace with path
+          editor = "vim"; # TODO: replace with path
           hooksPath = "${../../files/git/hooks}";
           loosecompression = 9;
           preloadindex = true;
