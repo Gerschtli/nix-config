@@ -53,23 +53,6 @@ in
       custom = {
         misc.dev.enable = true;
 
-        programs.dwm-status = {
-          enable = cfg.wm == "dwm";
-          order =
-            if cfg.laptop
-            then [ "cpu_load" "backlight" "audio" "battery" "time" ]
-            else [ "cpu_load" "audio" "time" ];
-
-          extraConfig = ''
-            separator = "    "
-
-            [audio]
-            mute = "ﱝ"
-            template = "{ICO} {VOL}%"
-            icons = ["奄", "奔", "墳"]
-          '';
-        };
-
         system.boot.mode = "efi";
       };
 
@@ -184,21 +167,6 @@ in
 
     (mkIf cfg.laptop
       {
-        custom.programs = {
-          dwm-status.extraConfig = ''
-            [backlight]
-            template = "{ICO} {BL}%"
-            icons = ["", "", ""]
-
-            [battery]
-            charging = ""
-            discharging = ""
-            no_battery = ""
-            icons = ["", "", "", "", "", "", "", "", "", "", ""]
-          '';
-
-        };
-
         networking.networkmanager.enable = true;
 
         programs = {
