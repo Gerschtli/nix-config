@@ -21,6 +21,10 @@ in
 
       enable = mkEnableOption "ssh config";
 
+      enableKeychain = mkEnableOption "keychain setup" // {
+        default = true;
+      };
+
       modules = mkOption {
         type = types.listOf (types.enum [ "private" "pveu" "vcs" ]);
         default = [];
@@ -37,31 +41,35 @@ in
   config = mkIf cfg.enable {
 
     custom.programs.shell = {
-      initExtra = ''
-        keygen() {
-          if [[ -z "$1" ]]; then
-            echo "Enter path  as argument!"
-          else
-            ssh-keygen -t rsa -b 4096 -f "$1"
-          fi
-        }
+      initExtra = mkMerge [
+        ''
+          keygen() {
+            if [[ -z "$1" ]]; then
+              echo "Enter path  as argument!"
+            else
+              ssh-keygen -t rsa -b 4096 -f "$1"
+            fi
+          }
+        ''
 
-        kadd() {
-          local key="$(find "${directoryDestination}" -type f -name "id_rsa.$1" | head -n 1)"
+        (mkIf cfg.enableKeychain ''
+          kadd() {
+            local key="$(find "${directoryDestination}" -type f -name "id_rsa.$1" | head -n 1)"
 
-          if [[ ! -r "$key" ]]; then
-            echo "ssh key not found: $key"
-          else
-            keychain "$key"
-          fi
+            if [[ ! -r "$key" ]]; then
+              echo "ssh key not found: $key"
+            else
+              keychain "$key"
+            fi
 
-          if [[ $# > 1 ]]; then
-            kadd "''${@:2}"
-          fi
-        }
-      '';
+            if [[ $# > 1 ]]; then
+              kadd "''${@:2}"
+            fi
+          }
+        '')
+      ];
 
-      loginExtra = ''
+      loginExtra = mkIf cfg.enableKeychain ''
         # remove existing keys
         if [[ $SHLVL == 1 ]]; then
           keychain --clear --quiet
@@ -93,7 +101,7 @@ in
         $DRY_RUN_CMD popd
       '';
 
-      packages = [
+      packages = mkIf cfg.enableKeychain [
         (pkgs.writeTextFile {
           name = "_kadd";
           destination = "/share/zsh/site-functions/_kadd";
@@ -120,7 +128,7 @@ in
 
     programs = {
       keychain = {
-        enable = true;
+        enable = cfg.enableKeychain;
         enableBashIntegration = true;
         enableZshIntegration = true;
         agents = [ "ssh" ];
