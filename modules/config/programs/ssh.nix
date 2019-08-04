@@ -84,7 +84,7 @@ in
           exit 1
         fi
 
-        $DRY_RUN_CMD rm --verbose --recursive --force "${directoryDestination}"
+        $DRY_RUN_CMD rm $VERBOSE_ARG --recursive --force "${directoryDestination}"
         $DRY_RUN_CMD mkdir --parents "${directoryDestination}"
 
         $DRY_RUN_CMD pushd "${directorySource}"
@@ -92,7 +92,7 @@ in
         # use xargs so that activation fails if one cp/chmod command fails
         ${concatMapStringsSep "\n" (module: ''
           $DRY_RUN_CMD find . -type f -path "./${module}/keys/*" -print0 | \
-            xargs -0 -n 1 -I % cp --archive --verbose --parents "%" "${directoryDestination}"
+            xargs -0 -n 1 -I % cp $VERBOSE_ARG --archive --parents "%" "${directoryDestination}"
         '') cfg.modules}
 
         $DRY_RUN_CMD find "${directoryDestination}" -type f -path "*/keys/*" -print0 | \
