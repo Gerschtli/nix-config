@@ -58,6 +58,30 @@
     xsession.enable = true;
   };
 
+  home.packages = with pkgs; [
+    imagemagick
+    pavucontrol
+    playerctl
+    xclip
+    xorg.xkill
+
+    audacity
+    eclipses.eclipse-sdk
+    gimp
+    google-chrome
+    jetbrains.idea-ultimate
+    libreoffice
+    musescore
+    nomacs
+    postman
+    qpdfview
+    # quodlibet
+    soapui
+    spotify
+    thunderbird
+    udisks
+  ];
+
   services = {
     network-manager-applet.enable = true;
 
