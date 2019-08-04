@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.custom.misc.util-bins;
 
-  bins = [ "$" "256colors.pl" ] ++ cfg.bins;
+  bins = [ "$" "256colors.pl" "conf-status" "system-update" ] ++ cfg.bins;
 in
 
 {
@@ -19,7 +19,7 @@ in
       enable = mkEnableOption "some utility binaries";
 
       bins = mkOption {
-        type = types.listOf (types.enum [ "csv-check" "dotfiles-update" "system-update" ]);
+        type = types.listOf (types.enum [ "csv-check" "dotfiles-update" ]);
         default = [];
         description = "List of bins to install.";
       };

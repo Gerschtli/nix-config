@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+list=()
+
+if [[ $(id -u) == 0 ]]; then
+    list+=(
+        /etc/nixos
+        /etc/nixos/home-manager-configurations
+        /etc/nixos/home-manager-configurations/modules/secrets/ssh/modules/*
+    )
+fi
+
+list+=(
+    ~/.dotfiles
+    ~/.dotfiles/gpg
+    ~/.dotfiles/home-manager/home-manager-configurations
+    ~/.dotfiles/home-manager/home-manager-configurations/modules/secrets/ssh/modules/*
+)
+
+for dir in ${list[@]}; do
+    if [[ ! -d "${dir}" ]]; then
+        continue
+    fi
+
+    echo -e "\n[\033[00;34mDIR\033[0m] ${dir}\n"
+    git -C "${dir}" status
+    echo
+done

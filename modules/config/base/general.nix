@@ -95,10 +95,7 @@ in
         zsh.enable = true;
       };
 
-      misc.util-bins = {
-        enable = true;
-        bins = [ "system-update" ];
-      };
+      misc.util-bins.enable = true;
     };
 
     home = {
