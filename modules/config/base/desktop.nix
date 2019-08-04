@@ -169,11 +169,7 @@ in
       {
         networking.networkmanager.enable = true;
 
-        programs = {
-          light.enable = true;
-
-          nm-applet.enable = true;
-        };
+        programs.light.enable = true;
 
         services = {
           logind.extraConfig = ''
