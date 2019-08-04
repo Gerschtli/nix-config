@@ -46,8 +46,10 @@ update_dotfiles() {
         return
     fi
 
-    log "dotfiles" "add key"
-    keychain "${HOME}/.ssh/modules/vcs/keys/id_rsa.vcs"
+    if hash keychain > /dev/null 2>&1; then
+        log "dotfiles" "add key"
+        keychain "${HOME}/.ssh/modules/vcs/keys/id_rsa.vcs"
+    fi
 
     log "dotfiles" "update"
     dotfiles-update
@@ -70,8 +72,10 @@ update_nix() {
     fi
 
     if [[ -r "${HOME}/.nix-channels" ]] && is_root; then
-        log "nix" "add key"
-        keychain "${HOME}/.ssh/modules/vcs/keys/id_rsa.vcs"
+        if hash keychain > /dev/null 2>&1; then
+            log "nix" "add key"
+            keychain "${HOME}/.ssh/modules/vcs/keys/id_rsa.vcs"
+        fi
 
         log "nix" "update nixos project"
         git -C /etc/nixos pull
