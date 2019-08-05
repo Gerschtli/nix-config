@@ -117,6 +117,21 @@ in
       fi
     '';
 
+    systemd.user.services.lorri-daemon = {
+      Unit = {
+        Description = "Lorri daemon";
+        PartOf = [ "graphical-session.target" ];
+      };
+
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
+
+      Service = {
+        ExecStart = "${config.home.homeDirectory}/.nix-profile/bin/lorri daemon";
+      };
+    };
+
     xdg.configFile."nix/profiles" = {
       source = ../../files/nix/profiles;
       recursive = true;
