@@ -59,7 +59,10 @@
       };
     };
 
-    xsession.enable = true;
+    xsession = {
+      enable = true;
+      useSlock = true;
+    };
   };
 
   home = {

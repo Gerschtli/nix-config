@@ -15,7 +15,9 @@ let
     trap revert HUP INT TERM
     ${pkgs.xorg.xset}/bin/xset +dpms dpms 3 3 3
 
-    ${pkgs.i3lock-fancy}/bin/i3lock-fancy --nofork --text "" -- ${pkgs.scrot}/bin/scrot --silent
+    ${if cfg.useSlock then "slock" else ''
+      ${pkgs.i3lock-fancy}/bin/i3lock-fancy --nofork --text "" -- ${pkgs.scrot}/bin/scrot --silent
+    ''}
 
     revert
   '';
@@ -27,7 +29,14 @@ in
 
   options = {
 
-    custom.xsession.enable = mkEnableOption "xsession config";
+    custom.xsession = {
+
+      enable = mkEnableOption "xsession config";
+
+      # FIXME: i3lock throws error on ubuntu: "i3lock-color: Cannot grab pointer/keyboard"
+      useSlock = mkEnableOption "slock as screen locker";
+
+    };
 
   };
 
