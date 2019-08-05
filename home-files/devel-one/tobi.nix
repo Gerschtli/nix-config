@@ -5,8 +5,9 @@
 
   custom = {
     base.general.extendedPath = [
+      "$HOME/bin"
       "/snap/bin"
-      "${config.home.homeDirectory}/.local/share/umake/bin"
+      "$HOME/.local/share/umake/bin"
     ];
 
     development = {
