@@ -128,7 +128,7 @@ in
     programs = {
       bash = {
         inherit logoutExtra shellAliases;
-        profileExtra = profileExtra + cfg.envExtra;
+        profileExtra = mkMerge [ profileExtra cfg.envExtra ];
         initExtra = mkMerge [ initExtra cfg.loginExtra ];
       };
 

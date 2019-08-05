@@ -4,10 +4,6 @@
   imports = [ ../../modules ];
 
   custom = {
-    misc.dotfiles = {
-      enable = true;
-      modules = [ "home-manager" ];
-    };
     misc.nonNixos.enable = true;
 
     programs = {
@@ -23,23 +19,24 @@
     };
   };
 
+  home.sessionVariables = {
+    LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
+  };
+
   home.packages = with pkgs; [
     nix
     cacert
     coreutils
     bashInteractive
 
-    glibc
-    glibcLocales
-    gawk
-    procps
-    ncurses
     diffutils
     findutils
+    gawk
     gnugrep
     gnused
     hostname
     man
+    ncurses
     openssh
   ];
 }
