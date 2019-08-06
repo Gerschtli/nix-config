@@ -8,7 +8,6 @@ shift
 while true; do
   case "${1}" in
     --only-fetch ) ONLY_FETCH=true; shift ;;
-    --no-lorri-update ) NO_LORRI_UPDATE=true; shift ;;
     * ) break ;;
   esac
 done
@@ -57,10 +56,9 @@ _process_profile() {
             ;;
     esac
 
-    if [[ -f "${ROOT}/.envrc" && -z "${NO_LORRI_UPDATE}" ]]; then
+    if [[ -f "${ROOT}/.envrc" ]]; then
         # TODO: replace with a refresh-aliases command
         NIX_CMD="source ${HOME}/.config/zsh/.zshrc"
-        SIDE_CMDS+=("lorri-one-shot && exit")
     fi
 }
 

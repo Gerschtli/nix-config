@@ -78,26 +78,6 @@ in
             "*:options:(--force)"
         '';
       })
-
-      (pkgs.writeScriptBin "lorri-one-shot" ''
-        #!${pkgs.runtimeShell} -e
-
-        FILE="$(mktemp --suffix=-lorri-one-shot)"
-
-        lorri watch > "$FILE" 2>&1 &
-        PID=$!
-
-        tail -f "$FILE" | while read line; do
-          if [[ "$line" == "Completed(" ]]; then
-            kill $PID
-            exit 0
-          elif [[ "$line" == "Failure(" ]]; then
-            cat "$FILE"
-            kill $PID
-            exit 1
-          fi
-        done
-      '')
     ];
 
     programs.zsh.initExtraBeforeCompInit = ''
@@ -119,18 +99,41 @@ in
       fi
     '';
 
-    systemd.user.services.lorri-daemon = {
-      Unit = {
-        Description = "Lorri daemon";
-        PartOf = [ "graphical-session.target" ];
+    systemd.user = {
+      services.lorri = {
+        Unit = {
+          Description = "lorri build daemon";
+          Documentation = "https://github.com/target/lorri";
+          ConditionUser = "!@system";
+          Requires = "lorri.socket";
+          After = "lorri.socket";
+          RefuseManualStart = true;
+        };
+
+        Service = {
+          ExecStart = "${pkgs.lorri}/bin/lorri daemon";
+          PrivateTmp = true;
+          ProtectSystem = "strict";
+          WorkingDirectory = "%h";
+          Restart = "on-failure";
+          Environment =
+            let path = with pkgs; makeSearchPath "bin" [ nix gnutar git mercurial ]; in
+            "PATH=${path} RUST_BACKTRACE=1";
+        };
       };
 
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
+      sockets.lorri = {
+        Unit = {
+          Description = "lorri build daemon";
+        };
 
-      Service = {
-        ExecStart = "${config.home.homeDirectory}/.nix-profile/bin/lorri daemon";
+        Socket = {
+          ListenStream = "%t/lorri/daemon.socket";
+        };
+
+        Install = {
+          WantedBy = [ "sockets.target" ];
+        };
       };
     };
 

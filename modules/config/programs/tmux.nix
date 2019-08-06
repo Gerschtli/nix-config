@@ -225,7 +225,7 @@ in
 
           _arguments \
             "1:profiles:($LIST)" \
-            "*:options:(--only-fetch --no-lorri-update)"
+            "*:options:(--only-fetch)"
         '';
       })
     ];
