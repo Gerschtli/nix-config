@@ -54,6 +54,8 @@ in
 
         "color4" = colorBlue;
         "color12" = colorBlue;
+
+        "termName" = "screen-256color";
       };
 
       keybindings = {

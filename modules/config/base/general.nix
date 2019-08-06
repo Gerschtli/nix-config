@@ -30,8 +30,6 @@ let
     LANG = localeEnglish;
     LANGUAGE = localeEnglish;
 
-    TERM = "screen-256color";
-
     PAGER = "${pkgs.less}/bin/less -FRX";
   };
 in
