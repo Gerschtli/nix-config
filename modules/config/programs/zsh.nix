@@ -40,13 +40,6 @@ in
         alias -g G="| grep"
         alias -g P="| $PAGER"
 
-        shell-reload() {
-          [[ -r "$HOME/${dotDir}/.zshenv" ]]   && source "$HOME/${dotDir}/.zshenv"
-          [[ -r "$HOME/${dotDir}/.zprofile" ]] && source "$HOME/${dotDir}/.zprofile"
-          [[ -r "$HOME/${dotDir}/.zshrc" ]]    && source "$HOME/${dotDir}/.zshrc"
-          [[ -r "$HOME/${dotDir}/.zlogin" ]]   && source "$HOME/${dotDir}/.zlogin"
-        }
-
         ${builtins.readFile ../../files/zsh/completion.zsh}
         ${builtins.readFile ../../files/zsh/directory-hash.zsh}
         ${builtins.readFile ../../files/zsh/keybindings.zsh}

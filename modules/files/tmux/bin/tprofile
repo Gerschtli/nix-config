@@ -58,7 +58,8 @@ _process_profile() {
     esac
 
     if [[ -f "${ROOT}/.envrc" && -z "${NO_LORRI_UPDATE}" ]]; then
-        NIX_CMD="shell-reload"
+        # TODO: replace with a refresh-aliases command
+        NIX_CMD="source ${HOME}/.config/zsh/.zshrc"
         SIDE_CMDS+=("lorri-one-shot && exit")
     fi
 }
