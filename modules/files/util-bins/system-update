@@ -66,9 +66,9 @@ update_nix() {
         nix-channel --update
     fi
 
-    if hash lorri > /dev/null 2>&1; then
-        log "nix" "lorri self-upgrade"
-        lorri self-upgrade
+    if nix-env --query nix | grep nix > /dev/null 2>&1; then
+        log "nix" "update nix"
+        nix-env --upgrade --always nix
     fi
 
     if [[ -r "${HOME}/.nix-channels" && -r "${HOME}/.config/nixpkgs/home.nix" ]]; then

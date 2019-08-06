@@ -31,6 +31,8 @@ in
     custom.development.direnv.enable = true;
 
     home.packages = [
+      pkgs.lorri
+
       (pkgs.writeScriptBin "lorri-init" ''
         #!${pkgs.runtimeShell} -e
 
