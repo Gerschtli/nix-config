@@ -1,17 +1,52 @@
 unhash -dm "*"
 
-PROJECTS="${HOME}/projects"
+_set-hashes() {
+    local directories
+    typeset -A directories
 
-if [[ -d "${PROJECTS}" ]]; then
-    for i in "${PROJECTS}"/*(/); do
-        hash -d "p-$(basename ${i})"="${i}"
+    local dotfiles="${HOME}/.dotfiles"
+    local home_manager="${dotfiles}/home-manager/home-manager-configurations"
+    local ssh_path="modules/secrets/ssh/modules"
+
+    directories=(
+        "dotfiles" "${dotfiles}"
+        "gpg" "${dotfiles}/gpg"
+        "home-manager" "${home_manager}"
+        "ssh" "${home_manager}/${ssh_path}"
+    )
+
+    if [[ $(id -u) == 0 ]]; then
+        local nixos="/etc/nixos"
+        local home_manager_nixos="${nixos}/home-manager-configurations"
+
+        directories+=(
+           "nixos" "${nixos}"
+           "home-manager" "${home_manager_nixos}"
+           "ssh" "${home_manager_nixos}/${ssh_path}"
+        )
+    fi
+
+    local name
+    for name in ${(k)directories}; do
+        [[ -d "${directories[$name]}" ]] && hash -d "${name}"="${directories[$name]}"
     done
 
-    if [[ -d "${PROJECTS}/pveu" ]]; then
-        for i in "${PROJECTS}/pveu"/*(/); do
-            hash -d "w-$(basename ${i})"="${i}"
-        done
-    fi
-fi
+    local projects="${HOME}/projects"
 
-unset PROJECTS
+    if [[ -d "${projects}" ]]; then
+        local i
+        for i in "${projects}"/*(/); do
+            hash -d "p-$(basename ${i})"="${i}"
+        done
+
+        if [[ -d "${projects}/pveu" ]]; then
+            for i in "${projects}/pveu"/*(/); do
+                hash -d "w-$(basename ${i})"="${i}"
+            done
+        fi
+    fi
+}
+
+_set-hashes
+
+unset -f _set-hashes
