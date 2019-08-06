@@ -47,9 +47,9 @@ in
           [[ -r "$HOME/${dotDir}/.zlogin" ]]   && source "$HOME/${dotDir}/.zlogin"
         }
 
-        source ${../../files/zsh/completion.zsh}
-        source ${../../files/zsh/directory-hash.zsh}
-        source ${../../files/zsh/keybindings.zsh}
+        ${builtins.readFile ../../files/zsh/completion.zsh}
+        ${builtins.readFile ../../files/zsh/directory-hash.zsh}
+        ${builtins.readFile ../../files/zsh/keybindings.zsh}
       '';
 
       plugins = [
