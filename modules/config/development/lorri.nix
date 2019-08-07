@@ -28,8 +28,6 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.development.direnv.enable = true;
-
     home.packages = [
       pkgs.lorri
 
@@ -80,24 +78,32 @@ in
       })
     ];
 
-    programs.zsh.initExtraBeforeCompInit = ''
-      # is set in nix.shell
-      if [[ ! -z "$buildInputs" ]]; then
-        for buildInput in "''${(ps: :)buildInputs}"; do
-          directories=(
-            $buildInput/share/zsh/site-functions
-            $buildInput/share/zsh/$ZSH_VERSION/functions
-            $buildInput/share/zsh/vendor-completions
-          )
+    programs = {
+      direnv = {
+        enable = true;
+        enableBashIntegration = true;
+        enableZshIntegration = true;
+      };
 
-          for directory in $directories; do
-            if [[ -d "$directory" ]]; then
-              fpath+=("$directory")
-            fi
+      zsh.initExtraBeforeCompInit = ''
+        # is set in nix.shell
+        if [[ ! -z "$buildInputs" ]]; then
+          for buildInput in "''${(ps: :)buildInputs}"; do
+            directories=(
+              $buildInput/share/zsh/site-functions
+              $buildInput/share/zsh/$ZSH_VERSION/functions
+              $buildInput/share/zsh/vendor-completions
+            )
+
+            for directory in $directories; do
+              if [[ -d "$directory" ]]; then
+                fpath+=("$directory")
+              fi
+            done
           done
-        done
-      fi
-    '';
+        fi
+      '';
+    };
 
     systemd.user = {
       services.lorri = {

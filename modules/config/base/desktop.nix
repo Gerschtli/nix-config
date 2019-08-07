@@ -29,11 +29,7 @@ in
   config = mkIf cfg.enable {
 
     custom = {
-      development = {
-        direnv.enable = true;
-
-        lorri.enable = true;
-      };
+      development.lorri.enable = true;
 
       misc.dotfiles = {
         enable = true;
