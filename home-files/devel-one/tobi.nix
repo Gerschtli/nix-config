@@ -28,14 +28,7 @@
       util-bins.bins = [ "csv-check" ];
     };
 
-    programs = {
-      shell.envExtra = ''
-        export NIX_PATH=$HOME/.nix-defexpr/channels''${NIX_PATH:+:}$NIX_PATH
-        export NIX_PROFILES="/nix/var/nix/profiles/default /nix/var/nix/profiles/per-user/$USER"
-      '';
-
-      ssh.modules = [ "pveu" ];
-    };
+    programs.ssh.modules = [ "pveu" ];
 
     xsession.useSlock = true;
   };

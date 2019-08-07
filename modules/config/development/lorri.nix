@@ -117,8 +117,15 @@ in
           WorkingDirectory = "%h";
           Restart = "on-failure";
           Environment =
-            let path = with pkgs; makeSearchPath "bin" [ nix gnutar git mercurial ]; in
-            "PATH=${path} RUST_BACKTRACE=1";
+            let
+              path = with pkgs; makeSearchPath "bin" [ nix gnutar git mercurial ];
+            in
+              concatStringsSep " " ([
+                "PATH=${path}"
+                "RUST_BACKTRACE=1"
+              ] ++ optional config.custom.misc.nonNixos.enable
+                ''NIX_PATH="${config.custom.misc.nonNixos.nixPath}"''
+              );
         };
       };
 
