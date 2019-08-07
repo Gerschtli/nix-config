@@ -23,7 +23,7 @@
     };
 
     misc = {
-      nonNixos.enable = true;
+      non-nixos.enable = true;
 
       util-bins.bins = [ "csv-check" ];
     };

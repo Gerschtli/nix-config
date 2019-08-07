@@ -123,8 +123,8 @@ in
               concatStringsSep " " ([
                 "PATH=${path}"
                 "RUST_BACKTRACE=1"
-              ] ++ optional config.custom.misc.nonNixos.enable
-                ''NIX_PATH="${config.custom.misc.nonNixos.nixPath}"''
+              ] ++ optional config.custom.misc.non-nixos.enable
+                ''NIX_PATH="${config.custom.misc.non-nixos.nixPath}"''
               );
         };
       };

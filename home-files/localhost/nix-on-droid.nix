@@ -4,7 +4,7 @@
   imports = [ ../../modules ];
 
   custom = {
-    misc.nonNixos.enable = true;
+    misc.non-nixos.enable = true;
 
     programs = {
       prompts.liquidprompt.config = {
