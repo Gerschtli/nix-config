@@ -5,16 +5,17 @@ modules.
 
 ## Nodes
 
-* *helium*: tower
-* *argon*: laptop
-* *krypton*: server
-* *xenon*: raspberry
+* `argon`: personal laptop
+* `helium`: personal desktop
+* `krypton`: server
+* `xenon`: raspberry pi
 
 ## Set up
 
 You need to link any configuration file first:
 ```bash
-$ git clone --recursive git@github.com:Gerschtli/nixos-configurations.git /etc/nixos
+$ git clone git@github.com:Gerschtli/nixos-configurations.git /etc/nixos
+$ git clone git@github.com:Gerschtli/home-manager-configurations.git /etc/nixos/home-manager-configurations
 $ nixos-generate-config
 $ ln -sf configuration-<host>.nix configuration.nix
 ```
