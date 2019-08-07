@@ -47,7 +47,10 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.misc.dotfiles.modules = [ "gpg" ];
+    custom.misc.dotfiles = {
+      enable = true;
+      modules = [ "gpg" ];
+    };
 
     home.packages = with pkgs; [
       (pass.override { inherit (cfg) x11Support; })
