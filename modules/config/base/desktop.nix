@@ -41,7 +41,7 @@ in
       };
 
       programs = {
-        pass = {
+        pass = mkIf cfg.personal {
           enable = true;
           browserpass = true;
           x11Support = true;
