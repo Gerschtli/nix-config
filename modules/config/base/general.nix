@@ -41,6 +41,7 @@ in
   options = {
 
     custom.base.general = {
+
       enable = mkOption {
         type = types.bool;
         default = true;
@@ -56,6 +57,9 @@ in
           Extend PATH with provided list of directories.
         '';
       };
+
+      lightWeight = mkEnableOption "light weight config for low performance hosts";
+
     };
 
   };
@@ -77,7 +81,11 @@ in
 
         neovim.enable = true;
 
-        prompts.liquidprompt.enable = true;
+        prompts = {
+          liquidprompt.enable = mkIf (!cfg.lightWeight) true;
+
+          pure.enable = mkIf cfg.lightWeight true;
+        };
 
         shell.envExtra = mkIf (cfg.extendedPath != []) ''
           export PATH="${concatStringsSep ":" cfg.extendedPath}:$PATH"
