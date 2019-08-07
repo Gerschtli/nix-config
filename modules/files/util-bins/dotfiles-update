@@ -14,11 +14,11 @@ if [[ -z "${1}" ]]; then
         _d_pull "${DOTFILES_ROOT}/gpg"
     fi
 
-    echo
-    _d_info "===== SUBMOUDLE UPDATE ====="
-    _d_indent git -C "${DOTFILES_ROOT}" submodule update --init
-    _d_indent git -C "${DOTFILES_ROOT}" submodule foreach git checkout master
-    _d_indent git -C "${DOTFILES_ROOT}" submodule foreach git pull
+    if [[ -d "${DOTFILES_ROOT}/home-manager/home-manager-configurations" ]]; then
+        echo
+        _d_info "======= HOME MANAGER ======="
+        _d_pull "${DOTFILES_ROOT}/home-manager/home-manager-configurations"
+    fi
 fi
 
 echo
