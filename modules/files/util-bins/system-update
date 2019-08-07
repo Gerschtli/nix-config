@@ -84,7 +84,8 @@ update_nix() {
 
         log "nix" "update nixos project"
         git -C /etc/nixos pull
-        git -C /etc/nixos submodule update
+        log "nix" "update home-manager project"
+        git -C /etc/nixos/home-manager-configurations pull
         log "nix" "builds nixos configuration"
         /etc/nixos/bin/rebuild build
         log "nix" "switches nixos configuration"
