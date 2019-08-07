@@ -22,7 +22,11 @@ for dir in ${list[@]}; do
         continue
     fi
 
-    echo -e "\n[\033[00;34mDIR\033[0m] ${dir}\n"
+    name="${dir#$HOME/}"
+    name="${name#*/secrets/}"
+    name="${name#/etc/}"
+
+    echo -e "\n[\033[00;34mDIR\033[0m] ${name}\n"
     git -C "${dir}" status
     echo
 done
