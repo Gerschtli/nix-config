@@ -41,6 +41,11 @@ in
 
   # hardware.bluetooth.enable = true;
 
+  home-manager.users = {
+    root = import ./home-manager-configurations/home-files/xenon/root.nix;
+    tobias = import ./home-manager-configurations/home-files/xenon/tobias.nix;
+  };
+
   networking = {
     hostName = "xenon";
 
