@@ -9,6 +9,7 @@ Provides `home.nix` files for each host and user in `home-files` with the struct
 * `devel-one`: work desktop
 * `helium`: personal desktop
 * `localhost`: android phone (based on [nix-on-droid](https://github.com/t184256/nix-on-droid-bootstrap))
+* `krypton`: server
 * `xenon`: raspberry pi
 
 ## Nix Channels
