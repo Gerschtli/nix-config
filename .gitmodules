@@ -1,3 +1,0 @@
-[submodule "home-manager-configurations"]
-    path = home-manager-configurations
-    url = git@github.com:Gerschtli/home-manager-configurations.git
