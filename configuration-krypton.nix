@@ -50,5 +50,10 @@
     system.boot.mode = "grub";
   };
 
+  home-manager.users = {
+    root = import ./home-manager-configurations/home-files/krypton/root.nix;
+    tobias = import ./home-manager-configurations/home-files/krypton/tobias.nix;
+  };
+
   networking.hostName = "krypton";
 }
