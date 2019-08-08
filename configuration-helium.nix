@@ -18,11 +18,6 @@
 
   hardware.opengl.driSupport32Bit = true;
 
-  home-manager.users = {
-    root = import ./home-manager-configurations/home-files/helium/root.nix;
-    tobias = import ./home-manager-configurations/home-files/helium/tobias.nix;
-  };
-
   services.xserver = {
     videoDrivers = [ "nvidia" ];
 

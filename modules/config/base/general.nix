@@ -47,7 +47,15 @@ in
 
     environment.shellAliases = mkForce { };
 
-    home-manager.useUserPackages = true;
+    home-manager = {
+      backupExt = "hm-bak";
+      useUserPackages = true;
+
+      users = {
+        root = import (../../../home-manager-configurations/home-files + "/${cfg.hostName}/root.nix");
+        tobias = import (../../../home-manager-configurations/home-files + "/${cfg.hostName}/tobias.nix");
+      };
+    };
 
     i18n = {
       consoleKeyMap = "de";

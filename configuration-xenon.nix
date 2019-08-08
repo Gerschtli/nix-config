@@ -45,11 +45,6 @@ in
 
   # hardware.bluetooth.enable = true;
 
-  home-manager.users = {
-    root = import ./home-manager-configurations/home-files/xenon/root.nix;
-    tobias = import ./home-manager-configurations/home-files/xenon/tobias.nix;
-  };
-
   # Need to run: wpa_passphrase ESSID PSK > /etc/wpa_supplicant.conf
   networking.wireless.enable = true;
 }
