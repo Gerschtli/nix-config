@@ -100,7 +100,7 @@ update_nix() {
 
     if ! has_unit_enabled "nix-gc.timer"; then
         log "nix" "nix-collect-garbage"
-        nix-collect-garbage --delete-older-than 14d
+        nix-collect-garbage --delete-older-than 14d 2> /dev/null
     fi
 
     if ! has_unit_enabled "nix-optimise.timer"; then
