@@ -73,7 +73,7 @@ update_nix() {
 
     if [[ -r "${HOME}/.nix-channels" && -r "${HOME}/.config/nixpkgs/home.nix" ]]; then
         log "nix" "home-manager switch"
-        home-manager switch
+        home-manager switch -b hm-bak
     fi
 
     if [[ -r "${HOME}/.nix-channels" ]] && is_root; then
