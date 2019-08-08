@@ -32,9 +32,16 @@ in
   config = mkIf cfg.enable {
 
     custom = {
-      misc.dotfiles = {
-        enable = true;
-        modules = [ "home-manager" ];
+      misc = {
+        dotfiles = {
+          enable = true;
+          modules = [ "home-manager" ];
+        };
+
+        nix-channels = {
+          enable = true;
+          nixpkgs = true;
+        };
       };
 
       programs.shell.envExtra = mkBefore ''
