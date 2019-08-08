@@ -52,6 +52,8 @@ in
       '';
     };
 
+    home.packages = [ pkgs.nix ];
+
     programs.zsh.envExtra = mkAfter ''
       hash -f
     '';

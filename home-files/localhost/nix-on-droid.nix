@@ -24,7 +24,6 @@
   };
 
   home.packages = with pkgs; [
-    nix
     cacert
     coreutils
     bashInteractive
