@@ -4,7 +4,11 @@
   imports = [ ./modules ];
 
   custom = {
-    base.desktop.enable = true;
+    base = {
+      desktop.enable = true;
+
+      general.hostName = "helium";
+    };
 
     services.openssh = {
       enable = true;
@@ -31,6 +35,4 @@
       { output = "DVI-I-1"; }
     ];
   };
-
-  networking.hostName = "helium";
 }

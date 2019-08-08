@@ -25,9 +25,13 @@
       tobias-happ.enable = true;
     };
 
-    base.server = {
-      enable = true;
-      ipv6Address = "2a01:4f8:1c0c:7161::2";
+    base = {
+      general.hostName = "krypton";
+
+      server = {
+        enable = true;
+        ipv6Address = "2a01:4f8:1c0c:7161::2";
+      };
     };
 
     programs.weechat = {
@@ -54,6 +58,4 @@
     root = import ./home-manager-configurations/home-files/krypton/root.nix;
     tobias = import ./home-manager-configurations/home-files/krypton/tobias.nix;
   };
-
-  networking.hostName = "krypton";
 }

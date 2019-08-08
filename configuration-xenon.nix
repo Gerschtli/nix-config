@@ -8,7 +8,11 @@ in
   imports = [ ./modules ];
 
   custom = {
-    base.server.enable = true;
+    base = {
+      general.hostName = "xenon";
+
+      server.enable = true;
+    };
 
     services = {
       ip-watcher.client = {
@@ -46,10 +50,6 @@ in
     tobias = import ./home-manager-configurations/home-files/xenon/tobias.nix;
   };
 
-  networking = {
-    hostName = "xenon";
-
-    # Need to run: wpa_passphrase ESSID PSK > /etc/wpa_supplicant.conf
-    wireless.enable = true;
-  };
+  # Need to run: wpa_passphrase ESSID PSK > /etc/wpa_supplicant.conf
+  networking.wireless.enable = true;
 }

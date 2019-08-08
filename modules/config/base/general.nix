@@ -25,6 +25,13 @@ in
         '';
       };
 
+      hostName = mkOption {
+        type = types.str;
+        description = ''
+          Host name.
+        '';
+      };
+
     };
 
   };
@@ -47,7 +54,10 @@ in
       defaultLocale = "en_US.UTF-8";
     };
 
-    networking.usePredictableInterfaceNames = false;
+    networking = {
+      inherit (cfg) hostName;
+      usePredictableInterfaceNames = false;
+    };
 
     nixpkgs.overlays = map (file: import file) (customLib.getFileList ../../overlays);
 
