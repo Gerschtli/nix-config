@@ -22,7 +22,7 @@ if [[ -z "${1}" ]]; then
 
     for module in "${DOTFILES_ROOT}/home-manager/home-manager-configurations/modules/secrets/ssh/modules"/*/; do
         echo
-        _d_info "\n=== SSH $(basename "${module}") ===\n"
+        _d_info "===== SSH $(basename "${module}") ====="
         _d_pull "${module}"
     done
 fi
