@@ -19,6 +19,12 @@ if [[ -z "${1}" ]]; then
         _d_info "======= HOME MANAGER ======="
         _d_pull "${DOTFILES_ROOT}/home-manager/home-manager-configurations"
     fi
+
+    for module in "${DOTFILES_ROOT}/home-manager/home-manager-configurations/modules/secrets/ssh/modules"/*/; do
+        echo
+        _d_info "\n=== SSH $(basename "${module}") ===\n"
+        _d_pull "${module}"
+    done
 fi
 
 echo

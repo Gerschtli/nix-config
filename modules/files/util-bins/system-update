@@ -83,10 +83,16 @@ update_nix() {
         fi
 
         log "nix" "update nixos project"
-        git -C /etc/nixos pull
+        git -C /etc/nixos pull --prune
         log "nix" "update home-manager project"
-        git -C /etc/nixos/home-manager-configurations pull
-        log "nix" "builds nixos configuration"
+        git -C /etc/nixos/home-manager-configurations pull --prune
+
+        for module in /etc/nixos/home-manager-configurations/modules/secrets/ssh/modules/*/; do
+            log "nix" "update ssh module $(basename "${module}")"
+            git -C "${module}" pull --prune
+        done
+
+         log "nix" "builds nixos configuration"
         /etc/nixos/bin/rebuild build
         log "nix" "switches nixos configuration"
         /etc/nixos/bin/rebuild switch
