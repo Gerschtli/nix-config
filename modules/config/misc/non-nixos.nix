@@ -4,6 +4,8 @@ with lib;
 
 let
   cfg = config.custom.misc.non-nixos;
+
+  nixPath = "/nix/var/nix/profiles/per-user/${config.home.username}/channels";
 in
 
 {
@@ -12,17 +14,7 @@ in
 
   options = {
 
-    custom.misc.non-nixos = {
-
-      enable = mkEnableOption "config for non NixOS systems";
-
-      nixPath = mkOption {
-        type = types.str;
-        default = "/nix/var/nix/profiles/per-user/${config.home.username}/channels";
-        description = "Value for NIX_PATH variable.";
-      };
-
-    };
+    custom.misc.non-nixos.enable = mkEnableOption "config for non NixOS systems";
 
   };
 
@@ -47,7 +39,7 @@ in
       programs.shell.envExtra = mkBefore ''
         source "${pkgs.nix}/etc/profile.d/nix.sh"
 
-        export NIX_PATH="${cfg.nixPath}"
+        export NIX_PATH="''${NIX_PATH:+$NIX_PATH:}${nixPath}"
         export NIX_PROFILES="/etc/profiles/per-user/$USER /run/current-system/sw /nix/var/nix/profiles/default $HOME/.nix-profile"
       '';
     };
@@ -57,6 +49,10 @@ in
     programs.zsh.envExtra = mkAfter ''
       hash -f
     '';
+
+    systemd.user.sessionVariables = {
+      NIX_PATH = "\${NIX_PATH:+$NIX_PATH:}${nixPath}";
+    };
 
   };
 

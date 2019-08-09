@@ -126,12 +126,10 @@ in
             let
               path = with pkgs; makeSearchPath "bin" [ nix gnutar git mercurial ];
             in
-              concatStringsSep " " ([
+              concatStringsSep " " [
                 "PATH=${path}"
                 "RUST_BACKTRACE=1"
-              ] ++ optional config.custom.misc.non-nixos.enable
-                ''NIX_PATH="${config.custom.misc.non-nixos.nixPath}"''
-              );
+              ];
         };
       };
 
