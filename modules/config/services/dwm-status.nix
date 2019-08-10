@@ -1,19 +1,9 @@
-# FIXME: remove when https://github.com/NixOS/nixpkgs/pull/51319 get merged
-
 { config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.custom.services.dwm-status;
-
-  order = concatMapStringsSep "," (feature: ''"${feature}"'') cfg.order;
-
-  configFile = pkgs.writeText "dwm-status.toml" ''
-    order = [${order}]
-
-    ${cfg.extraConfig}
-  '';
 in
 
 {
@@ -24,28 +14,9 @@ in
 
     custom.services.dwm-status = {
 
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to enable dwm-status user service.
-        '';
-      };
+      enable = mkEnableOption "dwm-status user service";
 
-      order = mkOption {
-        type = types.listOf (types.enum [ "audio" "backlight" "battery" "cpu_load" "network" "time" ]);
-        description = ''
-          List of enabled features in order.
-        '';
-      };
-
-      extraConfig = mkOption {
-        type = types.lines;
-        default = "";
-        description = ''
-          Extra config in TOML format.
-        '';
-      };
+      laptop = mkEnableOption "laptop config";
 
     };
 
@@ -56,19 +27,39 @@ in
 
   config = mkIf cfg.enable {
 
-    systemd.user.services.dwm-status = {
-      Unit = {
-        Description = "Highly performant and configurable DWM status service";
-        PartOf = [ "graphical-session.target" ];
-      };
+    services.dwm-status = {
+      enable = true;
 
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
+      order =
+        if cfg.laptop
+        then [ "cpu_load" "backlight" "audio" "battery" "time" ]
+        else [ "cpu_load" "audio" "time" ];
 
-      Service = {
-        ExecStart = "${pkgs.dwm-status}/bin/dwm-status ${configFile}";
-      };
+      extraConfig = mkMerge [
+        {
+          separator = "    ";
+
+          audio = {
+            mute = "ﱝ";
+            template = "{ICO} {VOL}%";
+            icons = [ "奄" "奔" "墳" ];
+          };
+        }
+
+        (mkIf cfg.laptop {
+          backlight = {
+            template = "{ICO} {BL}%";
+            icons = [ "" "" "" ];
+          };
+
+          battery = {
+            charging = "";
+            discharging = "";
+            no_battery = "";
+            icons = [ "" "" "" "" "" "" "" "" "" "" "" ];
+          };
+        })
+      ];
     };
 
   };

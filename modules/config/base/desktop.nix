@@ -52,31 +52,9 @@ in
         dunst.enable = true;
 
         dwm-status = {
+          inherit (cfg) laptop;
+
           enable = true;
-          order = if cfg.laptop
-            then [ "cpu_load" "backlight" "audio" "battery" "time" ]
-            else [ "cpu_load" "audio" "time" ];
-
-          extraConfig = ''
-            separator = "    "
-
-            [audio]
-            mute = "ﱝ"
-            template = "{ICO} {VOL}%"
-            icons = ["奄", "奔", "墳"]
-
-            ${optionalString cfg.laptop ''
-              [backlight]
-              template = "{ICO} {BL}%"
-              icons = ["", "", ""]
-
-              [battery]
-              charging = ""
-              discharging = ""
-              no_battery = ""
-              icons = ["", "", "", "", "", "", "", "", "", "", ""]
-            ''}
-          '';
         };
       };
 
