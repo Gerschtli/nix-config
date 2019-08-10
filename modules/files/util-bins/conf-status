@@ -15,6 +15,7 @@ list+=(
     ~/.dotfiles/gpg
     ~/.dotfiles/home-manager/home-manager-configurations
     ~/.dotfiles/home-manager/home-manager-configurations/modules/secrets/ssh/modules/*
+    ~/.password-store
 )
 
 for dir in ${list[@]}; do
