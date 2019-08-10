@@ -56,9 +56,8 @@ _process_profile() {
             ;;
     esac
 
-    if [[ -f "${ROOT}/.envrc" ]]; then
-        # TODO: replace with a refresh-aliases command
-        NIX_CMD="source ${HOME}/.config/zsh/.zshrc"
+    if [[ -f "${ROOT}/.envrc" && -f "${HOME}/.refresh-shell" ]]; then
+        NIX_CMD="source ${HOME}/.refresh-shell"
     fi
 }
 

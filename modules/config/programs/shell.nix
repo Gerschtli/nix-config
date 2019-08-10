@@ -210,6 +210,8 @@ in
 
   config = mkIf cfg.enable {
 
+    home.file.".refresh-shell".text = dynamicShellInit;
+
     programs = {
       bash = {
         inherit logoutExtra shellAliases;
