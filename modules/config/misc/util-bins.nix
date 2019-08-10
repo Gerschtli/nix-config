@@ -19,7 +19,7 @@ in
       enable = mkEnableOption "some utility binaries";
 
       bins = mkOption {
-        type = types.listOf (types.enum [ "csv-check" "dotfiles-update" ]);
+        type = types.listOf (types.enum [ "csv-check" ]);
         default = [];
         description = "List of bins to install.";
       };

@@ -32,11 +32,6 @@ in
   config = mkIf cfg.enable (mkMerge [
 
     {
-      custom.misc.util-bins = {
-        enable = true;
-        bins = [ "dotfiles-update" ];
-      };
-
       home.file.".localrc".text = ''
         MODULES=(${concatStringsSep " " cfg.modules})
       '';
