@@ -8,7 +8,7 @@ let
   # FIXME: use always neovim after https://github.com/NixOS/nixpkgs/issues/45026 got fixed
   useVim = pkgs.stdenv.hostPlatform.system == "aarch64-linux";
 
-  customRC = ''
+  extraConfig = ''
     "" Encoding
     set encoding=utf-8
     set fileencoding=utf-8
@@ -177,21 +177,17 @@ in
 
     programs = {
       neovim = {
-        enable = !useVim;
-        configure = {
-          inherit customRC;
+        inherit extraConfig plugins;
 
-          packages.custom.start = plugins;
-        };
+        enable = !useVim;
         viAlias = true;
         vimAlias = true;
       };
 
       vim = {
+        inherit extraConfig plugins;
+
         enable = useVim;
-        extraConfig = customRC;
-        # TODO: change in home-manager that it accepts derivations
-        plugins = map (plugin: plugin.pname) plugins;
       };
     };
 
