@@ -47,6 +47,10 @@ let
       available() {
         hash "$1" > /dev/null 2>&1
       }
+
+      is_bash() {
+        [[ -n "''${BASH_VERSION-}" ]]
+      }
     '')
 
     ''

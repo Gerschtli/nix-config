@@ -39,24 +39,26 @@ in
 
   config = mkIf cfg.enable {
 
+    custom.programs.shell.dynamicShellInit = [
+      {
+        condition = "available npm && is_bash";
+
+        initExtra = ''
+          eval "$(npm completion)"
+        '';
+      }
+    ];
+
     home.file.".npmrc".text = ''
       engine-strict=true
     '';
 
-    programs = {
-      bash.initExtra = ''
-        if available npm; then
-          eval "$(npm completion)"
-        fi
-      '';
-
-      zsh.plugins = [
-        {
-          name = "zsh-better-npm-completion";
-          src = "${zsh-better-npm-completion}/share/zsh-better-npm-completion";
-        }
-      ];
-    };
+    programs.zsh.plugins = [
+      {
+        name = "zsh-better-npm-completion";
+        src = "${zsh-better-npm-completion}/share/zsh-better-npm-completion";
+      }
+    ];
 
   };
 
