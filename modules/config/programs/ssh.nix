@@ -140,6 +140,7 @@ in
         enableBashIntegration = true;
         enableZshIntegration = true;
         agents = [ "ssh" ];
+        keys = [ ];
       };
 
       ssh = {
