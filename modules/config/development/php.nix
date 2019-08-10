@@ -21,15 +21,19 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.programs.shell.initExtra = ''
-      if available php; then
-        alias cinstall="composer install"
-        alias cupdate="composer update"
+    custom.programs.shell.dynamicShellInit = [
+      {
+        condition = "available php";
 
-        alias behat="./vendor/bin/behat -vvv"
-        alias ut="./vendor/bin/phpunit"
-      fi
-    '';
+        shellAliases = {
+          cinstall = "composer install";
+          cupdate = "composer update";
+
+          behat = "./vendor/bin/behat -vvv";
+          ut = "./vendor/bin/phpunit";
+        };
+      }
+    ];
 
   };
 
