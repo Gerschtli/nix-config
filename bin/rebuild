@@ -1,24 +1,12 @@
 #!/usr/bin/env bash
 
-BASE_DIR="/etc/nixos"
-VERBOSE=false
+set -e
 
-if [[ "${1}" == "-v" ]]; then
-    VERBOSE=true
-    shift
-fi
-
-log() {
-    $VERBOSE && echo ">> ${1}"
-}
-
-# nixos-rebuild
-log "nixos-rebuild"
 nixos-rebuild "${1:-test}" ${@:2}
 
 if [[ "${1}" == "build" ]]; then
     echo
-    log "nox-update"
+
     # see https://github.com/madjar/nox/issues/63#issuecomment-303280129
     nox-update --quiet /run/current-system result | \
         grep -v '\.drv : $' | \
