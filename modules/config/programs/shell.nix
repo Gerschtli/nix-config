@@ -5,6 +5,42 @@ with lib;
 let
   cfg = config.custom.programs.shell;
 
+  dynamicShellInitModule = types.submodule ({ name, ... }: {
+    options = {
+      condition = mkOption {
+        type = types.str;
+        example = "available cargo";
+        description = ''
+          Condition to be matched before the provided aliases and config are set.
+          The value has to be a bash/zsh expression to be placed into an
+          <code>if</code>.
+        '';
+      };
+
+      initExtra = mkOption {
+        default = "";
+        type = types.lines;
+        description = ''
+          Extra commands that should be run when <varname>condition</varname> is
+          met. Commands need to be idempotent as they are potentially executed
+          mulitple times.
+        '';
+      };
+
+      shellAliases = mkOption {
+        default = {};
+        type = types.attrsOf types.str;
+        example = { ll = "ls -l"; ".." = "cd .."; };
+        description = ''
+          An attribute set that maps aliases (the top level attribute names in
+          this option) to command strings or directly to build outputs.
+        '';
+      };
+    };
+
+    config.condition = mkDefault name;
+  });
+
   initExtra = mkMerge [
     # mkBefore is needed because available needs to be defined early in the config
     (mkBefore ''
@@ -18,6 +54,8 @@ let
     ''
 
     cfg.initExtra
+
+    dynamicShellInit
   ];
 
   logoutExtra = ''
@@ -70,6 +108,25 @@ let
     tree = "tree -F --dirsfirst";
     treea = "tree -a";
   } // cfg.shellAliases;
+
+  dynamicShellInit = concatStringsSep "\n" (
+    map
+      (options:
+        if (options.initExtra == "" && options.shellAliases == {})
+        then ""
+        else
+          ''
+            if ${options.condition}; then
+              ${concatStringsSep "\n" (
+                mapAttrsToList (k: v: "alias ${k}=${escapeShellArg v}") options.shellAliases
+              )}
+
+              ${options.initExtra}
+            fi
+          ''
+      )
+      (attrValues cfg.dynamicShellInit)
+  );
 in
 
 {
@@ -113,6 +170,30 @@ in
         description = ''
           An attribute set that maps aliases (the top level attribute names in
           this option) to command strings or directly to build outputs.
+        '';
+      };
+
+      dynamicShellInit = mkOption {
+        default = {};
+        type = types.loaOf dynamicShellInitModule;
+        example = {
+          "available composer" = {
+            shellAliases = {
+              cinstall = "composer install";
+            };
+
+            initExtra = ''
+              # extra config
+            '';
+          };
+        };
+        description = ''
+          Specify dynamic shell init which has to be reloaded after environment change.
+
+          </para><para>
+
+          Note: This only adds config and is not intended to cleanup after context switch
+          when to defined conditions are no more true.
         '';
       };
 
