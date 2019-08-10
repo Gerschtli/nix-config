@@ -21,23 +21,27 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.programs.shell.initExtra = ''
-      if available vagrant; then
-        alias cdv="cd vagrant"
+    custom.programs.shell.dynamicShellInit = [
+      {
+        condition = "available vagrant";
 
-        alias vauto="vagrant rsync-auto"
-        alias vdes="vagrant destroy && rm -rf .vagrant"
-        alias vhalt="vagrant halt"
-        alias vpro="vagrant provision"
-        alias vrel="vagrant reload --provision"
-        alias vssh="vagrant ssh"
-        alias vst="vagrant status"
-        alias vsync="vagrant rsync"
-        alias vup="vagrant up --provision"
+        shellAliases = {
+          cdv = "cd vagrant";
 
-        alias cdvpro="cdv && vpro && cd -"
-      fi
-    '';
+          vauto = "vagrant rsync-auto";
+          vdes = "vagrant destroy && rm -rf .vagrant";
+          vhalt = "vagrant halt";
+          vpro = "vagrant provision";
+          vrel = "vagrant reload --provision";
+          vssh = "vagrant ssh";
+          vst = "vagrant status";
+          vsync = "vagrant rsync";
+          vup = "vagrant up --provision";
+
+          cdvpro = "cdv && vpro && cd -";
+        };
+      }
+    ];
 
   };
 
