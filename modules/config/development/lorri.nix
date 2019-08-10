@@ -12,14 +12,7 @@ in
 
   options = {
 
-    custom.development.lorri.enable = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-        Whether to enable lorri setup.  Installation of lorri needs to be done manually
-        as described in <https://github.com/target/lorri#installing-lorri>.
-      '';
-    };
+    custom.development.lorri.enable = mkEnableOption "lorri setup";
 
   };
 
