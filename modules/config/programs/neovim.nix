@@ -5,9 +5,6 @@ with lib;
 let
   cfg = config.custom.programs.neovim;
 
-  # FIXME: use always neovim after https://github.com/NixOS/nixpkgs/issues/45026 got fixed
-  useVim = pkgs.stdenv.hostPlatform.system == "aarch64-linux";
-
   extraConfig = ''
     "" Encoding
     set encoding=utf-8
@@ -173,22 +170,14 @@ in
 
   config = mkIf cfg.enable {
 
-    home.sessionVariables.EDITOR = "vim";
+    home.sessionVariables.EDITOR = "${config.programs.neovim.customizedPackage}/bin/nvim";
 
-    programs = {
-      neovim = {
-        inherit extraConfig plugins;
+    programs.neovim = {
+      inherit extraConfig plugins;
 
-        enable = !useVim;
-        viAlias = true;
-        vimAlias = true;
-      };
-
-      vim = {
-        inherit extraConfig plugins;
-
-        enable = useVim;
-      };
+      enable = true;
+      viAlias = true;
+      vimAlias = true;
     };
 
   };
