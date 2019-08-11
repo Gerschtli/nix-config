@@ -210,7 +210,9 @@ in
 
   config = mkIf cfg.enable {
 
-    home.file.".refresh-shell".text = dynamicShellInit;
+    home.file.".refresh-shell" = mkIf (dynamicShellInit != "") {
+      text = dynamicShellInit;
+    };
 
     programs = {
       bash = {
