@@ -52,6 +52,10 @@ has_match() {
     grep -E "${expression}" "${input}" > /dev/null 2>&1
 }
 
+is_submodule() {
+    [[ -f "$(git rev-parse --show-toplevel)/.git" ]]
+}
+
 run_scripts() {
     HOOK_TYPE="${1}"
     local scripts_dir="${HOOKS_DIR}/scripts"
@@ -67,5 +71,6 @@ run_scripts() {
 
 track_result() {
     local last_result="${1:-$?}"
+
     RESULT=$((${RESULT} + ${last_result}))
 }

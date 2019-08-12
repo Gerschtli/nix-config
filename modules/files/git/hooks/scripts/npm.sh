@@ -5,7 +5,7 @@ source "${HOOKS_DIR}/helpers/util.sh"
 PACKAGE_JSON="${PWD}/package.json"
 
 install() {
-    if has_changed "${PACKAGE_JSON}"; then
+    if has_changed "${PACKAGE_JSON}" && ! is_submodule; then
         npm ci
     fi
 }

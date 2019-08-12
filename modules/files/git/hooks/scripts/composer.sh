@@ -5,7 +5,7 @@ source "${HOOKS_DIR}/helpers/util.sh"
 COMPOSER_LOCK="${PWD}/composer.lock"
 
 install() {
-    if has_changed "${COMPOSER_LOCK}"; then
+    if has_changed "${COMPOSER_LOCK}" && ! is_submodule; then
         composer install --optimize-autoloader --prefer-source
     fi
 }
