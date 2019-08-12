@@ -57,16 +57,14 @@ fi
 
 # update ubuntu
 if available apt; then
-    local sudo_prefix="$(get_sudo_prefix)"
-
     log "apt" "update"
-    "${sudo_prefix}" apt update
+    "$(get_sudo_prefix)" apt update
     log "apt" "upgrade"
-    "${sudo_prefix}" apt upgrade -y
+    "$(get_sudo_prefix)" apt upgrade -y
     log "apt" "autoclean"
-    "${sudo_prefix}" apt autoclean -y
+    "$(get_sudo_prefix)" apt autoclean -y
     log "apt" "autoremove"
-    "${sudo_prefix}" apt autoremove -y
+    "$(get_sudo_prefix)" apt autoremove -y
 fi
 
 if available snap && $(snap list > /dev/null 2>&1); then
