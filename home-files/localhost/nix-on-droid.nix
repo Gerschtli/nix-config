@@ -3,19 +3,15 @@
 {
   imports = [ ../../modules ];
 
-  custom = {
-    misc.non-nixos.enable = true;
+  custom.programs = {
+    prompts.liquidprompt.config = {
+      LP_ENABLE_LOAD = 0;
+    };
 
-    programs = {
-      prompts.liquidprompt.config = {
-        LP_ENABLE_LOAD = 0;
-      };
-
-      ssh = {
-        enableKeychain = false;
-        controlMaster = "no";
-        modules = [ "private" ];
-      };
+    ssh = {
+      enableKeychain = false;
+      controlMaster = "no";
+      modules = [ "private" ];
     };
   };
 

@@ -22,11 +22,7 @@
       vagrant.enable = true;
     };
 
-    misc = {
-      non-nixos.enable = true;
-
-      util-bins.bins = [ "csv-check" ];
-    };
+    misc.util-bins.bins = [ "csv-check" ];
 
     programs.ssh.modules = [ "pveu" ];
 
