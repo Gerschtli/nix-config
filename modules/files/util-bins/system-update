@@ -52,6 +52,9 @@ pull_changes_ssh() {
 if available keychain; then
     log "keychain" "add key"
     keychain "${HOME}/.ssh/modules/vcs/keys/id_rsa.vcs"
+else
+    log "ssh-agent" "add key"
+    ssh-add "${HOME}/.ssh/modules/vcs/keys/id_rsa.vcs"
 fi
 
 
@@ -124,7 +127,7 @@ if ! is_nixos || is_root; then
         nix-collect-garbage --delete-older-than 14d 2> /dev/null
     fi
 
-    if ! has_unit_enabled "nix-optimise.timer"; then
+    if ! has_unit_enabled "nix-optimise.timer" && [[ "$(whoami)" != "nix-on-droid" ]]; then
         log "nix" "nix-store --optimise"
         nix-store --optimise
     fi

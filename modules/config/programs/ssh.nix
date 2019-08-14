@@ -49,33 +49,43 @@ in
   config = mkIf cfg.enable {
 
     custom.programs.shell = {
-      initExtra = mkMerge [
-        ''
-          keygen() {
-            if [[ -z "$1" ]]; then
-              echo "Enter path  as argument!"
-            else
-              ssh-keygen -t rsa -b 4096 -f "$1"
-            fi
-          }
-        ''
+      initExtra = ''
+        keygen() {
+          if [[ -z "$1" ]]; then
+            echo "Enter path  as argument!"
+          else
+            ssh-keygen -t rsa -b 4096 -f "$1"
+          fi
+        }
 
-        (mkIf cfg.enableKeychain ''
-          kadd() {
-            local key="$(find "${directoryDestination}" -type f -name "id_rsa.$1" | head -n 1)"
+        kadd() {
+          local key="$(find "${directoryDestination}" -type f -name "id_rsa.$1" | head -n 1)"
 
-            if [[ ! -r "$key" ]]; then
-              echo "ssh key not found: $key"
-            else
-              keychain "$key"
-            fi
+          if [[ ! -r "$key" ]]; then
+            echo "ssh key not found: $key"
+          else
+            ${
+              if cfg.enableKeychain
+              then ''
+                keychain "$key"
+              ''
+              else ''
+                if [[ -z "$SSH_AUTH_SOCK" ]]; then
+                  eval $(ssh-agent -s)
+                fi
 
-            if [[ $# > 1 ]]; then
-              kadd "''${@:2}"
-            fi
-          }
-        '')
-      ];
+                if ! ssh-add -l | grep " $key " > /dev/null 2>&1; then
+                  ssh-add "$key"
+                fi
+              ''
+            }
+          fi
+
+          if [[ $# > 1 ]]; then
+            kadd "''${@:2}"
+          fi
+        }
+      '';
 
       loginExtra = mkIf cfg.enableKeychain ''
         # remove existing keys
@@ -109,7 +119,9 @@ in
         $DRY_RUN_CMD popd > /dev/null
       '';
 
-      packages = mkIf cfg.enableKeychain [
+      packages = [
+        pkgs.openssh
+
         (pkgs.writeTextFile {
           name = "_kadd";
           destination = "/share/zsh/site-functions/_kadd";

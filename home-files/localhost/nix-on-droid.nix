@@ -32,6 +32,5 @@
     hostname
     man
     ncurses
-    openssh
   ];
 }
