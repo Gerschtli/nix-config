@@ -134,9 +134,7 @@ in
       enable = true;
       windowManager.command = "${pkgs.dwm}/bin/dwm";
 
-      profileExtra = ''
-        ${pkgs.numlockx}/bin/numlockx on
-      '';
+      numlock.enable = true;
 
       initExtra = ''
         # Show screen saver after 20 min
