@@ -22,8 +22,6 @@ in
   config = mkIf cfg.enable {
 
     home.packages = [
-      pkgs.lorri
-
       (pkgs.writeScriptBin "lorri-init" ''
         #!${pkgs.runtimeShell} -e
 
@@ -98,48 +96,7 @@ in
       '';
     };
 
-    systemd.user = {
-      services.lorri = {
-        Unit = {
-          Description = "lorri build daemon";
-          Documentation = "https://github.com/target/lorri";
-          ConditionUser = "!@system";
-          Requires = "lorri.socket";
-          After = "lorri.socket";
-          RefuseManualStart = true;
-        };
-
-        Service = {
-          ExecStart = "${pkgs.lorri}/bin/lorri daemon";
-          PrivateTmp = true;
-          ProtectSystem = "strict";
-          WorkingDirectory = "%h";
-          Restart = "on-failure";
-          Environment =
-            let
-              path = with pkgs; makeSearchPath "bin" [ nix gnutar git mercurial ];
-            in
-              concatStringsSep " " [
-                "PATH=${path}"
-                "RUST_BACKTRACE=1"
-              ];
-        };
-      };
-
-      sockets.lorri = {
-        Unit = {
-          Description = "lorri build daemon";
-        };
-
-        Socket = {
-          ListenStream = "%t/lorri/daemon.socket";
-        };
-
-        Install = {
-          WantedBy = [ "sockets.target" ];
-        };
-      };
-    };
+    services.lorri.enable = true;
 
     xdg.configFile."nix/profiles" = {
       source = ../../files/nix/profiles;
