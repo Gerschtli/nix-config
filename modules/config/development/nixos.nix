@@ -5,8 +5,8 @@ with lib;
 let
   cfg = config.custom.development.nixos;
 
-  devHomeManager = /home/tobias/projects/home-manager;
-  devNixpkgs = /home/tobias/projects/nixpkgs;
+  devHomeManager = "/home/tobias/projects/home-manager";
+  devNixpkgs = "/home/tobias/projects/nixpkgs";
 
   rebuildBuild = pkgs.writeScript "nixos-rebuild-build" ''
     #!${pkgs.runtimeShell} -e
