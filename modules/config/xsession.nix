@@ -97,7 +97,7 @@ in
       ] ++ (
         map
           (item: pkgs.writeScriptBin
-            "user-${item.command}"
+            (if item ? name then item.name else item.command)
             ''
               #!${pkgs.runtimeShell} -e
 
@@ -108,11 +108,11 @@ in
             ''
           )
           [
-            { command = "hibernate";    message = "suspend to disk"; }
-            { command = "hybrid-sleep"; message = "suspend to disk and ram"; }
-            { command = "poweroff";     message = "halt the system"; }
-            { command = "reboot";       message = "reboot"; }
-            { command = "suspend";      message = "suspend to ram"; }
+            { command = "poweroff"; name = "halt";       message = "halt the system"; }
+            { command = "hibernate";                     message = "suspend to disk"; }
+            { command = "hybrid-sleep";                  message = "suspend to disk and ram"; }
+            { command = "reboot";                        message = "reboot"; }
+            { command = "suspend"; name = "sys-suspend"; message = "suspend to ram"; }
           ]
       );
     };
