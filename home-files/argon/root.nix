@@ -3,5 +3,9 @@
 {
   imports = [ ../../modules ];
 
-  custom.misc.nix-channels.enable = true;
+  custom = {
+    development.nixos.enable = true;
+
+    misc.nix-channels.enable = true;
+  };
 }
