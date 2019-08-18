@@ -170,7 +170,7 @@ in
 
   config = mkIf cfg.enable {
 
-    home.sessionVariables.EDITOR = "${config.programs.neovim.customizedPackage}/bin/nvim";
+    home.sessionVariables.EDITOR = "${config.programs.neovim.finalPackage}/bin/nvim";
 
     programs.neovim = {
       inherit extraConfig plugins;
