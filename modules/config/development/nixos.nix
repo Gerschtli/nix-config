@@ -42,7 +42,6 @@ in
 
     custom.programs.shell.shellAliases = {
       n-rebuild-build   = toString rebuildBuild;
-      n-rebuild-dev     = "nixos-rebuild test --fast";
       n-rebuild-dev-all = "nixos-rebuild test --fast -I home-manager=${devHomeManager} -I nixpkgs=${devNixpkgs}";
       n-rebuild-dev-hm  = "nixos-rebuild test --fast -I home-manager=${devHomeManager}";
       n-rebuild-dev-np  = "nixos-rebuild test --fast -I nixpkgs=${devNixpkgs}";
