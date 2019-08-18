@@ -48,7 +48,7 @@ in
     environment.shellAliases = mkForce { };
 
     home-manager = {
-      backupExt = "hm-bak";
+      backupFileExtension = "hm-bak";
       useUserPackages = true;
 
       users = {
