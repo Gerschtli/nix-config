@@ -67,6 +67,16 @@ in
       usePredictableInterfaceNames = false;
     };
 
+    nix = {
+      binaryCaches = [
+        "https://cache.nixos.org"
+        "https://gerschtli.cachix.org"
+      ];
+      binaryCachePublicKeys = [
+        "gerschtli.cachix.org-1:dWJ/WiIA3W2tTornS/2agax+OI0yQF8ZA2SFjU56vZ0="
+      ];
+    };
+
     nixpkgs.overlays = map (file: import file) (customLib.getFileList ../../overlays);
 
     programs.zsh = {
