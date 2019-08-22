@@ -41,6 +41,11 @@ in
       hash -f
     '';
 
+    xdg.configFile."nix/nix.conf".text = ''
+      substituters = https://cache.nixos.org https://gerschtli.cachix.org
+      trusted-public-keys = gerschtli.cachix.org-1:dWJ/WiIA3W2tTornS/2agax+OI0yQF8ZA2SFjU56vZ0= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+    '';
+
   };
 
 }
