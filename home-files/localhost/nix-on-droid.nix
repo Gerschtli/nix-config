@@ -3,12 +3,10 @@
 {
   imports = [ ../../modules ];
 
-  custom.programs = {
-    prompts.liquidprompt.config = {
-      LP_ENABLE_LOAD = 0;
-    };
+  custom = {
+    base.general.lightWeight = true;
 
-    ssh = {
+    programs.ssh = {
       enableKeychain = false;
       controlMaster = "no";
       modules = [ "private" ];
