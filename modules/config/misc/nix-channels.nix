@@ -36,6 +36,7 @@ in
       "${mainChannelName}" = "${mainChannel}";
       unstable = "https://nixos.org/channels/nixos-unstable";
       home-manager = "https://github.com/Gerschtli/home-manager/archive/local.tar.gz";
+      nur-gerschtli = "https://github.com/Gerschtli/nur-packages/archive/master.tar.gz";
     };
 
   };
