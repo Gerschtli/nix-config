@@ -4,21 +4,9 @@ with lib;
 
 let
   cfg = config.custom.development.lorri;
-
-  nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-    inherit pkgs;
-    repoOverrides = {
-      gerschtli = import (builtins.fetchTarball "https://github.com/Gerschtli/nur-packages/archive/master.tar.gz") { inherit pkgs; };
-    };
-  };
 in
 
 {
-  imports = [
-    nur.repos.gerschtli.hmModules.services.lorri
-  ];
-
-
   ###### interface
 
   options = {
