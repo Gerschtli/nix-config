@@ -7,6 +7,7 @@ let
 
   devHomeManager = "/home/tobias/projects/home-manager";
   devNixpkgs = "/home/tobias/projects/nixpkgs";
+  devNurGerschtli = "/home/tobias/projects/nur-packages";
 
   rebuildBuild = pkgs.writeScript "nixos-rebuild-build" ''
     #!${pkgs.runtimeShell} -e
@@ -44,6 +45,7 @@ in
       n-rebuild-build   = toString rebuildBuild;
       n-rebuild-dev-all = "nixos-rebuild test --fast -I home-manager=${devHomeManager} -I nixpkgs=${devNixpkgs}";
       n-rebuild-dev-hm  = "nixos-rebuild test --fast -I home-manager=${devHomeManager}";
+      n-rebuild-dev-ng  = "nixos-rebuild test --fast -I nur-gerschtli=${devNurGerschtli}";
       n-rebuild-dev-np  = "nixos-rebuild test --fast -I nixpkgs=${devNixpkgs}";
       n-rebuild-switch  = "nixos-rebuild switch";
       n-rebuild-test    = "nixos-rebuild test";
