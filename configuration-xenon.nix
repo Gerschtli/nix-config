@@ -18,7 +18,7 @@ in
       ip-watcher.client = {
         enable = true;
         interval = "*-*-* *:00:00";
-        ssh.ip = krypton-ip;
+        serverIp = krypton-ip;
       };
 
       storage = {

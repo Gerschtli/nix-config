@@ -14,13 +14,7 @@ in
 
     custom.programs.weechat = {
 
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to install weechat.
-        '';
-      };
+      enable = mkEnableOption "weechat";
 
       port = mkOption {
         type = types.nullOr types.int;

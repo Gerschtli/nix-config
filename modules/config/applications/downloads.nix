@@ -4,6 +4,8 @@ with lib;
 
 let
   cfg = config.custom.applications.downloads;
+
+  location = "/var/lib/downloads.tobias-happ.de";
 in
 
 {
@@ -12,25 +14,7 @@ in
 
   options = {
 
-    custom.applications.downloads = {
-
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to install downloads.tobias-happ.de.
-        '';
-      };
-
-      location = mkOption {
-        type = types.str;
-        default = "/var/lib/downloads.tobias-happ.de";
-        description = ''
-          Directory for downloadable files.
-        '';
-      };
-
-    };
+    custom.applications.downloads.enable = mkEnableOption "downloads.tobias-happ.de";
 
   };
 
@@ -44,7 +28,7 @@ in
     services.nginx.virtualHosts."downloads.tobias-happ.de" = {
       enableACME = true;
       forceSSL = true;
-      root = cfg.location;
+      root = location;
 
       extraConfig = ''
         error_page 403 /403.html;
@@ -64,8 +48,8 @@ in
     };
 
     system.activationScripts.downloads = ''
-      mkdir -p ${cfg.location}
-      chown -R ${config.services.nginx.user}:${config.services.nginx.group} ${cfg.location}
+      mkdir -p ${location}
+      chown -R ${config.services.nginx.user}:${config.services.nginx.group} ${location}
     '';
 
   };

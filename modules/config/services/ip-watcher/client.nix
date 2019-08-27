@@ -4,6 +4,9 @@ with lib;
 
 let
   cfg = config.custom.services.ip-watcher.client;
+
+  user = "ip-watcher";
+  filename = "${config.networking.hostName}.ip";
 in
 
 {
@@ -14,37 +17,7 @@ in
 
     custom.services.ip-watcher.client = {
 
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to enable the ip-watcher client module.
-        '';
-      };
-
-      group = mkOption {
-        type = types.str;
-        default = cfg.user;
-        description = ''
-          Group name.
-        '';
-      };
-
-      user = mkOption {
-        type = types.str;
-        default = "ip-watcher";
-        description = ''
-          User name.
-        '';
-      };
-
-      filename = mkOption {
-        type = types.str;
-        default = "${config.networking.hostName}.ip";
-        description = ''
-          File name where to save the ip address.
-        '';
-      };
+      enable = mkEnableOption "ip-watcher client module";
 
       interval = mkOption {
         type = types.str;
@@ -55,23 +28,11 @@ in
         '';
       };
 
-      ssh = {
-
-        ip = mkOption {
-          type = types.str;
-          description = ''
-            IP of server with ip-watcher service.
-          '';
-        };
-
-        user = mkOption {
-          type = types.str;
-          default = config.custom.services.ip-watcher.server.user;
-          description = ''
-            SSH user name.
-          '';
-        };
-
+      serverIp = mkOption {
+        type = types.str;
+        description = ''
+          IP of server with ip-watcher service.
+        '';
       };
 
     };
@@ -90,20 +51,22 @@ in
 
         serviceConfig = {
           serviceConfig = {
-            Group = cfg.group;
-            User = cfg.user;
+            Group = user;
+            User = user;
           };
           script = ''
             ${pkgs.bind.dnsutils}/bin/dig @resolver1.opendns.com A myip.opendns.com +short -4 | \
               ${pkgs.openssh}/bin/ssh \
                 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
                 -i ${toString ../../../secrets/id_rsa.ip-watcher} \
-                ${cfg.ssh.user}@${cfg.ssh.ip} "cat > '${cfg.filename}'"
+                ${user}@${cfg.serverIp} "cat > '${filename}'"
           '';
         };
       };
 
-      systemUsers.${cfg.user} = { inherit (cfg) group; };
+      systemUsers.${user} = {
+        group = user;
+      };
     };
 
   };

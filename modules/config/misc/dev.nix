@@ -12,17 +12,7 @@ in
 
   options = {
 
-    custom.misc.dev = {
-
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to enable dev packages/services.
-        '';
-      };
-
-    };
+    custom.misc.dev.enable = mkEnableOption "dev packages/services";
 
   };
 

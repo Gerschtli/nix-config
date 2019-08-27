@@ -16,13 +16,7 @@ in
 
     custom.applications.${name} = {
 
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to install ${hostName}.
-        '';
-      };
+      enable = mkEnableOption hostName;
 
       containerAddress = mkOption {
         type = types.str;

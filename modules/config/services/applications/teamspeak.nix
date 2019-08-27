@@ -12,17 +12,7 @@ in
 
   options = {
 
-    custom.services.teamspeak = {
-
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to install and configure teamspeak.
-        '';
-      };
-
-    };
+    custom.services.teamspeak.enable = mkEnableOption "teamspeak";
 
   };
 

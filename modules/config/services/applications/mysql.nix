@@ -14,13 +14,7 @@ in
 
     custom.services.mysql = {
 
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to install and configure mysql (MariaDB).
-        '';
-      };
+      enable = mkEnableOption "mysql (MariaDB)";
 
       backups = mkOption {
         type = with types; listOf str;

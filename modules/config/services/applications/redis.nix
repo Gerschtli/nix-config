@@ -12,17 +12,7 @@ in
 
   options = {
 
-    custom.services.redis = {
-
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to install and configure redis.
-        '';
-      };
-
-    };
+    custom.services.redis.enable = mkEnableOption "redis";
 
   };
 

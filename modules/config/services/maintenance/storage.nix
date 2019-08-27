@@ -5,8 +5,11 @@ with lib;
 let
   cfg = config.custom.services.storage;
 
-  backupDir = "${cfg.location}/backup";
+  location = "/storage";
+  backupDir = "${location}/backup";
   useMount = cfg.mountDevice != null;
+  user = "storage";
+  backupUser = "backup";
 in
 
 {
@@ -17,43 +20,13 @@ in
 
     custom.services.storage = {
 
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to enable the storage module.
-        '';
-      };
+      enable = mkEnableOption "storage module";
 
       mountDevice = mkOption {
         type = types.nullOr types.str;
         default = null;
         description = ''
           Optional path to device to mount.
-        '';
-      };
-
-      location = mkOption {
-        type = types.str;
-        default = "/storage";
-        description = ''
-          Path to storage directory.
-        '';
-      };
-
-      group = mkOption {
-        type = types.str;
-        default = cfg.user;
-        description = ''
-          Group name.
-        '';
-      };
-
-      user = mkOption {
-        type = types.str;
-        default = "storage";
-        description = ''
-          User name.
         '';
       };
 
@@ -92,22 +65,6 @@ in
                 '';
               };
 
-              location = mkOption {
-                type = types.str;
-                default = config.custom.services.backup.location;
-                description = ''
-                  Backup directory on server.
-                '';
-              };
-
-              user = mkOption {
-                type = types.str;
-                default = config.custom.services.backup.user;
-                description = ''
-                  Backup user on server.
-                '';
-              };
-
             };
           }
         );
@@ -133,14 +90,14 @@ in
 
         serviceConfig = {
           serviceConfig = {
-            Group = cfg.group;
-            User = cfg.user;
+            Group = user;
+            User = user;
             PermissionsStartOnly = true;
           };
-          unitConfig.RequiresMountsFor = mkIf useMount cfg.location;
+          unitConfig.RequiresMountsFor = mkIf useMount location;
           preStart = ''
             mkdir -p ${backupDir}
-            chown ${cfg.user}:${cfg.group} ${backupDir}
+            chown ${user}:${user} ${backupDir}
             chmod 0750 ${backupDir}
           '';
           script = ''
@@ -153,7 +110,7 @@ in
                 --rsh "${pkgs.openssh}/bin/ssh \
                   -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
                   -i ${toString ../../../secrets/id_rsa.backup}" \
-                "${server.user}@${server.ip}:${server.location}/*" \
+                "${backupUser}@${server.ip}:${config.custom.services.backup.location}/*" \
                 ${backupDir}/${server.name}
             '') "" cfg.server}
 
@@ -162,17 +119,19 @@ in
         };
       };
 
-      systemUsers.${cfg.user} = { inherit (cfg) group; };
+      systemUsers.${user} = {
+        group = user;
+      };
     };
 
     system.activationScripts.backup = mkIf (! useMount) ''
-      mkdir -p ${cfg.location}
+      mkdir -p ${location}
     '';
 
     systemd.mounts = mkIf useMount [
       {
         what = cfg.mountDevice;
-        where = cfg.location;
+        where = location;
         type = "ext4";
       }
     ];

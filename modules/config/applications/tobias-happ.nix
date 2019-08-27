@@ -16,17 +16,7 @@ in
 
   options = {
 
-    custom.applications.tobias-happ = {
-
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to install tobias-happ.de.
-        '';
-      };
-
-    };
+    custom.applications.tobias-happ.enable = mkEnableOption "tobias-happ.de";
 
   };
 

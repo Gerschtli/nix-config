@@ -14,29 +14,9 @@ in
 
     custom.base.desktop = {
 
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to enable basic desktop config with dwm.
-        '';
-      };
+      enable = mkEnableOption "basic desktop config";
 
-      laptop = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to activate services for battery, network, backlight.
-        '';
-      };
-
-      wm = mkOption {
-        type = types.enum [ "dwm" "i3" ];
-        default = "dwm";
-        description = ''
-          Set whether dwm or i3 should be used as windows manager.
-        '';
-      };
+      laptop = mkEnableOption "services and config for battery, network, backlight";
 
     };
 
@@ -109,12 +89,6 @@ in
               enable = true;
               defaultUser = "tobias";
             };
-          };
-
-          windowManager.i3 = {
-            enable = cfg.wm == "i3";
-            extraPackages = with pkgs; [ i3status-rust ];
-            package = pkgs.i3-gaps;
           };
         };
       };

@@ -17,13 +17,7 @@ in
 
     custom.base.general = {
 
-      enable = mkOption {
-        type = types.bool;
-        default = true;
-        description = ''
-          Whether to enable basic config.
-        '';
-      };
+      enable = mkEnableOption "basic config" // { default = true; };
 
       hostName = mkOption {
         type = types.str;

@@ -14,29 +14,11 @@ in
 
     custom.services.openssh = {
 
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to enable openssh.
-        '';
-      };
+      enable = mkEnableOption "openssh";
 
-      rootLogin = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to enable root login via pubkey.
-        '';
-      };
+      rootLogin = mkEnableOption "root login via pubkey";
 
-      forwardX11 = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to enable x11 forwarding.
-        '';
-      };
+      forwardX11 = mkEnableOption "x11 forwarding";
 
     };
 

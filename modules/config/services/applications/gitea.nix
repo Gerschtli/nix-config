@@ -15,17 +15,7 @@ in
 
   options = {
 
-    custom.services.gitea = {
-
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to enable gitea.
-        '';
-      };
-
-    };
+    custom.services.gitea.enable = mkEnableOption "gitea";
 
   };
 

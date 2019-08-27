@@ -12,17 +12,7 @@ in
 
   options = {
 
-    custom.services.nginx = {
-
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to install and configure nginx.
-        '';
-      };
-
-    };
+    custom.services.nginx.enable = mkEnableOption "nginx";
 
   };
 

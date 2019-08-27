@@ -14,13 +14,7 @@ in
 
     custom.system.firewall = {
 
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to enable firewall.
-        '';
-      };
+      enable = mkEnableOption "firewall";
 
       dropPackets = mkOption {
         type = types.listOf types.str;

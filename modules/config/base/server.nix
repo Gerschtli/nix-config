@@ -14,13 +14,7 @@ in
 
     custom.base.server = {
 
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to enable basic server config.
-        '';
-      };
+      enable = mkEnableOption "basic server config";
 
       ipv6Address = mkOption {
         type = with types; nullOr str;

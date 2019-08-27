@@ -4,6 +4,8 @@ with lib;
 
 let
   cfg = config.custom.services.ip-watcher.server;
+
+  user = "ip-watcher";
 in
 
 {
@@ -12,33 +14,7 @@ in
 
   options = {
 
-    custom.services.ip-watcher.server = {
-
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to enable the ip-watcher server module.
-        '';
-      };
-
-      group = mkOption {
-        type = types.str;
-        default = cfg.user;
-        description = ''
-          Group name.
-        '';
-      };
-
-      user = mkOption {
-        type = types.str;
-        default = "ip-watcher";
-        description = ''
-          User name.
-        '';
-      };
-
-    };
+    custom.services.ip-watcher.server.enable = mkEnableOption "ip-watcher server module";
 
   };
 
@@ -47,9 +23,9 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.utils.systemUsers.${cfg.user} = {
-      inherit (cfg) group;
+    custom.utils.systemUsers.${user} = {
       createHome = true;
+      group = user;
 
       sshKeys = [
         ../../../files/keys/id_rsa.ip-watcher.pub
