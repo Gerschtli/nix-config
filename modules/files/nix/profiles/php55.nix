@@ -12,7 +12,7 @@ let
   ];
 in
 
-stdenv.mkDerivation {
+mkShell {
   name = "php55";
 
   buildInputs = [

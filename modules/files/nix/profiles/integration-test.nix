@@ -1,6 +1,6 @@
 with import <nixpkgs> { };
 
-stdenv.mkDerivation {
+mkShell {
   name = "integration-test";
 
   buildInputs = [
