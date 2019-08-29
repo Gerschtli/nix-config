@@ -52,7 +52,7 @@ in
           dejavu_fonts
           fira-code
           fira-mono
-          nerdfonts
+          nerdfonts-ubuntu-mono
           source-code-pro
           ubuntu_font_family
         ];
