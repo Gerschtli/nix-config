@@ -25,6 +25,7 @@
     diffutils
     findutils
     gawk
+    glibc.bin
     gnugrep
     gnused
     hostname
