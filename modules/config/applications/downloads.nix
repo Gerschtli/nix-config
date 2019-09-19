@@ -31,6 +31,9 @@ in
       root = location;
 
       extraConfig = ''
+        autoindex on;
+        disable_symlinks off;
+
         error_page 403 /403.html;
         error_page 404 /404.html;
       '';
