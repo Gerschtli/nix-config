@@ -77,6 +77,7 @@ let
   shellAliases = {
     ls = "ls --color=auto";
     la = "ls -AFv";
+    l1 = "ls -AFh1v";
     ll = "ls -AFhlv";
 
     cp = "cp -av";
