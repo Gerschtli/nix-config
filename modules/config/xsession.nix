@@ -21,24 +21,6 @@ let
 
     revert
   '';
-
-  mimeappsList = generators.toINI {} {
-    "Default Applications" = {
-      "application/pdf" = "qpdfview.desktop";
-
-      "image/jpeg" = "nomacs.desktop";
-      "image/png" = "nomacs.desktop";
-
-      "message/rfc822" = "thunderbird.desktop";
-      "x-scheme-handler/mailto" = "thunderbird.desktop";
-
-      "text/html" = "google-chrome.desktop";
-      "x-scheme-handler/http" = "google-chrome.desktop";
-      "x-scheme-handler/https" = "google-chrome.desktop";
-      "x-scheme-handler/about" = "google-chrome.desktop";
-      "x-scheme-handler/unknown" = "google-chrome.desktop";
-    };
-  };
 in
 
 {
@@ -68,8 +50,6 @@ in
     };
 
     home = {
-      file.".local/share/applications/mimeapps.list".text = mimeappsList;
-
       keyboard = {
         layout = "de";
         options = [ "ctrl:nocaps" ];
@@ -129,7 +109,25 @@ in
 
     systemd.user.startServices = true;
 
-    xdg.configFile."mimeapps.list".text = mimeappsList;
+    xdg.mimeApps = {
+      enable = true;
+
+      defaultApplications = {
+        "application/pdf" = "qpdfview.desktop";
+
+        "image/jpeg" = "nomacs.desktop";
+        "image/png" = "nomacs.desktop";
+
+        "message/rfc822" = "thunderbird.desktop";
+        "x-scheme-handler/mailto" = "thunderbird.desktop";
+
+        "text/html" = "google-chrome.desktop";
+        "x-scheme-handler/http" = "google-chrome.desktop";
+        "x-scheme-handler/https" = "google-chrome.desktop";
+        "x-scheme-handler/about" = "google-chrome.desktop";
+        "x-scheme-handler/unknown" = "google-chrome.desktop";
+      };
+    };
 
     xsession = {
       enable = true;
