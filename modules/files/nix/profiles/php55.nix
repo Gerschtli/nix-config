@@ -18,16 +18,16 @@ mkShell {
   buildInputs = [
     ant
     nodejs-10_x
-    php55
-    php55Packages.composer
+    nur-gerschtli.php55
+    nur-gerschtli.php55.packages.composer
     vagrant
-  ] ++ (map (ext: php55Packages.${ext}) extensions);
+  ] ++ (map (ext: nur-gerschtli.php55.packages.${ext}) extensions);
 
   APPLICATION_ENV = "development";
 
   PHPRC = import ./util/phpIni.nix {
     inherit extensions lib writeTextDir;
-    phpPackage  = php55;
-    phpPackages = php55Packages;
+    phpPackage  = nur-gerschtli.php55;
+    phpPackages = nur-gerschtli.php55.packages;
   };
 }

@@ -4,6 +4,6 @@ mkShell {
   name = "java";
 
   buildInputs = [
-    maven35
+    nur-gerschtli.maven35
   ];
 }
