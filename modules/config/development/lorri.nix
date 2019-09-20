@@ -34,7 +34,7 @@ in
           echo "$shell_content" > shell.nix
         fi
 
-        env_content="eval \"\$(lorri direnv)\""
+        env_content="eval \"\$(${pkgs.nur-gerschtli.lorri}/bin/lorri direnv)\""
         echo -e "Write .envrc\n\t''${env_content}\n"
         echo "$env_content" > .envrc
 
@@ -42,7 +42,7 @@ in
         ${pkgs.direnv}/bin/direnv allow
 
         echo -e "Run lorri watch"
-        lorri watch
+        ${pkgs.nur-gerschtli.lorri}/bin/lorri watch
       '')
 
       (pkgs.writeTextFile {
