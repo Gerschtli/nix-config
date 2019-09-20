@@ -25,8 +25,9 @@ let
   mimeappsList = generators.toINI {} {
     "Default Applications" = {
       "application/pdf" = "qpdfview.desktop";
-      "image/jpeg" = "qpdfview.desktop";
-      "image/png" = "qpdfview.desktop";
+
+      "image/jpeg" = "nomacs.desktop";
+      "image/png" = "nomacs.desktop";
 
       "message/rfc822" = "thunderbird.desktop";
       "x-scheme-handler/mailto" = "thunderbird.desktop";
