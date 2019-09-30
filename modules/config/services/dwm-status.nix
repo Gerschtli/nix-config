@@ -16,6 +16,8 @@ in
 
       enable = mkEnableOption "dwm-status user service";
 
+      audio = mkEnableOption "audio feature" // { default = true; };
+
       laptop = mkEnableOption "laptop config";
 
     };
@@ -31,20 +33,28 @@ in
       enable = true;
 
       order =
-        if cfg.laptop
-        then [ "cpu_load" "backlight" "audio" "battery" "time" ]
-        else [ "cpu_load" "audio" "time" ];
+        let
+          list =
+            if cfg.laptop
+            then [ "cpu_load" "backlight" "audio" "battery" "time" ]
+            else [ "cpu_load" "audio" "time" ];
+        in
+          if cfg.audio
+          then list
+          else lists.remove "audio" list;
 
       extraConfig = mkMerge [
         {
           separator = "    ";
+        }
 
+        (mkIf cfg.audio {
           audio = {
             mute = "ﱝ";
             template = "{ICO} {VOL}%";
             icons = [ "奄" "奔" "墳" ];
           };
-        }
+        })
 
         (mkIf cfg.laptop {
           backlight = {

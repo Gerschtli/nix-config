@@ -26,6 +26,8 @@
 
     programs.ssh.modules = [ "pveu" ];
 
+    services.dwm-status.audio = false;
+
     xsession.useSlock = true;
   };
 
