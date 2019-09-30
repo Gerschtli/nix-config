@@ -118,7 +118,11 @@ let
 
     tree = "tree -F --dirsfirst";
     treea = "tree -a";
-  } // cfg.shellAliases;
+  }
+  // cfg.shellAliases
+  // (optionalAttrs (dynamicShellInit != "") {
+    refresh-shell = "source ${pkgs.writeText "refresh-shell" dynamicShellInit}";
+  });
 
   dynamicShellInit = concatStringsSep "\n" (
     map
@@ -216,10 +220,6 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-
-    home.file.".refresh-shell" = mkIf (dynamicShellInit != "") {
-      text = dynamicShellInit;
-    };
 
     programs = {
       bash = {
