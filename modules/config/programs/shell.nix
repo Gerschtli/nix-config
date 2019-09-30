@@ -55,6 +55,10 @@ let
 
     ''
       eval "$(dircolors -b)"
+
+      real-which() {
+        realpath $(which -a $1)
+      }
     ''
 
     cfg.initExtra
