@@ -114,6 +114,8 @@ let
     pwgen = "pwgen -cny";
     pwgens = "pwgen -s";
 
+    tailf = "tail -f";
+
     tree = "tree -F --dirsfirst";
     treea = "tree -a";
   } // cfg.shellAliases;
