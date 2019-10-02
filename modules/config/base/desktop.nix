@@ -65,6 +65,7 @@ in
       gimp
       jetbrains.idea-ultimate
       libreoffice
+      pdftk
       postman
       spotify
     ] ++ (optionals cfg.personal [
