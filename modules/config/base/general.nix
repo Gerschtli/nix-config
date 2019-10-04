@@ -65,9 +65,12 @@ in
       binaryCaches = [
         "https://cache.nixos.org"
         "https://gerschtli.cachix.org"
+        "https://nix-on-droid.cachix.org"
       ];
-      binaryCachePublicKeys = [
+      binaryCachePublicKeys = mkForce [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "gerschtli.cachix.org-1:dWJ/WiIA3W2tTornS/2agax+OI0yQF8ZA2SFjU56vZ0="
+        "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU="
       ];
     };
 
