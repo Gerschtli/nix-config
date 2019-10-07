@@ -1,5 +1,9 @@
 { config, pkgs, ... }:
 
+let
+  nix-on-droid = import <nix-on-droid> { };
+in
+
 {
   imports = [ ../../modules ];
 
@@ -13,23 +17,25 @@
     };
   };
 
-  home.sessionVariables = {
-    LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
+  home = {
+    packages = with pkgs; [
+      nix-on-droid.basic-environment
+
+      diffutils
+      findutils
+      gawk
+      glibc.bin
+      gnugrep
+      gnused
+      hostname
+      man
+      ncurses
+    ];
+
+    sessionVariables = {
+      LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
+    };
   };
 
-  home.packages = with pkgs; [
-    cacert
-    coreutils
-    bashInteractive
-
-    diffutils
-    findutils
-    gawk
-    glibc.bin
-    gnugrep
-    gnused
-    hostname
-    man
-    ncurses
-  ];
+  nix-channels.nix-on-droid = "https://github.com/t184256/nix-on-droid-bootstrap/archive/testing.tar.gz";
 }
