@@ -53,8 +53,8 @@ in
     '';
 
     xdg.configFile."nix/nix.conf".text = ''
-      substituters = ${concatStringSep " " substituters}
-      trusted-public-keys = ${concatStringSep " " trustedPublicKeys}
+      substituters = ${concatStringsSep " " substituters}
+      trusted-public-keys = ${concatStringsSep " " trustedPublicKeys}
     '';
 
   };
