@@ -42,7 +42,8 @@ let
   });
 
   initExtra = mkMerge [
-    # mkBefore is needed because available needs to be defined early in the config
+    # mkBefore is needed because these commands need to be executed early in
+    # the config
     (mkBefore ''
       available() {
         hash "$1" > /dev/null 2>&1
@@ -51,11 +52,11 @@ let
       is_bash() {
         [[ -n "''${BASH_VERSION-}" ]]
       }
+
+      eval "$(dircolors -b)"
     '')
 
     ''
-      eval "$(dircolors -b)"
-
       real-which() {
         realpath $(which -a $1)
       }
