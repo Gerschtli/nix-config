@@ -113,6 +113,7 @@ in
         httpie
         iotop
         jq
+        ncat # nmap
         nox
         pwgen
         ripgrep
