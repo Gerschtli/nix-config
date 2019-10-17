@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.custom.misc.nix-channels;
 
-  mainChannel = "https://nixos.org/channels/nixos-19.03" + optionalString cfg.small "-small";
+  mainChannel = "https://nixos.org/channels/nixos-19.09" + optionalString cfg.small "-small";
   mainChannelName = if cfg.nixpkgs then "nixpkgs" else "nixos";
 in
 
