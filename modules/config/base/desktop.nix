@@ -46,10 +46,11 @@ in
       ];
 
       fonts = {
+        enableDefaultFonts = true;
         enableFontDir = true;
         enableGhostscriptFonts = true;
+
         fonts = with pkgs; [
-          dejavu_fonts
           fira-code
           fira-mono
           nur-gerschtli.nerdfonts-ubuntu-mono
