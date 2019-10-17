@@ -76,8 +76,6 @@ in
         xserver = {
           enable = true;
 
-          desktopManager.xterm.enable = false;
-
           displayManager = {
             job.logToFile = mkForce false;
 
