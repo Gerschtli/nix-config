@@ -39,11 +39,11 @@ in
       '';
 
       locations = {
-        "/403.html".alias = pkgs.writeText "403.html" "403 - Forbidden";
+        "= /403.html".alias = pkgs.writeText "403.html" "403 - Forbidden";
 
-        "/404.html".alias = pkgs.writeText "404.html" "404 - Not Found";
+        "= /404.html".alias = pkgs.writeText "404.html" "404 - Not Found";
 
-        "/robots.txt".alias = pkgs.writeText "robots.txt" ''
+        "= /robots.txt".alias = pkgs.writeText "robots.txt" ''
           User-agent: *
           Disallow: /
         '';
