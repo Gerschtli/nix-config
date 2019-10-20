@@ -16,7 +16,7 @@ let
     ${pkgs.xorg.xset}/bin/xset +dpms dpms 3 3 3
 
     ${if cfg.useSlock then "slock" else ''
-      ${pkgs.i3lock-fancy}/bin/i3lock-fancy --nofork --text "" -- ${pkgs.scrot}/bin/scrot --silent
+      ${pkgs.i3lock-fancy}/bin/i3lock-fancy --nofork --text "" -- ${pkgs.scrot}/bin/scrot --silent --overwrite
     ''}
 
     revert
