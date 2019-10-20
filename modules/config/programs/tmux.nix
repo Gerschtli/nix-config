@@ -206,7 +206,7 @@ in
 
           _arguments \
             "1:profiles:($LIST)" \
-            "*:options:(--only-fetch)"
+            "2:options:(--only-fetch)"
         '';
       })
     ];
