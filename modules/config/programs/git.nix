@@ -166,9 +166,8 @@ in
         cn = externGitAlias ''git reflog expire --all && git fsck --unreachable --full && git prune && \
           git gc --aggressive --quiet && git repack -Adq && git prune-packed --quiet'';
         co = "checkout";
-        fa = externGitAlias "git fe --all && git fe --all --tags";
         fe = "fetch --progress";
-        fm = externGitAlias "git fe && git fe --tags";
+        rm = externGitAlias "git fe --all && git fe --all --tags";
         gi = externGitAlias "git gr --ignore-case";
         gr = "grep --line-number --break --heading";
         lg = "log --stat";
@@ -189,8 +188,8 @@ in
         rp = "rebase --skip";
         rs = "reset --soft";
         rv = "remote --verbose";
-        sa = "stash save";
-        saa = "stash save --all";
+        sa = "stash push";
+        sau = "stash push --include-untracked";
         sc = "stash clear";
         sl = "stash list";
         sm = "submodule";
