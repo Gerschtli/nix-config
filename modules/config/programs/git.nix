@@ -167,7 +167,7 @@ in
           git gc --aggressive --quiet && git repack -Adq && git prune-packed --quiet'';
         co = "checkout";
         fe = "fetch --progress";
-        rm = externGitAlias "git fe --all && git fe --all --tags";
+        fm = externGitAlias "git fe --all && git fe --all --tags";
         gi = externGitAlias "git gr --ignore-case";
         gr = "grep --line-number --break --heading";
         lg = "log --stat";
