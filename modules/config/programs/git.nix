@@ -370,7 +370,7 @@ in
 
       includes = [
         {
-          condition = "gitdir:~/projects/pveu/*";
+          condition = "gitdir:~/projects/pveu/";
 
           contents = {
             commit.template = writeFile "commit.msg" (commitMsgTemplate "BRANCHNAME");
