@@ -196,7 +196,7 @@ in
         so = "stash pop";
         st = "status";
         sw = "stash show";
-        tl = externGitAlias "git tag | sort -t. -k 1,1n -k 2,2n -k 3,3n -k 4,4n | tail -n 5";
+        tl = externGitAlias "git tag -n --list '[0-9]*' | tail -n 10";
 
         cma = externGitAlias "git co master && git rebase -n origin/master";
         mma = "merge origin/master";
@@ -332,6 +332,8 @@ in
           relativePaths = false;
           showUntrackedFiles = "all";
         };
+
+        tag.sort = "version:refname"; # sort alpha-numerically
 
         tig = {
           commit-order = "topo";
