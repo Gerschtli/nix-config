@@ -54,7 +54,15 @@ if available keychain; then
     keychain "${HOME}/.ssh/modules/vcs/keys/id_rsa.vcs"
 else
     log "ssh-agent" "add key"
-    ssh-add "${HOME}/.ssh/modules/vcs/keys/id_rsa.vcs"
+
+    if [[ -z "$SSH_AUTH_SOCK" ]]; then
+        eval $(ssh-agent -s)
+    fi
+
+    key="${HOME}/.ssh/modules/vcs/keys/id_rsa.vcs"
+    if ! ssh-add -l | grep " $key " > /dev/null 2>&1; then
+        ssh-add "$key"
+    fi
 fi
 
 
