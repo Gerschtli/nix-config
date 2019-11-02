@@ -10,10 +10,18 @@ in
   custom = {
     base.general.lightWeight = true;
 
-    programs.ssh = {
-      enableKeychain = false;
-      controlMaster = "no";
-      modules = [ "private" ];
+    programs = {
+      shell.initExtra = ''
+        if [[ -z "$SSH_AUTH_SOCK" ]]; then
+          eval $(ssh-agent -s)
+        fi
+      '';
+
+      ssh = {
+        enableKeychain = false;
+        controlMaster = "no";
+        modules = [ "private" ];
+      };
     };
   };
 

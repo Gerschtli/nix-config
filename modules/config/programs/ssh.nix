@@ -70,10 +70,6 @@ in
                 keychain "$key"
               ''
               else ''
-                if [[ -z "$SSH_AUTH_SOCK" ]]; then
-                  eval $(ssh-agent -s)
-                fi
-
                 if ! ssh-add -l | grep " $key " > /dev/null 2>&1; then
                   ssh-add "$key"
                 fi
