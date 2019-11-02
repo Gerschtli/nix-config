@@ -57,6 +57,7 @@ else
 
     if [[ -z "$SSH_AUTH_SOCK" ]]; then
         eval $(ssh-agent -s)
+        export SSH_AUTH_SOCK
     fi
 
     key="${HOME}/.ssh/modules/vcs/keys/id_rsa.vcs"
