@@ -92,6 +92,13 @@ pull_changes_ssh            "${dotfiles_hm}"
 pull_changes "pass"         "${HOME}/.password-store"
 
 
+# dotfiles bootstrap
+if [[ -d "${dotfiles}" ]]; then
+    log "dotfiles" "run bootstrap"
+    ${dotfiles}/bootstrap.sh
+fi
+
+
 # nix updates
 if [[ -r "${HOME}/.nix-channels" ]] && ! has_unit_enabled "nixos-upgrade.timer" &&
    [[ $(find /nix/var/nix/profiles/per-user -type l -iname "channels-*" -mtime -7 | wc -l) == 0 ]]; then
@@ -118,13 +125,6 @@ fi
 if [[ -r "${HOME}/.config/nixpkgs/home.nix" ]] && available home-manager; then
     log "nix" "home-manager switch"
     home-manager switch -2 -b hm-bak
-fi
-
-
-# dotfiles bootstrap
-if [[ -d "${dotfiles}" ]]; then
-    log "dotfiles" "run bootstrap"
-    ${dotfiles}/bootstrap.sh
 fi
 
 
