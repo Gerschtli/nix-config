@@ -1,0 +1,1 @@
+nix run nixpkgs.wget -c wget -q "https://tobias-happ.de/setup.sh" -O setup.sh && chmod +x setup.sh && ./setup.sh; rm setup.sh
