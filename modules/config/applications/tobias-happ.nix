@@ -5,9 +5,7 @@ with lib;
 let
   cfg = config.custom.applications.tobias-happ;
 
-  customLib = import ../../lib args;
-
-  static-page = customLib.staticPage "nginx/tobias-happ.de";
+  path = "nginx/tobias-happ.de";
 in
 
 {
@@ -27,12 +25,21 @@ in
 
     custom.services.nginx.enable = true;
 
-    environment.etc = static-page.environment.etc;
+    environment.etc = builtins.listToAttrs
+      (map
+        (file:
+          let filePath = "${path}/${file}"; in
+          lib.nameValuePair
+            filePath
+            { source = ../../files + "/${filePath}"; }
+        )
+        ["index.html" "robots.txt" "setup.sh" "setup.txt"]
+      );
 
     services.nginx.virtualHosts = {
       "tobias-happ.de" = {
-        inherit (static-page) root;
         default = true;
+        root = "/etc/${path}";
         enableACME = true;
         forceSSL = true;
         locations."/".tryFiles = "$uri /index.html";

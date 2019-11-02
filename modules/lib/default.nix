@@ -10,5 +10,4 @@ in
   inherit (fileList) getFileList getRecursiveFileList;
 
   containerApp = callPackage ./container-app.nix { };
-  staticPage = callPackage ./static-page.nix { };
 }
