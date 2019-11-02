@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+if [[ -L ~/.nix-channels ]]; then
+    rm ~/.nix-channels
+fi
+rm -f ~/.nix-channels.*
+
+CHANNEL_SUFFIX=
+NIX_CHANNEL_NAME=nixos
+NIX_ON_DROID=0
+
+case "${1}" in
+    --android) NIX_ON_DROID=1 ;;
+    --non-nixos) NIX_CHANNEL_NAME=nixpkgs ;;
+    --small) CHANNEL_SUFFIX=-small ;;
+esac
+
+nix-channel --add https://nixos.org/channels/nixos-19.09${CHANNEL_SUFFIX} ${NIX_CHANNEL_NAME}
+nix-channel --add https://nixos.org/channels/nixos-unstable unstable
+nix-channel --add https://github.com/Gerschtli/home-manager/archive/local.tar.gz home-manager
+nix-channel --add https://github.com/Gerschtli/nur-packages/archive/master.tar.gz nur-gerschtli
+
+if [[ ${NIX_ON_DROID} == 1 ]]; then
+    nix-channel --add nix-on-droid https://github.com/t184256/nix-on-droid-bootstrap/archive/master.tar.gz
+fi
+
+cat ~/.nix-channels

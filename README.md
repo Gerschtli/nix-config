@@ -15,10 +15,8 @@ Provides `home.nix` files for each host and user in `home-files` with the struct
 
 ## Nix Channels
 
-Edit your `~/.nix-channels` like the following and run `nix-channel --update`:
-```
-https://nixos.org/channels/nixos-19.03 nixos
-https://nixos.org/channels/nixos-unstable unstable
-https://github.com/Gerschtli/home-manager/archive/local.tar.gz home-manager
-https://github.com/Gerschtli/nur-packages/archive/master.tar.gz nur-gerschtli
+Run `bin/setup-nix-channels`:
+
+```bash
+./bin/setup-nix-channels [--android|--non-nixos|--small]
 ```
