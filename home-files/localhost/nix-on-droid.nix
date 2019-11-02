@@ -36,6 +36,4 @@ in
       LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
     };
   };
-
-  nix-channels.nix-on-droid = "https://github.com/t184256/nix-on-droid-bootstrap/archive/testing.tar.gz";
 }

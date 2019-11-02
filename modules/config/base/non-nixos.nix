@@ -34,16 +34,9 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.misc = {
-      dotfiles = {
-        enable = true;
-        modules = [ "home-manager" ];
-      };
-
-      nix-channels = {
-        enable = true;
-        nixpkgs = true;
-      };
+    custom.misc.dotfiles = {
+      enable = true;
+      modules = [ "home-manager" ];
     };
 
     home.packages = [ pkgs.nix ];
