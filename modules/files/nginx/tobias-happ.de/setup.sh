@@ -161,7 +161,7 @@ if _is_nixos && _is_root; then
     for module in "${nixos_hm}/${ssh_path}/"*; do
         _fix_permissions "${module}"
     done
-elif ! _is_nixos && !_is_root; then
+elif ! _is_nixos && ! _is_root; then
     _log "Run home-manager switch..."
     home-manager switch -2 -b hm-bak -f "${dotfiles_hm}/home-files/$(hostname)/$(whoami).nix"
 
