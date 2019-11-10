@@ -216,6 +216,7 @@ in
 
       enable = true;
 
+      package = pkgs.nur-gerschtli.tmux28;
       terminal = "screen-256color";
       baseIndex = 1;
       keyMode = "vi";
