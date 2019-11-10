@@ -111,19 +111,8 @@ if [[ -r "${HOME}/.nix-channels" ]] && ! has_unit_enabled "nixos-upgrade.timer" 
 fi
 
 if is_nixos && is_root; then
-    log "nix" "builds nixos configuration"
-    nixos-rebuild build
-
-    log "nix" "compares nixos configurations"
-    # see https://github.com/madjar/nox/issues/63#issuecomment-303280129
-    nox-update --quiet /run/current-system result | \
-        grep -v '\.drv : $' | \
-        sed 's|^ */nix/store/[a-z0-9]*-||' | \
-        sort -u
-    rm result
-
     log "nix" "switches nixos configuration"
-    nixos-rebuild switch
+    nixos-rebuild switch || : # fails randomly because of virtualbox
 fi
 
 if [[ -r "${HOME}/.config/nixpkgs/home.nix" ]] && available home-manager; then
