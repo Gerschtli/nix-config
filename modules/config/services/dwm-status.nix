@@ -32,6 +32,8 @@ in
     services.dwm-status = {
       enable = true;
 
+      package = pkgs.nur-gerschtli.dwm-status;
+
       order =
         let
           list =
