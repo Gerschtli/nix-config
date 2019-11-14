@@ -44,6 +44,8 @@
 
       gitea.enable = true;
 
+      hercules-ci-agent.enable = true;
+
       ip-watcher.server.enable = true;
 
       openssh.rootLogin = true;
