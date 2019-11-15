@@ -158,7 +158,6 @@ in
         bc = "checkout -b";
         bd = "branch --verbose --delete";
         bdd = "branch --verbose -D";
-        bnc = externGitAlias ''git branch-name | xclip -selection clipboard && echo "Branch name copied to clipboard!"'';
         ca = "commit -q --branch --status --verbose --amend";
         cf = "checkout --quiet --force";
         cl = externGitAlias "git clone --recursive --progress";
