@@ -372,6 +372,30 @@ in
           condition = "gitdir:~/projects/pveu/";
 
           contents = {
+            alias = {
+              bcs = "!${pkgs.writeScript "create-sub-branch" ''
+                #!${pkgs.runtimeShell}
+
+                if [[ $# -lt 2 || ! $1 =~ ^[0-9]+$ ]]; then
+                  >&2 echo "USAGE: git bcs <number> <description>"
+                  exit 1
+                fi
+
+                DESCRIPTION="$@"
+
+                BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+                if [[ "$BRANCH" =~ ^(FEATURES-[0-9]{3,})-([0-9]{4,})- ]]; then
+                  FEATURE="''${BASH_REMATCH[1]}"
+                else
+                  >&2 echo "Be sure to be on a feature branch"
+                  exit 2
+                fi
+
+                git checkout -b $FEATURE-''${DESCRIPTION// /-}
+              ''}";
+            };
+
             commit.template = writeFile "commit.msg" (commitMsgTemplate "BRANCHNAME");
 
             core.excludesfile =
