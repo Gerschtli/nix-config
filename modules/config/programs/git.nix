@@ -123,7 +123,7 @@ let
     #    Can use multiple lines with "-" for bullet points in body
   '';
 
-  writeFile = name: content: "${pkgs.writeText name content}";
+  writeFile = name: content: toString (pkgs.writeText name content);
 in
 
 {
