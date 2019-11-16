@@ -42,7 +42,7 @@ in
         ${pkgs.direnv}/bin/direnv allow
 
         echo -e "Run lorri watch"
-        ${pkgs.nur-gerschtli.lorri}/bin/lorri watch
+        ${pkgs.lorri}/bin/lorri watch
       '')
 
       (pkgs.writeTextFile {
