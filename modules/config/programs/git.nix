@@ -388,7 +388,7 @@ in
 
                 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
-                if [[ "$BRANCH" =~ ^(FEATURES-[0-9]{3,})-([0-9]{4,})- ]]; then
+                if [[ "$BRANCH" =~ ^(FEATURES-[0-9]{3,})- ]]; then
                   FEATURE="''${BASH_REMATCH[1]}"
                 else
                   >&2 echo "Be sure to be on a feature branch"
