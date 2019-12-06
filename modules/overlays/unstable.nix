@@ -13,7 +13,7 @@ in
     neovim            # did not built on aarch64-linux, wait for https://github.com/NixOS/nixpkgs/pull/61588
     neovim-unwrapped  # did not built on aarch64-linux, wait for https://github.com/NixOS/nixpkgs/pull/61588
     postman           # src did not exist anymore, wait for https://github.com/NixOS/nixpkgs/pull/58944
-    teamspeak_server  # need bleeding edge version
+    #teamspeak_server  # need bleeding edge version
   ;
 
   # do not exist in stable yet
