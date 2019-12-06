@@ -162,6 +162,11 @@ if _is_nixos && _is_root; then
         _fix_permissions "${module}"
     done
 elif ! _is_nixos && ! _is_root; then
+    if ! hash home-manager 2>&1; then
+        _log "Install home-manager..."
+        nix-shell '<home-manager>' -A install
+    fi
+
     _log "Run home-manager switch..."
     home-manager switch -2 -b hm-bak -f "${dotfiles_hm}/home-files/$(hostname)/$(whoami).nix"
 
