@@ -8,6 +8,4 @@
     laptop = true;
     personal = true;
   };
-
-  services.network-manager-applet.enable = true;
 }

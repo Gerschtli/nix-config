@@ -74,9 +74,13 @@ in
       thunderbird
     ]);
 
-    services.unclutter = {
-      enable = true;
-      timeout = 3;
+    services = {
+      network-manager-applet.enable = cfg.laptop;
+
+      unclutter = {
+        enable = true;
+        timeout = 3;
+      };
     };
 
   };
