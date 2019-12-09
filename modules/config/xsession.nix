@@ -36,6 +36,8 @@ in
       # FIXME: i3lock throws error on ubuntu: "i3lock-color: Cannot grab pointer/keyboard"
       useSlock = mkEnableOption "slock as screen locker";
 
+      useSudoForHibernate = mkEnableOption "to use sudo for hibernate command";
+
     };
 
   };
@@ -84,13 +86,13 @@ in
 
               if ${pkgs.gnome3.zenity}/bin/zenity --question \
                   --text="Are you sure you want to ${item.message}?" 2> /dev/null; then
-                ${pkgs.systemd}/bin/systemctl ${item.command}
+                ${if item ? sudo && item.sudo then "sudo " else " "}${pkgs.systemd}/bin/systemctl ${item.command}
               fi
             ''
           )
           [
             { command = "poweroff"; name = "halt";       message = "halt the system"; }
-            { command = "hibernate";                     message = "suspend to disk"; }
+            { command = "hibernate";                     message = "suspend to disk"; sudo = cfg.useSudoForHibernate; }
             { command = "hybrid-sleep";                  message = "suspend to disk and ram"; }
             { command = "reboot";                        message = "reboot"; }
             { command = "suspend"; name = "sys-suspend"; message = "suspend to ram"; }
