@@ -42,6 +42,7 @@ in
       {
         boot.loader = {
           efi.canTouchEfiVariables = true;
+
           systemd-boot = {
             enable = true;
             editor = false;
@@ -54,6 +55,7 @@ in
       {
         boot.loader.grub = {
           inherit (cfg) device;
+
           enable = true;
           version = 2;
         };
@@ -64,8 +66,9 @@ in
       {
         boot = {
           loader = {
-            grub.enable = false;
             generic-extlinux-compatible.enable = true;
+
+            grub.enable = false;
           };
 
           kernel.sysctl = {
