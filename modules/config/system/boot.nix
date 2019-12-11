@@ -77,7 +77,6 @@ in
           };
 
           kernelParams = ["cma=32M"];
-          kernelPackages = pkgs.linuxPackages_latest;
         };
       }
     )
