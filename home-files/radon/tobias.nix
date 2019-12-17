@@ -52,5 +52,6 @@
   xsession.profileExtra = ''
     exec > ~/.xsession-errors 2>&1
     xrandr --output eDP-1 --mode 1920x1080
+    xrandr --output DP-1 --auto --left-of eDP-1
   '';
 }
