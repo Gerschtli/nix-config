@@ -86,7 +86,7 @@ in
 
               if ${pkgs.gnome3.zenity}/bin/zenity --question \
                   --text="Are you sure you want to ${item.message}?" 2> /dev/null; then
-                ${if item ? sudo && item.sudo then "sudo " else " "}${pkgs.systemd}/bin/systemctl ${item.command}
+                ${if item ? sudo && item.sudo then "sudo systemctl" else "${pkgs.systemd}/bin/systemctl"} ${item.command}
               fi
             ''
           )
