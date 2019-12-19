@@ -36,10 +36,13 @@
 
   home = {
     packages = with pkgs; [
+      curl
       docker_compose
       mysql-workbench
+      rustup
       slack
       soapui
+      vagrant
     ];
 
     sessionVariables = {
