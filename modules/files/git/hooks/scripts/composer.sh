@@ -10,16 +10,9 @@ install() {
     fi
 }
 
-check() {
-    if composer list --raw | has_match "^verify\s+"; then
-        composer verify; track_result
-    fi
-}
-
 if has_command_and_file php "${COMPOSER_LOCK}"; then
     case "${HOOK_TYPE}" in
         post-checkout | post-merge) install ;;
-        pre-push)                   check   ;;
     esac
 fi
 
