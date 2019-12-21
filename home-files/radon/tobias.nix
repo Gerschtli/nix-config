@@ -41,6 +41,7 @@ with lib;
       curl
       docker_compose
       mysql-workbench
+      python37Packages.sqlparse
       rustup
       slack
       soapui
