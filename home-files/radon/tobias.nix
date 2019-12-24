@@ -109,7 +109,7 @@ with lib;
             config = mkConfigObject {
               eDP-1 = {
                 primary = true;
-                mode = "1920x1080";
+                mode = "1600x900";
                 position = "0x0";
                 rate = "59.96";
               };
