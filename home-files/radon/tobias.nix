@@ -52,6 +52,8 @@ with lib;
       # see: https://github.com/NixOS/nixpkgs/issues/38991#issuecomment-400657551
       LOCALE_ARCHIVE_2_11 = "/usr/bin/locale/locale-archive";
       LOCALE_ARCHIVE_2_27 = "${pkgs.glibcLocales}/lib/locale/locale-archive";
+
+      NIX_PATH = "nixpkgs=/home/tobias/.nix-defexpr/channels/nixpkgs:/home/tobias/.nix-defexpr/channels";
     };
   };
 
