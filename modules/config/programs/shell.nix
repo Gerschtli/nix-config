@@ -106,14 +106,15 @@ let
 
     bc = "bc -l";
 
-    df = "df -h";
+    df = "df --human-readable --local --print-type";
+    du = "du --human-readable --one-file-system --time --time-style=+'%Y-%m-%d' --total";
 
     rg = "rg --ignore-case --sort=path";
 
     open = "xdg-open";
 
-    pwgen = "pwgen -cny";
-    pwgens = "pwgen -s";
+    pwgen = "pwgen -cns";
+    pgen = "pwgen 30 1";
 
     tailf = "tail -f";
 
