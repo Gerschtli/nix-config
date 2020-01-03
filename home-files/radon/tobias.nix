@@ -25,7 +25,11 @@ with lib;
 
     misc.util-bins.bins = [ "csv-check" ];
 
-    programs.ssh.modules = [ "pveu" ];
+    programs = {
+      rsync.enable = true;
+
+      ssh.modules = [ "pveu" ];
+    };
 
     services.dwm-status.useGlobalAlsaUtils = true;
 
