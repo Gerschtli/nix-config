@@ -97,8 +97,12 @@ _fix_permissions() {
 
 # generate ssh key and show
 ssh-keygen -f ~/.ssh/id_rsa -N "" -q || true
-_log "Copy link to ssh key, add in github and gitea:"
+_log "Copy link to ssh key or ssh key itself, add in github and gitea:"
+echo
+cat "${HOME}/.ssh/id_rsa.pub"
+echo
 curl --silent --form "file=@${HOME}/.ssh/id_rsa.pub" https://file.io | jq --raw-output .link
+echo
 
 # pause script
 read -p "$(echo -e "${PURPLE}Press any key to continue...${RESET}")" -n1 -s
@@ -162,13 +166,26 @@ if _is_nixos && _is_root; then
         _fix_permissions "${module}"
     done
 elif ! _is_nixos && ! _is_root; then
-    if ! hash home-manager 2>&1; then
-        _log "Install home-manager..."
-        nix-shell '<home-manager>' -A install
-    fi
+    home_file="${dotfiles_hm}/home-files/$(hostname)/$(whoami).nix"
 
-    _log "Run home-manager switch..."
-    home-manager switch -2 -b hm-bak -f "${dotfiles_hm}/home-files/$(hostname)/$(whoami).nix"
+    if [[ "${USER}" == "nix-on-droid" ]]; then
+        _log "Link home.nix file..."
+        ln -snf "${home_file}" "${HOME}/.config/nixpkgs/home.nix"
+
+        _log "Link nix-on-droid.nix file..."
+        ln -snf "${dotfiles}/nix-on-droid/nix-on-droid.nix" "${HOME}/.config/nixpkgs/nix-on-droid.nix"
+
+        _log "Run nix-on-droid switch..."
+        nix-on-droid switch --verbose
+    else
+        if ! hash home-manager 2>&1; then
+            _log "Install home-manager..."
+            nix-shell '<home-manager>' -A install
+        fi
+
+        _log "Run home-manager switch..."
+        home-manager switch -2 -b hm-bak -f "${home_file}"
+    fi
 
     for module in "${dotfiles_hm}/${ssh_path}/"*; do
         _fix_permissions "${module}"
