@@ -16,7 +16,7 @@ in
       enable = mkEnableOption "dotfiles config";
 
       modules = mkOption {
-        type = types.listOf (types.enum [ "atom" "gpg" "home-manager" "i3" "sublime" "vscode" ]);
+        type = types.listOf (types.enum [ "atom" "gpg" "home-manager" "i3" "nix-on-droid" "sublime" "vscode" ]);
         default = [];
         description = ''
           List of dotfiles modules to enable.

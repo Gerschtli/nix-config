@@ -10,6 +10,8 @@
       non-nixos.installNix = false;
     };
 
+    misc.dotfiles.modules = [ "nix-on-droid" ];
+
     programs = {
       shell.initExtra = ''
         if [[ -z "$SSH_AUTH_SOCK" ]]; then
