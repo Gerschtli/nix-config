@@ -23,8 +23,12 @@ in
 
   options = {
 
-    custom.base.non-nixos.enable = mkEnableOption "config for non NixOS systems" // {
-      default = !config.lib.os.isNixOS;
+    custom.base.non-nixos = {
+      enable = mkEnableOption "config for non NixOS systems" // {
+        default = !config.lib.os.isNixOS;
+      };
+
+      installNix = mkEnableOption "nix installation" // { default = true; };
     };
 
   };
@@ -39,7 +43,7 @@ in
       modules = [ "home-manager" ];
     };
 
-    home.packages = [ pkgs.nix ];
+    home.packages = mkIf cfg.installNix [ pkgs.nix ];
 
     programs.zsh.envExtra = mkAfter ''
       hash -f

@@ -4,7 +4,11 @@
   imports = [ ../../modules ];
 
   custom = {
-    base.general.lightWeight = true;
+    base = {
+      general.lightWeight = true;
+
+      non-nixos.installNix = false;
+    };
 
     programs = {
       shell.initExtra = ''
