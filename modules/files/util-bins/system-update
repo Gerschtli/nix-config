@@ -115,6 +115,11 @@ if is_nixos && is_root; then
     nixos-rebuild switch || : # fails randomly because of virtualbox
 fi
 
+if [[ -r "${HOME}/.config/nixpkgs/nix-on-droid.nix" ]] && available nix-on-droid; then
+    log "nix" "nix-on-droid switch"
+    nix-on-droid switch --verbose
+fi
+
 if [[ -r "${HOME}/.config/nixpkgs/home.nix" ]] && available home-manager; then
     log "nix" "home-manager switch"
     home-manager switch -2 -b hm-bak
