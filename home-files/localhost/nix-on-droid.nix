@@ -37,9 +37,5 @@
       man
       ncurses
     ];
-
-    sessionVariables = {
-      LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
-    };
   };
 }
