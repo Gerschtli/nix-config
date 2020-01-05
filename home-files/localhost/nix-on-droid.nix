@@ -1,9 +1,5 @@
 { config, pkgs, ... }:
 
-let
-  nix-on-droid = import <nix-on-droid> { };
-in
-
 {
   imports = [ ../../modules ];
 
@@ -27,8 +23,6 @@ in
 
   home = {
     packages = with pkgs; [
-      nix-on-droid.basic-environment
-
       diffutils
       findutils
       gawk
