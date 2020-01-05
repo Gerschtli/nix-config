@@ -10,7 +10,7 @@ NIX_CHANNEL_NAME=nixos
 NIX_ON_DROID=0
 
 case "${1}" in
-    --android) NIX_ON_DROID=1 ;;
+    --android) NIX_ON_DROID=1 NIX_CHANNEL_NAME=nixpkgs ;;
     --non-nixos) NIX_CHANNEL_NAME=nixpkgs ;;
     --small) CHANNEL_SUFFIX=-small ;;
 esac
