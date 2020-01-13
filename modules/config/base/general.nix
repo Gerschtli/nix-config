@@ -77,7 +77,7 @@ in
       trustedUsers = [ "root" "tobias" ];
     };
 
-    nixpkgs.overlays = map (file: import file) (customLib.getFileList ../../overlays);
+    nixpkgs.overlays = map import (customLib.getFileList ../../overlays);
 
     programs.zsh = {
       enable = true;
