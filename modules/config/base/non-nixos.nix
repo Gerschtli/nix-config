@@ -52,6 +52,7 @@ in
     xdg.configFile."nix/nix.conf".text = ''
       substituters = ${concatStringsSep " " substituters}
       trusted-public-keys = ${concatStringsSep " " trustedPublicKeys}
+      trusted-users = root tobias
     '';
 
   };
