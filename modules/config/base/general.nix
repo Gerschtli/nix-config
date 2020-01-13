@@ -137,7 +137,7 @@ in
 
     nixpkgs = {
       config = import ../../files/config.nix;
-      overlays = map (file: import file) overlays;
+      overlays = map import overlays;
     };
 
     programs.home-manager.enable = true;
