@@ -74,6 +74,7 @@ in
         "hercules-ci.cachix.org-1:ZZeDl9Va+xe9j+KqdzoBZMFJHVQ42Uu/c/1/KMC5Lw0="
         "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU="
       ];
+      trustedUsers = [ "root" "tobias" ];
     };
 
     nixpkgs.overlays = map (file: import file) (customLib.getFileList ../../overlays);
