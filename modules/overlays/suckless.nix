@@ -10,14 +10,14 @@ builtins.mapAttrs
     dmenu = super.fetchFromGitHub {
       owner = "Gerschtli";
       repo = "dmenu";
-      rev = "7742a5146b28e4222cff78a20754f88235d46ad1";
+      rev = "bc5406165327d05d53bf34836637d6ebc5fe2e9b";
       sha256 = "0q1z78mnca1lfwhp7cp3xlxlknhkzn4a2d63ahggazc1szaxrq80";
     };
 
     dwm = super.fetchFromGitHub {
       owner = "Gerschtli";
       repo = "dwm";
-      rev = "aca0f6de62b5a8bdd21b7ed856ff0421868b5284";
+      rev = "bd326150d4c2a67091ccec56e64b534b0b91e560";
       sha256 = "05yc7qvw6pmjisxp8cp1xrv8f9g3ni2bridggfbfrsaw5zwah2g2";
     };
   }
