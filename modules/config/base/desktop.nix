@@ -122,6 +122,8 @@ in
             HandlePowerKey=ignore
           '';
 
+          tlp.enable = true;
+
           upower.enable = true;
 
           xserver.libinput = {
