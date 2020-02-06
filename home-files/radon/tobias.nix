@@ -106,6 +106,24 @@ with lib;
             };
           };
 
+          station = {
+            fingerprint = {
+              inherit (fingerprints) DVI-I-1-1;
+            };
+
+            config = mkConfigObject {
+              DVI-I-1-1 = {
+                enable = true;
+                primary = true;
+                mode = "2560x1440";
+                position = "0x0";
+                rate = "59.95";
+              };
+
+              eDP-1.enable = false;
+            };
+          };
+
           mobile = {
             fingerprint = {
               inherit (fingerprints) eDP-1;
