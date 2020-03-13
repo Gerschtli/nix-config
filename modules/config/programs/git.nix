@@ -180,6 +180,7 @@ in
         mm = externGitAlias "git me origin/$(git branch-name)";
         mt = "mergetool --no-prompt";
         pd = "push --no-verify --delete --progress origin";
+        pf = externGitAlias "git ph --force origin $(git branch-name)";
         ph = "push --progress --tags --set-upstream";
         pu = externGitAlias "for i in $(git remote); do git ph \${i} $(git branch-name); done";
         pn = externGitAlias "for i in $(git remote); do git ph --no-verify \${i} $(git branch-name); done";
