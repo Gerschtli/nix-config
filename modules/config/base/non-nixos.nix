@@ -24,9 +24,7 @@ in
   options = {
 
     custom.base.non-nixos = {
-      enable = mkEnableOption "config for non NixOS systems" // {
-        default = !config.lib.os.isNixOS;
-      };
+      enable = mkEnableOption "config for non NixOS systems";
 
       installNix = mkEnableOption "nix installation" // { default = true; };
     };

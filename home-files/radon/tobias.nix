@@ -13,6 +13,8 @@ with lib;
       };
 
       general.extendedPath = [ "$HOME/bin" ];
+
+      non-nixos.enable = true;
     };
 
     development = {

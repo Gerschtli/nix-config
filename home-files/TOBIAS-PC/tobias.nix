@@ -3,5 +3,9 @@
 {
   imports = [ ../../modules ];
 
-  custom.programs.ssh.modules = [ "private" ];
+  custom = {
+    base.non-nixos.enable = true;
+
+    programs.ssh.modules = [ "private" ];
+  };
 }

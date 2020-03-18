@@ -12,6 +12,8 @@
         "/snap/bin"
         "$HOME/.local/share/umake/bin"
       ];
+
+      non-nixos.enable = true;
     };
 
     development = {

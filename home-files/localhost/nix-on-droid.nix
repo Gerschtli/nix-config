@@ -7,7 +7,10 @@
     base = {
       general.lightWeight = true;
 
-      non-nixos.installNix = false;
+      non-nixos = {
+        enable = true;
+        installNix = false;
+      };
     };
 
     misc.dotfiles.modules = [ "nix-on-droid" ];
