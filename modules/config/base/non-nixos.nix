@@ -41,7 +41,11 @@ in
       modules = [ "home-manager" ];
     };
 
-    home.packages = mkIf cfg.installNix [ pkgs.nix ];
+    home = {
+      packages = mkIf cfg.installNix [ pkgs.nix ];
+
+      targetOperatingSystem = "linux";
+    };
 
     programs.zsh.envExtra = mkAfter ''
       hash -f
