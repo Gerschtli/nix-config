@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [ ../../modules ];
@@ -16,11 +16,17 @@
     misc.dotfiles.modules = [ "nix-on-droid" ];
 
     programs = {
-      shell.initExtra = ''
-        if [[ -z "$SSH_AUTH_SOCK" ]]; then
-          eval $(ssh-agent -s)
-        fi
-      '';
+      shell = {
+        envExtra = lib.mkOrder 0 ''
+          source "/data/data/com.termux.nix/files/home/.nix-profile/etc/profile.d/nix-on-droid-session-init.sh"
+        '';
+
+        initExtra = ''
+          if [ -z "''${SSH_AUTH_SOCK:-}" ]; then
+            eval $(ssh-agent -s)
+          fi
+        '';
+      };
 
       ssh = {
         enableKeychain = false;
@@ -28,7 +34,7 @@
         modules = [ "private" ];
       };
 
-      tmux.enable = pkgs.lib.mkForce false;
+      tmux.enable = lib.mkForce false;
     };
   };
 
