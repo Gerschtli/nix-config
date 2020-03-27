@@ -105,6 +105,9 @@ in
       lockCmd = "${lock-screen}/bin/lock-screen";
       inactiveInterval = 20;
 
+      # disable xautolock when cursor is in bottom right corner
+      xautolockExtraOptions = [ "--corners" "000-" ];
+
       # lock before suspending/hibernating, see https://github.com/i3/i3lock/issues/207
       xssLockExtraOptions = [ "--transfer-sleep-lock" ];
     };
