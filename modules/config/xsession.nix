@@ -106,7 +106,7 @@ in
       inactiveInterval = 20;
 
       # disable xautolock when cursor is in bottom right corner
-      xautolockExtraOptions = [ "--corners" "000-" ];
+      xautolockExtraOptions = [ "-corners" "000-" ];
 
       # lock before suspending/hibernating, see https://github.com/i3/i3lock/issues/207
       xssLockExtraOptions = [ "--transfer-sleep-lock" ];
