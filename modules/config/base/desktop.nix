@@ -17,7 +17,7 @@ in
 
       laptop = mkEnableOption "laptop config";
 
-      personal = mkEnableOption "personal desktop config";
+      private = mkEnableOption "private desktop config";
 
     };
 
@@ -37,7 +37,7 @@ in
       };
 
       programs = {
-        pass = mkIf cfg.personal {
+        pass = mkIf cfg.private {
           enable = true;
           browserpass = true;
           x11Support = true;
@@ -68,11 +68,11 @@ in
       pdftk
       postman
       spotify
-    ] ++ (optionals cfg.personal [
+    ] ++ (optionals cfg.private [
       audacity
       musescore
       thunderbird
-    ]) ++ (optionals (cfg.personal && cfg.laptop) [
+    ]) ++ (optionals (cfg.private && cfg.laptop) [
       skypeforlinux
       zoom-us
     ]);

@@ -5,9 +5,9 @@ corresponding library of custom modules.
 
 Provides `home.nix` files for each host and user in `home-files` with the structure `home-files/<host>/<user>.nix`:
 
-* `argon`: personal laptop
+* `argon`: private laptop
 * `devel-one`: work desktop
-* `helium`: personal desktop
+* `helium`: private desktop
 * `localhost`: android phone (based on [nix-on-droid](https://github.com/t184256/nix-on-droid-bootstrap))
 * `krypton`: server
 * `radon`: work laptop

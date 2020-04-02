@@ -5,6 +5,6 @@
 
   custom.base.desktop = {
     enable = true;
-    personal = true;
+    private = true;
   };
 }
