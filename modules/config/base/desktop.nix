@@ -72,6 +72,9 @@ in
       audacity
       musescore
       thunderbird
+    ]) ++ (optionals (cfg.personal && cfg.laptop) [
+      skypeforlinux
+      zoom-us
     ]);
 
     services = {
