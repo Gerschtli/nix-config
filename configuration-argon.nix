@@ -3,12 +3,17 @@
 {
   imports = [ ./modules ];
 
-  custom.base = {
-    desktop = {
-      enable = true;
-      laptop = true;
+
+  custom = {
+    base = {
+      desktop = {
+        enable = true;
+        laptop = true;
+      };
+
+      general.hostName = "argon";
     };
 
-    general.hostName = "argon";
+    ids.enable = true;
   };
 }
