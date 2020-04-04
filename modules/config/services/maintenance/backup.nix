@@ -152,7 +152,6 @@ in
         );
 
         systemUsers.${user} = {
-          group = user;
           home = cfg.location;
 
           sshKeys = [

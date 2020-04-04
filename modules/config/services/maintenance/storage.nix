@@ -119,9 +119,7 @@ in
         };
       };
 
-      systemUsers.${user} = {
-        group = user;
-      };
+      systemUsers.${user} = { };
     };
 
     system.activationScripts.backup = mkIf (! useMount) ''

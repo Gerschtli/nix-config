@@ -25,7 +25,6 @@ in
 
     custom.utils.systemUsers.${user} = {
       createHome = true;
-      group = user;
 
       sshKeys = [
         ../../../files/keys/id_rsa.ip-watcher.pub

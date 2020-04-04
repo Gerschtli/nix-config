@@ -90,12 +90,15 @@ in
     time.timeZone = "Europe/Berlin";
 
     users = {
-      groups.secret-files = { };
+      groups.secret-files = {
+        gid = config.ids.gids.secret-files;
+      };
 
       users = {
         root.shell = pkgs.zsh;
 
         tobias = {
+          uid = config.ids.uids.tobias;
           extraGroups = [ "secret-files" "wheel" ];
           isNormalUser = true;
           shell = pkgs.zsh;

@@ -15,14 +15,6 @@ let
         '';
       };
 
-      group = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = ''
-          Name of group or null, if no group.
-        '';
-      };
-
       createHome = mkOption {
         type = types.bool;
         default = false;
@@ -80,11 +72,15 @@ in
     users = mkMerge (flip map (attrValues cfg.systemUsers) (user:
 
       {
-        groups.${user.group} = mkIf (user.group != null) { };
+        groups.${user.name} = {
+          gid = config.ids.gids.${user.name};
+        };
 
         users.${user.name} = {
           inherit (user) createHome;
-          group = mkIf (user.group != null) user.group;
+
+          uid = config.ids.uids.${user.name};
+          group = user.name;
           isSystemUser = true;
           useDefaultShell = true;
           home = mkIf user.createHome user.home;
