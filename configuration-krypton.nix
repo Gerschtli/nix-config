@@ -5,15 +5,15 @@
 
   custom = {
     applications = {
-      betting-game-backend = {
-        enable = true;
-        containerID = 2;
-      };
+      # betting-game-backend = {
+      #   enable = true;
+      #   containerID = 2;
+      # };
 
-      betting-game-frontend = {
-        enable = true;
-        containerID = 3;
-      };
+      # betting-game-frontend = {
+      #   enable = true;
+      #   containerID = 3;
+      # };
 
       car-stats = {
         enable = true;
