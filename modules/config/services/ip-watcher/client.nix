@@ -51,8 +51,7 @@ in
 
         serviceConfig = {
           serviceConfig = {
-            Group = user;
-            User = user;
+            DynamicUser = true;
           };
           script = ''
             ${pkgs.bind.dnsutils}/bin/dig @resolver1.opendns.com A myip.opendns.com +short -4 | \
@@ -62,10 +61,6 @@ in
                 ${user}@${cfg.serverIp} "cat > '${filename}'"
           '';
         };
-      };
-
-      systemUsers.${user} = {
-        group = user;
       };
     };
 

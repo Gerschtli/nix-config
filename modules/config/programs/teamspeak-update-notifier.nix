@@ -17,8 +17,6 @@ let
     server_group_id = 6
     current_version = ${lib.getVersion pkgs.teamspeak_server.name}
   '';
-
-  user = "teamspeak-update-notifier";
 in
 
 {
@@ -36,8 +34,6 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.utils.systemUsers.${user} = { };
-
     systemd.services.teamspeak-update-notifier = {
       description = "Teamspeak update notifier service";
 
@@ -46,7 +42,7 @@ in
       wantedBy = [ "multi-user.target" "teamspeak3-server.service" ];
 
       serviceConfig = {
-        User = user;
+        DynamicUser = true;
         ExecStart = "${pkgs.nur-gerschtli.teamspeak-update-notifier}/bin/teamspeak-update-notifier ${configFile}";
         Restart = "always";
         RestartSec = 30;
