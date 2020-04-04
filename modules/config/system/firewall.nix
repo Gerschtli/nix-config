@@ -78,17 +78,11 @@ in
       enable = true;
       allowPing = true;
 
-      extraCommands = (
-        foldl (acc: address: ''
-          ${acc}
-          iptables -A INPUT -p tcp -s ${address} --destination-port 22 -j DROP
-        '') "" cfg.dropPackets
-      ) + (
-         foldl (acc: option: ''
-          ${acc}
-          iptables -I INPUT -p ${option.protocol} -s ${option.ip} --dport ${toString option.port} -j ACCEPT
-        '') "" cfg.openPortsForIps
-      );
+      extraCommands =
+        concatMapStringsSep "\n" (address: "iptables -A INPUT -p tcp -s ${address} --destination-port 22 -j DROP") cfg.dropPackets
+        + "\n"
+        + concatMapStringsSep "\n" (option: "iptables -I INPUT -p ${option.protocol} -s ${option.ip} --dport ${toString option.port} -j ACCEPT") cfg.openPortsForIps
+      ;
     };
 
     services.fail2ban = {

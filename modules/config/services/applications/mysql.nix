@@ -45,13 +45,13 @@ in
         let
           passwordFile = toString ../../../secrets/mysql-backup-password;
         in
-
-        foldl
-          (acc: database: ''
-            ${acc}
-            ${pkgs.mariadb}/bin/mysqldump -ubackup -p$(cat ${passwordFile}) ${database} | \
-              ${pkgs.gzip}/bin/gzip -c > ${database}-$(date +%s).gz
-          '') "" cfg.backups;
+          concatMapStringsSep
+            "\n"
+            (database: ''
+              ${pkgs.mariadb}/bin/mysqldump -ubackup -p$(cat ${passwordFile}) ${database} | \
+                ${pkgs.gzip}/bin/gzip -c > ${database}-$(date +%s).gz
+            '')
+            cfg.backups;
     };
 
     services.mysql = {

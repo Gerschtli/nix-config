@@ -103,16 +103,20 @@ in
           script = ''
             cd ${backupDir}
 
-            ${foldl (acc: server: ''
-              ${acc}
-              ${pkgs.rsync}/bin/rsync --archive --verbose --compress --whole-file \
-                --prune-empty-dirs --include "*/"  --include="*.gpg" --exclude="*" \
-                --rsh "${pkgs.openssh}/bin/ssh \
-                  -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
-                  -i ${toString ../../../secrets/id_rsa.backup}" \
-                "${backupUser}@${server.ip}:${config.custom.services.backup.location}/*" \
-                ${backupDir}/${server.name}
-            '') "" cfg.server}
+            ${
+              concatMapStringsSep
+                "\n"
+                (server: ''
+                  ${pkgs.rsync}/bin/rsync --archive --verbose --compress --whole-file \
+                    --prune-empty-dirs --include "*/"  --include="*.gpg" --exclude="*" \
+                    --rsh "${pkgs.openssh}/bin/ssh \
+                      -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
+                      -i ${toString ../../../secrets/id_rsa.backup}" \
+                    "${backupUser}@${server.ip}:${config.custom.services.backup.location}/*" \
+                    ${backupDir}/${server.name}
+                '')
+                cfg.server
+              }
 
             find ${backupDir} -type f -mtime +${toString cfg.expiresAfter} -exec rm {} \+
           '';
