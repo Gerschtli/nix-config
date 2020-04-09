@@ -12,7 +12,10 @@ with lib;
         laptop = true;
       };
 
-      general.extendedPath = [ "$HOME/bin" ];
+      general.extendedPath = [
+        "$HOME/bin"
+        "$HOME/.local/bin"
+      ];
 
       non-nixos.enable = true;
     };
