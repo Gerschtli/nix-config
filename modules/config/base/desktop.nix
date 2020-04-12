@@ -31,7 +31,7 @@ in
       boot.tmpOnTmpfs = true;
 
       custom = {
-        misc.dev.enable = true;
+        programs.virtualbox.enable = true;
 
         system.boot.mode = "efi";
       };
