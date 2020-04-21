@@ -41,15 +41,13 @@ in
       modules = [ "home-manager" ];
     };
 
-    home = {
-      packages = mkIf cfg.installNix [ pkgs.nix ];
-
-      targetOperatingSystem = "linux";
-    };
+    home.packages = mkIf cfg.installNix [ pkgs.nix ];
 
     programs.zsh.envExtra = mkAfter ''
       hash -f
     '';
+
+    targets.genericLinux.enable = true;
 
     xdg.configFile."nix/nix.conf".text = ''
       substituters = ${concatStringsSep " " substituters}
