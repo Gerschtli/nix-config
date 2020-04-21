@@ -56,8 +56,8 @@ in
     custom.utils.systemd = {
 
       timers = mkOption {
-        type = with types; loaOf (submodule timerOpts);
-        default = [];
+        type = with types; attrsOf (submodule timerOpts);
+        default = { };
         description = ''
           List of systemd timers with respective service config.
         '';

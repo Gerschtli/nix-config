@@ -55,8 +55,8 @@ in
   options = {
 
     custom.utils.systemUsers = mkOption {
-      type = with types; loaOf (submodule opts);
-      default = [];
+      type = with types; attrsOf (submodule opts);
+      default = { };
       description = ''
         List of system users.
       '';
