@@ -37,6 +37,8 @@ in
 
     boot.cleanTmpDir = true;
 
+    console.keyMap = "de";
+
     custom.system.firewall.enable = true;
 
     environment.shellAliases = mkForce { };
@@ -49,11 +51,6 @@ in
         root = import (../../../home-manager-configurations/home-files + "/${cfg.hostName}/root.nix");
         tobias = import (../../../home-manager-configurations/home-files + "/${cfg.hostName}/tobias.nix");
       };
-    };
-
-    i18n = {
-      consoleKeyMap = "de";
-      defaultLocale = "en_US.UTF-8";
     };
 
     networking = {
