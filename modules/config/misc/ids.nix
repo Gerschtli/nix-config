@@ -4,22 +4,6 @@ with lib;
 
 let
   cfg = config.custom.ids;
-
-  uids = {
-    backup = 500;
-    storage = 501;
-    ip-watcher = 502;
-
-    tobias = 1000;
-  };
-
-  gids = {
-    backup = 500;
-    storage = 501;
-    ip-watcher = 502;
-
-    secret-files = 600;
-  };
 in
 
 {
@@ -55,17 +39,24 @@ in
 
   config = {
 
-    ids =
-      if cfg.enable
-      then { inherit uids gids; }
-      else
-        let
-          mapToNull = ids: mapAttrs (name: value: null) ids;
-        in
-          {
-            uids = mapToNull uids;
-            gids = mapToNull gids;
-          };
+    custom.ids = {
+      uids = {
+        backup = 500;
+        storage = 501;
+        ip-watcher = 502;
+
+        tobias = 1000;
+      };
+
+      gids = {
+        backup = 500;
+        storage = 501;
+        ip-watcher = 502;
+
+        secret-files = 600;
+      };
+    };
+
   };
 
 }

@@ -73,13 +73,15 @@ in
 
       {
         groups.${user.name} = {
-          gid = config.ids.gids.${user.name};
+          # FIXME: move mkIf to ids module
+          gid = mkIf config.custom.ids.enable config.custom.ids.gids.${user.name};
         };
 
         users.${user.name} = {
           inherit (user) createHome;
 
-          uid = config.ids.uids.${user.name};
+          # FIXME: move mkIf to ids module
+          uid = mkIf config.custom.ids.enable config.custom.ids.uids.${user.name};
           group = user.name;
           isSystemUser = true;
           useDefaultShell = true;

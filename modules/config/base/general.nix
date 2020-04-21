@@ -88,14 +88,16 @@ in
 
     users = {
       groups.secret-files = {
-        gid = config.ids.gids.secret-files;
+        # FIXME: move mkIf to ids module
+        gid = mkIf config.custom.ids.enable config.custom.ids.gids.secret-files;
       };
 
       users = {
         root.shell = pkgs.zsh;
 
         tobias = {
-          uid = config.ids.uids.tobias;
+          # FIXME: move mkIf to ids module
+          uid = mkIf config.custom.ids.enable config.custom.ids.uids.tobias;
           extraGroups = [ "secret-files" "wheel" ];
           isNormalUser = true;
           shell = pkgs.zsh;
