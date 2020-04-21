@@ -17,7 +17,7 @@ in
 
       uids = mkOption {
         type = types.attrs;
-        readonly = true;
+        readOnly = true;
         description = ''
           The user IDs used in custom NixOS configuration.
         '';
@@ -25,7 +25,7 @@ in
 
       gids = mkOption {
         type = types.attrs;
-        readonly = true;
+        readOnly = true;
         description = ''
           The group IDs used in custom NixOS configuration.
         '';
