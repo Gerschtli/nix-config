@@ -75,19 +75,8 @@ in
         xserver = {
           enable = true;
 
-          displayManager = {
-            job.logToFile = mkForce false;
-
-            # FIXME: enable lightdm after https://github.com/NixOS/nixpkgs/issues/26687 got fixed
-            lightdm = {
-              enable = false;
-            };
-
-            slim = {
-              enable = true;
-              defaultUser = "tobias";
-            };
-          };
+          # FIXME: enable lightdm after https://github.com/NixOS/nixpkgs/issues/26687 got fixed
+          displayManager.lightdm.enable = true;
         };
       };
 
