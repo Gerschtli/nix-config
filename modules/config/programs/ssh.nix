@@ -92,7 +92,7 @@ in
     };
 
     home = {
-      activationExtra = ''
+      activation.copySshKeys = lib.hm.dag.entryAfter ["writeBoundary"] ''
         if [[ ! -d "${directorySource}" || ! -r "${directorySource}" ]]; then
           >&2 echo "${directorySource} has to be a readable directory for user '${config.home.username}'"
           exit 1
