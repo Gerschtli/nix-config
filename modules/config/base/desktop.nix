@@ -27,7 +27,6 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-
       boot.tmpOnTmpfs = true;
 
       custom = {
