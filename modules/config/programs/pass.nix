@@ -56,7 +56,7 @@ in
       (pass.override { inherit (cfg) x11Support; })
     ] ++ (optional cfg.ncurses pinentry-curses);
 
-    # does not work, see https://github.com/rycee/home-manager/issues/786
+    # FIXME: does not work, see https://github.com/rycee/home-manager/issues/786
     # programs.browserpass.enable = cfg.browserpass;
 
   };
