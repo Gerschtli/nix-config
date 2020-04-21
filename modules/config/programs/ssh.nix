@@ -176,6 +176,7 @@ in
           ServerAliveCountMax 30
         '';
 
+        # FIXME: update accordingly to new type: hm.types.listOrDagOf matchBlockModule
         matchBlocks = mkMerge (
           map
             (module: (
