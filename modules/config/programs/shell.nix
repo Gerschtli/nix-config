@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.custom.programs.shell;
 
-  dynamicShellInitModule = types.submodule ({ name, ... }: {
+  dynamicShellInitModule = types.submodule ({ ... }: {
     options = {
       condition = mkOption {
         type = types.str;
@@ -37,8 +37,6 @@ let
         '';
       };
     };
-
-    config.condition = mkDefault name;
   });
 
   initExtra = mkMerge [
@@ -142,7 +140,7 @@ let
             fi
           ''
       )
-      (attrValues cfg.dynamicShellInit)
+      cfg.dynamicShellInit
   );
 in
 
@@ -191,10 +189,12 @@ in
       };
 
       dynamicShellInit = mkOption {
-        default = {};
-        type = types.loaOf dynamicShellInitModule;
-        example = {
-          "available composer" = {
+        default = [];
+        type = types.listOf dynamicShellInitModule;
+        example = [
+          {
+            condition = "available composer";
+
             shellAliases = {
               cinstall = "composer install";
             };
@@ -202,8 +202,8 @@ in
             initExtra = ''
               # extra config
             '';
-          };
-        };
+          }
+        ];
         description = ''
           Specify dynamic shell init which has to be reloaded after environment change.
 
