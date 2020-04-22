@@ -111,16 +111,15 @@ in
 
     custom = {
       utils = {
-        systemd.timers = flip map (attrValues cfg.services) (
+        systemd.timers = listToAttrs (flip map (attrValues cfg.services) (
           service:
             let
               location = "${cfg.location}/${service.name}";
               locationGpg = "${location}/gpg-home";
             in
 
-            {
+            nameValuePair "${service.name}-backup" {
               inherit (service) interval;
-              name = "${service.name}-backup";
               description = "${service.description} backup";
 
               serviceConfig = mkMerge [
@@ -149,7 +148,7 @@ in
                 service.extraOptions
               ];
             }
-        );
+        ));
 
         systemUsers.${user} = {
           home = cfg.location;
