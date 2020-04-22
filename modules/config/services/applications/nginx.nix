@@ -26,6 +26,11 @@ in
       443
     ];
 
+    security.acme = {
+      acceptTerms = true;
+      email = "tobias.happ@gmx.de";
+    };
+
     services.nginx = {
       enable = true;
       recommendedOptimisation = true;
