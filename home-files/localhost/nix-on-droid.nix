@@ -50,5 +50,14 @@
       man
       ncurses
     ];
+
+    sessionVariables =
+      let
+        profiles = [ "/nix/var/nix/profiles/default" "$HOME/.nix-profile" ];
+        dataDirs =
+          lib.concatStringsSep ":" (map (profile: "${profile}/share") profiles);
+      in {
+        XDG_DATA_DIRS = "${dataDirs}\${XDG_DATA_DIRS:+:}$XDG_DATA_DIRS";
+      };
   };
 }
