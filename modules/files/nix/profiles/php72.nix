@@ -10,12 +10,6 @@ let
     "couchbase"
     "memcached"
   ];
-
-  php72_ = php72.overrideAttrs (old: {
-    postInstall = old.postInstall + ''
-      ln -snf $out/bin/php $out/bin/php72
-    '';
-  });
 in
 
 mkShell {
@@ -23,7 +17,7 @@ mkShell {
 
   buildInputs = [
     nodejs-10_x
-    php72_
+    nur-gerschtli.php72-symlink
     php72Packages.composer
     vagrant
   ] ++ (map (ext: php72Packages.${ext}) extensions);
@@ -32,7 +26,7 @@ mkShell {
 
   PHPRC = import ./util/phpIni.nix {
     inherit extensions lib writeTextDir;
-    phpPackage  = php72_;
+    phpPackage  = nur-gerschtli.php72-symlink;
     phpPackages = php72Packages;
   };
 }
