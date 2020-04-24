@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... } @ args:
 
 with lib;
 
@@ -65,6 +65,17 @@ with lib;
 
       NIX_PATH = "nixpkgs=/home/tobias/.nix-defexpr/channels/nixpkgs:/home/tobias/.nix-defexpr/channels";
     };
+  };
+
+  # FIXME: move to some module
+  nixpkgs =  {
+    config = import ../../modules/config/files/config.nix;
+    overlays =
+      let
+        customLib = import ../../modules/config/lib args;
+        overlays = customLib.getFileList ../../modules/config/overlays;
+      in
+        map import overlays;
   };
 
   programs.autorandr = {

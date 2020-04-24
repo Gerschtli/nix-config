@@ -135,11 +135,6 @@ in
       stateVersion = "19.09";
     };
 
-    nixpkgs = {
-      config = import ../../files/config.nix;
-      overlays = map import overlays;
-    };
-
     programs.home-manager.enable = true;
 
     xdg.configFile = {
