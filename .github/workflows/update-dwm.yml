@@ -1,0 +1,33 @@
+name: Update dwm revision
+on:
+  repository_dispatch:
+    types: [update-dwm]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v8
+
+      - name: Update revision and sha256
+        uses: Gerschtli/generate-nix-hash@v1
+        with:
+          rev: ${{ github.event.client_payload.commit_id }}
+          owner: Gerschtli
+          repo: dwm
+          file: modules/overlays/suckless/dwm.json
+
+      - name: Commit and push changes
+        uses: github-actions-x/commit@v2.5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          push-branch: master
+          commit-message: Update dwm overlay
+          name: Update Bot
+          email: update@bot
+          rebase: true
