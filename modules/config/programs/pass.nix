@@ -15,7 +15,7 @@ in
     custom.programs.pass = {
       enable = mkEnableOption "pass config";
 
-      desktop = mkEnableOption "desktop settings";
+      browserpass = mkEnableOption "browserpass";
     };
 
   };
@@ -29,13 +29,11 @@ in
 
     programs = {
       # FIXME: does not work, see https://github.com/rycee/home-manager/issues/786
-      # browserpass.enable = cfg.desktop;
+      # browserpass.enable = cfg.browserpass;
 
       password-store = {
         enable = true;
-        package =
-          with pkgs.nur-gerschtli;
-          if cfg.desktop then pass-x11 else pass;
+        package = pkgs.nur-gerschtli.pass;
       };
     };
 

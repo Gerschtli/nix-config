@@ -39,7 +39,7 @@ in
       programs = {
         pass = mkIf cfg.private {
           enable = true;
-          desktop = true;
+          browserpass = true;
         };
 
         ssh.modules = [ "private" ];
