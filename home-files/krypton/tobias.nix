@@ -3,8 +3,9 @@
 {
   imports = [ ../../modules ];
 
-  custom.programs.pass = {
-    enable = true;
-    ncurses = true;
+  custom.programs = {
+    gpg.curses = true;
+
+    pass.enable = true;
   };
 }
