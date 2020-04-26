@@ -44,7 +44,13 @@ in
     services.gpg-agent = {
       enable = true;
       defaultCacheTtl = 300;
-      pinentryFlavor = mkIf cfg.curses "curses";
+
+      # FIXME: use curses if it not longer requires building gtk2
+      pinentryFlavor = mkIf cfg.curses null;
+      # pinentryFlavor = mkIf cfg.curses "curses";
+      # extraConfig = ''
+      #   pinentry-program ${pkgs.pinentry.curses}/bin/pinentry
+      # '';
     };
 
   };
