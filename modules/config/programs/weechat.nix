@@ -41,7 +41,10 @@ in
       escape ^Bb
     '';
 
-    services.weechat.enable = true;
+    services.weechat = {
+      enable = true;
+      binary = "${pkgs.nur-gerschtli.weechat}/bin/weechat";
+    };
 
   };
 
