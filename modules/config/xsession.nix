@@ -59,11 +59,11 @@ in
       };
 
       packages = with pkgs; [
-        dmenu
-        dwm
         google-chrome
         lock-screen
         nomacs
+        nur-gerschtli.dmenu
+        nur-gerschtli.dwm
         pavucontrol
         playerctl
         qpdfview
@@ -136,7 +136,7 @@ in
 
     xsession = {
       enable = true;
-      windowManager.command = "${pkgs.dwm}/bin/dwm";
+      windowManager.command = "${pkgs.nur-gerschtli.dwm}/bin/dwm";
 
       numlock.enable = true;
 

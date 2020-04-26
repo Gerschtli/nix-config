@@ -23,14 +23,6 @@ in
         '';
       };
 
-      x11Support = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to enable X11 support.
-        '';
-      };
-
       browserpass = mkOption {
         type = types.bool;
         default = false;
@@ -53,7 +45,7 @@ in
     };
 
     home.packages = with pkgs; [
-      (pass.override { inherit (cfg) x11Support; })
+      nur-gerschtli.pass
     ] ++ (optional cfg.ncurses pinentry-curses);
 
     # FIXME: does not work, see https://github.com/rycee/home-manager/issues/786

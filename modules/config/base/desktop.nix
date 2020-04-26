@@ -40,7 +40,6 @@ in
         pass = mkIf cfg.private {
           enable = true;
           browserpass = true;
-          x11Support = true;
         };
 
         ssh.modules = [ "private" ];
