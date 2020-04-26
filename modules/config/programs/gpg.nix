@@ -34,7 +34,7 @@ in
       programs.shell.loginExtra = ''
         # remove existing keys
         if [[ $SHLVL -eq 1 ]]; then
-          ${pkgs.procps}/bin/pkill -SIGHUP gpg-agent
+          systemctl --user reload gpg-agent.service
         fi
       '';
     };
