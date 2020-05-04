@@ -176,17 +176,21 @@ in
           ServerAliveCountMax 30
         '';
 
-        # FIXME: update accordingly to new type: hm.types.listOrDagOf matchBlockModule
-        matchBlocks = mkMerge (
-          map
-            (module: (
-              import "${directorySource}/${module}" {
-                inherit lib;
-                path = "${directoryDestination}/${module}";
-              }
-            ).matchBlocks)
+        matchBlocks = listToAttrs
+          (concatMap
+            (module:
+              let
+                sshModule = import "${directorySource}/${module}" {
+                  inherit lib;
+                  path = "${directoryDestination}/${module}";
+                };
+              in
+                map
+                  (matchBlock: nameValuePair matchBlock.host matchBlock)
+                  sshModule.matchBlocks
+            )
             cfg.modules
-        );
+          );
       };
     };
 
