@@ -34,6 +34,7 @@ in
       password-store = {
         enable = true;
         package = pkgs.nur-gerschtli.pass;
+        settings.PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
       };
     };
 
