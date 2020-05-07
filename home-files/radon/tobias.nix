@@ -47,6 +47,7 @@ with lib;
 
   home = {
     packages = with pkgs; [
+      avocode
       curl
       docker_compose
       mysql-workbench
