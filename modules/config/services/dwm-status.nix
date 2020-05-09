@@ -79,11 +79,6 @@ in
       ];
     };
 
-    systemd.user.services.dwm-status.Service = {
-      Restart = "always";
-      RestartSec = "2s";
-    };
-
   };
 
 }
