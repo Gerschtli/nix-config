@@ -8,4 +8,8 @@
     laptop = true;
     private = true;
   };
+
+  home.packages = with pkgs; [
+    rustup
+  ];
 }
