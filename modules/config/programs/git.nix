@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.custom.programs.git;
 
-  externGitAlias = alias: "!\"${builtins.replaceStrings [''"''] [''\"''] alias}\"";
+  externGitAlias = alias: "!${alias}";
 
   ignoreList = [
 
