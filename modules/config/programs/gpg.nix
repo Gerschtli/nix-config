@@ -45,12 +45,7 @@ in
       enable = true;
       defaultCacheTtl = 300;
 
-      # FIXME: use curses if it not longer requires building gtk2
-      pinentryFlavor = mkIf cfg.curses null;
-      # pinentryFlavor = mkIf cfg.curses "curses";
-      # extraConfig = ''
-      #   pinentry-program ${pkgs.pinentry.curses}/bin/pinentry
-      # '';
+      pinentryFlavor = mkIf cfg.curses "curses";
     };
 
   };
