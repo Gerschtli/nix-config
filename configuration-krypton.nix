@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [ ./modules ];
@@ -55,4 +55,7 @@
 
     system.boot.mode = "grub";
   };
+
+  # FIXME: pinentry needs gtk, this prevents recompiling it
+  environment.noXlibs = lib.mkForce false;
 }
