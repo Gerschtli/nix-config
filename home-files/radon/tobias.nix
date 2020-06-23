@@ -25,6 +25,8 @@ with lib;
 
       php.enable = true;
 
+      pyenv.enable = true;
+
       vagrant.enable = true;
     };
 
