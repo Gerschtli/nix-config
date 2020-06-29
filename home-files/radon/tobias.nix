@@ -170,6 +170,6 @@ with lib;
 
   xsession.profileExtra = ''
     exec > ~/.xsession-errors 2>&1
-    autorandr --change
+    autorandr --change | grep detected > /dev/null 2>&1 || autorandr --change docked
   '';
 }
