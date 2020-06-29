@@ -19,6 +19,4 @@
       in
         map import overlays;
   };
-
-  xdg.mime.enable = false;
 }
