@@ -10,7 +10,7 @@ in
 {
   inherit (unstable)
     jetbrains         # need bleeding edge version
-    pipenv
+    rustup            # FIXME: needs https://github.com/NixOS/nixpkgs/pull/91327
     teamspeak_server  # need bleeding edge version
   ;
 }
