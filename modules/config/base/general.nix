@@ -114,6 +114,7 @@ in
         iotop
         jq
         ncat # nmap
+        ncdu
         nload # network traffic monitor
         nox
         pwgen
