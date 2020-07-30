@@ -49,16 +49,19 @@ with lib;
 
   home = {
     packages = with pkgs; [
+      python37Packages.sqlparse
+      rustup
+      vagrant
+
       avocode
       curl
       docker_compose
       mysql-workbench
       nodejs-10_x
-      python37Packages.sqlparse
-      rustup
+      rage
+      simplescreenrecorder
       slack
       soapui
-      vagrant
     ];
 
     sessionVariables = {
