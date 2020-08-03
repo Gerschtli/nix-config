@@ -104,11 +104,20 @@ in
 
     (mkIf cfg.laptop
       {
+        hardware = {
+          bluetooth.enable = true;
+
+          # for bluetooth support
+          pulseaudio.package = pkgs.pulseaudioFull;
+        };
+
         networking.networkmanager.enable = true;
 
         programs.light.enable = true;
 
         services = {
+          blueman.enable = true;
+
           logind.extraConfig = ''
             HandlePowerKey=ignore
           '';
