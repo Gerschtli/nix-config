@@ -13,4 +13,6 @@
     pipenv
     rustup
   ];
+
+  services.blueman-applet.enable = true;
 }
