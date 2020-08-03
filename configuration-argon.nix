@@ -3,6 +3,7 @@
 {
   imports = [ ./modules ];
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   custom = {
     base = {
