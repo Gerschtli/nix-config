@@ -49,4 +49,8 @@ in
 
   # Need to run: wpa_passphrase ESSID PSK > /etc/wpa_supplicant.conf
   networking.wireless.enable = true;
+
+  # needed because wpa_supplicant fails on startup
+  # see https://github.com/NixOS/nixpkgs/issues/82462
+  systemd.services.wpa_supplicant.serviceConfig.Restart = "always";
 }
