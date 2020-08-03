@@ -76,6 +76,7 @@ in
             "vm.dirty_ratio" = 80;
           };
 
+          kernelPackages = pkgs.linuxPackages_4_19;
           kernelParams = ["cma=32M"];
         };
       }
