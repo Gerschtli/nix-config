@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./modules ];
+  imports = [ (import ./modules "krypton") ];
 
   custom = {
     applications = {
@@ -25,13 +25,9 @@
       tobias-happ.enable = true;
     };
 
-    base = {
-      general.hostName = "krypton";
-
-      server = {
-        enable = true;
-        ipv6Address = "2a01:4f8:1c0c:7161::2";
-      };
+    base.server = {
+      enable = true;
+      ipv6Address = "2a01:4f8:1c0c:7161::2";
     };
 
     programs.weechat = {

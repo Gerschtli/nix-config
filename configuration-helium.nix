@@ -1,14 +1,10 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./modules ];
+  imports = [ (import ./modules "helium") ];
 
   custom = {
-    base = {
-      desktop.enable = true;
-
-      general.hostName = "helium";
-    };
+    base.desktop.enable = true;
 
     services.openssh = {
       enable = true;

@@ -1,3 +1,5 @@
+hostName:
+
 { config, lib, pkgs, ... } @ args:
 
 let
@@ -5,6 +7,10 @@ let
 in
 
 {
-  imports = [ ../hardware-configuration.nix ]
-    ++ (customLib.getRecursiveFileList ./config);
+  imports = [ (./hardware-configuration + "/${hostName}.nix") ]
+    ++ customLib.getRecursiveFileList ./config;
+
+  config = {
+    custom.base.general = { inherit hostName; };
+  };
 }

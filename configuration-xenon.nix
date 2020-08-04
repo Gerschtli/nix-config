@@ -5,14 +5,10 @@ let
 in
 
 {
-  imports = [ ./modules ];
+  imports = [ (import ./modules "xenon") ];
 
   custom = {
-    base = {
-      general.hostName = "xenon";
-
-      server.enable = true;
-    };
+    base.server.enable = true;
 
     ids.enable = true;
 
