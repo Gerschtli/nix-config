@@ -113,7 +113,6 @@ if _is_nixos && _is_root; then
     if _prompt "Remove ${nixos} and clone configurations?"; then
         rm -rf /etc/nixos
         _clone "nixos" git@github.com:Gerschtli/nixos-configurations.git "${nixos}"
-        nixos-generate-config
     fi
 
     _clone "home-manager-configurations" git@github.com:Gerschtli/home-manager-configurations.git "${nixos_hm}"
