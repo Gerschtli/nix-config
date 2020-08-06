@@ -13,6 +13,10 @@
 
     ids.enable = true;
 
-    programs.arduino.enable = true;
+    programs = {
+      arduino.enable = true;
+
+      docker.enable = true;
+    };
   };
 }
