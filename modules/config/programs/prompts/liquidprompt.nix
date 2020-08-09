@@ -5,25 +5,6 @@ with lib;
 let
   cfg = config.custom.programs.prompts.liquidprompt;
 
-  # TODO: add in nixpkgs
-  liquidprompt = pkgs.stdenv.mkDerivation {
-    name = "liquidprompt";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "nojhan";
-      repo = "liquidprompt";
-      rev = "eda83efe4e0044f880370ed5e92aa7e3fdbef971";
-      sha256 = "1p7ah3x850ajpq07xvxxd7fx2i67cf0n71ww085g32k9fwij4rd4";
-    };
-
-    installPhase = ''
-      mkdir -p $out/share/liquidprompt
-
-      install -m 0644 liquidprompt $out/share/liquidprompt
-      install -m 0644 liquidprompt.plugin.zsh $out/share/liquidprompt
-    '';
-  };
-
   liquidpromptConfig = {
     LP_BATTERY_THRESHOLD = 75;
     LP_LOAD_THRESHOLD = 60;
@@ -89,13 +70,13 @@ in
     # TODO: add as module to home-manager
     programs = {
       bash.initExtra = ''
-        source ${liquidprompt}/share/liquidprompt/liquidprompt
+        source ${pkgs.liquidprompt}/share/zsh/plugins/liquidprompt/liquidprompt
       '';
 
       zsh.plugins = [
         {
           name = "liquidprompt";
-          src = "${liquidprompt}/share/liquidprompt";
+          src = "${pkgs.liquidprompt}/share/zsh/plugins/liquidprompt";
         }
       ];
     };
