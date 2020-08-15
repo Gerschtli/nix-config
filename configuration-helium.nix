@@ -6,6 +6,8 @@
   custom = {
     base.desktop.enable = true;
 
+    programs.docker.enable = true;
+
     services.openssh = {
       enable = true;
       forwardX11 = true;
