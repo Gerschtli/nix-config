@@ -20,13 +20,13 @@ mkShell {
     nur-gerschtli.php72
     nur-gerschtli.php72.packages.composer
     vagrant
-  ] ++ (map (ext: nur-gerschtli.php72.extensions.${ext}) extensions);
+  ] ++ (map (ext: nur-gerschtli.php72.packages.${ext}) extensions);
 
   APPLICATION_ENV = "development";
 
   PHPRC = import ./util/phpIni.nix {
     inherit extensions lib writeTextDir;
     phpPackage  = nur-gerschtli.php72;
-    phpPackages = nur-gerschtli.php72.extensions;
+    phpPackages = nur-gerschtli.php72.packages;
   };
 }
