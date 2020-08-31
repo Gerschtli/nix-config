@@ -398,7 +398,7 @@ in
               ''}";
             };
 
-            commit.template = writeFile "commit.msg" (commitMsgTemplate "BRANCHNAME");
+            commit.template = writeFile "commit.msg" (commitMsgTemplate "BRANCH_NAME");
 
             core.excludesfile =
               let
