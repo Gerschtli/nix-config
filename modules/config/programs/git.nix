@@ -195,8 +195,9 @@ in
         sw = "stash show";
         tl = externGitAlias "git tag -n --list '[0-9]*' | tail -n 10";
 
-        cma = externGitAlias "git co master && git rebase -n origin/master";
+        cma = externGitAlias "git co master && git rebase origin/master";
         mma = "merge origin/master";
+        rup = "rebase upstream/master";
 
         aliases = ''config --get-regexp "^alias"'';
 
@@ -206,6 +207,9 @@ in
         branch-name = externGitAlias ''git for-each-ref --format="%(refname:short)" $(git symbolic-ref HEAD)'';
         total-clean = externGitAlias "git co -f && git clean -dfx && git clean -dfX";
 
+        disable-upstream-push = "remote set-url upstream --push DISABLED";
+        initial-commit = externGitAlias "git init && touch .gitignore && git add .gitignore && \
+          git commit -m 'Initial commit'";
         set-upstream = externGitAlias "git branch --set-upstream-to=origin/$(git branch-name) $(git branch-name)";
       };
 
