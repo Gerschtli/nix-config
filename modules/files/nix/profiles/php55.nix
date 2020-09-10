@@ -5,8 +5,6 @@ with import <nixpkgs> { };
 let
   extensions = [
     "apcu"
-    "igbinary" # needs to be before couchbase
-    "couchbase"
     "memcache"
     "memcached"
   ];
