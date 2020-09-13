@@ -9,27 +9,22 @@
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "sd_mod" "sdhci_pci" ];
-  boot.initrd.kernelModules = [ "dm-snapshot" ];
+  boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/7101b8d7-76ca-4a09-bf0d-60fabaa8ab15";
+    { device = "/dev/disk/by-uuid/47bfbbc8-bef6-48cc-9912-a8b3577b10d9";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/D312-03ED";
+    { device = "/dev/disk/by-uuid/6518-CA76";
       fsType = "vfat";
     };
 
-  fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/a2a5e650-6d8f-41f5-b655-f2b03380ab80";
-      fsType = "ext4";
-    };
-
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/efc7fc40-4bda-4e37-8a17-94a1dc5da734"; }
+    [ { device = "/dev/disk/by-uuid/707e5296-f286-4773-ab38-1a5a2bad9b9f"; }
     ];
 
   nix.maxJobs = lib.mkDefault 4;
