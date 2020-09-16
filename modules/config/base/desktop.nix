@@ -50,8 +50,6 @@ in
         enableGhostscriptFonts = true;
 
         fonts = with pkgs; [
-          fira-code
-          fira-mono
           nur-gerschtli.nerdfonts-ubuntu-mono
           source-code-pro
           ubuntu_font_family
