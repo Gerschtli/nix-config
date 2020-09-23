@@ -99,6 +99,11 @@ let
       .nfs*
     ''
 
+    ''
+      # custom
+      .direnv/
+    ''
+
   ];
 
   commitMsgTemplate = link: ''
