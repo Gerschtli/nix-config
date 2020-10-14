@@ -69,6 +69,7 @@ in
       spotify
     ] ++ (optionals cfg.private [
       audacity
+      gitAndTools.gh
       musescore
       thunderbird
     ]) ++ (optionals (cfg.private && cfg.laptop) [
