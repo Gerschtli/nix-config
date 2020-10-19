@@ -11,7 +11,7 @@ print_url() {
 
         if [[ "${branch}" =~ ^FEATURES-([0-9]+)- ]]; then
             local feature_branch="$(git branch --list "origin/FEATURES-${BASH_REMATCH[1]}-*" --remotes |
-                grep --regexp ".*FEATURES-${BASH_REMATCH[1]}-[^0-9]\{4,\}-.*" |
+                grep --regexp "FEATURES-${BASH_REMATCH[1]}-[^0-9]\{4,\}" |
                 sed -e "s#^.*origin/##"
             )"
 
