@@ -76,6 +76,7 @@ in
       # thunderbird
     ]) ++ (optionals (cfg.private && cfg.laptop) [
       skypeforlinux
+      zoom-us
     ]);
 
     services = {
