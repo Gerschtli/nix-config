@@ -115,16 +115,14 @@ with lib;
               DVI-I-1-1 = {
                 enable = true;
                 primary = true;
-                # FIXME: add when https://github.com/rycee/home-manager/pull/1283 gets merged into stable
-                #crtc = 0;
+                crtc = 0;
                 mode = "2560x1440";
                 position = "0x0";
                 rate = "59.95";
               };
 
               eDP-1 = {
-                # FIXME: add when https://github.com/rycee/home-manager/pull/1283 gets merged into stable
-                #crtc = 1;
+                crtc = 1;
                 mode = "1368x768";
                 position = "2560x0";
                 rate = "59.88";
@@ -141,8 +139,7 @@ with lib;
               DVI-I-1-1 = {
                 enable = true;
                 primary = true;
-                # FIXME: add when https://github.com/rycee/home-manager/pull/1283 gets merged into stable
-                #crtc = 0;
+                crtc = 0;
                 mode = "2560x1440";
                 position = "0x0";
                 rate = "59.95";
@@ -160,8 +157,7 @@ with lib;
             config = mkConfigObject {
               eDP-1 = {
                 primary = true;
-                # FIXME: add when https://github.com/rycee/home-manager/pull/1283 gets merged into stable
-                #crtc = 0;
+                crtc = 0;
                 mode = "1920x1080";
                 position = "0x0";
                 rate = "59.96";
