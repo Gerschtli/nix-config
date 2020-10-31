@@ -40,13 +40,12 @@ in
       gitea = {
         enable = true;
         database.passwordFile = toString ../../../secrets/gitea-dbpassword;
+
         rootUrl = "https://${domain}/";
         cookieSecure = true;
-        extraConfig = ''
-          [service]
-          REQUIRE_SIGNIN_VIEW = true
-          DISABLE_REGISTRATION = true
-        '';
+        disableRegistration = true;
+
+        settings.service.REQUIRE_SIGNIN_VIEW = true;
       };
 
       nginx.virtualHosts.${domain} = {
