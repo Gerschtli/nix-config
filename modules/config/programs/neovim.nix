@@ -31,6 +31,8 @@ let
     autocmd Filetype cpp set expandtab
     autocmd Filetype tex set tabstop=2 shiftwidth=2 textwidth=119
 
+    let g:tex_flavor = 'latex'
+
 
     "" Remove trailing whitespaces on save
     autocmd BufWritePre * %s/\s\+$//e
