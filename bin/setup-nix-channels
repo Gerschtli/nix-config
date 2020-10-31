@@ -15,9 +15,9 @@ case "${1}" in
     --small) CHANNEL_SUFFIX=-small ;;
 esac
 
-nix-channel --add https://nixos.org/channels/nixos-20.03${CHANNEL_SUFFIX} ${NIX_CHANNEL_NAME}
+nix-channel --add https://nixos.org/channels/nixos-20.09${CHANNEL_SUFFIX} ${NIX_CHANNEL_NAME}
 nix-channel --add https://nixos.org/channels/nixos-unstable unstable
-nix-channel --add https://github.com/rycee/home-manager/archive/release-20.03.tar.gz home-manager
+nix-channel --add https://github.com/rycee/home-manager/archive/release-20.09.tar.gz home-manager
 nix-channel --add https://github.com/Gerschtli/nur-packages/archive/master.tar.gz nur-gerschtli
 
 if [[ ${NIX_ON_DROID} == 1 ]]; then
