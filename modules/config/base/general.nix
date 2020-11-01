@@ -133,7 +133,7 @@ in
         whois
       ];
 
-      stateVersion = "19.09";
+      stateVersion = "20.09";
     };
 
     programs.home-manager.enable = true;
