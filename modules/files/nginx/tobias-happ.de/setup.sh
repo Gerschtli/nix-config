@@ -183,7 +183,7 @@ elif ! _is_nixos && ! _is_root; then
         fi
 
         _log "Run home-manager switch..."
-        home-manager switch -2 -b hm-bak -f "${home_file}"
+        home-manager switch -b hm-bak -f "${home_file}"
     fi
 
     for module in "${dotfiles_hm}/${ssh_path}/"*; do
