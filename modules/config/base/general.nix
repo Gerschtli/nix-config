@@ -83,7 +83,7 @@ in
       promptInit = "";
     };
 
-    system.stateVersion = "19.09";
+    system.stateVersion = "20.09";
 
     time.timeZone = "Europe/Berlin";
 
