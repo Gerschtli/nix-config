@@ -72,6 +72,9 @@ with lib;
 
       NIX_PATH = "nixpkgs=/home/tobias/.nix-defexpr/channels/nixpkgs:/home/tobias/.nix-defexpr/channels";
     };
+
+    homeDirectory = "/home/tobias";
+    username = "tobias";
   };
 
   # FIXME: move to some module
