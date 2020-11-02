@@ -51,7 +51,8 @@ with lib;
     packages = with pkgs; [
       python37Packages.sqlparse
       rustup
-      vagrant
+      # FIXME: disabled because of build failure of libguestfs
+      # vagrant
 
       avocode
       curl
