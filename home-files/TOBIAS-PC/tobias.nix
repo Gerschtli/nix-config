@@ -9,6 +9,11 @@
     programs.ssh.modules = [ "private" ];
   };
 
+  home = {
+    homeDirectory = "/home/tobias";
+    username = "tobias";
+  };
+
   # FIXME: move to some module
   nixpkgs =  {
     config = import ../../modules/files/config.nix;
