@@ -63,8 +63,7 @@ in
     home.packages = with pkgs; [
       gimp
       jetbrains.idea-ultimate
-      # FIXME: temporarily disabled because of binary cache miss
-      # libreoffice
+      libreoffice
       pdftk
       postman
       spotify
@@ -72,8 +71,7 @@ in
       audacity
       gitAndTools.gh
       musescore
-      # FIXME: temporarily disabled because of binary cache miss
-      # thunderbird
+      thunderbird
     ]) ++ (optionals (cfg.private && cfg.laptop) [
       skypeforlinux
       zoom-us
