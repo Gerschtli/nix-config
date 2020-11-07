@@ -22,21 +22,13 @@ with lib;
 
     development = {
       nodejs.enable = true;
-
       php.enable = true;
-
-      pyenv.enable = true;
-
       vagrant.enable = true;
     };
 
     misc.util-bins.bins = [ "csv-check" ];
 
-    programs = {
-      rsync.enable = true;
-
-      ssh.modules = [ "pveu" ];
-    };
+    programs.ssh.modules = [ "pveu" ];
 
     services.dwm-status.useGlobalAlsaUtils = true;
 

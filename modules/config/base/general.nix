@@ -72,20 +72,17 @@ in
     custom = {
       programs = {
         bash.enable = true;
-
         fzf.enable = true;
-
         git.enable = true;
-
         htop.enable = true;
-
         neovim.enable = true;
 
         prompts = {
           liquidprompt.enable = mkIf (!cfg.lightWeight) true;
-
           pure.enable = mkIf cfg.lightWeight true;
         };
+
+        rsync.enable = true;
 
         shell.envExtra = mkIf (cfg.extendedPath != []) ''
           export PATH="${concatStringsSep ":" cfg.extendedPath}:$PATH"
@@ -97,7 +94,6 @@ in
         };
 
         tmux.enable = true;
-
         zsh.enable = true;
       };
 
