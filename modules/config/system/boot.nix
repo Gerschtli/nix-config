@@ -21,8 +21,8 @@ in
       };
 
       device = mkOption {
-        type = types.str;
-        default = "/dev/sda";
+        type = types.nullOr types.str;
+        default = null;
         description = ''
           Device for GRUB boot loader.
         '';
@@ -35,6 +35,14 @@ in
   ###### implementation
 
   config = mkMerge [
+    {
+      assertions = [
+        {
+          assertion = cfg.mode == "grub" -> cfg.device != null;
+          message = "custom.system.boot.device needs to be set for grub mode.";
+        }
+      ];
+    }
 
     (mkIf (cfg.mode == "efi")
       {

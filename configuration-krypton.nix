@@ -39,7 +39,10 @@
       teamspeak.enable = true;
     };
 
-    system.boot.mode = "grub";
+    system.boot = {
+      mode = "grub";
+      device = "/dev/sda";
+    };
   };
 
   # FIXME: pinentry needs gtk, this prevents recompiling it
