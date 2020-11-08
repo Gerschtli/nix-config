@@ -4,8 +4,6 @@ with lib;
 
 let
   cfg = config.custom.programs.idea-ultimate;
-
-  customLib = import ../../lib args;
 in
 
 {
@@ -37,7 +35,7 @@ in
     ];
 
     home.packages = [
-      (customLib.wrapProgram {
+      (config.lib.custom.wrapProgram {
         inherit (cfg) packages;
         name = "idea-ultimate";
         source = pkgs.jetbrains.idea-ultimate;

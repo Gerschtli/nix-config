@@ -269,7 +269,7 @@ in
           compression = 9;
           eol = "lf";
           editor = "vim"; # TODO: replace with path
-          hooksPath = "${../../files/git/hooks}";
+          hooksPath = "${config.lib.custom.path.files + "/git/hooks"}";
           loosecompression = 9;
           preloadindex = true;
         };

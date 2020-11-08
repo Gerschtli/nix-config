@@ -37,7 +37,7 @@ in
       (pkgs.stdenv.mkDerivation {
         name = "util-bins";
 
-        src = ../../files/util-bins;
+        src = config.lib.custom.path.files + "/util-bins";
 
         installPhase = ''
           mkdir -p $out/bin

@@ -16,12 +16,7 @@
 
   # FIXME: move to some module
   nixpkgs =  {
-    config = import ../../modules/files/config.nix;
-    overlays =
-      let
-        customLib = import ../../modules/lib args;
-        overlays = customLib.getFileList ../../modules/overlays;
-      in
-        map import overlays;
+    config = import (config.lib.custom.path.files + "/config.nix");
+    overlays = map import (config.lib.custom.getFileList config.lib.custom.path.overlays);
   };
 }

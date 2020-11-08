@@ -4,8 +4,6 @@ with lib;
 
 let
   cfg = config.custom.programs.atom;
-
-  customLib = import ../../lib args;
 in
 
 {
@@ -36,7 +34,7 @@ in
     ];
 
     home.packages = [
-      (customLib.wrapProgram {
+      (config.lib.custom.wrapProgram {
         inherit (cfg) packages;
         name = "atom";
         source = pkgs.atom;

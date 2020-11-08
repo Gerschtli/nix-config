@@ -5,9 +5,7 @@ with lib;
 let
   cfg = config.custom.programs.ssh;
 
-  customLib = import ../../lib args;
-
-  directorySource = toString ../../secrets/ssh/modules;
+  directorySource = "${config.lib.custom.path.secrets}/ssh/modules";
   directoryDestination = "${config.home.homeDirectory}/.ssh/modules";
 in
 

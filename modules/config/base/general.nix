@@ -5,9 +5,7 @@ with lib;
 let
   cfg = config.custom.base.general;
 
-  customLib = import ../../lib args;
-
-  overlays = customLib.getFileList ../../overlays;
+  overlays = config.lib.custom.getFileList config.lib.custom.path.overlays;
 
   localeGerman = "de_DE.UTF-8";
   localeEnglish = "en_US.UTF-8";
@@ -111,7 +109,7 @@ in
     programs.home-manager.enable = true;
 
     xdg.configFile = {
-      "nixpkgs/config.nix".source = ../../files/config.nix;
+      "nixpkgs/config.nix".source = config.lib.custom.path.files + "/config.nix";
     } // builtins.listToAttrs (
       map (file: {
         name = "nixpkgs/overlays/${baseNameOf file}";

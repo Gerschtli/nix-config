@@ -104,7 +104,7 @@ in
     services.lorri.enable = true;
 
     xdg.configFile."nix/profiles" = {
-      source = ../../files/nix/profiles;
+      source = config.lib.custom.path.files + "/nix/profiles";
       recursive = true;
     };
 

@@ -150,6 +150,8 @@ let
     # The messages
     set -g message-style bg=colour166,fg=colour232,bold
   '';
+
+  tmuxProfiles = config.lib.custom.path.files + "/tmux/profiles";
 in
 
 {
@@ -173,7 +175,7 @@ in
       (pkgs.writeScriptBin "tprofile" ''
         #!${pkgs.runtimeShell} -e
 
-        exec ${../../files/tmux/bin/tprofile} ${../../files/tmux/profiles} $@
+        exec ${config.lib.custom.path.files + "/tmux/bin/tprofile"} ${tmuxProfiles} $@
       '')
 
       (pkgs.writeTextFile {
@@ -189,9 +191,9 @@ in
           }
 
           LIST=()
-          PATH_TO_CONF_DIR="${../../files/tmux/profiles}"
+          PATH_TO_CONF_DIR="${tmuxProfiles}"
 
-          prefix="${../../files/tmux/profiles}/"
+          prefix="${tmuxProfiles}/"
           suffix=".sh"
 
           for file in "$prefix"*"$suffix"; do
