@@ -32,6 +32,8 @@ in
 
     services.dwm-status.useGlobalAlsaUtils = true;
 
+    wm.dwm.enable = true;
+
     xsession = {
       useSlock = true;
 

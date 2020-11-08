@@ -41,21 +41,7 @@ in
         };
 
         ssh.modules = [ "private" ];
-
-        urxvt.enable = true;
       };
-
-      services = {
-        dunst.enable = true;
-
-        dwm-status = {
-          inherit (cfg) laptop;
-
-          enable = true;
-        };
-      };
-
-      xsession.enable = true;
     };
 
     home.packages = with pkgs; [
@@ -74,15 +60,6 @@ in
     programs.gh = {
       enable = true;
       gitProtocol = "ssh";
-    };
-
-    services = {
-      network-manager-applet.enable = cfg.laptop;
-
-      unclutter = {
-        enable = true;
-        timeout = 3;
-      };
     };
 
   };

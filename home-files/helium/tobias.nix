@@ -3,8 +3,12 @@
 {
   imports = [ ../../modules ];
 
-  custom.base.desktop = {
-    enable = true;
-    private = true;
+  custom = {
+    base.desktop = {
+      enable = true;
+      private = true;
+    };
+
+    wm.dwm.enable = true;
   };
 }
