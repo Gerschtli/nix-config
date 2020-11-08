@@ -78,10 +78,8 @@ in
       numlock.enable = true;
 
       initExtra = ''
-        ${optionalString cfg.enableScreenLocker ''
-          # Show screen saver after 20 min
-          ${pkgs.xorg.xset}/bin/xset s 1200
-        ''}
+        # Show screen saver (in seconds)
+        ${pkgs.xorg.xset}/bin/xset s ${if cfg.enableScreenLocker then "1200" else "0"}
         # Disable screen power saving settings
         ${pkgs.xorg.xset}/bin/xset -dpms
         # Increase key repeat speed
