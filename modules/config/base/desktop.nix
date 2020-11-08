@@ -15,6 +15,8 @@ in
     custom.base.desktop = {
       enable = mkEnableOption "basic desktop config";
 
+      enableXserver = mkEnableOption "xserver config" // { default = true; };
+
       laptop = mkEnableOption "services and config for battery, network, backlight";
     };
 
@@ -68,7 +70,7 @@ in
       services = {
         udev.packages = with pkgs; [ android-udev-rules ];
 
-        xserver = {
+        xserver = mkIf cfg.enableXserver {
           enable = true;
 
           # FIXME: enable lightdm after https://github.com/NixOS/nixpkgs/issues/26687 got fixed
@@ -120,7 +122,7 @@ in
 
           upower.enable = true;
 
-          xserver.libinput = {
+          xserver.libinput = mkIf cfg.enableXserver {
             enable = true;
             accelProfile = "flat";
             additionalOptions = ''
