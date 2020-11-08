@@ -4,6 +4,23 @@ with lib;
 
 let
   cfg = config.custom.wm.general;
+
+  lockScreenPackage = pkgs.writeScriptBin "lock-screen" ''
+    #!${pkgs.runtimeShell} -e
+
+    revert() {
+      ${pkgs.xorg.xset}/bin/xset -dpms
+    }
+
+    trap revert HUP INT TERM
+    ${pkgs.xorg.xset}/bin/xset +dpms dpms 3 3 3
+
+    ${if cfg.useSlock then "slock" else ''
+      ${pkgs.i3lock-fancy}/bin/i3lock-fancy --nofork --text "" -- ${pkgs.scrot}/bin/scrot --silent --overwrite
+    ''}
+
+    revert
+  '';
 in
 
 {
@@ -12,7 +29,20 @@ in
 
   options = {
 
-    custom.wm.general.enable = mkEnableOption "common config for window-managers";
+    custom.wm.general = {
+      enable = mkEnableOption "common config for window-managers";
+
+      # FIXME: i3lock throws error on ubuntu: "i3lock-color: Cannot grab pointer/keyboard"
+      useSlock = mkEnableOption "slock as screen locker";
+
+      useSudoForHibernate = mkEnableOption "to use sudo for hibernate command";
+
+      lockScreenPackage = mkOption {
+        type = types.package;
+        readOnly = true;
+        description = "Package with lock-screen executable.";
+      };
+    };
 
   };
 
@@ -21,14 +51,20 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.programs.urxvt.enable = true;
+    custom = {
+      programs.urxvt.enable = true;
+
+      wm.general = { inherit lockScreenPackage; };
+    };
 
     home.packages = [
+      lockScreenPackage
+
       (pkgs.writeScriptBin "inhibit-suspend" ''
         #!${pkgs.runtimeShell} -e
         # Disable suspend on lid close until screen gets unlocked
 
-        ${pkgs.systemd}/bin/systemd-inhibit --what=handle-lid-switch lock-screen
+        ${pkgs.systemd}/bin/systemd-inhibit --what=handle-lid-switch ${lockScreenPackage}/bin/lock-screen
       '')
     ] ++ (
       map

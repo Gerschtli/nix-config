@@ -4,23 +4,6 @@ with lib;
 
 let
   cfg = config.custom.wm.dwm;
-
-  lock-screen = pkgs.writeScriptBin "lock-screen" ''
-    #!${pkgs.runtimeShell} -e
-
-    revert() {
-      ${pkgs.xorg.xset}/bin/xset -dpms
-    }
-
-    trap revert HUP INT TERM
-    ${pkgs.xorg.xset}/bin/xset +dpms dpms 3 3 3
-
-    ${if cfg.useSlock then "slock" else ''
-      ${pkgs.i3lock-fancy}/bin/i3lock-fancy --nofork --text "" -- ${pkgs.scrot}/bin/scrot --silent --overwrite
-    ''}
-
-    revert
-  '';
 in
 
 {
@@ -31,11 +14,6 @@ in
 
     custom.wm.dwm = {
       enable = mkEnableOption "config for dwm";
-
-      # FIXME: i3lock throws error on ubuntu: "i3lock-color: Cannot grab pointer/keyboard"
-      useSlock = mkEnableOption "slock as screen locker";
-
-      useSudoForHibernate = mkEnableOption "to use sudo for hibernate command";
 
       enableScreenLocker = mkEnableOption "automatic screen locker" // { default = true; };
     };
@@ -69,7 +47,6 @@ in
       };
 
       packages = with pkgs; [
-        lock-screen
         nur-gerschtli.dmenu
         nur-gerschtli.dwm
         pavucontrol
@@ -85,7 +62,7 @@ in
 
     services.screen-locker = {
       enable = cfg.enableScreenLocker;
-      lockCmd = "${lock-screen}/bin/lock-screen";
+      lockCmd = "${config.custom.wm.general.lockScreenPackage}/bin/lock-screen";
       inactiveInterval = 20;
 
       # disable xautolock when cursor is in bottom right corner

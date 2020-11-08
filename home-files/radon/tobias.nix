@@ -32,10 +32,13 @@ in
 
     services.dwm-status.useGlobalAlsaUtils = true;
 
-    wm.dwm = {
-      enable = true;
-      useSlock = true;
-      useSudoForHibernate = true;
+    wm = {
+      dwm.enable = true;
+
+      general = {
+        useSlock = true;
+        useSudoForHibernate = true;
+      };
     };
   };
 
