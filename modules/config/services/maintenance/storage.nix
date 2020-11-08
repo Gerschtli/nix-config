@@ -19,7 +19,6 @@ in
   options = {
 
     custom.services.storage = {
-
       enable = mkEnableOption "storage module";
 
       mountDevice = mkOption {
@@ -50,7 +49,6 @@ in
         type = types.listOf (
           types.submodule {
             options = {
-
               name = mkOption {
                 type = types.str;
                 description = ''
@@ -64,7 +62,6 @@ in
                   IP of server.
                 '';
               };
-
             };
           }
         );
@@ -73,7 +70,6 @@ in
           List of server using the backup module.
         '';
       };
-
     };
 
   };

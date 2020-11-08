@@ -13,13 +13,11 @@ in
   options = {
 
     custom.services.openssh = {
-
       enable = mkEnableOption "openssh";
 
       rootLogin = mkEnableOption "root login via pubkey";
 
       forwardX11 = mkEnableOption "x11 forwarding";
-
     };
 
   };

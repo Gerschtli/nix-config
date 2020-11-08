@@ -14,16 +14,12 @@ in
   options = {
 
     custom.base.general = {
-
       enable = mkEnableOption "basic config" // { default = true; };
 
       hostName = mkOption {
         type = types.enum [ "argon" "helium" "krypton" "xenon" ];
-        description = ''
-          Host name.
-        '';
+        description = "Host name.";
       };
-
     };
 
   };

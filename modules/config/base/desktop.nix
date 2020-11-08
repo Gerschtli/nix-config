@@ -13,11 +13,9 @@ in
   options = {
 
     custom.base.desktop = {
-
       enable = mkEnableOption "basic desktop config";
 
       laptop = mkEnableOption "services and config for battery, network, backlight";
-
     };
 
   };

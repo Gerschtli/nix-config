@@ -13,7 +13,6 @@ in
   options = {
 
     custom.system.boot = {
-
       mode = mkOption {
         type = types.enum [ "efi" "grub" "raspberry" ];
         description = ''
@@ -28,7 +27,6 @@ in
           Device for GRUB boot loader.
         '';
       };
-
     };
 
   };

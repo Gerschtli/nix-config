@@ -6,7 +6,6 @@ let
   cfg = config.custom.utils;
 
   opts = { name, config, ... }: {
-
     options = {
       name = mkOption {
         type = types.str;
@@ -43,7 +42,6 @@ let
     config = {
       name = mkDefault name;
     };
-
   };
 
 in

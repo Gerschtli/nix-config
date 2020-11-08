@@ -13,17 +13,13 @@ in
   options = {
 
     custom.base.server = {
-
       enable = mkEnableOption "basic server config";
 
       ipv6Address = mkOption {
         type = with types; nullOr str;
         default = null;
-        description = ''
-          IPv6 address.
-        '';
+        description = "IPv6 address.";
       };
-
     };
 
   };

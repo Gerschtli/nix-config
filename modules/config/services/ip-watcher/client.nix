@@ -16,7 +16,6 @@ in
   options = {
 
     custom.services.ip-watcher.client = {
-
       enable = mkEnableOption "ip-watcher client module";
 
       interval = mkOption {
@@ -34,7 +33,6 @@ in
           IP of server with ip-watcher service.
         '';
       };
-
     };
 
   };

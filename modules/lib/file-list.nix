@@ -22,8 +22,7 @@ let
         )
         contents;
     in
-
-    flatten list;
+      flatten list;
 in
 
 {

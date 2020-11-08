@@ -8,7 +8,6 @@ let
   user = "backup";
 
   serviceOpts = { name, config, ... }: {
-
     options = {
       name = mkOption {
         type = types.str;
@@ -63,13 +62,11 @@ let
           Extra options for systemd service.
         '';
       };
-
     };
 
     config = {
       name = mkDefault name;
     };
-
   };
 in
 
@@ -80,7 +77,6 @@ in
   options = {
 
     custom.services.backup = {
-
       enable = mkEnableOption "backups";
 
       location = mkOption {
@@ -99,7 +95,6 @@ in
           Service configurations for backups with key as service name.
         '';
       };
-
     };
 
   };

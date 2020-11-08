@@ -6,7 +6,6 @@ let
   cfg = config.custom.utils.systemd;
 
   timerOpts = { name, config, ... }: {
-
     options = {
       name = mkOption {
         type = types.str;
@@ -42,7 +41,6 @@ let
     config = {
       name = mkDefault name;
     };
-
   };
 
 in
@@ -53,16 +51,12 @@ in
 
   options = {
 
-    custom.utils.systemd = {
-
-      timers = mkOption {
-        type = with types; attrsOf (submodule timerOpts);
-        default = { };
-        description = ''
-          List of systemd timers with respective service config.
-        '';
-      };
-
+    custom.utils.systemd.timers = mkOption {
+      type = with types; attrsOf (submodule timerOpts);
+      default = { };
+      description = ''
+        List of systemd timers with respective service config.
+      '';
     };
 
   };

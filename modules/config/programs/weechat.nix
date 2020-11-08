@@ -13,7 +13,6 @@ in
   options = {
 
     custom.programs.weechat = {
-
       enable = mkEnableOption "weechat";
 
       port = mkOption {
@@ -23,7 +22,6 @@ in
           Port for relay.  Set null if disabled.
         '';
       };
-
     };
 
   };

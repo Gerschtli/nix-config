@@ -13,7 +13,6 @@ in
   options = {
 
     custom.system.firewall = {
-
       enable = mkEnableOption "firewall";
 
       dropPackets = mkOption {
@@ -28,7 +27,6 @@ in
         type = types.listOf (
           types.submodule {
             options = {
-
               ip = mkOption {
                 type = types.str;
                 description = ''
@@ -50,7 +48,6 @@ in
                   Protocol.
                 '';
               };
-
             };
           }
         );
@@ -59,7 +56,6 @@ in
           Open ports for specific IPs.
         '';
       };
-
     };
 
   };

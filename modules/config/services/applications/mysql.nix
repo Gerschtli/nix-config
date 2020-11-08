@@ -13,7 +13,6 @@ in
   options = {
 
     custom.services.mysql = {
-
       enable = mkEnableOption "mysql (MariaDB)";
 
       backups = mkOption {
@@ -23,7 +22,6 @@ in
           List of databases to backup.
         '';
       };
-
     };
 
   };
