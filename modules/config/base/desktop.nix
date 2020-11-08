@@ -69,9 +69,6 @@ in
       audacity
       musescore
       thunderbird
-    ]) ++ (optionals (cfg.private && cfg.laptop) [
-      skypeforlinux
-      zoom-us
     ]);
 
     programs.gh = {

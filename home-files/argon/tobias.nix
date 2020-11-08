@@ -12,6 +12,9 @@
   home.packages = with pkgs; [
     pipenv
     rustup
+
+    skypeforlinux
+    zoom-us
   ];
 
   services.blueman-applet.enable = true;
