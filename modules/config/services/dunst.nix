@@ -21,8 +21,6 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.xsession.enable = true;
-
     services.dunst = {
       enable = true;
 
