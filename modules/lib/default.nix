@@ -9,8 +9,6 @@ in
 {
   inherit (fileList) getFileList getRecursiveFileList;
 
-  containerApp = callPackage ./container-app.nix { };
-
   path = {
     modules = ../.;
     config = ../config;
