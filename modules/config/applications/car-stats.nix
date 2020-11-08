@@ -1,32 +1,61 @@
-{ config, lib, pkgs, ... } @ args:
+{ config, lib, pkgs, ... }:
+
+with lib;
 
 let
-  customLib = import ../../lib args;
+  cfg = config.custom.applications.car-stats;
+
+  containerAddress = "10.233.${toString cfg.containerID}.2";
 in
 
-customLib.containerApp rec {
-  name = "car-stats";
+{
 
-  hostName = "auto.tobias-happ.de";
+  ###### interface
 
-  containerPort = 80;
+  options = {
 
-  extraConfig = cfg: {
+    custom.applications.car-stats = {
+      enable = mkEnableOption "car-stats";
+
+      containerID = mkOption {
+        type = types.int;
+        description = "Container ID.";
+      };
+    };
+
+  };
+
+
+  ###### implementation
+
+  config = mkIf cfg.enable {
+
     custom = {
-      # Need to run:
-      # CREATE USER 'car_stats'@'10.233.%.2' IDENTIFIED BY 'password';
-      # GRANT ALL PRIVILEGES ON car_stats.* TO 'car_stats'@'10.233.%.2';
-      services.mysql = {
-        enable = true;
-        backups = [ "car_stats" ];
+      services = {
+        # Need to run:
+        # CREATE USER 'car_stats'@'10.233.%.2' IDENTIFIED BY 'password';
+        # GRANT ALL PRIVILEGES ON car_stats.* TO 'car_stats'@'10.233.%.2';
+        mysql = {
+          enable = true;
+          backups = [ "car_stats" ];
+        };
+
+        nginx.enable = true;
       };
 
       system.firewall.openPortsForIps = [
         {
-          ip = cfg.containerAddress;
+          ip = containerAddress;
           port = config.services.mysql.port;
         }
       ];
     };
+
+    services.nginx.virtualHosts."auto.tobias-happ.de" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/".proxyPass = "http://${containerAddress}:80/";
+    };
+
   };
 }
