@@ -67,13 +67,17 @@ in
       spotify
     ] ++ (optionals cfg.private [
       audacity
-      gitAndTools.gh
       musescore
       thunderbird
     ]) ++ (optionals (cfg.private && cfg.laptop) [
       skypeforlinux
       zoom-us
     ]);
+
+    programs.gh = {
+      enable = true;
+      gitProtocol = "ssh";
+    };
 
     services = {
       network-manager-applet.enable = cfg.laptop;
