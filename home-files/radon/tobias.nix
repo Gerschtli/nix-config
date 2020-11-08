@@ -32,11 +32,9 @@ in
 
     services.dwm-status.useGlobalAlsaUtils = true;
 
-    wm.dwm.enable = true;
-
-    xsession = {
+    wm.dwm = {
+      enable = true;
       useSlock = true;
-
       useSudoForHibernate = true;
     };
   };
