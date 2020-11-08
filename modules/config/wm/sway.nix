@@ -23,14 +23,14 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.programs = {
-      shell.loginExtra = ''
+    custom = {
+      programs.shell.loginExtra = ''
         if [[ "$(tty)" == "/dev/tty1" ]]; then
           exec ${config.wayland.windowManager.sway.package}/bin/sway
         fi
       '';
 
-      urxvt.enable = true;
+      wm.general.enable = true;
     };
 
     home = {

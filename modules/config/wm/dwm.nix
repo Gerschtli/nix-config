@@ -48,8 +48,6 @@ in
   config = mkIf cfg.enable {
 
     custom = {
-      programs.urxvt.enable = true;
-
       services = {
         dunst.enable = true;
 
@@ -59,6 +57,8 @@ in
           enable = true;
         };
       };
+
+      wm.general.enable = true;
     };
 
     home = {
@@ -77,58 +77,22 @@ in
         scrot
         xclip
         xorg.xkill
-
-        (pkgs.writeScriptBin "inhibit-suspend" ''
-          #!${pkgs.runtimeShell} -e
-          # Disable suspend on lid close until screen gets unlocked
-
-          ${pkgs.systemd}/bin/systemd-inhibit --what=handle-lid-switch lock-screen
-        '')
-      ] ++ (
-        map
-          (item: pkgs.writeScriptBin
-            (if item ? name then item.name else item.command)
-            ''
-              #!${pkgs.runtimeShell} -e
-
-              if ${pkgs.gnome3.zenity}/bin/zenity --question \
-                  --text="Are you sure you want to ${item.message}?" 2> /dev/null; then
-                ${if item ? sudo && item.sudo then "sudo systemctl" else "${pkgs.systemd}/bin/systemctl"} ${item.command}
-              fi
-            ''
-          )
-          [
-            { command = "poweroff"; name = "halt";       message = "halt the system"; }
-            { command = "hibernate";                     message = "suspend to disk"; sudo = cfg.useSudoForHibernate; }
-            { command = "hybrid-sleep";                  message = "suspend to disk and ram"; }
-            { command = "reboot";                        message = "reboot"; }
-            { command = "suspend"; name = "sys-suspend"; message = "suspend to ram"; }
-          ]
-      );
+      ];
 
       # Fix java applications
       sessionVariables.AWT_TOOLKIT = "MToolkit";
     };
 
-    services = {
-      network-manager-applet.enable = config.custom.base.desktop.laptop;
+    services.screen-locker = {
+      enable = cfg.enableScreenLocker;
+      lockCmd = "${lock-screen}/bin/lock-screen";
+      inactiveInterval = 20;
 
-      screen-locker = {
-        enable = cfg.enableScreenLocker;
-        lockCmd = "${lock-screen}/bin/lock-screen";
-        inactiveInterval = 20;
+      # disable xautolock when cursor is in bottom right corner
+      xautolockExtraOptions = [ "-corners" "000-" ];
 
-        # disable xautolock when cursor is in bottom right corner
-        xautolockExtraOptions = [ "-corners" "000-" ];
-
-        # lock before suspending/hibernating, see https://github.com/i3/i3lock/issues/207
-        xssLockExtraOptions = [ "--transfer-sleep-lock" ];
-      };
-
-      unclutter = {
-        enable = true;
-        timeout = 3;
-      };
+      # lock before suspending/hibernating, see https://github.com/i3/i3lock/issues/207
+      xssLockExtraOptions = [ "--transfer-sleep-lock" ];
     };
 
     xsession = {
