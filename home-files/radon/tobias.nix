@@ -47,12 +47,8 @@ in
       # vagrant
 
       avocode
-      curl
       docker_compose
       mysql-workbench
-      nodejs-10_x
-      rage
-      simplescreenrecorder
       slack
       soapui
     ];
