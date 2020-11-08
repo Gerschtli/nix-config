@@ -5,8 +5,8 @@ with lib;
 let
   cfg = config.custom.wm.sway;
 
-  dmenuFont = "Ubuntu Mono Nerd Font:size=11";
-  fonts = [ "Ubuntu Mono Nerd Font 9" ];
+  dmenuFont = "Ubuntu Mono Nerd Font:size=10";
+  fonts = [ "Ubuntu Mono Nerd Font 10" ];
 
   logFile = "${config.home.homeDirectory}/.sway-log";
 
