@@ -36,6 +36,8 @@ in
       useSlock = mkEnableOption "slock as screen locker";
 
       useSudoForHibernate = mkEnableOption "to use sudo for hibernate command";
+
+      enableScreenLocker = mkEnableOption "automatic screen locker" // { default = true; };
     };
 
   };
@@ -112,7 +114,7 @@ in
       network-manager-applet.enable = config.custom.base.desktop.laptop;
 
       screen-locker = {
-        enable = true;
+        enable = cfg.enableScreenLocker;
         lockCmd = "${lock-screen}/bin/lock-screen";
         inactiveInterval = 20;
 
@@ -136,8 +138,10 @@ in
       numlock.enable = true;
 
       initExtra = ''
-        # Show screen saver after 20 min
-        ${pkgs.xorg.xset}/bin/xset s 1200
+        ${optionalString cfg.enableScreenLocker ''
+          # Show screen saver after 20 min
+          ${pkgs.xorg.xset}/bin/xset s 1200
+        ''}
         # Disable screen power saving settings
         ${pkgs.xorg.xset}/bin/xset -dpms
         # Increase key repeat speed

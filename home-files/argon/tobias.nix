@@ -10,7 +10,10 @@
       private = true;
     };
 
-    wm.dwm.enable = true;
+    wm.dwm = {
+      enable = true;
+      enableScreenLocker = false;
+    };
   };
 
   home.packages = with pkgs; [
