@@ -46,10 +46,13 @@ in
 
     home.packages = with pkgs; [
       gimp
+      google-chrome
       jetbrains.idea-ultimate
       libreoffice
+      nomacs
       pdftk
       postman
+      qpdfview
       spotify
     ] ++ (optionals cfg.private [
       audacity
@@ -60,6 +63,28 @@ in
     programs.gh = {
       enable = true;
       gitProtocol = "ssh";
+    };
+
+    systemd.user.startServices = true;
+
+    xdg.mimeApps = {
+      enable = true;
+
+      defaultApplications = {
+        "application/pdf" = "qpdfview.desktop";
+
+        "image/jpeg" = "nomacs.desktop";
+        "image/png" = "nomacs.desktop";
+
+        "message/rfc822" = "thunderbird.desktop";
+        "x-scheme-handler/mailto" = "thunderbird.desktop";
+
+        "text/html" = "google-chrome.desktop";
+        "x-scheme-handler/http" = "google-chrome.desktop";
+        "x-scheme-handler/https" = "google-chrome.desktop";
+        "x-scheme-handler/about" = "google-chrome.desktop";
+        "x-scheme-handler/unknown" = "google-chrome.desktop";
+      };
     };
 
   };

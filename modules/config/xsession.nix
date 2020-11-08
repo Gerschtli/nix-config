@@ -57,14 +57,11 @@ in
       };
 
       packages = with pkgs; [
-        google-chrome
         lock-screen
-        nomacs
         nur-gerschtli.dmenu
         nur-gerschtli.dwm
         pavucontrol
         playerctl
-        qpdfview
         scrot
         xclip
         xorg.xkill
@@ -108,28 +105,6 @@ in
 
       # lock before suspending/hibernating, see https://github.com/i3/i3lock/issues/207
       xssLockExtraOptions = [ "--transfer-sleep-lock" ];
-    };
-
-    systemd.user.startServices = true;
-
-    xdg.mimeApps = {
-      enable = true;
-
-      defaultApplications = {
-        "application/pdf" = "qpdfview.desktop";
-
-        "image/jpeg" = "nomacs.desktop";
-        "image/png" = "nomacs.desktop";
-
-        "message/rfc822" = "thunderbird.desktop";
-        "x-scheme-handler/mailto" = "thunderbird.desktop";
-
-        "text/html" = "google-chrome.desktop";
-        "x-scheme-handler/http" = "google-chrome.desktop";
-        "x-scheme-handler/https" = "google-chrome.desktop";
-        "x-scheme-handler/about" = "google-chrome.desktop";
-        "x-scheme-handler/unknown" = "google-chrome.desktop";
-      };
     };
 
     xsession = {
