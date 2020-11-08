@@ -7,10 +7,12 @@ let
 in
 
 {
-  imports = [ (./hardware-configuration + "/${hostName}.nix") ]
-    ++ customLib.getRecursiveFileList ./config;
+  imports = [ (customLib.path.hardwareConfiguration + "/${hostName}.nix") ]
+    ++ customLib.getRecursiveFileList customLib.path.config;
 
   config = {
     custom.base.general = { inherit hostName; };
+
+    lib.custom = customLib;
   };
 }
