@@ -8,6 +8,8 @@ let
   dmenuFont = "Ubuntu Mono Nerd Font:size=11";
   fonts = [ "Ubuntu Mono Nerd Font 9" ];
 
+  logFile = "${config.home.homeDirectory}/.sway-log";
+
   screenshotBin = enableSelect: pkgs.writeScriptBin "screenshot" ''
     ${pkgs.coreutils}/bin/mkdir --parents /tmp/screenshot
     ${pkgs.grim}/bin/grim \
@@ -34,7 +36,8 @@ in
     custom = {
       programs.shell.loginExtra = ''
         if [[ "$(tty)" == "/dev/tty1" ]]; then
-          exec ${config.wayland.windowManager.sway.package}/bin/sway
+          echo "===== SWAY STARTUP ($(${pkgs.coreutils}/bin/date +"%Y-%m-%d %H-%M-%S")) =====" >> "${logFile}"
+          exec ${config.wayland.windowManager.sway.package}/bin/sway >> "${logFile}" 2>&1
         fi
       '';
 
