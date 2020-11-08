@@ -46,13 +46,7 @@ in
   config = mkIf cfg.enable {
 
     custom = {
-      programs = {
-        shell.shellAliases = {
-          fix-java = "${pkgs.wmname}/bin/wmname LG3D && export AWT_TOOLKIT=MToolkit";
-        };
-
-        urxvt.enable = true;
-      };
+      programs.urxvt.enable = true;
 
       services = {
         dunst.enable = true;
@@ -109,6 +103,9 @@ in
             { command = "suspend"; name = "sys-suspend"; message = "suspend to ram"; }
           ]
       );
+
+      # Fix java applications
+      sessionVariables.AWT_TOOLKIT = "MToolkit";
     };
 
     services = {
@@ -151,6 +148,12 @@ in
             ${pkgs.libnotify}/bin/notify-send "Please update me!" \
               "Last time you updated your nix-channel is more than a week ago.. :("
         fi
+
+        # Fix java applications, dwm needs to be up and running before executing this command
+        for i in 1 2 3; do
+          sleep 1
+          ${pkgs.wmname}/bin/wmname LG3D
+        done &
       '';
     };
 
