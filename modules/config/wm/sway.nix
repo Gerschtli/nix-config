@@ -13,8 +13,8 @@ let
   screenshotBin = enableSelect: pkgs.writeScriptBin "screenshot" ''
     ${pkgs.coreutils}/bin/mkdir --parents /tmp/screenshot
     ${pkgs.grim}/bin/grim \
-      ${optionalString enableSelect "-g ''$(${pkgs.slurp}/bin/slurp)"} \
-      ''$(${pkgs.coreutils}/bin/date +'/tmp/screenshot/%Y-%m-%d-%H-%M-%S.png')
+      ${optionalString enableSelect "-g $(${pkgs.slurp}/bin/slurp)"} \
+      $(${pkgs.coreutils}/bin/date +"/tmp/screenshot/%Y-%m-%d-%H-%M-%S.png")
   '';
 in
 
