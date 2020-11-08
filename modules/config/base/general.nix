@@ -50,14 +50,6 @@ in
         '';
       };
 
-      extendedPath = mkOption {
-        type = types.listOf types.str;
-        default = [];
-        description = ''
-          Extend PATH with provided list of directories.
-        '';
-      };
-
       lightWeight = mkEnableOption "light weight config for low performance hosts";
 
     };
@@ -83,10 +75,6 @@ in
         };
 
         rsync.enable = true;
-
-        shell.envExtra = mkIf (cfg.extendedPath != []) ''
-          export PATH="${concatStringsSep ":" cfg.extendedPath}:$PATH"
-        '';
 
         ssh = {
           enable = true;
