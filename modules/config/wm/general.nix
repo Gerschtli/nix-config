@@ -59,6 +59,8 @@ in
 
     home.packages = [
       lockScreenPackage
+      pkgs.pavucontrol
+      pkgs.xdg_utils
 
       (pkgs.writeScriptBin "inhibit-suspend" ''
         #!${pkgs.runtimeShell} -e

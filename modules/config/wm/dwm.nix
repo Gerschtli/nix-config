@@ -49,7 +49,6 @@ in
       packages = with pkgs; [
         nur-gerschtli.dmenu
         nur-gerschtli.dwm
-        pavucontrol
         playerctl
         scrot
         xclip
