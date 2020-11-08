@@ -2,6 +2,11 @@
 
 with lib;
 
+let
+  homeDirectory = "/home/tobias";
+  username = "tobias";
+in
+
 {
   imports = [ ../../modules ];
 
@@ -11,11 +16,6 @@ with lib;
         enable = true;
         laptop = true;
       };
-
-      general.extendedPath = [
-        "$HOME/bin"
-        "$HOME/.local/bin"
-      ];
 
       non-nixos.enable = true;
     };
@@ -40,6 +40,8 @@ with lib;
   };
 
   home = {
+    inherit homeDirectory username;
+
     packages = with pkgs; [
       python37Packages.sqlparse
       rustup
@@ -57,6 +59,11 @@ with lib;
       soapui
     ];
 
+    sessionPath = [
+      "${homeDirectory}/bin"
+      "${homeDirectory}/.local/bin"
+    ];
+
     sessionVariables = {
       # see: https://github.com/NixOS/nixpkgs/issues/38991#issuecomment-400657551
       LOCALE_ARCHIVE_2_11 = "/usr/bin/locale/locale-archive";
@@ -64,9 +71,6 @@ with lib;
 
       NIX_PATH = "nixpkgs=/home/tobias/.nix-defexpr/channels/nixpkgs:/home/tobias/.nix-defexpr/channels";
     };
-
-    homeDirectory = "/home/tobias";
-    username = "tobias";
   };
 
   # FIXME: move to some module

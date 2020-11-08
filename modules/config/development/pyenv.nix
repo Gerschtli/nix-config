@@ -41,16 +41,16 @@ in
 
   config = mkIf cfg.enable {
 
-    custom = {
-      base.general.extendedPath = [ "${pyenvRoot}/bin" ];
+    custom.programs.shell.initExtra = ''
+      available pyenv && eval "$(pyenv init -)"
+    '';
 
-      programs.shell.initExtra = ''
-        available pyenv && eval "$(pyenv init -)"
-      '';
-    };
+    home = {
+      sessionPath = [ "${pyenvRoot}/bin" ];
 
-    home.sessionVariables = {
-      PYENV_ROOT = pyenvRoot;
+      sessionVariables = {
+        PYENV_ROOT = pyenvRoot;
+      };
     };
 
   };
