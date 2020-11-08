@@ -1,4 +1,4 @@
-{ config, pkgs, ... } @ args:
+{ config, pkgs, ... }:
 
 {
   imports = [ ../../modules ];
