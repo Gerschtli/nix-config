@@ -5,5 +5,7 @@ let
 in
 
 {
-  imports = customLib.getRecursiveFileList ./config;
+  imports = customLib.getRecursiveFileList customLib.path.config;
+
+  config.lib.custom = customLib;
 }
