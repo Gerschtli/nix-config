@@ -27,7 +27,7 @@ in
       createHome = true;
 
       sshKeys = [
-        ../../../files/keys/id_rsa.ip-watcher.pub
+        (config.lib.custom.path.files + "/keys/id_rsa.ip-watcher.pub")
       ];
     };
 

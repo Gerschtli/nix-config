@@ -138,7 +138,7 @@ in
                     ${service.script}
 
                     find ${location} -type f -not -iname "*.gpg" -exec ${pkgs.gnupg}/bin/gpg2 \
-                      --homedir ${locationGpg} --recipient-file ${../../../secrets/gpg-public-key} --encrypt {} \;
+                      --homedir ${locationGpg} --recipient-file ${config.lib.custom.path.secrets + "/gpg-public-key"} --encrypt {} \;
                     rm -r ${locationGpg}
 
                     find ${location} -type f -not -iname "*.gpg" -exec rm -r {} \+
@@ -154,7 +154,7 @@ in
           home = cfg.location;
 
           sshKeys = [
-            ../../../files/keys/id_rsa.backup.pub
+            (config.lib.custom.path.files + "/keys/id_rsa.backup.pub")
           ];
         };
       };

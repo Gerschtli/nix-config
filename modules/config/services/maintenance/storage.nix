@@ -111,7 +111,7 @@ in
                     --prune-empty-dirs --include "*/"  --include="*.gpg" --exclude="*" \
                     --rsh "${pkgs.openssh}/bin/ssh \
                       -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
-                      -i ${toString ../../../secrets/id_rsa.backup}" \
+                      -i ${config.lib.custom.path.secrets + "/id_rsa.backup"}" \
                     "${backupUser}@${server.ip}:${config.custom.services.backup.location}/*" \
                     ${backupDir}/${server.name}
                 '')

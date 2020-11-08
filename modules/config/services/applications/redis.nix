@@ -23,7 +23,7 @@ in
 
     services.redis = {
       enable = true;
-      requirePass = import ../../../secrets/redis;
+      requirePass = config.lib.custom.path.secrets + "/redis";
     };
 
   };

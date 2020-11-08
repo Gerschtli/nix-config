@@ -43,7 +43,7 @@ in
 
       script =
         let
-          passwordFile = toString ../../../secrets/mysql-backup-password;
+          passwordFile = config.lib.custom.path.secrets + "/mysql-backup-password";
         in
           concatMapStringsSep
             "\n"

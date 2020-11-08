@@ -10,7 +10,7 @@ let
     host = 127.0.0.1
     port = 10011
     username = serveradmin
-    password = ${import ../../secrets/teamspeak-serverquery-password}
+    password = ${import (config.lib.custom.path.secrets + "/teamspeak-serverquery-password")}
     server_id = 1
 
     [notifier]

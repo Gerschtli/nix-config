@@ -4,8 +4,6 @@ with lib;
 
 let
   cfg = config.custom.base.general;
-
-  customLib = import ../../lib args;
 in
 
 {
@@ -49,8 +47,8 @@ in
       useUserPackages = true;
 
       users = {
-        root = import (../../../home-manager-configurations/home-files + "/${cfg.hostName}/root.nix");
-        tobias = import (../../../home-manager-configurations/home-files + "/${cfg.hostName}/tobias.nix");
+        root = import (config.lib.custom.path.homeFiles + "/${cfg.hostName}/root.nix");
+        tobias = import (config.lib.custom.path.homeFiles + "/${cfg.hostName}/tobias.nix");
       };
     };
 
@@ -75,7 +73,7 @@ in
       trustedUsers = [ "root" "tobias" ];
     };
 
-    nixpkgs.overlays = map import (customLib.getFileList ../../overlays);
+    nixpkgs.overlays = map import (config.lib.custom.getFileList config.lib.custom.path.overlays);
 
     programs.zsh = {
       enable = true;

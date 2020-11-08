@@ -31,7 +31,7 @@ in
           let filePath = "${path}/${file}"; in
           lib.nameValuePair
             filePath
-            { source = ../../files + "/${filePath}"; }
+            { source = config.lib.custom.path.files + "/${filePath}"; }
         )
         ["index.html" "robots.txt" "setup.sh" "setup.txt"]
       );
