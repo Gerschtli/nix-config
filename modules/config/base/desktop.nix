@@ -27,7 +27,14 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-      boot.tmpOnTmpfs = true;
+      boot = {
+        # The default max inotify watches is 8192.
+        # Nowadays most apps require a good number of inotify watches,
+        # the value below is used by default on several other distros.
+        kernel.sysctl."fs.inotify.max_user_watches" = 524288;
+
+        tmpOnTmpfs = true;
+      };
 
       custom = {
         programs.virtualbox.enable = true;
@@ -56,7 +63,10 @@ in
         ];
       };
 
-      hardware.pulseaudio.enable = true;
+      hardware = {
+        opengl.enable = true;
+        pulseaudio.enable = true;
+      };
 
       nixpkgs.config.allowUnfree = true;
 
