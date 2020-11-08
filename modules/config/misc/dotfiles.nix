@@ -38,7 +38,7 @@ in
     }
 
     (mkIf (builtins.elem "atom" cfg.modules) {
-      home.packages = [ pkgs.atom ];
+      custom.programs.atom.enable = true;
     })
 
   ]);

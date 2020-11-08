@@ -43,7 +43,6 @@ in
     inherit homeDirectory username;
 
     packages = with pkgs; [
-      python37Packages.sqlparse
       rustup
       # FIXME: disabled because of build failure of libguestfs
       # vagrant
