@@ -30,14 +30,12 @@ in
   options = {
 
     custom.xsession = {
-
       enable = mkEnableOption "xsession config";
 
       # FIXME: i3lock throws error on ubuntu: "i3lock-color: Cannot grab pointer/keyboard"
       useSlock = mkEnableOption "slock as screen locker";
 
       useSudoForHibernate = mkEnableOption "to use sudo for hibernate command";
-
     };
 
   };

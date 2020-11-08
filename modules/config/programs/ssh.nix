@@ -21,9 +21,7 @@ in
 
       enable = mkEnableOption "ssh config";
 
-      enableKeychain = mkEnableOption "keychain setup" // {
-        default = true;
-      };
+      enableKeychain = mkEnableOption "keychain setup" // { default = true; };
 
       controlMaster = mkOption {
         type = types.enum ["yes" "no" "ask" "auto" "autoask"];

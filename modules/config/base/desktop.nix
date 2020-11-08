@@ -12,13 +12,11 @@ in
   options = {
 
     custom.base.desktop = {
-
       enable = mkEnableOption "desktop setup";
 
       laptop = mkEnableOption "laptop config";
 
       private = mkEnableOption "private desktop config";
-
     };
 
   };

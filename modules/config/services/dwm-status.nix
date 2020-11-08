@@ -13,7 +13,6 @@ in
   options = {
 
     custom.services.dwm-status = {
-
       enable = mkEnableOption "dwm-status user service";
 
       audio = mkEnableOption "audio feature" // { default = true; };
@@ -21,7 +20,6 @@ in
       laptop = mkEnableOption "laptop config";
 
       useGlobalAlsaUtils = mkEnableOption "use global alsa utils instead of nix' one";
-
     };
 
   };

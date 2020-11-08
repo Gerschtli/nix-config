@@ -41,17 +41,9 @@ in
   options = {
 
     custom.base.general = {
-
-      enable = mkOption {
-        type = types.bool;
-        default = true;
-        description = ''
-          Whether to enable basic config.
-        '';
-      };
+      enable = mkEnableOption "basic config" // { default = true; };
 
       lightWeight = mkEnableOption "light weight config for low performance hosts";
-
     };
 
   };
@@ -62,30 +54,26 @@ in
   config = mkIf cfg.enable {
 
     custom = {
+      misc.util-bins.enable = true;
+
       programs = {
         bash.enable = true;
         fzf.enable = true;
         git.enable = true;
         htop.enable = true;
         neovim.enable = true;
-
         prompts = {
           liquidprompt.enable = mkIf (!cfg.lightWeight) true;
           pure.enable = mkIf cfg.lightWeight true;
         };
-
         rsync.enable = true;
-
         ssh = {
           enable = true;
           modules = [ "vcs" ];
         };
-
         tmux.enable = true;
         zsh.enable = true;
       };
-
-      misc.util-bins.enable = true;
     };
 
     home = {
