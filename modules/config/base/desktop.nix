@@ -35,6 +35,8 @@ in
       };
 
       programs = {
+        idea-ultimate.enable = true;
+
         pass = mkIf cfg.private {
           enable = true;
           browserpass = true;
@@ -47,7 +49,6 @@ in
     home.packages = with pkgs; [
       gimp
       google-chrome
-      jetbrains.idea-ultimate
       libreoffice
       nomacs
       pdftk

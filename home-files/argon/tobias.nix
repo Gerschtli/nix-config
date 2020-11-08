@@ -14,9 +14,6 @@
   };
 
   home.packages = with pkgs; [
-    pipenv
-    rustup
-
     skypeforlinux
     zoom-us
   ];
