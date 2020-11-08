@@ -15,7 +15,7 @@ in
     files = ../files;
     hardwareConfiguration = ../hardware-configuration;
     homeFiles = ../../home-manager-configurations/home-files;
-    overlays = ../overlays;
+    overlays = ../../home-manager-configurations/modules/overlays;
     secrets = toString ../secrets;
   };
 }
