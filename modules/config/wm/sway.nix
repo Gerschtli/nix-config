@@ -6,6 +6,13 @@ let
   cfg = config.custom.wm.sway;
 
   fonts = [ "Ubuntu Mono Nerd Font 9" ];
+
+  screenshotBin = enableSelect: pkgs.writeScriptBin "screenshot" ''
+    ${pkgs.coreutils}/bin/mkdir --parents /tmp/screenshot
+    ${pkgs.grim}/bin/grim \
+      ${optionalString enableSelect "-g ''$(${pkgs.slurp}/bin/slurp)"} \
+      ''$(${pkgs.coreutils}/bin/date +'/tmp/screenshot/%Y-%m-%d-%H-%M-%S.png')
+  '';
 in
 
 {
@@ -64,6 +71,46 @@ in
             "tap_button_map" = "lmr";
           };
         };
+
+        floating.criteria = [
+          { app_id = "zenity"; }
+        ];
+
+        keybindings =
+          let
+            swayConfig = config.wayland.windowManager.sway.config;
+            modifier = swayConfig.modifier;
+            exec = command: "exec \"${command}\"";
+          in
+            mkOptionDefault {
+              "${modifier}+Return" = null;
+              "${modifier}+Tab" = "workspace back_and_forth";
+              "${modifier}+Shift+Return" = exec swayConfig.terminal;
+              "${modifier}+Shift+q" = null;
+              "${modifier}+Shift+c" = "kill";
+              "${modifier}+Shift+r" = "reload";
+              "${modifier}+d" = null;
+              "${modifier}+p" = exec swayConfig.menu;
+
+              "${modifier}+Ctrl+Left" = "workspace prev";
+              "${modifier}+Ctrl+Right" = "workspace next";
+
+              "${modifier}+Alt+p" = exec "${pkgs.qpdfview}/bin/qpdfview";
+              "${modifier}+Alt+g" = exec "${pkgs.google-chrome}/bin/google-chrome-stable";
+              "${modifier}+Ctrl+s" = exec (screenshotBin false);
+              "${modifier}+Shift+s" = exec (screenshotBin true);
+              "${modifier}+Ctrl+l" = exec "${config.custom.wm.general.lockScreenPackage}/bin/lock-screen";
+
+              "XF86AudioRaiseVolume" = exec "amixer set Master 1%+";
+              "XF86AudioLowerVolume" = exec "amixer set Master 1%-";
+              "XF86AudioMute" = exec "amixer set Master toggle";
+              "XF86MonBrightnessUp" = exec "light -A 5";
+              "XF86MonBrightnessDown" = exec "light -U 5";
+              "XF86AudioPlay" = exec "${pkgs.playerctl}/bin/playerctl play-pause";
+              "XF86AudioNext" = exec "${pkgs.playerctl}/bin/playerctl next";
+              "XF86AudioPrev" = exec "${pkgs.playerctl}/bin/playerctl previous";
+              "XF86AudioStop" = exec "${pkgs.playerctl}/bin/playerctl stop";
+            };
 
         bars = [
           {
