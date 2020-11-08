@@ -10,9 +10,17 @@ in
 {
   inherit (fileList)
     getDirectoryList
-    getRecursiveDirectoryList1
+    getRecursiveDirectoryList
     getFileList
     getRecursiveFileList;
 
   inherit (wrapProgram) wrapProgram;
+
+  path = {
+    modules = ../.;
+    config = ../config;
+    files = ../files;
+    overlays = ../overlays;
+    secrets = toString ../secrets;
+  };
 }
