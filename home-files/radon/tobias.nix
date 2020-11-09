@@ -46,8 +46,7 @@ in
     inherit homeDirectory username;
 
     packages = with pkgs; [
-      # FIXME: disabled because of build failure of libguestfs
-      # vagrant
+      google-cloud-sdk
 
       avocode
       docker_compose
