@@ -12,11 +12,7 @@ in
 
   options = {
 
-    custom.wm.dwm = {
-      enable = mkEnableOption "config for dwm";
-
-      enableScreenLocker = mkEnableOption "automatic screen locker" // { default = true; };
-    };
+    custom.wm.dwm.enable = mkEnableOption "config for dwm";
 
   };
 
@@ -60,9 +56,9 @@ in
     };
 
     services.screen-locker = {
-      enable = cfg.enableScreenLocker;
+      enable = true;
       lockCmd = "${config.custom.wm.general.lockScreenPackage}/bin/lock-screen";
-      inactiveInterval = 20;
+      inactiveInterval = 60;
 
       # disable xautolock when cursor is in bottom right corner
       xautolockExtraOptions = [ "-corners" "000-" ];
@@ -78,8 +74,8 @@ in
       numlock.enable = true;
 
       initExtra = ''
-        # Show screen saver (in seconds)
-        ${pkgs.xorg.xset}/bin/xset s ${if cfg.enableScreenLocker then "1200" else "0"}
+        # Disable screen saver
+        ${pkgs.xorg.xset}/bin/xset s off
         # Disable screen power saving settings
         ${pkgs.xorg.xset}/bin/xset -dpms
         # Increase key repeat speed
