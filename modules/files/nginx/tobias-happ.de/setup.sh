@@ -182,8 +182,18 @@ elif ! _is_nixos && ! _is_root; then
             nix-shell '<home-manager>' -A install
         fi
 
+        if nix-env -q --json | jq ".[].pname" | grep '"nix"' > /dev/null; then
+            _log "Set priority of installed nix package..."
+            nix-env --set-flag priority 1000 nix
+        fi
+
         _log "Run home-manager switch..."
         home-manager switch -b hm-bak -f "${home_file}"
+
+        if nix-env -q --json | jq ".[].pname" | grep '"nix"' > /dev/null; then
+            _log "Uninstall manual installed nix package..."
+            nix-env --uninstall nix
+        fi
     fi
 
     for module in "${dotfiles_hm}/${ssh_path}/"*; do
