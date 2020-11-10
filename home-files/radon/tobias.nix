@@ -21,6 +21,7 @@ in
     };
 
     development = {
+      nix.home-manager.enable = true;
       nodejs.enable = true;
       php.enable = true;
       vagrant.enable = true;

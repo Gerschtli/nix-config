@@ -6,6 +6,6 @@
   custom = {
     base.general.lightWeight = true;
 
-    development.nixos.enable = true;
+    development.nix.nixos.enable = true;
   };
 }

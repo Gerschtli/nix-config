@@ -6,6 +6,8 @@
   custom = {
     base.non-nixos.enable = true;
 
+    development.nix.home-manager.enable = true;
+
     programs.ssh.modules = [ "private" ];
   };
 
