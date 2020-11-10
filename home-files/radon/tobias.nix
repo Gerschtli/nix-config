@@ -26,7 +26,7 @@ in
       vagrant.enable = true;
     };
 
-    misc.util-bins.bins = [ "csv-check" ];
+    misc.util-bins.bins = [ "clean-projects" "csv-check" "update-projects" ];
 
     programs.ssh.modules = [ "pveu" ];
 

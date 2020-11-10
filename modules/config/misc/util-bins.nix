@@ -19,7 +19,7 @@ in
       enable = mkEnableOption "some utility binaries";
 
       bins = mkOption {
-        type = types.listOf (types.enum [ "csv-check" ]);
+        type = types.listOf (types.enum [ "clean-projects" "csv-check" "update-projects" ]);
         default = [];
         description = "List of bins to install.";
       };
