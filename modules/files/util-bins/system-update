@@ -48,6 +48,18 @@ pull_changes_ssh() {
     fi
 }
 
+show_result_diff() {
+    echo
+
+    # see https://github.com/madjar/nox/issues/63#issuecomment-303280129
+    nox-update --quiet "${1}" result | \
+        grep -v '\.drv : $' | \
+        sed 's|^ */nix/store/[a-z0-9]*-||' | \
+        sort -u
+
+    rm result
+}
+
 # add key
 if available keychain; then
     log "keychain" "add key"
@@ -111,17 +123,29 @@ if [[ -r "${HOME}/.nix-channels" ]] && ! has_unit_enabled "nixos-upgrade.timer" 
 fi
 
 if is_nixos && is_root; then
-    log "nix" "switches nixos configuration"
+    log "nix" "build nixos configuration"
+    nixos-rebuild build
+    show_result_diff "/run/current-system"
+
+    log "nix" "switch nixos configuration"
     nixos-rebuild switch || : # fails randomly because of virtualbox
 fi
 
 if [[ -r "${HOME}/.config/nixpkgs/nix-on-droid.nix" ]] && available nix-on-droid; then
-    log "nix" "nix-on-droid switch"
-    nix-on-droid switch --verbose
+    log "nix" "build nix-on-droid configuration"
+    nix-on-droid build
+    show_result_diff "/nix/var/nix/profiles/nix-on-droid"
+
+    log "nix" "switch nix-on-droid configuration"
+    nix-on-droid switch
 fi
 
 if [[ -r "${HOME}/.config/nixpkgs/home.nix" ]] && available home-manager; then
-    log "nix" "home-manager switch"
+    log "nix" "build home-manager configuration"
+    home-manager build
+    show_result_diff "/nix/var/nix/profiles/per-user/tobias/home-manager"
+
+    log "nix" "switch home-manager configuration"
     home-manager switch -b hm-bak
 fi
 
