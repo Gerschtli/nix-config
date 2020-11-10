@@ -26,7 +26,16 @@ in
       vagrant.enable = true;
     };
 
-    misc.util-bins.bins = [ "clean-projects" "csv-check" "update-projects" ];
+    misc = {
+      sdks = {
+        enable = true;
+        links = {
+          inherit (pkgs) jdk11 python36 python37 python38;
+        };
+      };
+
+      util-bins.bins = [ "clean-projects" "csv-check" "update-projects" ];
+    };
 
     programs.ssh.modules = [ "pveu" ];
 
