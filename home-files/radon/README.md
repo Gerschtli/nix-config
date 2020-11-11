@@ -34,7 +34,7 @@ nix-shell -p xorg.libX11 xorg.libXrandr xorg.libXext --run "sudo make config.h c
 
 # install display link driver
 >> open <https://www.displaylink.com/downloads/ubuntu>
-# apply fix (https://support.displaylink.com/knowledgebase/articles/1859356-x-server-crashes-on-nvidia-systems-when-displaylin)
+# apply fix (https://support.displaylink.com/knowledgebase/articles/1181623-displaylink-ubuntu-driver-after-recent-x-upgrades)
 sudo cat <<EOF > /usr/share/X11/xorg.conf.d/21-displaylink.conf
 Section "Device"
   Identifier "DisplayLink"
