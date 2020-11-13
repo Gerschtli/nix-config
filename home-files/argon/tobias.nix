@@ -10,6 +10,14 @@
       private = true;
     };
 
+    misc.sdks = {
+      enable = true;
+      links = {
+        inherit (pkgs) jdk11 python37;
+        go-1-15 = pkgs.go;
+      };
+    };
+
     wm.dwm.enable = true;
   };
 
