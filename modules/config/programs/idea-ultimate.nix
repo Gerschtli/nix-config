@@ -31,7 +31,6 @@ in
 
     custom.programs.idea-ultimate.packages = with pkgs; [
       pipenv
-      rustup
     ];
 
     home.packages = [
@@ -41,6 +40,7 @@ in
         source = pkgs.jetbrains.idea-ultimate;
         path = "/bin/idea-ultimate";
       })
+      pkgs.rustup # needs to be globally installed for ide integration
     ];
 
   };
