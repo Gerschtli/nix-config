@@ -118,6 +118,7 @@ let
 
     tree = "tree -F --dirsfirst";
     treea = "tree -a";
+    treei = "treea -I '.git|.idea'";
   }
   // cfg.shellAliases
   // (optionalAttrs (dynamicShellInit != "") {
