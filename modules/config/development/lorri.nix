@@ -28,7 +28,16 @@ in
         force="$2"
 
         if [[ ! -f shell.nix || "$force" == "--force" ]]; then
-          shell_content="import \"${config.xdg.configHome}/nix/profiles/''${shell_name}.nix\""
+          if [[ ! -z "$shell_name" ]]; then
+            shell_content="import \"${config.xdg.configHome}/nix/profiles/''${shell_name}.nix\""
+          else
+            shell_content="with import \"<nixpkgs>\" { };
+
+        mkShell {
+          buildInputs = [
+          ];
+        }"
+          fi
 
           echo -e "Write shell.nix\n\t''${shell_content}\n"
           echo "$shell_content" > shell.nix
