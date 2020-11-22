@@ -30,6 +30,7 @@ in
   config = mkIf cfg.enable {
 
     custom.programs.idea-ultimate.packages = with pkgs; [
+      nodejs
       pipenv
     ];
 
