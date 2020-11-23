@@ -31,7 +31,7 @@ in
       sdks = {
         enable = true;
         links = {
-          inherit (pkgs) jdk11 python36 python37 python38;
+          inherit (pkgs) jdk8 jdk11 python36 python37 python38;
         };
       };
 
