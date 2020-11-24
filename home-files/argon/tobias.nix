@@ -10,11 +10,20 @@
       private = true;
     };
 
-    misc.sdks = {
-      enable = true;
-      links = {
-        inherit (pkgs) jdk11 python37;
-        go-1-15 = pkgs.go;
+    misc = {
+      backup = {
+        enable = true;
+        config = {
+          "~/Documents/sbb-kassenwart" = ".";
+        };
+      };
+
+      sdks = {
+        enable = true;
+        links = {
+          inherit (pkgs) jdk11 python37;
+          go-1-15 = pkgs.go;
+        };
       };
     };
 

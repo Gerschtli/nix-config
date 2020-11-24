@@ -28,6 +28,13 @@ in
     };
 
     misc = {
+      backup = {
+        enable = true;
+        config = {
+          "~/Documents/scratchpad" = ".";
+        };
+      };
+
       sdks = {
         enable = true;
         links = {
