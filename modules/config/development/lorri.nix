@@ -4,6 +4,9 @@ with lib;
 
 let
   cfg = config.custom.development.lorri;
+
+  nixProfiles = "nix/profiles";
+  nixProfilesDir = "${config.xdg.configHome}/${nixProfiles}";
 in
 
 {
@@ -26,32 +29,25 @@ in
 
         shell_name="$1"
         force="$2"
+        shell_path="${nixProfilesDir}/''${shell_name}.nix"
 
-        if [[ ! -f shell.nix || "$force" == "--force" ]]; then
-          if [[ ! -z "$shell_name" ]]; then
-            shell_content="import \"${config.xdg.configHome}/nix/profiles/''${shell_name}.nix\""
-          else
-            shell_content="with import \"<nixpkgs>\" { };
+        _log() {
+          echo ">> $@"
+        }
 
-        mkShell {
-          buildInputs = [
-          ];
-        }"
-          fi
-
-          echo -e "Write shell.nix\n\t''${shell_content}\n"
-          echo "$shell_content" > shell.nix
+        if [[ ( ! -f shell.nix || "$force" == "--force" ) && -f "$shell_path" ]]; then
+          _log "Link shell.nix"
+          ln -snfv "$shell_path" shell.nix
         fi
 
-        env_content="eval \"\$(lorri direnv)\""
-        echo -e "Write .envrc\n\t''${env_content}\n"
-        echo "$env_content" > .envrc
+        _log "Run lorri init"
+        ${pkgs.lorri}/bin/lorri init
 
-        echo -e "Allow .envrc\n"
+        _log "Allow .envrc"
         ${pkgs.direnv}/bin/direnv allow
 
-        echo -e "Run lorri watch"
-        ${pkgs.lorri}/bin/lorri watch
+        _log "Run lorri watch --once"
+        ${pkgs.lorri}/bin/lorri watch --once
       '')
 
       (pkgs.writeTextFile {
@@ -62,7 +58,7 @@ in
 
           list=()
 
-          prefix="${config.xdg.configHome}/nix/profiles/"
+          prefix="${nixProfilesDir}/"
           suffix=".nix"
 
           for file in "$prefix"*"$suffix"; do
@@ -91,7 +87,7 @@ in
       };
 
       zsh.initExtraBeforeCompInit = ''
-        # is set in nix.shell
+        # is set in nix-shell
         if [[ ! -z "$buildInputs" ]]; then
           for buildInput in "''${(ps: :)buildInputs}"; do
             directories=(
@@ -112,7 +108,7 @@ in
 
     services.lorri.enable = true;
 
-    xdg.configFile."nix/profiles" = {
+    xdg.configFile."${nixProfiles}" = {
       source = config.lib.custom.path.files + "/nix/profiles";
       recursive = true;
     };
