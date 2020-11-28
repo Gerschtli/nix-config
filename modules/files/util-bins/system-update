@@ -86,11 +86,6 @@ if available apt; then
     "$(get_sudo_prefix)" apt autoremove -y
 fi
 
-if available snap && $(snap list > /dev/null 2>&1); then
-    log "snap" "refresh"
-    "$(get_sudo_prefix)" snap refresh
-fi
-
 
 # update projects
 nixos="/etc/nixos"
