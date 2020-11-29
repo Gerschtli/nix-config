@@ -45,7 +45,7 @@ in
         DynamicUser = true;
         ExecStart = "${pkgs.nur-gerschtli.teamspeak-update-notifier}/bin/teamspeak-update-notifier ${configFile}";
         Restart = "always";
-        RestartSec = 30;
+        RestartSec = 5;
       };
     };
 
