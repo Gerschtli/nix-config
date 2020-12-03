@@ -30,7 +30,13 @@ in
   config = mkIf cfg.enable {
 
     custom.programs.idea-ultimate.packages = with pkgs; [
+      # node
       nodejs
+
+      # rust
+      gcc
+
+      # python
       pipenv
     ];
 
@@ -41,6 +47,7 @@ in
         source = pkgs.jetbrains.idea-ultimate;
         path = "/bin/idea-ultimate";
       })
+
       pkgs.rustup # needs to be globally installed for ide integration
     ];
 
