@@ -9,6 +9,8 @@
       private = true;
     };
 
+    programs.go.enable = true;
+
     wm.dwm.enable = true;
   };
 }

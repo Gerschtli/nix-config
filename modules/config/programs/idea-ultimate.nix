@@ -29,16 +29,26 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.programs.idea-ultimate.packages = with pkgs; [
-      # node
-      nodejs
+    custom = {
+      misc.sdks = {
+        enable = true;
+        links = {
+          inherit (pkgs) jdk11 python37;
+          go-1-15 = mkIf config.custom.programs.go.enable pkgs.go;
+        };
+      };
 
-      # rust
-      gcc
+      programs.idea-ultimate.packages = with pkgs; [
+        # node
+        nodejs
 
-      # python
-      pipenv
-    ];
+        # rust
+        gcc
+
+        # python
+        pipenv
+      ];
+    };
 
     home.packages = [
       (config.lib.custom.wrapProgram {
