@@ -4,6 +4,6 @@ mkShell {
   name = "ansible";
 
   buildInputs = [
-    ansible
+    ansible_2_9
   ];
 }
