@@ -32,10 +32,13 @@ in
     custom = {
       misc.sdks = {
         enable = true;
-        links = {
-          inherit (pkgs) jdk11 python37;
-          go-1-15 = mkIf config.custom.programs.go.enable pkgs.go;
-        };
+        links = mkMerge [
+          { inherit (pkgs) jdk11 python37; }
+
+          (mkIf config.custom.programs.go.enable {
+            go-1-15 = pkgs.go;
+          })
+        ];
       };
 
       programs.idea-ultimate.packages = with pkgs; [
