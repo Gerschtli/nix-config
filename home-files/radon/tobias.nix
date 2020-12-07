@@ -65,9 +65,7 @@ in
     packages = with pkgs; [
       google-cloud-sdk
 
-      avocode
       docker_compose
-      mysql-workbench
       slack
       soapui
     ];
