@@ -53,4 +53,9 @@ sudo usermod -a -G docker video $USER
 sudo visudo -f hibernate
 # insert following line
 >> tobias radon=(root:root) NOPASSWD: /usr/bin/systemctl hibernate
+
+# configure inotify watcher
+sudo vim /etc/sysctl.d/local.conf
+# insert following line
+>> fs.inotify.max_user_watches = 524288
 ```
