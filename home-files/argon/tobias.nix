@@ -23,7 +23,9 @@
   };
 
   home.packages = with pkgs; [
+    openshot-qt
     skypeforlinux
+    vlc
     zoom-us
   ];
 
