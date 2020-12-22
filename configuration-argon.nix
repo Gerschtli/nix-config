@@ -6,6 +6,11 @@
   # boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   custom = {
+    applications.jack = {
+      enable = true;
+      enableService = false;
+    };
+
     base.desktop = {
       enable = true;
       laptop = true;
