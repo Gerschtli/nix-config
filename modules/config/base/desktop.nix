@@ -74,8 +74,8 @@ in
       defaultApplications = {
         "application/pdf" = "qpdfview.desktop";
 
-        "image/jpeg" = "nomacs.desktop";
-        "image/png" = "nomacs.desktop";
+        "image/jpeg" = "org.nomacs.ImageLounge.desktop";
+        "image/png" = "org.nomacs.ImageLounge.desktop";
 
         "message/rfc822" = "thunderbird.desktop";
         "x-scheme-handler/mailto" = "thunderbird.desktop";
