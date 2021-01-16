@@ -31,7 +31,13 @@ in
       expiresAfter = 28;
 
       script = ''
-        ${pkgs.gitea}/bin/gitea dump -c ${config.services.gitea.stateDir}/custom/conf/app.ini
+        pushd ${config.services.gitea.stateDir}
+        ${pkgs.gitea}/bin/gitea dump \
+          --config ${config.services.gitea.stateDir}/custom/conf/app.ini \
+          --work-path ${config.services.gitea.stateDir}
+        popd
+
+        mv ${config.services.gitea.stateDir}/gitea-dump-*.zip .
         chmod g+r *
       '';
     };
