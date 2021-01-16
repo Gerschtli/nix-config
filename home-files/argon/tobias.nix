@@ -13,6 +13,7 @@
     misc.backup = {
       enable = true;
       config = {
+        "~/Documents/finance" = ".";
         "~/Documents/sbb-kassenwart" = ".";
       };
     };
@@ -24,6 +25,7 @@
 
   home.packages = with pkgs; [
     openshot-qt
+    portfolio
     skypeforlinux
     vlc
     zoom-us
