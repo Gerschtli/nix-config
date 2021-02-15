@@ -49,11 +49,6 @@ _process_profile() {
             CMD_SECONDARY=""
             SIDE_CMDS=()
             ;;
-        git-vagrant )
-            CMD_PRIMARY="git fm"
-            CMD_SECONDARY=""
-            SIDE_CMDS=("cd vagrant:vup:vauto")
-            ;;
     esac
 
     if [[ -f "${ROOT}/.envrc" ]]; then
