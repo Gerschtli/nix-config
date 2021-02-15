@@ -1,3 +1,4 @@
 ROOT="${HOME}/projects/pveu/backend"
 
-PRESET="git-vagrant"
+CMD_PRIMARY="git fm"
+CMD_SECONDARY="docker-compose up --build --remove-orphans"
