@@ -28,7 +28,7 @@ in
       services.backup.services.teamspeak3 = {
         description = "Teamspeak3 server";
         user = "root";
-        interval = "Tue *-*-* 10:00:00";
+        interval = "Tue *-*-* 05:00:00";
         expiresAfter = 28;
 
         script =
