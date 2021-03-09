@@ -10,6 +10,8 @@
         containerID = 1;
       };
 
+      coinbase-plans.enable = true;
+
       downloads.enable = true;
 
       jamulus.enable = true;
