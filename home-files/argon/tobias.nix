@@ -10,11 +10,20 @@
       private = true;
     };
 
-    misc.backup = {
-      enable = true;
-      config = {
-        "~/Documents/finance" = ".";
-        "~/Documents/sbb-kassenwart" = ".";
+    misc = {
+      backup = {
+        enable = true;
+        config = {
+          "~/Documents/finance" = ".";
+          "~/Documents/sbb-kassenwart" = ".";
+        };
+      };
+
+      sdks = {
+        enable = true;
+        links = {
+          inherit (pkgs) jdk14;
+        };
       };
     };
 
