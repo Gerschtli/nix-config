@@ -20,4 +20,8 @@
 
     wm.dwm.enable = true;
   };
+
+  home.packages = with pkgs; [
+    zoom-us
+  ];
 }
