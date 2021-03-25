@@ -12,7 +12,7 @@
     misc.sdks = {
       enable = true;
       links = {
-        inherit (pkgs) jdk14;
+        inherit (pkgs) jdk14 jdk15;
       };
     };
 
