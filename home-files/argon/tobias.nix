@@ -15,6 +15,7 @@
         enable = true;
         config = {
           "~/Documents/finance" = ".";
+          "~/Documents/general" = ".";
           "~/Documents/sbb-kassenwart" = ".";
         };
       };
