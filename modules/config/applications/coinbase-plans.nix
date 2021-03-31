@@ -54,7 +54,7 @@ in
       #ports = [ "${toString port}:${toString port}" ];
       environment.SPRING_PROFILES_ACTIVE = "prod";
       volumes = [
-        "${config.lib.custom.path.secrets}/coinbase-plans.yml:/app/resources/application-prod.yml"
+        "${config.lib.custom.path.secrets}/coinbase-plans.yml:/config/application-prod.yml"
       ];
       /* FIXME: wait for https://github.com/NixOS/nixpkgs/pull/115615 to be merged
       login = {
