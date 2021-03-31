@@ -25,13 +25,13 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.services.nginx.enable = true;
+    #custom.services.nginx.enable = true;
 
-    services.nginx.virtualHosts."coinbase-plans.tobias-happ.de" = {
-      enableACME = true;
-      forceSSL = true;
-      locations."/".proxyPass = "http://localhost:${toString port}/";
-    };
+    #services.nginx.virtualHosts."coinbase-plans.tobias-happ.de" = {
+    #  enableACME = true;
+    #  forceSSL = true;
+    #  locations."/".proxyPass = "http://localhost:${toString port}/";
+    #};
 
     # FIXME: wait for https://github.com/NixOS/nixpkgs/pull/115615 to be merged
     systemd.services.${"docker-" + appName} = {
@@ -51,7 +51,7 @@ in
 
     virtualisation.oci-containers.containers.${appName} = {
       inherit image;
-      ports = [ "${toString port}:${toString port}" ];
+      #ports = [ "${toString port}:${toString port}" ];
       environment.SPRING_PROFILES_ACTIVE = "prod";
       volumes = [
         "${config.lib.custom.path.secrets}/coinbase-plans.yml:/app/resources/application-prod.yml"
