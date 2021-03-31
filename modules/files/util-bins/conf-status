@@ -5,7 +5,9 @@ list=()
 if [[ $(id -u) == 0 ]]; then
     list+=(
         /etc/nixos
+        /etc/nixos/modules/secrets
         /etc/nixos/home-manager-configurations
+        /etc/nixos/home-manager-configurations/modules/secrets
         /etc/nixos/home-manager-configurations/modules/secrets/ssh/modules/*
     )
 fi
@@ -14,12 +16,13 @@ list+=(
     ~/.dotfiles
     ~/.dotfiles/gpg
     ~/.dotfiles/home-manager/home-manager-configurations
+    ~/.dotfiles/home-manager/home-manager-configurations/modules/secrets
     ~/.dotfiles/home-manager/home-manager-configurations/modules/secrets/ssh/modules/*
     ~/.password-store
 )
 
 for dir in ${list[@]}; do
-    if [[ ! -d "${dir}" ]]; then
+    if [[ ! -d "${dir}/.git" ]]; then
         continue
     fi
 
