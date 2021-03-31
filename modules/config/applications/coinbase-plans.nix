@@ -7,6 +7,7 @@ let
 
   appName = "coinbase-plans";
   port = 8080;
+  image = "docker.pkg.github.com/gerschtli/coinbase-plans/coinbase-plans:latest";
 in
 
 {
@@ -37,6 +38,9 @@ in
       preStart = ''
         docker rm -f ${appName} || true
         cat "${config.lib.custom.path.secrets}/github-registry-token" | docker login https://docker.pkg.github.com -u Gerschtli --password-stdin
+
+        # replace this line with extraOptions = ["--pull=always"] once docker 19.09 is in stable
+        docker pull "${image}"
       '';
 
       serviceConfig = {
@@ -46,7 +50,7 @@ in
     };
 
     virtualisation.oci-containers.containers.${appName} = {
-      image = "docker.pkg.github.com/gerschtli/coinbase-plans/coinbase-plans:latest";
+      inherit image;
       ports = [ "${toString port}:${toString port}" ];
       environment.SPRING_PROFILES_ACTIVE = "prod";
       volumes = [
