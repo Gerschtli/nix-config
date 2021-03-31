@@ -46,14 +46,18 @@ in
     };
 
     virtualisation.oci-containers.containers.${appName} = {
-     image = "docker.pkg.github.com/gerschtli/coinbase-plans/coinbase-plans:test";
-     ports = [ "${toString port}:${toString port}" ];
-     /* FIXME: wait for https://github.com/NixOS/nixpkgs/pull/115615 to be merged
-     login = {
-       username = "Gerschtli";
-       passwordFile = "${config.lib.custom.path.secrets}/github-registry-token";
-       registry = "https://docker.pkg.github.com";
-     }; */
+      image = "docker.pkg.github.com/gerschtli/coinbase-plans/coinbase-plans:latest";
+      ports = [ "${toString port}:${toString port}" ];
+      environment.SPRING_PROFILES_ACTIVE = "prod";
+      volumes = [
+        "${config.lib.custom.path.secrets}/coinbase-plans.yml:/app/resources/application-prod.yml"
+      ];
+      /* FIXME: wait for https://github.com/NixOS/nixpkgs/pull/115615 to be merged
+      login = {
+        username = "Gerschtli";
+        passwordFile = "${config.lib.custom.path.secrets}/github-registry-token";
+        registry = "https://docker.pkg.github.com";
+      }; */
     };
 
   };
