@@ -49,19 +49,21 @@ in
 
         serviceConfig = {
           serviceConfig = {
-            DynamicUser = true;
+            Group = user;
+            User = user;
           };
           script = ''
             ${pkgs.bind.dnsutils}/bin/dig @resolver1.opendns.com A myip.opendns.com +short -4 | \
               ${pkgs.openssh}/bin/ssh \
                 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
-                -i ${config.lib.custom.path.secrets + "/id_rsa.ip-watcher"} \
+                -i ${config.lib.custom.path.secrets}/id_rsa.ip-watcher \
                 ${user}@${cfg.serverIp} "cat > '${filename}'"
           '';
         };
       };
-    };
 
+      systemUsers.${user} = {};
+    };
   };
 
 }
