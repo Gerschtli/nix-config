@@ -4,6 +4,27 @@ with lib;
 
 let
   cfg = config.custom.misc.backup;
+
+  rsyncOptions = [
+    "--compress"
+    "--cvs-exclude"
+    "--delete"
+    "--devices"
+    "--group"
+    "--hard-links"
+    "--human-readable"
+    "--itemize-changes"
+    "--links"
+    "--owner"
+    "--perms"
+    "--progress"
+    "--prune-empty-dirs"
+    "--recursive"
+    "--specials"
+    "--times"
+    "--update"
+    "--whole-file"
+  ];
 in
 
 {
@@ -47,7 +68,7 @@ in
       (pkgs.writeScriptBin "local-backup" ''
         #!${pkgs.runtimeShell} -e
 
-        command="${config.custom.programs.shell.shellAliases.rsync}"
+        command="${pkgs.rsync}/bin/rsync ${concatStringsSep " " rsyncOptions}"
         host_name=private.xenon.wlan
         restore=
 
@@ -55,7 +76,7 @@ in
           opt="$1"
           shift
           case $opt in
-            --dry-run) command="echo rsync" ;;
+            --dry-run) command="$command --dry-run" ;;
             --local) host_name=private.local.xenon.wlan ;;
             --restore) restore=1 ;;
             *)
@@ -65,14 +86,20 @@ in
           esac
         done
 
+        echo
         ${concatStringsSep " " (
           mapAttrsToList
             (source: dest: ''
+              echo "========== ${source} =========="
+              echo
+
               if [[ -z $restore ]]; then
                 $command ${source} "$host_name:/storage/documents/${dest}"
               else
                 $command "$host_name:/storage/documents/${dest}/$(basename ${source})" $(dirname ${source})
               fi
+
+              echo
             '')
             cfg.config
         )}
