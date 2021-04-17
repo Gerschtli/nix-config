@@ -14,6 +14,9 @@ in
     jdk15             # need jdk15
     jetbrains         # need bleeding edge version
     mob               # need bleeding edge version
+    portfolio         # need bleeding edge version
     terraform         # need bleeding edge version
   ;
+
+  nnn = unstable.nnn.override { withNerdIcons = true; };
 }

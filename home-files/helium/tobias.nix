@@ -9,6 +9,13 @@
       private = true;
     };
 
+    misc.backup = {
+      enable = true;
+      config = {
+        "~/Documents/finance" = ".";
+      };
+    };
+
     misc.sdks = {
       enable = true;
       links = {
@@ -22,6 +29,8 @@
   };
 
   home.packages = with pkgs; [
+    nnn
+    portfolio
     zoom-us
   ];
 }
