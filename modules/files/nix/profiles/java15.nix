@@ -4,9 +4,9 @@ mkShell {
   name = "java15";
 
   buildInputs = [
-    jdk15
+    nur-gerschtli.jdk15
     terraform
   ];
 
-  JAVA_HOME = "${jdk15}/lib/openjdk";
+  JAVA_HOME = "${nur-gerschtli.jdk15}/lib/openjdk";
 }
