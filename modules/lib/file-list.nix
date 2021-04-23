@@ -2,9 +2,9 @@
 
 let
   inherit (builtins) readDir;
-  inherit (lib) flatten mapAttrsToList;
+  inherit (lib) flatten hasSuffix mapAttrsToList optional;
 
-  getFileList = recursive: path:
+  getFileList = recursive: isValidFile: path:
     let
       contents = readDir path;
 
@@ -16,9 +16,9 @@ let
             if type == "directory"
             then
               if recursive
-              then getFileList true newPath
+              then getFileList true isValidFile newPath
               else [ ]
-            else [ newPath ]
+            else optional (isValidFile newPath) newPath
         )
         contents;
     in
@@ -26,6 +26,6 @@ let
 in
 
 {
-  getFileList = getFileList false;
-  getRecursiveFileList = getFileList true;
+  getFileList = getFileList false (x: true);
+  getRecursiveNixFileList = getFileList true (hasSuffix ".nix");
 }

@@ -8,7 +8,7 @@ let
 in
 
 {
-  inherit (fileList) getFileList getRecursiveFileList;
+  inherit (fileList) getFileList getRecursiveNixFileList;
 
   inherit (wrapProgram) wrapProgram;
 
