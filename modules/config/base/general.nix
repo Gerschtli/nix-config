@@ -42,6 +42,8 @@ in
       enable = mkEnableOption "basic config" // { default = true; };
 
       lightWeight = mkEnableOption "light weight config for low performance hosts";
+
+      osx = mkEnableOption "osx config";
     };
 
   };
