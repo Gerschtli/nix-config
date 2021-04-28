@@ -67,7 +67,6 @@ in
       google-cloud-sdk
 
       docker_compose
-      mob
       slack
       soapui
     ];
