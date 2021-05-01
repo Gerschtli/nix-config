@@ -31,6 +31,7 @@
   home.packages = with pkgs; [
     nnn
     portfolio
+    skypeforlinux
     zoom-us
   ];
 }
