@@ -15,6 +15,7 @@ in
     google-cloud-sdk
     jetbrains
     portfolio
+    teamspeak_server
     terraform
   ;
 
