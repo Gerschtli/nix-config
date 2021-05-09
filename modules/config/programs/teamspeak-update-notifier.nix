@@ -15,7 +15,6 @@ let
 
     [notifier]
     server_group_id = 6
-    current_version = ${lib.getVersion pkgs.teamspeak_server.name}
   '';
 in
 
