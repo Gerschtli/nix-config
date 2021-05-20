@@ -59,7 +59,7 @@ in
     };
 
     users = {
-      # groups.jackaudio = {};
+      groups.jackaudio = {};
 
       users.tobias = {
         extraGroups = [ "audio" "jackaudio" ];
