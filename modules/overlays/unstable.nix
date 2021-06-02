@@ -17,6 +17,8 @@ in
     portfolio
     teamspeak_server
     terraform
+
+    jdk16
   ;
 
   nnn = unstable.nnn.override { withNerdIcons = true; };

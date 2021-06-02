@@ -39,7 +39,7 @@ in
         enable = true;
         links = {
           inherit (pkgs.nur-gerschtli) jdk14 jdk15;
-          inherit (pkgs) jdk8 jdk11 python36 python37 python38 python39;
+          inherit (pkgs) jdk8 jdk11 jdk16 python36 python37 python38 python39;
         };
       };
 
