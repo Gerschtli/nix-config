@@ -35,7 +35,10 @@ in
 
     custom.system.firewall.enable = true;
 
-    environment.shellAliases = mkForce { };
+    environment = {
+      defaultPackages = [ ];
+      shellAliases = mkForce { };
+    };
 
     home-manager = {
       backupFileExtension = "hm-bak";
