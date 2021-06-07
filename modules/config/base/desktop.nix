@@ -53,8 +53,8 @@ in
 
       fonts = {
         enableDefaultFonts = true;
-        enableFontDir = true;
         enableGhostscriptFonts = true;
+        fontDir.enable = true;
 
         fonts = with pkgs; [
           nur-gerschtli.nerdfonts-ubuntu-mono
@@ -134,10 +134,12 @@ in
 
           xserver.libinput = mkIf cfg.enableXserver {
             enable = true;
-            accelProfile = "flat";
-            additionalOptions = ''
-              Option "TappingButtonMap" "lmr"
-            '';
+            touchpad = {
+              accelProfile = "flat";
+              additionalOptions = ''
+                Option "TappingButtonMap" "lmr"
+              '';
+            };
           };
         };
 
