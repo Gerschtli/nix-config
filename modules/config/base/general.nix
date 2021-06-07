@@ -105,7 +105,7 @@ in
         whois
       ];
 
-      stateVersion = "20.09";
+      stateVersion = "21.05";
     };
 
     programs.home-manager.enable = true;
