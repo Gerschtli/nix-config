@@ -93,14 +93,6 @@ in
 
       sound.enable = true;
 
-      systemd.mounts = [
-        {
-          where = "/tmp";
-          what = "tmpfs";
-          options = "mode=1777,strictatime,nosuid,nodev,size=8G";
-        }
-      ];
-
       xdg = {
         autostart.enable = true;
         icons.enable = true;
