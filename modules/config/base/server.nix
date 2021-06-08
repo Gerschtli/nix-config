@@ -65,6 +65,10 @@ in
       dates = "Mon *-*-* 07:00:00";
     };
 
+    systemd.services.nixos-upgrade.script = mkBefore ''
+      ${config.nix.package}/bin/nix-channel --update
+    '';
+
   };
 
 }
