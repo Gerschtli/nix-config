@@ -70,7 +70,7 @@ _send_commands() {
 _arrange_panes() {
     local list_panes_file=$(mktemp)
     tmux list-panes > "${list_panes_file}"
-    [ $(wc -l "${list_panes_file}") != 1 ] && tmux kill-pane -a -t $TMUX_PANE
+    [[ $(wc -l "${list_panes_file}") != 1 ]] && tmux kill-pane -a -t $TMUX_PANE
     rm -f "${list_panes_file}"
 
     local index=1
