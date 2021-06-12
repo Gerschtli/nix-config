@@ -11,7 +11,7 @@ let
     builtins.readFile
     (config.lib.custom.getFileList ./gitignores);
 
-  commitMsgTemplate = link: ''
+  commitMsgTemplate = ''
 
     # (If applied, this commit will...) <subject> (Max 50 char)
     # |<----  Using a Maximum Of 50 Characters  ---->|
@@ -23,7 +23,6 @@ let
 
     # Provide links or keys to any relevant tickets, articles or other resources
     # Example: Github issue #23
-    ${link}
 
 
     # --- COMMIT END ---
@@ -167,7 +166,7 @@ in
 
         commit = {
           status = true;
-          template = writeFile "commit.msg" (commitMsgTemplate "");
+          template = writeFile "commit.msg" commitMsgTemplate;
         };
 
         core = {
@@ -278,49 +277,6 @@ in
           };
         };
       };
-
-      includes = [
-        {
-          condition = "gitdir:~/projects/pveu/";
-
-          contents = {
-            alias = {
-              bcs = "!${pkgs.writeScript "create-sub-branch" ''
-                #!${pkgs.runtimeShell}
-
-                if [[ $# -lt 2 || ! $1 =~ ^[0-9]+$ ]]; then
-                  >&2 echo "USAGE: git bcs <number> <description>"
-                  exit 1
-                fi
-
-                DESCRIPTION="$@"
-
-                BRANCH=$(git rev-parse --abbrev-ref HEAD)
-
-                if [[ "$BRANCH" =~ ^(FEATURES-[0-9]{3,})- ]]; then
-                  FEATURE="''${BASH_REMATCH[1]}"
-                else
-                  >&2 echo "Be sure to be on a feature branch"
-                  exit 2
-                fi
-
-                git checkout -b $FEATURE-''${DESCRIPTION// /-}
-              ''}";
-            };
-
-            commit.template = writeFile "commit.msg" (commitMsgTemplate "BRANCH_NAME");
-
-            core.excludesfile =
-              let
-                ignoreListPveu = ignoreList ++ [ ".envrc" "shell.nix" ];
-                content = concatStringsSep "\n" ignoreListPveu + "\n";
-              in
-                writeFile "gitignore" content;
-
-            user.email = "th@preisvergleich.eu";
-          };
-        }
-      ];
     };
 
   };

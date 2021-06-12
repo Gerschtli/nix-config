@@ -202,7 +202,7 @@ in
             fi
           done
 
-          for dir in ${config.home.homeDirectory}/projects/* ${config.home.homeDirectory}/projects/pveu/*; do
+          for dir in ${config.home.homeDirectory}/projects/*; do
             LIST+=("$(basename "$dir")")
           done
 

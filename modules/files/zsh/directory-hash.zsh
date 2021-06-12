@@ -38,12 +38,6 @@ _set-hashes() {
         for i in "${projects}"/*(/); do
             hash -d "p-$(basename ${i})"="${i}"
         done
-
-        if [[ -d "${projects}/pveu" ]]; then
-            for i in "${projects}/pveu"/*(/); do
-                hash -d "w-$(basename ${i})"="${i}"
-            done
-        fi
     fi
 }
 
