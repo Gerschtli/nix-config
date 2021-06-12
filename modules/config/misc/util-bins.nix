@@ -4,8 +4,6 @@ with lib;
 
 let
   cfg = config.custom.misc.util-bins;
-
-  bins = [ "$" "256colors.pl" "conf-status" "system-update" ] ++ cfg.bins;
 in
 
 {
@@ -19,7 +17,7 @@ in
       enable = mkEnableOption "some utility binaries";
 
       bins = mkOption {
-        type = types.listOf (types.enum [ "clean-projects" "csv-check" "update-projects" ]);
+        type = types.listOf (types.enum [ "$" "256colors.pl" "conf-status" "system-update" ]);
         default = [];
         description = "List of bins to install.";
       };
@@ -33,6 +31,8 @@ in
 
   config = mkIf cfg.enable {
 
+    custom.misc.util-bins.bins = [ "$" "256colors.pl" "conf-status" "system-update" ];
+
     home.packages = [
       (pkgs.stdenv.mkDerivation {
         name = "util-bins";
@@ -42,7 +42,7 @@ in
         installPhase = ''
           mkdir -p $out/bin
 
-          ${lib.concatMapStringsSep "\n" (bin: "install -m 0755 ${bin} $out/bin") bins}
+          ${lib.concatMapStringsSep "\n" (bin: "install -m 0755 ${bin} $out/bin") cfg.bins}
         '';
       })
     ];

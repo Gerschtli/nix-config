@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-for i in "${HOME}/projects/pveu/"*/; do
-    echo "${i}"
-    git -C "${i}" cn
-    echo
-done
