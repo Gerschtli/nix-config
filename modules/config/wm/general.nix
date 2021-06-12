@@ -15,9 +15,7 @@ let
     trap revert HUP INT TERM
     ${pkgs.xorg.xset}/bin/xset +dpms dpms 3 3 3
 
-    ${if cfg.useSlock then "slock" else ''
-      ${pkgs.i3lock-fancy}/bin/i3lock-fancy --nofork --text "" -- ${pkgs.scrot}/bin/scrot --silent --overwrite
-    ''}
+    ${pkgs.i3lock-fancy}/bin/i3lock-fancy --nofork --text "" -- ${pkgs.scrot}/bin/scrot --silent --overwrite
 
     revert
   '';
@@ -31,11 +29,6 @@ in
 
     custom.wm.general = {
       enable = mkEnableOption "common config for window-managers";
-
-      # FIXME: i3lock throws error on ubuntu: "i3lock-color: Cannot grab pointer/keyboard"
-      useSlock = mkEnableOption "slock as screen locker";
-
-      useSudoForHibernate = mkEnableOption "to use sudo for hibernate command";
 
       lockScreenPackage = mkOption {
         type = types.package;
@@ -77,13 +70,13 @@ in
 
             if ${pkgs.gnome3.zenity}/bin/zenity --question \
                 --text="Are you sure you want to ${item.message}?" 2> /dev/null; then
-              ${if item ? sudo && item.sudo then "sudo systemctl" else "${pkgs.systemd}/bin/systemctl"} ${item.command}
+              ${pkgs.systemd}/bin/systemctl ${item.command}
             fi
           ''
         )
         [
           { command = "poweroff"; name = "halt";       message = "halt the system"; }
-          { command = "hibernate";                     message = "suspend to disk"; sudo = cfg.useSudoForHibernate; }
+          { command = "hibernate";                     message = "suspend to disk"; }
           { command = "hybrid-sleep";                  message = "suspend to disk and ram"; }
           { command = "reboot";                        message = "reboot"; }
           { command = "suspend"; name = "sys-suspend"; message = "suspend to ram"; }
