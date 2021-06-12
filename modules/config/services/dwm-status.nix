@@ -18,8 +18,6 @@ in
       audio = mkEnableOption "audio feature" // { default = true; };
 
       laptop = mkEnableOption "laptop config";
-
-      useGlobalAlsaUtils = mkEnableOption "use global alsa utils instead of nix' one";
     };
 
   };
@@ -32,10 +30,7 @@ in
     services.dwm-status = {
       enable = true;
 
-      package =
-        if cfg.useGlobalAlsaUtils
-        then pkgs.nur-gerschtli.dwm-status-without-alsa-utils
-        else pkgs.nur-gerschtli.dwm-status;
+      package = pkgs.nur-gerschtli.dwm-status;
 
       order =
         let
