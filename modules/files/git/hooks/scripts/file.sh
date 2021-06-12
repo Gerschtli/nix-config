@@ -18,23 +18,6 @@ check() {
 
     # test for trailing whitespaces
     $git diff-index --check --cached $against --; track_result
-
-    if [[ -z "${GIT_HOOKS_MAX_LINE_LENGTH}" ]]; then
-        return
-    fi
-
-    # test for lines longer than x chars in added lines
-    [[ $($git diff --cached | grep "^\+" | sed -e 's,^\+,,' | wc -L) -le "${GIT_HOOKS_MAX_LINE_LENGTH}" ]]
-    local last_result=$?
-    track_result ${last_result}
-
-    if [[ ${last_result} != 0 ]]; then
-        echo "Max line length of ${GIT_HOOKS_MAX_LINE_LENGTH} is exeeded!"
-        echo
-        printf '=%.0s' $(seq 2 ${GIT_HOOKS_MAX_LINE_LENGTH}) && echo "|"
-        $git diff --cached | grep -C 2 "^\+.\{$((${GIT_HOOKS_MAX_LINE_LENGTH} + 1)),\}" | sed -e 's,^[+-],,'
-        printf '=%.0s' $(seq 2 ${GIT_HOOKS_MAX_LINE_LENGTH}) && echo "|"
-    fi
 }
 
 case "${HOOK_TYPE}" in
