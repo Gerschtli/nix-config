@@ -74,7 +74,7 @@ _is_root() {
 _clone_ssh() {
     local directory="${1}"
 
-    for name in private pveu vcs; do
+    for name in private vcs; do
         if [[ "${name}" == "vcs" ]] || _prompt "Install ssh repo ${name}?"; then
             _clone "ssh repo ${name}" gitea@git.tobias-happ.de:Gerschtli/ssh-${name}.git "${directory}/${name}"
         fi
