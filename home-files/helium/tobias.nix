@@ -19,7 +19,7 @@
     misc.sdks = {
       enable = true;
       links = {
-        inherit (pkgs.nur-gerschtli) jdk15;
+        inherit (pkgs) jdk11;
       };
     };
 
