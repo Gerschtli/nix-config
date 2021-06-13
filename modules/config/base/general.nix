@@ -85,6 +85,7 @@ in
         httpie
         iotop
         jq
+        mmv-go
         ncat # nmap
         ncdu
         nload # network traffic monitor
