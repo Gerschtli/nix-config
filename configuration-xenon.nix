@@ -44,9 +44,15 @@ in
   # hardware.bluetooth.enable = true;
 
   # Need to run: wpa_passphrase ESSID PSK > /etc/wpa_supplicant.conf
-  networking.wireless.enable = true;
+  networking.wireless = {
+    enable = true;
+    interfaces = [ "wlan0" ];
+  };
 
   # needed because wpa_supplicant fails on startup
   # see https://github.com/NixOS/nixpkgs/issues/82462
-  systemd.services.wpa_supplicant.serviceConfig.Restart = "always";
+  systemd.services.wpa_supplicant.serviceConfig = {
+    Restart = "always";
+    RestartSec = 5;
+  };
 }
