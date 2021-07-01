@@ -35,6 +35,12 @@ in
         description = "SSH modules to enable.";
       };
 
+      useGithub = mkOption {
+        type = types.enum [ "vcs" ];
+        default = "vcs";
+        description = "SSH module to use for github.com host.";
+      };
+
     };
 
   };
@@ -179,6 +185,7 @@ in
                 sshModule = import "${directorySource}/${module}" {
                   inherit lib;
                   path = "${directoryDestination}/${module}";
+                  useGithub = cfg.useGithub == module;
                 };
               in
                 map
