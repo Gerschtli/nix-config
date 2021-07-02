@@ -12,8 +12,6 @@
 
       downloads.enable = true;
 
-      jamulus.enable = true;
-
       tobias-happ.enable = true;
     };
 
