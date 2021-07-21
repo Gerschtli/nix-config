@@ -177,7 +177,7 @@ elif ! _is_nixos && ! _is_root; then
         _log "Run nix-on-droid switch..."
         nix-on-droid switch --verbose
     else
-        if ! hash home-manager 2>&1; then
+        if ! hash home-manager 2>&1 > /dev/null; then
             _log "Install home-manager..."
             nix-shell '<home-manager>' -A install
         fi
