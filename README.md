@@ -6,6 +6,7 @@ corresponding library of custom modules.
 Provides `home.nix` files for each host and user in `home-files` with the structure `home-files/<host>/<user>.nix`:
 
 * `argon`: private laptop
+* `gamer`: wsl2 (ubuntu)
 * `localhost`: android phone (based on [nix-on-droid](https://github.com/t184256/nix-on-droid-bootstrap))
 * `krypton`: server
 * `xenon`: raspberry pi
