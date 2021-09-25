@@ -13,7 +13,8 @@ nixos="/etc/nixos"
 nixos_hm="${nixos}/home-manager-configurations"
 dotfiles="${HOME}/.dotfiles"
 dotfiles_hm="${dotfiles}/home-manager/home-manager-configurations"
-ssh_path="modules/secrets/ssh/modules"
+secrets_path="modules/secrets"
+ssh_path="${secrets_path}/ssh/modules"
 
 _log() {
     echo
@@ -113,6 +114,12 @@ if _is_nixos && _is_root; then
     if _prompt "Remove ${nixos} and clone configurations?"; then
         rm -rf /etc/nixos
         _clone "nixos" git@github.com:Gerschtli/nixos-configurations.git "${nixos}"
+    fi
+
+    secrets_repo_host=$(_get_input "Enter host name for nixos secrets" neon xenon "")
+    if [[ "${secrets_repo}" != "" ]]; then
+        secrets_repo="secrets-${secrets_repo}-nixos"
+        _clone "${secrets_repo}" "gitea@git.tobias-happ.de:Gerschtli/${secrets_repo}.git" "${nixos}/${secrets_path}"
     fi
 
     _clone "home-manager-configurations" git@github.com:Gerschtli/home-manager-configurations.git "${nixos_hm}"
