@@ -93,14 +93,15 @@ nixos_hm="${nixos}/home-manager-configurations"
 dotfiles="${HOME}/.dotfiles"
 dotfiles_hm="${dotfiles}/home-manager/home-manager-configurations"
 
-pull_changes "nixos"        "${nixos}"
-pull_changes "home-manager" "${nixos_hm}"
-pull_changes_ssh            "${nixos_hm}"
-pull_changes "dotfiles"     "${dotfiles}"
-pull_changes "gpg"          "${dotfiles}/gpg"
-pull_changes "home-manager" "${dotfiles_hm}"
-pull_changes_ssh            "${dotfiles_hm}"
-pull_changes "pass"         "${HOME}/.password-store"
+pull_changes "nixos"         "${nixos}"
+pull_changes "nixos secrets" "${nixos}/modules/secrets"
+pull_changes "home-manager"  "${nixos_hm}"
+pull_changes_ssh             "${nixos_hm}"
+pull_changes "dotfiles"      "${dotfiles}"
+pull_changes "gpg"           "${dotfiles}/gpg"
+pull_changes "home-manager"  "${dotfiles_hm}"
+pull_changes_ssh             "${dotfiles_hm}"
+pull_changes "pass"          "${HOME}/.password-store"
 
 
 # dotfiles bootstrap
