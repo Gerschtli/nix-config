@@ -13,7 +13,7 @@ in
   options = {
 
     custom.ids = {
-      enable = mkEnableOption "custom uids and gids";
+      enable = mkEnableOption "custom uids and gids" // { default = true; };
 
       uids = mkOption {
         type = types.attrs;

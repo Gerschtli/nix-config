@@ -10,8 +10,6 @@ in
   custom = {
     base.server.enable = true;
 
-    ids.enable = true;
-
     services = {
       ip-watcher.client = {
         enable = true;

@@ -9,8 +9,6 @@
       laptop = true;
     };
 
-    ids.enable = true;
-
     programs = {
       arduino.enable = true;
 
