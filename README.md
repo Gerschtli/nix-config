@@ -6,7 +6,6 @@ modules.
 ## Nodes
 
 * `argon`: personal laptop
-* `helium`: personal desktop
 * `krypton`: server
 * `xenon`: raspberry pi
 

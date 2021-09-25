@@ -157,7 +157,7 @@ fi
 
 
 if _is_nixos && _is_root; then
-    parameter=$(_get_input "Enter hostname" argon helium krypton xenon)
+    parameter=$(_get_input "Enter hostname" argon krypton xenon)
     ln -sf "${nixos}/configuration-${parameter}.nix" "${nixos}/configuration.nix"
     nixos-rebuild switch || _prompt "Was nixos-rebuild successful?"
 
