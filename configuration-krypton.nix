@@ -5,11 +5,6 @@
 
   custom = {
     applications = {
-      car-stats = {
-        enable = true;
-        containerID = 1;
-      };
-
       downloads.enable = true;
 
       tobias-happ.enable = true;
@@ -29,8 +24,6 @@
       backup.enable = true;
 
       gitea.enable = true;
-
-      # hercules-ci-agent.enable = true;
 
       ip-watcher.server.enable = true;
 
