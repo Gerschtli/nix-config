@@ -116,7 +116,7 @@ if _is_nixos && _is_root; then
         _clone "nixos" git@github.com:Gerschtli/nixos-configurations.git "${nixos}"
     fi
 
-    secrets_repo_host=$(_get_input "Enter host name for nixos secrets" neon xenon "")
+    secrets_repo_host=$(_get_input "Enter host name for nixos secrets" krypton xenon "")
     if [[ "${secrets_repo}" != "" ]]; then
         secrets_repo="secrets-${secrets_repo}-nixos"
         _clone "${secrets_repo}" "gitea@git.tobias-happ.de:Gerschtli/${secrets_repo}.git" "${nixos}/${secrets_path}"
