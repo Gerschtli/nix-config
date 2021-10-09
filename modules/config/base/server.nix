@@ -60,6 +60,10 @@ in
       };
     };
 
+    services.journald.extraConfig = ''
+      SystemMaxUse=2G
+    '';
+
     system.autoUpgrade = {
       enable = true;
       dates = "Mon *-*-* 07:00:00";
