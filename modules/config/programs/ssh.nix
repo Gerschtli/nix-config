@@ -108,11 +108,11 @@ in
         # use xargs so that activation fails if one cp/chmod command fails
         ${concatMapStringsSep "\n" (module: ''
           $DRY_RUN_CMD find . -type f -path "./${module}/keys/*" -print0 | \
-            xargs -0 -n 1 -I % cp $VERBOSE_ARG --archive --parents "%" "${directoryDestination}"
+            xargs -0 -I % cp $VERBOSE_ARG --archive --parents "%" "${directoryDestination}"
         '') cfg.modules}
 
         $DRY_RUN_CMD find "${directoryDestination}" -type f -path "*/keys/*" -print0 | \
-          xargs -0 -n 1 -I % chmod 0600 "%"
+          xargs -0 -I % chmod 0600 "%"
 
         $DRY_RUN_CMD popd > /dev/null
       '';
