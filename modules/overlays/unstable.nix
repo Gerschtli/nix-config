@@ -13,6 +13,8 @@ in
     jetbrains
     portfolio
     teamspeak_server
+
+    ventoy-bin
   ;
 
   nnn = unstable.nnn.override { withNerdIcons = true; };
