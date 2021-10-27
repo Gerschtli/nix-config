@@ -103,16 +103,22 @@ in
               concatMapStringsSep
                 "\n"
                 (server: ''
-                  ${pkgs.rsync}/bin/rsync --archive --verbose --compress --whole-file \
-                    --prune-empty-dirs --include "*/"  --include="*.gpg" --exclude="*" \
+                  ${pkgs.rsync}/bin/rsync \
+                    --archive \
+                    --compress \
+                    --include "*.gpg" \
+                    --prune-empty-dirs \
+                    --verbose \
+                    --whole-file \
                     --rsh "${pkgs.openssh}/bin/ssh \
-                      -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
+                      -o UserKnownHostsFile=/dev/null \
+                      -o StrictHostKeyChecking=no \
                       -i ${config.lib.custom.path.secrets + "/id_rsa.backup"}" \
                     "${backupUser}@${server.ip}:${config.custom.services.backup.location}/*" \
-                    ${backupDir}/${server.name}
+                    "${backupDir}/${server.name}"
                 '')
                 cfg.server
-              }
+            }
 
             find ${backupDir} -type f -mtime +${toString cfg.expiresAfter} -exec rm {} \+
           '';
