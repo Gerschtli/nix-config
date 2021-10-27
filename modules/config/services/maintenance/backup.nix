@@ -148,6 +148,7 @@ in
         systemUsers.${user} = {
           home = cfg.location;
 
+          packages = [ pkgs.rsync ];
           sshKeys = [
             (config.lib.custom.path.files + "/keys/id_rsa.backup.pub")
           ];

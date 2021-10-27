@@ -30,6 +30,14 @@ let
         '';
       };
 
+      packages = mkOption {
+        type = types.listOf types.package;
+        default = [];
+        description = ''
+          List of packages.
+        '';
+      };
+
       sshKeys = mkOption {
         type = types.listOf types.path;
         default = [];
@@ -76,7 +84,7 @@ in
         };
 
         users.${user.name} = {
-          inherit (user) createHome;
+          inherit (user) createHome packages;
 
           # FIXME: move mkIf to ids module
           uid = mkIf config.custom.ids.enable config.custom.ids.uids.${user.name};
