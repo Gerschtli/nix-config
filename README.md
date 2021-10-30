@@ -7,6 +7,7 @@ modules.
 
 * `argon`: personal laptop
 * `krypton`: server
+* `neon`: personal laptop
 * `xenon`: raspberry pi
 
 ## Set up
