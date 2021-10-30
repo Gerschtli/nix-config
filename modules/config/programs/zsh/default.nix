@@ -41,9 +41,9 @@ in
         alias -g G="| grep"
         alias -g P="| $PAGER"
 
-        ${builtins.readFile (config.lib.custom.path.files + "/zsh/completion.zsh")}
-        ${builtins.readFile (config.lib.custom.path.files + "/zsh/directory-hash.zsh")}
-        ${builtins.readFile (config.lib.custom.path.files + "/zsh/keybindings.zsh")}
+        ${builtins.readFile ./completion.zsh}
+        ${builtins.readFile ./directory-hash.zsh}
+        ${builtins.readFile ./keybindings.zsh}
       '';
 
       plugins = [
