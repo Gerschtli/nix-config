@@ -30,4 +30,25 @@ with lib;
 
         chmod +x "$file"
       '';
+
+  buildZshCompletion = name: file: substitutes:
+    pkgs.runCommand
+      "${name}-completion"
+      (substitutes // {
+        inherit name;
+      })
+      ''
+        file=$out/share/zsh/site-functions/_${name}
+        mkdir --parents $out/share/zsh/site-functions
+
+        cat "${./preamble.completion.zsh}" "${file}" > "$file"
+        substituteAllInPlace "$file"
+
+        ${pkgs.shellcheck}/bin/shellcheck \
+          --check-sourced \
+          --enable all \
+          --external-sources \
+          --shell bash \
+          "$file"
+      '';
 }
