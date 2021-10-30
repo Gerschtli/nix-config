@@ -9,21 +9,15 @@ let
   devNixpkgs = "/home/tobias/projects/nixpkgs";
   devNurGerschtli = "/home/tobias/projects/nur-packages";
 
-  buildWithDiff = buildCommand: activeLinkPath: toString (pkgs.writeScript "build-with-diff" ''
-    #!${pkgs.runtimeShell} -e
-
-    ${buildCommand}
-
-    echo
-
-    # see https://github.com/madjar/nox/issues/63#issuecomment-303280129
-    nox-update --quiet ${activeLinkPath} result | \
-        grep -v '\.drv : $' | \
-        sed 's|^ */nix/store/[a-z0-9]*-||' | \
-        sort -u
-
-    rm result
-  '');
+  buildWithDiff = name: command: activeLinkPath:
+    config.lib.custom.buildScript
+      name
+      ./build-with-diff.sh
+      [ pkgs.nox ]
+      {
+        inherit activeLinkPath command;
+        _doNotClearPath = true;
+      };
 in
 
 {
@@ -47,21 +41,27 @@ in
 
     (mkIf cfg.home-manager.enable {
       custom.programs.shell.shellAliases = {
-        hm-build  = buildWithDiff "home-manager build" "/nix/var/nix/profiles/per-user/tobias/home-manager";
         hm-switch = "home-manager switch -b hm-bak";
       };
+
+      home.packages = [
+        (buildWithDiff "hm-build" "home-manager" "/nix/var/nix/profiles/per-user/tobias/home-manager")
+      ];
     })
 
     (mkIf cfg.nix-on-droid.enable {
       custom.programs.shell.shellAliases = {
-        nod-build  = buildWithDiff "nix-on-droid build" "/nix/var/nix/profiles/nix-on-droid";
         nod-switch = "nix-on-droid switch";
       };
-    })
+
+      home.packages = [
+        (buildWithDiff "nod-build" "nix-on-droid" "/nix/var/nix/profiles/nix-on-droid")
+      ];
+     })
 
     (mkIf cfg.nixos.enable {
       custom.programs.shell.shellAliases = {
-        n-rebuild-build   = buildWithDiff "nixos-rebuild build" "/run/current-system";
+        n-rebuild-dev     = "nixos-rebuild test --fast";
         n-rebuild-dev-all = "nixos-rebuild test --fast -I home-manager=${devHomeManager} -I nixpkgs=${devNixpkgs}";
         n-rebuild-dev-hm  = "nixos-rebuild test --fast -I home-manager=${devHomeManager}";
         n-rebuild-dev-ng  = "nixos-rebuild test --fast -I nur-gerschtli=${devNurGerschtli}";
@@ -69,7 +69,11 @@ in
         n-rebuild-switch  = "nixos-rebuild switch";
         n-rebuild-test    = "nixos-rebuild test";
       };
-    })
+
+      home.packages = [
+        (buildWithDiff "n-rebuild-build" "nixos-rebuild" "/run/current-system")
+      ];
+     })
 
   ];
 
