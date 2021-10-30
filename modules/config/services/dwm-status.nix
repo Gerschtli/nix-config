@@ -18,6 +18,14 @@ in
       audio = mkEnableOption "audio feature" // { default = true; };
 
       laptop = mkEnableOption "laptop config";
+
+      backlightDevice = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = ''
+          Name of backlight device.
+        '';
+      };
     };
 
   };
@@ -58,6 +66,7 @@ in
 
         (mkIf cfg.laptop {
           backlight = {
+            device = cfg.backlightDevice;
             template = "{ICO} {BL}%";
             icons = [ "" "" "" ];
           };
