@@ -61,7 +61,7 @@ in
     };
 
     home.packages = [
-      (config.lib.custom.buildScript
+      (config.lib.custom.mkScript
         "local-backup"
         ./local-backup.sh
         [ pkgs.openssh pkgs.rsync ]

@@ -3,7 +3,7 @@
 with lib;
 
 {
-  buildScript = name: file: path: envs:
+  mkScript = name: file: path: envs:
     pkgs.runCommand
       name
       (envs // {
@@ -31,7 +31,7 @@ with lib;
         chmod +x "$file"
       '';
 
-  buildZshCompletion = name: file: substitutes:
+  mkZshCompletion = name: file: substitutes:
     pkgs.runCommand
       "${name}-completion"
       (substitutes // {

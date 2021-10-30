@@ -6,7 +6,7 @@ let
   cfg = config.custom.wm.general;
 
   lockScreenPackage =
-    config.lib.custom.buildScript
+    config.lib.custom.mkScript
       "lock-screen"
       ./lock-screen.sh
       [ pkgs.i3lock-fancy pkgs.scrot pkgs.xorg.xset ]
@@ -47,7 +47,7 @@ in
       pkgs.pavucontrol
       pkgs.xdg_utils
 
-      (config.lib.custom.buildScript
+      (config.lib.custom.mkScript
         "inhibit-suspend"
         ./inhibit-suspend.sh
         [ lockScreenPackage pkgs.systemd ]
@@ -56,7 +56,7 @@ in
     ] ++ (
       map
         (item:
-          config.lib.custom.buildScript
+          config.lib.custom.mkScript
             (if item ? name then item.name else item.command)
             ./wm-script.sh
             [ pkgs.gnome3.zenity pkgs.systemd ]

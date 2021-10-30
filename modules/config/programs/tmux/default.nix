@@ -172,14 +172,14 @@ in
     custom.programs.shell.shellAliases.tmux = "tmux -2";
 
     home.packages = [
-      (config.lib.custom.buildScript
+      (config.lib.custom.mkScript
         "tprofile"
         ./tprofile.sh
         [ pkgs.tmux ]
         { inherit tmuxProfiles; }
       )
 
-      (config.lib.custom.buildZshCompletion
+      (config.lib.custom.mkZshCompletion
         "tprofile"
         ./tprofile-completion.zsh
         { inherit tmuxProfiles; }

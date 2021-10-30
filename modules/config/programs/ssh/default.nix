@@ -120,7 +120,7 @@ in
       packages = [
         pkgs.openssh
 
-        (config.lib.custom.buildZshCompletion
+        (config.lib.custom.mkZshCompletion
           "kadd"
           ./kadd-completion.zsh
           { inherit directoryDestination; }

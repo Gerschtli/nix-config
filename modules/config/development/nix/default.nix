@@ -10,7 +10,7 @@ let
   devNurGerschtli = "/home/tobias/projects/nur-packages";
 
   buildWithDiff = name: command: activeLinkPath:
-    config.lib.custom.buildScript
+    config.lib.custom.mkScript
       name
       ./build-with-diff.sh
       [ pkgs.nox ]

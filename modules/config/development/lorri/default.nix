@@ -24,14 +24,14 @@ in
   config = mkIf cfg.enable {
 
     home.packages = [
-      (config.lib.custom.buildScript
+      (config.lib.custom.mkScript
         "lorri-init"
         ./lorri-init.sh
         [ pkgs.direnv pkgs.lorri pkgs.nix ]
         { inherit nixProfilesDir; }
       )
 
-      (config.lib.custom.buildZshCompletion
+      (config.lib.custom.mkZshCompletion
         "lorri-init"
         ./lorri-init-completion.zsh
         { inherit nixProfilesDir; }
