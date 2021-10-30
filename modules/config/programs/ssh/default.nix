@@ -120,27 +120,11 @@ in
       packages = [
         pkgs.openssh
 
-        (pkgs.writeTextFile {
-          name = "_kadd";
-          destination = "/share/zsh/site-functions/_kadd";
-          text = ''
-            #compdef kadd
-
-            LIST=()
-
-            for module in "${directoryDestination}/"*; do
-              prefix="$module/keys/id_rsa."
-              suffix=".pub"
-
-              for keyfile in "$prefix"*"$suffix"; do
-                  tmp="''${keyfile#$prefix}"
-                  LIST=("''${tmp//$suffix}" "$LIST")
-              done
-            done
-
-            _arguments "*:ssh keys:($LIST)"
-          '';
-        })
+        (config.lib.custom.buildZshCompletion
+          "kadd"
+          ./kadd-completion.zsh
+          { inherit directoryDestination; }
+        )
       ];
     };
 
