@@ -172,45 +172,18 @@ in
     custom.programs.shell.shellAliases.tmux = "tmux -2";
 
     home.packages = [
-      (pkgs.writeScriptBin "tprofile" ''
-        #!${pkgs.runtimeShell} -e
+      (config.lib.custom.buildScript
+        "tprofile"
+        ./tprofile.sh
+        [ pkgs.tmux ]
+        { inherit tmuxProfiles; }
+      )
 
-        exec ${config.lib.custom.path.files + "/tmux/bin/tprofile"} ${tmuxProfiles} $@
-      '')
-
-      (pkgs.writeTextFile {
-        name = "_tprofile";
-        destination = "/share/zsh/site-functions/_tprofile";
-        text = ''
-          #compdef tprofile
-
-          _directory_writable() {
-            unset ROOT
-            source "$1"
-            [[ -z "$ROOT" || -w "$ROOT" ]]
-          }
-
-          LIST=()
-          PATH_TO_CONF_DIR="${tmuxProfiles}"
-
-          prefix="${tmuxProfiles}/"
-          suffix=".sh"
-
-          for file in "$prefix"*"$suffix"; do
-            if _directory_writable "$file"; then
-              LIST+=("''${''${file#$prefix}//$suffix}")
-            fi
-          done
-
-          for dir in ${config.home.homeDirectory}/projects/*; do
-            LIST+=("$(basename "$dir")")
-          done
-
-          _arguments \
-            "1:profiles:($LIST)" \
-            "2:options:(--only-fetch)"
-        '';
-      })
+      (config.lib.custom.buildZshCompletion
+        "tprofile"
+        ./tprofile-completion.zsh
+        { inherit tmuxProfiles; }
+      )
     ];
 
     programs.tmux = {

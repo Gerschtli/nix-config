@@ -1,23 +1,14 @@
-#!/usr/bin/env bash
-
-PATH_TO_CONF_DIR="${1}"
-shift
 CONF_NAME="${1}"
-shift
+CONF="@tmuxProfiles@/${CONF_NAME}.sh"
+ONLY_FETCH=
 
-while true; do
-  case "${1}" in
-    --only-fetch ) ONLY_FETCH=true; shift ;;
-    * ) break ;;
-  esac
-done
-
-CONF="${PATH_TO_CONF_DIR}/${CONF_NAME}.sh"
+[[ "${2:-}" = "--only-fetch" ]] && ONLY_FETCH=1
 
 _check_requirements() {
-    [[ -z "${TMUX}" ]] && echo "command needs to be executed in tmux session" && exit 1
+    [[ -z "${TMUX}" || -z "${TMUX_PANE}" ]] && echo "command needs to be executed in tmux session" && exit 1
 
     if [[ -r "${CONF}" ]]; then
+        # shellcheck disable=SC1090
         source "${CONF}"
     elif [[ -d "${HOME}/projects/${CONF_NAME}" ]]; then
         ROOT="${HOME}/projects/${CONF_NAME}"
@@ -36,17 +27,15 @@ _process_profile() {
     CMD_PRIMARY="${CMD_PRIMARY:-}"
     SIDE_CMDS=("${SIDE_CMDS[@]}")
 
-    if [[ ! -z "${ONLY_FETCH}" ]]; then
+    if [[ -n "${ONLY_FETCH}" ]]; then
         PRESET="git-single"
     fi
 
-    case "${PRESET}" in
-        git-single )
-            CMD_PRIMARY="git fm"
-            CMD_SECONDARY=""
-            SIDE_CMDS=()
-            ;;
-    esac
+    if [[ "${PRESET}" = "git-single" ]]; then
+        CMD_PRIMARY="git fm"
+        CMD_SECONDARY=""
+        SIDE_CMDS=()
+    fi
 
     if [[ -f "${ROOT}/.envrc" ]]; then
         NIX_CMD="alias refresh-shell > /dev/null && refresh-shell"
@@ -57,33 +46,34 @@ _send_commands() {
     local index="${1}"
     local commands="${2}"
 
-    tmux send-keys -t :.$index "cd ${ROOT}" C-m "${NIX_CMD}" C-m "clear" C-m
+    tmux send-keys -t ":.${index}" "cd ${ROOT}" C-m "${NIX_CMD:-}" C-m "clear" C-m
 
-    if [[ ! -z "${commands}" ]]; then
+    if [[ -n "${commands}" ]]; then
         local IFS=":"
         for cmd in ${commands}; do
-            tmux send-keys -t :.$index "${cmd}" C-m
+            tmux send-keys -t ":.${index}" "${cmd}" C-m
         done
     fi
 }
 
 _arrange_panes() {
-    local list_panes_file=$(mktemp)
+    local list_panes_file
+    list_panes_file="$(mktemp)"
     tmux list-panes > "${list_panes_file}"
-    [[ $(wc -l "${list_panes_file}") != 1 ]] && tmux kill-pane -a -t $TMUX_PANE
+    [[ $(wc -l "${list_panes_file}") != 1 ]] && tmux kill-pane -a -t "${TMUX_PANE}"
     rm -f "${list_panes_file}"
 
     local index=1
-    _send_commands $index "${CMD_PRIMARY}"
+    _send_commands "${index}" "${CMD_PRIMARY}"
     for cmds in "${SIDE_CMDS[@]}"; do
-        index=$(($index + 1))
+        index=$((index + 1))
         tmux split-window
-        _send_commands $index "${cmds}"
+        _send_commands "${index}" "${cmds}"
     done
 
     tmux select-layout main-horizontal
 
-    if [[ ! -z "${CMD_SECONDARY}" ]]; then
+    if [[ -n "${CMD_SECONDARY}" ]]; then
         tmux select-pane -t :.1
         tmux split-window -h
         _send_commands 2 "${CMD_SECONDARY}"
