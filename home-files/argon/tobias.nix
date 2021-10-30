@@ -13,11 +13,11 @@
     misc = {
       backup = {
         enable = true;
-        config = {
-          "~/Documents/finance" = ".";
-          "~/Documents/general" = ".";
-          "~/Documents/sbb-kassenwart" = ".";
-        };
+        directories = [
+          "~/Documents/finance"
+          "~/Documents/general"
+          "~/Documents/sbb-kassenwart"
+        ];
       };
 
       sdks = {
