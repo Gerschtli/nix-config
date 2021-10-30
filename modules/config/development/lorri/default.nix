@@ -24,53 +24,18 @@ in
   config = mkIf cfg.enable {
 
     home.packages = [
-      (pkgs.writeScriptBin "lorri-init" ''
-        #!${pkgs.runtimeShell} -e
+      (config.lib.custom.buildScript
+        "lorri-init"
+        ./lorri-init.sh
+        [ pkgs.direnv pkgs.lorri pkgs.nix ]
+        { inherit nixProfilesDir; }
+      )
 
-        shell_name="$1"
-        force="$2"
-        shell_path="${nixProfilesDir}/''${shell_name}.nix"
-
-        _log() {
-          echo ">> $@"
-        }
-
-        if [[ ( ! -f shell.nix || "$force" == "--force" ) && -f "$shell_path" ]]; then
-          _log "Link shell.nix"
-          ln -snfv "$shell_path" shell.nix
-        fi
-
-        _log "Run lorri init"
-        ${pkgs.lorri}/bin/lorri init
-
-        _log "Allow .envrc"
-        ${pkgs.direnv}/bin/direnv allow
-
-        _log "Run lorri watch --once"
-        ${pkgs.lorri}/bin/lorri watch --once
-      '')
-
-      (pkgs.writeTextFile {
-        name = "_lorri-init";
-        destination = "/share/zsh/site-functions/_lorri-init";
-        text = ''
-          #compdef lorri-init
-
-          list=()
-
-          prefix="${nixProfilesDir}/"
-          suffix=".nix"
-
-          for file in "$prefix"*"$suffix"; do
-            tmp="''${file#$prefix}"
-            list=("''${tmp//$suffix}" "$list")
-          done
-
-          _arguments \
-            "1:nix-shell profiles:($list)" \
-            "*:options:(--force)"
-        '';
-      })
+      (config.lib.custom.buildZshCompletion
+        "lorri-init"
+        ./lorri-init-completion.zsh
+        { inherit nixProfilesDir; }
+      )
     ];
 
     programs = {
