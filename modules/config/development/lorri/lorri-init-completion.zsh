@@ -1,11 +1,6 @@
-list=()
+source @completionLib@
 
-prefix="@nixProfilesDir@/"
-suffix=".nix"
-
-for file in "${prefix}"*"${suffix}"; do
-    list+=("${${file#"${prefix}"}//"${suffix}"}")
-done
+_search_and_append_by_prefix_and_suffix "@nixProfilesDir@/" ".nix"
 
 _arguments \
     "1:nix-shell profiles:(${list[*]})" \

@@ -1,3 +1,5 @@
+source @completionLib@
+
 _directory_writable() {
     unset ROOT
     # shellcheck disable=SC1090
@@ -5,14 +7,12 @@ _directory_writable() {
     [[ -z "${ROOT}" || -w "${ROOT}" ]]
 }
 
-list=()
-
 prefix="@tmuxProfiles@/"
 suffix=".sh"
 
 for file in "${prefix}"*"${suffix}"; do
     if _directory_writable "${file}"; then
-        list+=("${${file#"${prefix}"}//"${suffix}"}")
+        _clean_path_and_append "${prefix}" "${suffix}" "${file}"
     fi
 done
 

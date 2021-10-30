@@ -36,6 +36,7 @@ with lib;
       "${name}-completion"
       (substitutes // {
         inherit name;
+        completionLib = ./lib.completion.zsh;
       })
       ''
         file=$out/share/zsh/site-functions/_${name}

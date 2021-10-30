@@ -1,12 +1,7 @@
-list=()
+source @completionLib@
 
 for module in "@directoryDestination@/"*; do
-    prefix="${module}/keys/id_rsa."
-    suffix=".pub"
-
-    for file in "${prefix}"*"${suffix}"; do
-        list+=("${"${file#"${prefix}"}"//"${suffix}"}")
-    done
+    _search_and_append_by_prefix_and_suffix "${module}/keys/id_rsa." ".pub"
 done
 
 _arguments "*:ssh keys:(${list[*]})"
