@@ -5,20 +5,12 @@ with lib;
 let
   cfg = config.custom.wm.general;
 
-  lockScreenPackage = pkgs.writeScriptBin "lock-screen" ''
-    #!${pkgs.runtimeShell} -e
-
-    revert() {
-      ${pkgs.xorg.xset}/bin/xset -dpms
-    }
-
-    trap revert HUP INT TERM
-    ${pkgs.xorg.xset}/bin/xset +dpms dpms 3 3 3
-
-    ${pkgs.i3lock-fancy}/bin/i3lock-fancy --nofork --text "" -- ${pkgs.scrot}/bin/scrot --silent --overwrite
-
-    revert
-  '';
+  lockScreenPackage =
+    config.lib.custom.buildScript
+      "lock-screen"
+      ./lock-screen.sh
+      [ pkgs.i3lock-fancy pkgs.scrot pkgs.xorg.xset ]
+      { };
 in
 
 {
@@ -55,24 +47,20 @@ in
       pkgs.pavucontrol
       pkgs.xdg_utils
 
-      (pkgs.writeScriptBin "inhibit-suspend" ''
-        #!${pkgs.runtimeShell} -e
-        # Disable suspend on lid close until screen gets unlocked
-
-        ${pkgs.systemd}/bin/systemd-inhibit --what=handle-lid-switch ${lockScreenPackage}/bin/lock-screen
-      '')
+      (config.lib.custom.buildScript
+        "inhibit-suspend"
+        ./inhibit-suspend.sh
+        [ lockScreenPackage pkgs.systemd ]
+        { }
+      )
     ] ++ (
       map
-        (item: pkgs.writeScriptBin
-          (if item ? name then item.name else item.command)
-          ''
-            #!${pkgs.runtimeShell} -e
-
-            if ${pkgs.gnome3.zenity}/bin/zenity --question \
-                --text="Are you sure you want to ${item.message}?" 2> /dev/null; then
-              ${pkgs.systemd}/bin/systemctl ${item.command}
-            fi
-          ''
+        (item:
+          config.lib.custom.buildScript
+            (if item ? name then item.name else item.command)
+            ./wm-script.sh
+            [ pkgs.gnome3.zenity pkgs.systemd ]
+            { inherit (item) command message; }
         )
         [
           { command = "poweroff"; name = "halt";       message = "halt the system"; }
