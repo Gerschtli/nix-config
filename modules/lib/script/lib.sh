@@ -1,5 +1,9 @@
 RESET="\033[0m"
 BOLD="\033[1m"
+# shellcheck disable=SC2034
+GREEN="\033[32m"
+# shellcheck disable=SC2034
+BLUE="\033[34m"
 PURPLE="\033[35m"
 
 _ask() {
@@ -22,4 +26,12 @@ _ask() {
     else
         _ask "${@}"
     fi
+}
+
+_available() {
+    hash "${1}" > /dev/null 2>&1
+}
+
+_is_root() {
+    [[ $(id -u) == 0 ]]
 }

@@ -1,5 +1,3 @@
-#!/usr/bin/env sh
-#
 # For lazy copying of shell commmands..
 
 "$@"

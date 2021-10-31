@@ -1,8 +1,8 @@
-#!/usr/bin/env bash
+source @bashLib@
 
 list=()
 
-if [[ $(id -u) == 0 ]]; then
+if _is_root; then
     list+=(
         /etc/nixos
         /etc/nixos/modules/secrets
@@ -21,16 +21,16 @@ list+=(
     ~/.password-store
 )
 
-for dir in ${list[@]}; do
+for dir in "${list[@]}"; do
     if [[ ! -d "${dir}/.git" ]]; then
         continue
     fi
 
-    name="${dir#$HOME/}"
+    name="${dir#"${HOME}/"}"
     name="${name#*/secrets/}"
     name="${name#/etc/}"
 
-    echo -e "\n[\033[00;34mDIR\033[0m] ${name}\n"
+    echo -e "\n[${BLUE}DIR${RESET}] ${name}\n"
     git -C "${dir}" status
     echo
 done
