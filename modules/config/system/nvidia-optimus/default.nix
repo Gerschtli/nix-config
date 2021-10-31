@@ -13,6 +13,7 @@ in
   options = {
 
     custom.system.nvidia-optimus = {
+
       enable = mkEnableOption "nvidia optimus";
 
       enableOffload = mkEnableOption "offload per default";
@@ -32,6 +33,7 @@ in
           Bus ID of the NVIDIA GPU.
         '';
       };
+
     };
 
   };
@@ -39,7 +41,7 @@ in
 
   ###### implementation
 
-  config = {
+  config = mkIf cfg.enable {
 
     assertions = [
       {
