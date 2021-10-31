@@ -7,9 +7,10 @@
     else pkgs.runCommand "${name}-wrapped" { } ''
       . ${pkgs.makeWrapper}/nix-support/setup-hook
 
-      mkdir -p $out/bin
-      ln -sn "${source}${path}" "$out${path}"
+      file="$out${path}"
+      mkdir -p "$(dirname "$file")"
+      ln -sn "${source}${path}" "$file"
 
-      wrapProgram "$out${path}" --prefix PATH : "${lib.makeBinPath packages}"
+      wrapProgram "$file" --prefix PATH : "${lib.makeBinPath packages}"
     '';
 }
