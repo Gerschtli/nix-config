@@ -13,7 +13,7 @@ let
     config.lib.custom.mkScript
       name
       ./build-with-diff.sh
-      [ pkgs.nox ]
+      [ pkgs.gnugrep pkgs.gnused pkgs.nox ]
       {
         inherit activeLinkPath command;
         _doNotClearPath = true;
