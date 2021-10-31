@@ -25,16 +25,20 @@ in
 
     custom.services.nginx.enable = true;
 
-    environment.etc = builtins.listToAttrs
+    environment.etc = (builtins.listToAttrs
       (map
         (file:
-          let filePath = "${path}/${file}"; in
           lib.nameValuePair
-            filePath
-            { source = config.lib.custom.path.files + "/${filePath}"; }
+            "${path}/${file}"
+            { source = ./. + "/${file}"; }
         )
-        ["index.html" "robots.txt" "setup.sh" "setup.txt"]
-      );
+        ["index.html" "robots.txt" "setup.txt"]
+      )) // {
+        "${path}/setup.sh".source = config.lib.custom.mkScriptPlainNixShell
+          "setup.sh"
+          ./setup.sh
+          { };
+      };
 
     services.nginx.virtualHosts = {
       "tobias-happ.de" = {

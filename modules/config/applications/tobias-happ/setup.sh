@@ -2,12 +2,9 @@
 #! nix-shell -i bash -p coreutils curl findutils git gnugrep gnused hostname jq openssh
 
 { # prevent execution if this script was only partially downloaded
-set -e
+set -euo pipefail
 
-RESET="\033[0m"
-BOLD="\033[1m"
-YELLOW="\033[33m"
-PURPLE="\033[35m"
+@bashLibContent@
 
 nixos="/etc/nixos"
 nixos_hm="${nixos}/home-manager-configurations"
@@ -35,49 +32,12 @@ _clone() {
     git clone "${url}" "${directory}"
 }
 
-_prompt() {
-    local result
-
-    read -p "$(echo -e "\n${BOLD}${PURPLE}${1} (y/n): ${RESET}")" -n1 result
-    echo
-
-    case "${result}" in
-        y) return 0 ;;
-        n) return 1 ;;
-        *)
-            _prompt "${1}"
-            ;;
-    esac
-}
-
-_get_input() {
-    local result
-    local text="${1}"
-    local options="${@:2}"
-
-    read -p "$(echo -e "\n${BOLD}${PURPLE}${1} (one of ${options// /, }): ${RESET}")" result
-
-    if [[ " ${options[@]} " == *" ${result} "* ]]; then
-        echo "${result}"
-    else
-        _get_input "${text}" ${@:2}
-    fi
-}
-
-_is_nixos() {
-    [[ -f "/etc/NIXOS" ]]
-}
-
-_is_root() {
-    [[ $(id -u) == 0 ]]
-}
-
 _clone_ssh() {
     local directory="${1}"
 
     for name in private vcs; do
-        if [[ "${name}" == "vcs" ]] || _prompt "Install ssh repo ${name}?"; then
-            _clone "ssh repo ${name}" gitea@git.tobias-happ.de:Gerschtli/ssh-${name}.git "${directory}/${name}"
+        if [[ "${name}" == "vcs" ]] || _read_boolean "Install ssh repo ${name}?"; then
+            _clone "ssh repo ${name}" "gitea@git.tobias-happ.de:Gerschtli/ssh-${name}.git" "${directory}/${name}"
         fi
     done
 }
@@ -106,19 +66,19 @@ curl --silent --form "file=@${HOME}/.ssh/id_rsa.pub" https://file.io | jq --raw-
 echo
 
 # pause script
-read -p "$(echo -e "${PURPLE}Press any key to continue...${RESET}")" -n1 -s
+read -sr -n 1 -p "$(echo -e "${PURPLE}Press any key to continue...${RESET}")"
 echo
 
 # clone repos
 if _is_nixos && _is_root; then
-    if _prompt "Remove ${nixos} and clone configurations?"; then
+    if _read_boolean "Remove ${nixos} and clone configurations?"; then
         rm -rf /etc/nixos
         _clone "nixos" git@github.com:Gerschtli/nixos-configurations.git "${nixos}"
     fi
 
-    secrets_repo_host=$(_get_input "Enter host name for nixos secrets" krypton xenon "")
-    if [[ "${secrets_repo}" != "" ]]; then
-        secrets_repo="secrets-${secrets_repo}-nixos"
+    secrets_repo_host=$(_read_enum "Enter host name for nixos secrets" krypton xenon "")
+    if [[ "${secrets_repo_host}" != "" ]]; then
+        secrets_repo="secrets-${secrets_repo_host}-nixos"
         _clone "${secrets_repo}" "gitea@git.tobias-happ.de:Gerschtli/${secrets_repo}.git" "${nixos}/${secrets_path}"
     fi
 
@@ -127,7 +87,7 @@ if _is_nixos && _is_root; then
     _clone_ssh "${nixos_hm}/${ssh_path}"
 fi
 
-if ! _is_root && ( ! _is_nixos || _prompt "Install dotfiles?" ); then
+if ! _is_root && ( ! _is_nixos || _read_boolean "Install dotfiles?" ); then
     _clone "dotfiles" git@github.com:Gerschtli/dotfiles.git "${dotfiles}"
 
     if ! _is_nixos; then
@@ -136,10 +96,10 @@ if ! _is_root && ( ! _is_nixos || _prompt "Install dotfiles?" ); then
         _clone_ssh "${dotfiles_hm}/${ssh_path}"
     fi
 
-    if _prompt "Install gpg repo?"; then
+    if _read_boolean "Install gpg repo?"; then
         _clone "gpg repo" gitea@git.tobias-happ.de:Gerschtli/gpg.git "${dotfiles}/gpg"
 
-        if _prompt "Install password-store?"; then
+        if _read_boolean "Install password-store?"; then
             _clone "password store" gitea@git.tobias-happ.de:Gerschtli/pass.git "${HOME}/.password-store"
         fi
     fi
@@ -148,12 +108,12 @@ fi
 
 if _is_nixos && _is_root; then
     _log "Setup nix-channels..."
-    parameter=$(_get_input "Enter setup-nix-channels arg" --nixos --small)
-    ${nixos_hm}/bin/setup-nix-channels ${parameter}
+    parameter=$(_read_enum "Enter setup-nix-channels arg" --nixos --small)
+    "${nixos_hm}/bin/setup-nix-channels" "${parameter}"
 elif ! _is_nixos && ! _is_root; then
     _log "Setup nix-channels..."
-    parameter=$(_get_input "Enter setup-nix-channels arg" --android --non-nixos)
-    ${dotfiles_hm}/bin/setup-nix-channels ${parameter}
+    parameter=$(_read_enum "Enter setup-nix-channels arg" --android --non-nixos)
+    "${dotfiles_hm}/bin/setup-nix-channels" "${parameter}"
 fi
 
 
@@ -164,9 +124,9 @@ fi
 
 
 if _is_nixos && _is_root; then
-    parameter=$(_get_input "Enter hostname" argon krypton neon xenon)
+    parameter=$(_read_enum "Enter hostname" argon krypton neon xenon)
     ln -sf "${nixos}/configuration-${parameter}.nix" "${nixos}/configuration.nix"
-    nixos-rebuild switch || _prompt "Was nixos-rebuild successful?"
+    nixos-rebuild switch || _read_boolean "Was nixos-rebuild successful?"
 
     for module in "${nixos_hm}/${ssh_path}/"*; do
         _fix_permissions "${module}"
@@ -184,7 +144,7 @@ elif ! _is_nixos && ! _is_root; then
         _log "Run nix-on-droid switch..."
         nix-on-droid switch --verbose
     else
-        if ! hash home-manager 2>&1 > /dev/null; then
+        if ! available home-manager; then
             _log "Install home-manager..."
             nix-shell '<home-manager>' -A install
         fi
@@ -211,7 +171,7 @@ fi
 
 if [[ -d "${dotfiles}" ]]; then
     _log "Setup dotfiles..."
-    ${dotfiles}/bootstrap.sh
+    "${dotfiles}/bootstrap.sh"
 fi
 
 }

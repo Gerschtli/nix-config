@@ -7,7 +7,7 @@ let
 in
 
 {
-  inherit (homeManagerLib) getFileList getRecursiveNixFileList mkScript;
+  inherit (homeManagerLib) getFileList getRecursiveNixFileList mkScript mkScriptPlainNixShell;
 
   path = {
     modules = ../.;
