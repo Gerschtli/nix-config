@@ -1,13 +1,13 @@
-{ lib, ... } @ args:
+{ lib, pkgs, ... } @ args:
 
 let
   callPackage = lib.callPackageWith args;
 
-  fileList = callPackage ./file-list.nix { };
+  homeManagerLib = callPackage ../../home-manager-configurations/modules/lib { };
 in
 
 {
-  inherit (fileList) getFileList getRecursiveFileList;
+  inherit (homeManagerLib) getFileList getRecursiveNixFileList mkScript;
 
   path = {
     modules = ../.;
