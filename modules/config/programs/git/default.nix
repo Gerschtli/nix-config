@@ -143,7 +143,7 @@ in
 
         aliases = ''config --get-regexp "^alias"'';
 
-        bclean = externGitAlias ''git for-each-ref --format "%(refname:short)" refs/heads | \
+        bclean = externGitAlias ''git for-each-ref --format "%(refname:short)" refs/heads |
           ${pkgs.gnugrep}/bin/grep -Ev "master|$(git branch-name)" | ${pkgs.findutils}/bin/xargs git bd'';
 
         branch-name = externGitAlias ''git for-each-ref --format="%(refname:short)" $(git symbolic-ref HEAD)'';
