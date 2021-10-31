@@ -1,6 +1,4 @@
-#!/usr/bin/env bash
-
-HOOK_TYPE="${1}"
+HOOK_TYPE="${1:-}"
 RESULT=0
 
 # credits to
@@ -14,18 +12,20 @@ has_changed() {
     case "${HOOK_TYPE}" in
         post-commit)
             git rev-parse --verify HEAD^ > /dev/null 2>&1 && against=HEAD^
-            changed="$(git diff-tree $against 'HEAD' --stat -- ${monitored_paths[*]} | wc -l)"
+            changed="$(git diff-tree "${against}" 'HEAD' --stat -- "${monitored_paths[*]}" | wc -l)"
             ;;
         post-checkout | post-merge )
             if [[ "$(git reflog | wc -l)" == 1 ]]; then
                 changed=1
             else
-                changed="$(git diff 'HEAD@{1}' --stat -- ${monitored_paths[*]} | wc -l)"
+                changed="$(git diff 'HEAD@{1}' --stat -- "${monitored_paths[*]}" | wc -l)"
             fi
             ;;
         pre-commit)
             git rev-parse --verify HEAD >/dev/null 2>&1 && against=HEAD
-            changed="$(git diff-index --name-status ${against} -- "${monitored_paths[*]}" | wc -l)"
+            changed="$(git diff-index --name-status "${against}" -- "${monitored_paths[*]}" | wc -l)"
+            ;;
+        *)
             ;;
     esac
 
@@ -57,20 +57,15 @@ is_submodule() {
 }
 
 run_scripts() {
-    HOOK_TYPE="${1}"
-    local scripts_dir="${HOOKS_DIR}/scripts"
-
-    for script in "${scripts_dir}"/*; do
-        if [[ -x "${script}" ]]; then
-            "${script}" "$@"; track_result
-        fi
+    for script in "${INCLUDES[@]:-}"; do
+        "${script}" "$@"; track_result
     done
 
-    return ${RESULT}
+    return "${RESULT}"
 }
 
 track_result() {
-    local last_result="${1:-$?}"
+    local last_result="$?"
 
-    RESULT=$((${RESULT} + ${last_result}))
+    RESULT=$((RESULT + last_result))
 }

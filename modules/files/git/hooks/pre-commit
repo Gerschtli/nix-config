@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-export HOOKS_DIR="$(dirname $(readlink -f "${0}"))"
-
-source "${HOOKS_DIR}/helpers/util.sh"
-
-run_scripts pre-commit "$@"

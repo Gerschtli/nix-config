@@ -35,6 +35,39 @@ let
     #    Can use multiple lines with "-" for bullet points in body
   '';
 
+  extractName = path: removeSuffix ".sh" (baseNameOf path);
+  hooksPathPackages = [ pkgs.gitAndTools.git-lfs pkgs.gitAndTools.gitFull pkgs.gnugrep ];
+
+  hooksIncludes = map
+    (filename: let file = ./includes + "/${filename}"; in
+      config.lib.custom.mkScriptPlain
+        "hooks-include-${extractName file}"
+        file
+        hooksPathPackages
+        { hooksLib = ./lib.hooks.sh; }
+    )
+    (builtins.attrNames (builtins.readDir ./includes));
+
+  hooksPath = pkgs.linkFarm "git-hooks" (
+    map
+      (file: let name = extractName file; in {
+        inherit name;
+        path = config.lib.custom.mkScriptPlain
+          "hooks-${name}"
+          file
+          hooksPathPackages
+          { hooksLib = ./lib.hooks.sh; includes = hooksIncludes; };
+      })
+      [
+        ./post-checkout.sh
+        ./post-commit.sh
+        ./post-merge.sh
+        ./post-rewrite.sh
+        ./pre-commit.sh
+        ./pre-push.sh
+      ]
+  );
+
   writeFile = name: content: toString (pkgs.writeText name content);
 in
 
@@ -86,7 +119,7 @@ in
         pd = "push --no-verify --delete --progress origin";
         pf = externGitAlias "git ph --force-with-lease origin $(git branch-name)";
         ph = "push --progress --tags --set-upstream";
-        pu = externGitAlias "for i in $(git remote); do git ph \${i} $(git branch-name); done";
+        pu = externGitAlias "for i in $(git remote); do git ph $i $(git branch-name); done";
         ra = "rebase --abort";
         rc = "rebase --continue";
         re = "reset";
@@ -102,22 +135,22 @@ in
         so = "stash pop";
         st = "status";
         sw = "stash show";
-        tl = externGitAlias "git tag -n --list '[0-9]*' | tail -n 10";
 
         cma = externGitAlias "git co master && git rebase origin/master";
         mma = "merge origin/master";
+        rma = "rebase origin/master";
         rup = "rebase upstream/master";
 
         aliases = ''config --get-regexp "^alias"'';
 
         bclean = externGitAlias ''git for-each-ref --format "%(refname:short)" refs/heads | \
-          grep -Ev "master|$(git branch-name)" | xargs git bd'';
+          ${pkgs.gnugrep}/bin/grep -Ev "master|$(git branch-name)" | ${pkgs.findutils}/bin/xargs git bd'';
 
         branch-name = externGitAlias ''git for-each-ref --format="%(refname:short)" $(git symbolic-ref HEAD)'';
         total-clean = externGitAlias "git co -f && git clean -dfx && git clean -dfX";
 
         disable-upstream-push = "remote set-url upstream --push DISABLED";
-        initial-commit = externGitAlias "git init && touch .gitignore && git add .gitignore && \
+        initial-commit = externGitAlias "git init && ${pkgs.coreutils}/bin/touch .gitignore && git add .gitignore && \
           git commit -m 'Initial commit'";
         set-upstream = externGitAlias "git branch --set-upstream-to=origin/$(git branch-name) $(git branch-name)";
       };
@@ -126,6 +159,7 @@ in
         add.ignore-errors = true;
 
         advice = {
+          detachedHead = false;
           pushNonFastForward = false;
           statusHints = false;
         };
@@ -172,8 +206,8 @@ in
         core = {
           compression = 9;
           eol = "lf";
-          editor = "vim"; # TODO: replace with path
-          hooksPath = "${config.lib.custom.path.files + "/git/hooks"}";
+          editor = "${config.custom.programs.neovim.finalPackage}/bin/nvim";
+          hooksPath = toString hooksPath;
           loosecompression = 9;
           preloadindex = true;
         };
@@ -183,9 +217,15 @@ in
         diff = {
           mnemonicprefix = true;
           renames = "copies";
-          tool = "vimdiff"; # TODO: configure and replace with path
+          tool = "nvim";
 
-          gpg.textconv = "gpg --use-agent -q --batch --decrypt"; # TODO: replace with path
+          gpg.textconv = "${pkgs.gnupg}/bin/gpg --use-agent -q --batch --decrypt";
+        };
+
+        difftool = {
+          prompt = true;
+
+          nvim.cmd = "${config.custom.programs.neovim.finalPackage}/bin/nvim -d \"$LOCAL\" \"$REMOTE\"";
         };
 
         fetch = {
@@ -208,20 +248,16 @@ in
 
         merge = {
           log = true;
-          tool = "vscode"; # TODO: configure
+          tool = "nvim";
           verbosity = 5;
         };
 
         mergetool = {
           keepBackup = false;
+          prompt = true;
           writeToTemp = true;
 
-          subl = {
-            cmd = "$(subl --get-executable) -w $MERGED"; # TODO: replace with path
-            trustExitCode = false;
-          };
-
-          vscode.cmd = "code --wait $MERGED"; # TODO: replace with path
+          nvim.cmd = "${config.custom.programs.neovim.finalPackage}/bin/nvim -d \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c 'wincmd w' -c 'wincmd J'";
         };
 
         pack.compression = 9;

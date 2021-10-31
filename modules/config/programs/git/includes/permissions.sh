@@ -1,6 +1,4 @@
-#!/usr/bin/env bash
-
-source "${HOOKS_DIR}/helpers/util.sh"
+source @hooksLib@
 
 SECRET_FILES="${PWD}/.secret-files"
 
@@ -15,10 +13,8 @@ install() {
     done < "${SECRET_FILES}"
 }
 
-if [[ -r "${SECRET_FILES}" ]]; then
-    case "${HOOK_TYPE}" in
-        post-checkout | post-merge) install ;;
-    esac
+if [[ -r "${SECRET_FILES}" && "${HOOK_TYPE}" = @(post-checkout|post-merge) ]]; then
+    install
 fi
 
-exit ${RESULT}
+exit "${RESULT}"

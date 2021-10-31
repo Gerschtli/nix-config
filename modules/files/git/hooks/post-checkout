@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-export HOOKS_DIR="$(dirname $(readlink -f "${0}"))"
-
-source "${HOOKS_DIR}/helpers/util.sh"
-
-if [[ "${1}" != "${2}" && "${3}" == 1 ]]; then # has new commits and is branch checkout
-    run_scripts post-checkout "$@"
-fi

@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-export HOOKS_DIR="$(dirname $(readlink -f "${0}"))"
-
-case "${1}" in
-    rebase)
-        "${HOOKS_DIR}/post-merge" "$@"
-        ;;
-esac
