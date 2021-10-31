@@ -42,11 +42,26 @@ _clone_ssh() {
     done
 }
 
+_exit_if_new_device() {
+    if [[ -n "${NEW_DEVICE}" ]]; then
+        _log "Please set up your nixos/home-manager configurations and rerun this script in cleanup mode!"
+        echo
+        exit
+    fi
+}
+
 _fix_permissions() {
-    local secret_files="${1}/.secret-files"
+    local directory="${1}"
+    if [[ ! -w "${directory}" ]]; then
+        return
+    fi
+
+    _log "Fix permissions for ${directory}"
+
+    local secret_files="${directory}/.secret-files"
 
     while read -r line; do
-        local file="${1}/${line}"
+        local file="${directory}/${line}"
         if [[ -e "${file}" ]]; then
             chmod 0640 "${file}"
             # try to set group if group is available
@@ -55,8 +70,37 @@ _fix_permissions() {
     done < "${secret_files}"
 }
 
+_last_steps() {
+    if nix-env -q --json | jq ".[].pname" | grep '"nix"' > /dev/null; then
+        _log "Uninstall manual installed nix package..."
+        nix-env --uninstall nix
+    fi
+
+    for module in "${nixos_hm}/${ssh_path}/"* "${dotfiles_hm}/${ssh_path}/"*; do
+        _fix_permissions "${module}"
+    done
+
+    if [[ -d "${dotfiles}" ]]; then
+        _log "Setup dotfiles..."
+        "${dotfiles}/bootstrap.sh"
+    fi
+
+    echo
+}
+
+
+NEW_DEVICE=
+mode=$(_read_enum "If you do not want to run the whole script, specify the mode" new-device cleanup "")
+if [[ "${mode}" = "new-device" ]]; then
+    NEW_DEVICE=1
+elif [[ "${mode}" = "cleanup" ]]; then
+    _last_steps
+    exit
+fi
+
 
 # generate ssh key and show
+echo
 ssh-keygen -f ~/.ssh/id_rsa -N "" -q || true
 _log "Copy link to ssh key or ssh key itself, add in github and gitea:"
 echo
@@ -71,13 +115,19 @@ echo
 
 # clone repos
 if _is_nixos && _is_root; then
-    if _read_boolean "Remove ${nixos} and clone configurations?"; then
-        rm -rf /etc/nixos
+    if _read_boolean "Create backup of ${nixos} and clone configurations?"; then
+        mv -v "${nixos}"{,.bak}
         _clone "nixos" git@github.com:Gerschtli/nixos-configurations.git "${nixos}"
     fi
 
     secrets_repo_host=$(_read_enum "Enter host name for nixos secrets" krypton xenon "")
     if [[ "${secrets_repo_host}" != "" ]]; then
+        if [[ -d "${nixos}/${secrets_path}" ]] &&
+            _read_boolean "Create backup before removing ${nixos}/${secrets_path}?" Y; then
+            mv -v "${nixos}/${secrets_path}"{,.bak}
+        fi
+        rm -vrf "${nixos:?}/${secrets_path:?}"
+
         secrets_repo="secrets-${secrets_repo_host}-nixos"
         _clone "${secrets_repo}" "gitea@git.tobias-happ.de:Gerschtli/${secrets_repo}.git" "${nixos}/${secrets_path}"
     fi
@@ -124,13 +174,11 @@ fi
 
 
 if _is_nixos && _is_root; then
+    _exit_if_new_device
+
     parameter=$(_read_enum "Enter hostname" argon krypton neon xenon)
     ln -sf "${nixos}/configuration-${parameter}.nix" "${nixos}/configuration.nix"
     nixos-rebuild switch || _read_boolean "Was nixos-rebuild successful?"
-
-    for module in "${nixos_hm}/${ssh_path}/"*; do
-        _fix_permissions "${module}"
-    done
 elif ! _is_nixos && ! _is_root; then
     home_file="${dotfiles_hm}/home-files/$(hostname)/$(whoami).nix"
 
@@ -154,24 +202,14 @@ elif ! _is_nixos && ! _is_root; then
             nix-env --set-flag priority 1000 nix
         fi
 
+        _exit_if_new_device
+
         _log "Run home-manager switch..."
         home-manager switch -b hm-bak -f "${home_file}"
 
-        if nix-env -q --json | jq ".[].pname" | grep '"nix"' > /dev/null; then
-            _log "Uninstall manual installed nix package..."
-            nix-env --uninstall nix
-        fi
     fi
-
-    for module in "${dotfiles_hm}/${ssh_path}/"*; do
-        _fix_permissions "${module}"
-    done
 fi
 
-
-if [[ -d "${dotfiles}" ]]; then
-    _log "Setup dotfiles..."
-    "${dotfiles}/bootstrap.sh"
-fi
+_last_steps
 
 }
