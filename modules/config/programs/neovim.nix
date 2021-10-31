@@ -163,7 +163,20 @@ in
 
   options = {
 
-    custom.programs.neovim.enable = mkEnableOption "neovim config";
+    custom.programs.neovim = {
+
+      enable = mkEnableOption "neovim config";
+
+      finalPackage = mkOption {
+        type = types.nullOr types.package;
+        default = null;
+        internal = true;
+        description = ''
+          Package of final neovim.
+        '';
+      };
+
+    };
 
   };
 
@@ -172,7 +185,9 @@ in
 
   config = mkIf cfg.enable {
 
-    home.sessionVariables.EDITOR = "${config.programs.neovim.finalPackage}/bin/nvim";
+    custom.programs.neovim = { inherit (config.programs.neovim) finalPackage; };
+
+    home.sessionVariables.EDITOR = "${cfg.finalPackage}/bin/nvim";
 
     programs.neovim = {
       inherit extraConfig plugins;
