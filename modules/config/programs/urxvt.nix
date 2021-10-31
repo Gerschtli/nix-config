@@ -7,7 +7,7 @@ let
 
   colorBlue = "#6d68ff";
   fontName = "UbuntuMono Nerd Font";
-  fontSize = "11";
+  fontSize = "13";
 
   buildFont = modifier: concatStringsSep ":" (
     [ "xft" fontName ]
