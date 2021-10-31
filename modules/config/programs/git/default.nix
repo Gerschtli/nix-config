@@ -36,7 +36,7 @@ let
   '';
 
   extractName = path: removeSuffix ".sh" (baseNameOf path);
-  hooksPathPackages = [ pkgs.gitAndTools.git-lfs pkgs.gitAndTools.gitFull pkgs.gnugrep ];
+  hooksPathPackages = [ pkgs.gitAndTools.git-lfs pkgs.gitAndTools.gitFull pkgs.gnugrep pkgs.openssh ];
 
   hooksIncludes = map
     (filename: let file = ./includes + "/${filename}"; in
