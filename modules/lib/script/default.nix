@@ -10,7 +10,7 @@ let
     , file
     , name
     , path ? []
-    , preamble
+    , preamble ? ""
   }:
     pkgs.runCommand
       name
@@ -26,7 +26,7 @@ let
         file=${destPath}
         mkdir --parents "$(dirname "$file")"
 
-        cat "${preamble}" "${file}" > "$file"
+        cat ${preamble} "${file}" > "$file"
         substituteAllInPlace "$file"
 
         ${pkgs.shellcheck}/bin/shellcheck \
@@ -57,6 +57,13 @@ in
       destPath = "$out";
       executable = true;
       preamble = ./preamble.sh;
+    };
+
+  mkScriptPlainNixShell = name: file: envs:
+    builder {
+      inherit name file envs;
+      destPath = "$out";
+      executable = true;
     };
 
   mkZshCompletion = name: file: envs:
