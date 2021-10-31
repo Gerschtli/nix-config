@@ -10,10 +10,6 @@ _has_unit_enabled() {
     [[ "$(systemctl is-enabled "${1}" 2> /dev/null)" == "enabled" ]]
 }
 
-_is_nixos() {
-    [[ -f "/etc/NIXOS" ]]
-}
-
 _log() {
     echo
     echo -e "${PURPLE}===================== ${GREEN} SYSTEM-UPDATE ${PURPLE} ======================${RESET}"
