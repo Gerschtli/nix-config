@@ -2,8 +2,16 @@
 
 with lib;
 
-{
-  mkScript = name: file: path: envs:
+let
+  builder = {
+      destPath
+    , envs
+    , executable ? false
+    , file
+    , name
+    , path ? []
+    , preamble
+  }:
     pkgs.runCommand
       name
       (envs // {
@@ -15,10 +23,10 @@ with lib;
           + optionalString (envs ? _doNotClearPath && envs._doNotClearPath) ":\${PATH}";
       })
       ''
-        file=$out/bin/${name}
-        mkdir --parents $out/bin
+        file=${destPath}
+        mkdir --parents "$(dirname "$file")"
 
-        cat "${./preamble.sh}" "${file}" > "$file"
+        cat "${preamble}" "${file}" > "$file"
         substituteAllInPlace "$file"
 
         ${pkgs.shellcheck}/bin/shellcheck \
@@ -28,28 +36,38 @@ with lib;
           --shell bash \
           "$file"
 
-        chmod +x "$file"
+        ${optionalString executable ''
+          chmod +x "$file"
+        ''}
       '';
+in
 
-  mkZshCompletion = name: file: substitutes:
-    pkgs.runCommand
-      "${name}-completion"
-      (substitutes // {
+{
+  mkScript = name: file: path: envs:
+    builder {
+      inherit name file path envs;
+      destPath = "$out/bin/${name}";
+      executable = true;
+      preamble = ./preamble.sh;
+    };
+
+  mkScriptPlain = name: file: path: envs:
+    builder {
+      inherit name file path envs;
+      destPath = "$out";
+      executable = true;
+      preamble = ./preamble.sh;
+    };
+
+  mkZshCompletion = name: file: envs:
+    builder {
+      inherit file;
+      name = "${name}-completion";
+      destPath = "$out/share/zsh/site-functions/_${name}";
+      preamble = ./preamble.completion.zsh;
+      envs = envs // {
         inherit name;
         completionLib = ./lib.completion.zsh;
-      })
-      ''
-        file=$out/share/zsh/site-functions/_${name}
-        mkdir --parents $out/share/zsh/site-functions
-
-        cat "${./preamble.completion.zsh}" "${file}" > "$file"
-        substituteAllInPlace "$file"
-
-        ${pkgs.shellcheck}/bin/shellcheck \
-          --check-sourced \
-          --enable all \
-          --external-sources \
-          --shell bash \
-          "$file"
-      '';
+      };
+    };
 }

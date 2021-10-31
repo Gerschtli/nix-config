@@ -10,7 +10,7 @@ in
 
 {
   inherit (fileList) getFileList getRecursiveNixFileList;
-  inherit (script) mkScript mkZshCompletion;
+  inherit (script) mkScript mkScriptPlain mkZshCompletion;
   inherit (wrapProgram) wrapProgram;
 
   path = {
