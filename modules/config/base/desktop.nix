@@ -36,11 +36,7 @@ in
         tmpOnTmpfs = true;
       };
 
-      custom = {
-        programs.virtualbox.enable = true;
-
-        system.boot.mode = "efi";
-      };
+      custom.system.boot.mode = "efi";
 
       environment.systemPackages = with pkgs; [
         exfat
