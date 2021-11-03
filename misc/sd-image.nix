@@ -1,6 +1,6 @@
 # Setup for raspberry pi
 # 1. Build
-#       nix-build "<nixpkgs/nixos>" -I nixos-config=sd-image.nix -A config.system.build.sdImage
+#       nix-build "<nixpkgs/nixos>" -I nixos-config=misc/sd-image.nix -A config.system.build.sdImage
 # 2. Copy (dd) result/sd-image/*.img to sd-card
 # 3. Mount sd-card and run
 #       wpa_passphrase ESSID PSK > /mnt/etc/wpa_supplicant.conf
