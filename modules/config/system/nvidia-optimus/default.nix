@@ -16,8 +16,6 @@ in
 
       enable = mkEnableOption "nvidia optimus";
 
-      enableOffload = mkEnableOption "offload per default";
-
       amdgpuBusId = mkOption {
         type = types.nullOr types.str;
         default = null;
@@ -61,23 +59,17 @@ in
 
     hardware.nvidia.prime = {
       inherit (cfg) amdgpuBusId nvidiaBusId;
-      offload.enable = cfg.enableOffload;
+
+      offload.enable = true;
     };
 
     services.xserver.videoDrivers = [ "nvidia" ];
 
-    specialisation = mapAttrs
-      (name: option: {
-        configuration = {
-          hardware.nvidia.prime.offload.enable = lib.mkForce option;
+    specialisation.external-display.configuration = {
+      hardware.nvidia.prime.offload.enable = lib.mkForce false;
 
-          system.nixos.tags = [ name ];
-        };
-      })
-      {
-        external-display = false;
-        offload = true;
-      };
+      system.nixos.tags = [ "external-display" ];
+    };
 
   };
 
