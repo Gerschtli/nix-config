@@ -78,10 +78,7 @@ let
   '';
 
   shellAliases = {
-    ls =
-      if config.custom.base.general.osx
-      then "ls -G"
-      else "ls --color=auto";
+    ls = "ls --color=auto";
     la = "ls -AFv";
     l1 = "ls -AFh1v";
     ll = "ls -AFhlv";
