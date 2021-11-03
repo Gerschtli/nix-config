@@ -31,8 +31,6 @@ in
 
     custom.services.openssh.enable = true;
 
-    environment.noXlibs = true;
-
     networking = mkIf (cfg.ipv6Address != null) {
       defaultGateway6 = {
         address = "fe80::1";

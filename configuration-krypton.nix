@@ -39,7 +39,4 @@
       device = "/dev/sda";
     };
   };
-
-  # FIXME: pinentry needs gtk, this prevents recompiling it
-  environment.noXlibs = lib.mkForce false;
 }
