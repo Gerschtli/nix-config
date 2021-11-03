@@ -19,3 +19,7 @@ $ git clone git@github.com:Gerschtli/home-manager-configurations.git /etc/nixos/
 $ nixos-generate-config
 $ ln -sf configuration-<host>.nix configuration.nix
 ```
+
+## Build sd-card image for raspberry pi
+
+See `./misc/sd-image.nix` for further instructions.
