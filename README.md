@@ -23,3 +23,10 @@ $ ln -sf configuration-<host>.nix configuration.nix
 ## Build sd-card image for raspberry pi
 
 See `./misc/sd-image.nix` for further instructions.
+
+## Update firmware for raspberry pi
+
+Firmware is only written on sd-card image creation. Therefore it is necessary to update the firmware manually
+through copying these files to the firmware partition.
+
+See `./misc/build-firmware.nix` for further instructions.
