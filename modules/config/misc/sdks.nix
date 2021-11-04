@@ -19,7 +19,7 @@ in
 
       links = mkOption {
         type = types.attrs;
-        default = {};
+        default = { };
         example = { "link-name" = pkgs.python3; };
         description = ''
           Links to generate in <literal>~/.sdks</literal> directory.

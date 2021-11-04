@@ -16,5 +16,5 @@ in
 
     # remove as soon as available in stable
     ventoy-bin
-  ;
+    ;
 }

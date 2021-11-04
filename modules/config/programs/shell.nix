@@ -28,7 +28,7 @@ let
       };
 
       shellAliases = mkOption {
-        default = {};
+        default = { };
         type = types.attrsOf types.str;
         example = { ll = "ls -l"; ".." = "cd .."; };
         description = ''
@@ -128,7 +128,7 @@ let
   dynamicShellInit = concatStringsSep "\n" (
     map
       (options:
-        if (options.initExtra == "" && options.shellAliases == {})
+        if (options.initExtra == "" && options.shellAliases == { })
         then ""
         else
           ''
@@ -180,7 +180,7 @@ in
       };
 
       shellAliases = mkOption {
-        default = {};
+        default = { };
         type = types.attrsOf types.str;
         example = { ll = "ls -l"; ".." = "cd .."; };
         description = ''
@@ -190,7 +190,7 @@ in
       };
 
       dynamicShellInit = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf dynamicShellInitModule;
         example = [
           {

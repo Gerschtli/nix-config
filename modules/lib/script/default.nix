@@ -3,15 +3,15 @@
 with lib;
 
 let
-  builder = {
-      destPath
+  builder =
+    { destPath
     , envs
     , executable ? false
     , file
     , name
-    , path ? []
+    , path ? [ ]
     , preamble ? ""
-  }:
+    }:
     pkgs.runCommand
       name
       (envs // {
@@ -20,7 +20,7 @@ let
         bashLibContent = builtins.readFile ./lib.sh;
         path =
           makeBinPath (path ++ [ pkgs.coreutils ])
-          + optionalString (envs ? _doNotClearPath && envs._doNotClearPath) ":\${PATH}";
+            + optionalString (envs ? _doNotClearPath && envs._doNotClearPath) ":\${PATH}";
       })
       ''
         file=${destPath}

@@ -51,10 +51,10 @@ in
 
         mkOptions = lib.concatStringsSep " ";
       in
-        {
-          rsync = "rsync ${mkOptions options}";
-          rsync-fat = "rsync ${mkOptions optionsFat}";
-        };
+      {
+        rsync = "rsync ${mkOptions options}";
+        rsync-fat = "rsync ${mkOptions optionsFat}";
+      };
 
     home.packages = [ pkgs.rsync ];
 

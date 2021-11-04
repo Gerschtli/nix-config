@@ -17,7 +17,7 @@ in
 
       packages = mkOption {
         type = types.listOf types.package;
-        default = [];
+        default = [ ];
         description = "List of packages that should be put on PATH for idea-ultimate.";
       };
     };

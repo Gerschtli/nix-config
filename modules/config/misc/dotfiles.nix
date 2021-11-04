@@ -17,7 +17,7 @@ in
 
       modules = mkOption {
         type = types.listOf (types.enum [ "atom" "gpg" "home-manager" "nix-on-droid" "vscode" ]);
-        default = [];
+        default = [ ];
         description = ''
           List of dotfiles modules to enable.
         '';

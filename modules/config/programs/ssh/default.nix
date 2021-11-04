@@ -22,7 +22,7 @@ in
       enableKeychain = mkEnableOption "keychain setup" // { default = true; };
 
       controlMaster = mkOption {
-        type = types.enum ["yes" "no" "ask" "auto" "autoask"];
+        type = types.enum [ "yes" "no" "ask" "auto" "autoask" ];
         default = "auto";
         description = ''
           Configure sharing of multiple sessions over a single network connection.
@@ -31,7 +31,7 @@ in
 
       modules = mkOption {
         type = types.listOf (types.enum [ "private" "vcs" ]);
-        default = [];
+        default = [ ];
         description = "SSH modules to enable.";
       };
 
@@ -94,7 +94,7 @@ in
     };
 
     home = {
-      activation.copySshKeys = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      activation.copySshKeys = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         if [[ ! -d "${directorySource}" || ! -r "${directorySource}" ]]; then
           >&2 echo "${directorySource} has to be a readable directory for user '${config.home.username}'"
           exit 1
@@ -172,9 +172,9 @@ in
                   useGithub = cfg.useGithub == module;
                 };
               in
-                map
-                  (matchBlock: nameValuePair matchBlock.host matchBlock)
-                  sshModule.matchBlocks
+              map
+                (matchBlock: nameValuePair matchBlock.host matchBlock)
+                sshModule.matchBlocks
             )
             cfg.modules
           );

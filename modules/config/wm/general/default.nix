@@ -63,10 +63,10 @@ in
             { inherit (item) command message; }
         )
         [
-          { command = "poweroff"; name = "halt";       message = "halt the system"; }
-          { command = "hibernate";                     message = "suspend to disk"; }
-          { command = "hybrid-sleep";                  message = "suspend to disk and ram"; }
-          { command = "reboot";                        message = "reboot"; }
+          { command = "poweroff"; name = "halt"; message = "halt the system"; }
+          { command = "hibernate"; message = "suspend to disk"; }
+          { command = "hybrid-sleep"; message = "suspend to disk and ram"; }
+          { command = "reboot"; message = "reboot"; }
           { command = "suspend"; name = "sys-suspend"; message = "suspend to ram"; }
         ]
     );

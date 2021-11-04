@@ -112,10 +112,12 @@ in
     xdg.configFile = {
       "nixpkgs/config.nix".source = config.lib.custom.path.files + "/config.nix";
     } // builtins.listToAttrs (
-      map (file: {
-        name = "nixpkgs/overlays/${baseNameOf file}";
-        value.source = file;
-      }) overlays
+      map
+        (file: {
+          name = "nixpkgs/overlays/${baseNameOf file}";
+          value.source = file;
+        })
+        overlays
     );
 
   };

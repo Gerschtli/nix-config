@@ -57,23 +57,23 @@ in
       home.packages = [
         (buildWithDiff "nod-build" "nix-on-droid" "/nix/var/nix/profiles/nix-on-droid")
       ];
-     })
+    })
 
     (mkIf cfg.nixos.enable {
       custom.programs.shell.shellAliases = {
-        n-rebuild-dev     = "nixos-rebuild test --fast";
+        n-rebuild-dev = "nixos-rebuild test --fast";
         n-rebuild-dev-all = "nixos-rebuild test --fast -I home-manager=${devHomeManager} -I nixpkgs=${devNixpkgs}";
-        n-rebuild-dev-hm  = "nixos-rebuild test --fast -I home-manager=${devHomeManager}";
-        n-rebuild-dev-ng  = "nixos-rebuild test --fast -I nur-gerschtli=${devNurGerschtli}";
-        n-rebuild-dev-np  = "nixos-rebuild test --fast -I nixpkgs=${devNixpkgs}";
-        n-rebuild-switch  = "nixos-rebuild switch";
-        n-rebuild-test    = "nixos-rebuild test";
+        n-rebuild-dev-hm = "nixos-rebuild test --fast -I home-manager=${devHomeManager}";
+        n-rebuild-dev-ng = "nixos-rebuild test --fast -I nur-gerschtli=${devNurGerschtli}";
+        n-rebuild-dev-np = "nixos-rebuild test --fast -I nixpkgs=${devNixpkgs}";
+        n-rebuild-switch = "nixos-rebuild switch";
+        n-rebuild-test = "nixos-rebuild test";
       };
 
       home.packages = [
         (buildWithDiff "n-rebuild-build" "nixos-rebuild" "/run/current-system")
       ];
-     })
+    })
 
   ];
 

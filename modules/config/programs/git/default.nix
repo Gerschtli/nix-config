@@ -39,7 +39,8 @@ let
   hooksPathPackages = with pkgs; [ gitAndTools.git-lfs gitAndTools.gitFull gnugrep nixpkgs-fmt openssh ];
 
   hooksIncludes = map
-    (filename: let file = ./includes + "/${filename}"; in
+    (filename:
+      let file = ./includes + "/${filename}"; in
       config.lib.custom.mkScriptPlain
         "hooks-include-${extractName file}"
         file
@@ -50,14 +51,16 @@ let
 
   hooksPath = pkgs.linkFarm "git-hooks" (
     map
-      (file: let name = extractName file; in {
-        inherit name;
-        path = config.lib.custom.mkScriptPlain
-          "hooks-${name}"
-          file
-          hooksPathPackages
-          { hooksLib = ./lib.hooks.sh; includes = hooksIncludes; };
-      })
+      (file:
+        let name = extractName file; in
+        {
+          inherit name;
+          path = config.lib.custom.mkScriptPlain
+            "hooks-${name}"
+            file
+            hooksPathPackages
+            { hooksLib = ./lib.hooks.sh; includes = hooksIncludes; };
+        })
       [
         ./post-checkout.sh
         ./post-commit.sh

@@ -11,8 +11,8 @@ let
 
   buildFont = modifier: concatStringsSep ":" (
     [ "xft" fontName ]
-      ++ modifier
-      ++ [ "pixelsize=${fontSize}" ]
+    ++ modifier
+    ++ [ "pixelsize=${fontSize}" ]
   );
 in
 
@@ -38,7 +38,7 @@ in
       scroll.bar.enable = false;
 
       extraConfig = {
-        "font" = buildFont [];
+        "font" = buildFont [ ];
         "boldFont" = buildFont [ "bold" ];
         "italicFont" = buildFont [ "italic" ];
         "boldItalicFont" = buildFont [ "bold" "italic" ];

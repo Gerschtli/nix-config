@@ -47,9 +47,9 @@ in
             then [ "cpu_load" "backlight" "audio" "battery" "time" ]
             else [ "cpu_load" "audio" "time" ];
         in
-          if cfg.audio
-          then list
-          else lists.remove "audio" list;
+        if cfg.audio
+        then list
+        else lists.remove "audio" list;
 
       extraConfig = mkMerge [
         {
