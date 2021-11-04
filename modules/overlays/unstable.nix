@@ -14,8 +14,7 @@ in
     portfolio
     teamspeak_server
 
+    # remove as soon as available in stable
     ventoy-bin
   ;
-
-  nnn = unstable.nnn.override { withNerdIcons = true; };
 }
