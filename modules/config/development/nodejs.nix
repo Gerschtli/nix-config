@@ -5,15 +5,15 @@ with lib;
 let
   cfg = config.custom.development.nodejs;
 
-  # TODO: add in nixpkgs
+  # FIXME: replace when https://github.com/NixOS/nixpkgs/pull/144611 is merged
   zsh-better-npm-completion = pkgs.stdenv.mkDerivation {
     name = "zsh-better-npm-completion";
 
     src = pkgs.fetchFromGitHub {
       owner = "lukechilds";
       repo = "zsh-better-npm-completion";
-      rev = "b61f6bb4e640728c42ae84ca55a575ee88c60fe8";
-      sha256 = "00c1gdsam0z6v09fvz7hyl0zgmgnwbf59i1yrbkrz08frjlr16ax";
+      rev = "0a7cf042415324ec38a186fdcbc9af163f0d7e69";
+      sha256 = "sha256:16z7k5n1rcl9i61lrm7i5dsqsmhvdp1y4y5ii6hv2xpp470addgy";
     };
 
     installPhase = ''
