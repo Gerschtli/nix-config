@@ -40,7 +40,6 @@ in
 
   config = mkIf cfg.enable {
 
-    # TODO: add as module to home-manager
     programs.zsh = {
       initExtra = ''
         autoload -U promptinit; promptinit

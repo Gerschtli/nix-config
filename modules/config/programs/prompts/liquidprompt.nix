@@ -43,7 +43,6 @@ in
 
   config = mkIf cfg.enable {
 
-    # TODO: add as module to home-manager
     programs = {
       bash.initExtra = ''
         source ${pkgs.liquidprompt}/share/zsh/plugins/liquidprompt/liquidprompt
