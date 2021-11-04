@@ -161,14 +161,6 @@ in
           # automatically after a crash.
           startup_notification = false;
 
-          # FIXME: what is this option for?
-          # dmenu path.
-          #dmenu = "/usr/bin/env dmenu -p dunst:";
-
-          # FIXME: what is this option for?
-          # Browser for opening urls in context menu.
-          #browser = "/usr/bin/env firefox -new-tab";
-
           # Align icons left/right/off
           icon_position = "off";
 
