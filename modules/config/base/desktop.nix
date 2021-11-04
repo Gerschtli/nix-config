@@ -66,12 +66,7 @@ in
 
       nixpkgs.config.allowUnfree = true;
 
-      programs = {
-        # TODO: move to home-manager-configuration
-        browserpass.enable = true;
-
-        ssh.askPassword = "";
-      };
+      programs.ssh.askPassword = "";
 
       services = {
         udev.packages = with pkgs; [ android-udev-rules ];
