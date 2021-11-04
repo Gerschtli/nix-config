@@ -1,4 +1,4 @@
-shell_name="${1}"
+shell_name="${1:-}"
 force="${2:-}"
 shell_path="@nixProfilesDir@/${shell_name}.nix"
 

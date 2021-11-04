@@ -27,7 +27,7 @@ in
       (config.lib.custom.mkScript
         "lorri-init"
         ./lorri-init.sh
-        [ pkgs.direnv pkgs.lorri pkgs.nix ]
+        (with pkgs; [ direnv gnutar gzip lorri nix ])
         { inherit nixProfilesDir; }
       )
 
