@@ -20,7 +20,7 @@
     };
   };
 
-  #systemd.suppressedSystemUnits = [ "systemd-backlight@.service" ];
+  systemd.suppressedSystemUnits = [ "systemd-backlight@.service" ];
 
   time.hardwareClockInLocalTime = true;
 }
