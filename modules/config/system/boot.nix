@@ -82,7 +82,7 @@ in
             "vm.dirty_ratio" = 80;
           };
 
-          kernelParams = ["cma=32M"];
+          kernelParams = [ "cma=32M" ];
         };
       }
     )

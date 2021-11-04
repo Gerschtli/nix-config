@@ -62,7 +62,7 @@ in
         };
       };
 
-      systemUsers.${user} = {};
+      systemUsers.${user} = { };
     };
   };
 

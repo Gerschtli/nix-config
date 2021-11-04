@@ -51,7 +51,7 @@ in
             };
           }
         );
-        default = [];
+        default = [ ];
         description = ''
           Open ports for specific IPs.
         '';

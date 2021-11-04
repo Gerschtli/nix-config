@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
+    [
+      <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
     ];
 
   boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "sd_mod" "sr_mod" ];
@@ -14,13 +15,13 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/3100ccc9-75bf-4109-b1f6-43275489601f";
+    {
+      device = "/dev/disk/by-uuid/3100ccc9-75bf-4109-b1f6-43275489601f";
       fsType = "ext4";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/94c0be7f-2f66-449b-90c9-46ed847df3cc"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/94c0be7f-2f66-449b-90c9-46ed847df3cc"; }];
 
   nix.maxJobs = lib.mkDefault 1;
 }

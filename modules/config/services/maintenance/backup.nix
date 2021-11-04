@@ -57,7 +57,7 @@ let
 
       extraOptions = mkOption {
         type = types.attrs;
-        default = {};
+        default = { };
         description = ''
           Extra options for systemd service.
         '';
@@ -108,41 +108,41 @@ in
       utils = {
         systemd.timers = listToAttrs (flip map (attrValues cfg.services) (
           service:
-            let
-              location = "${cfg.location}/${service.name}";
-              locationGpg = "${location}/gpg-home";
-            in
+          let
+            location = "${cfg.location}/${service.name}";
+            locationGpg = "${location}/gpg-home";
+          in
 
-            nameValuePair "${service.name}-backup" {
-              inherit (service) interval;
-              description = "${service.description} backup";
+          nameValuePair "${service.name}-backup" {
+            inherit (service) interval;
+            description = "${service.description} backup";
 
-              serviceConfig = mkMerge [
-                {
-                  serviceConfig = {
-                    Group = user;
-                    User = service.user;
-                  };
-                  preStart = ''
-                    mkdir -p ${location} ${locationGpg}
-                    chmod 0750 ${location}
-                    chmod 0700 ${locationGpg}
-                  '';
-                  script = ''
-                    cd ${location}
-                    ${service.script}
+            serviceConfig = mkMerge [
+              {
+                serviceConfig = {
+                  Group = user;
+                  User = service.user;
+                };
+                preStart = ''
+                  mkdir -p ${location} ${locationGpg}
+                  chmod 0750 ${location}
+                  chmod 0700 ${locationGpg}
+                '';
+                script = ''
+                  cd ${location}
+                  ${service.script}
 
-                    find ${location} -type f -not -iname "*.gpg" -exec ${pkgs.gnupg}/bin/gpg2 \
-                      --homedir ${locationGpg} --recipient-file ${config.lib.custom.path.secrets + "/gpg-public-key"} --encrypt {} \;
-                    rm -r ${locationGpg}
+                  find ${location} -type f -not -iname "*.gpg" -exec ${pkgs.gnupg}/bin/gpg2 \
+                    --homedir ${locationGpg} --recipient-file ${config.lib.custom.path.secrets + "/gpg-public-key"} --encrypt {} \;
+                  rm -r ${locationGpg}
 
-                    find ${location} -type f -not -iname "*.gpg" -exec rm -r {} \+
-                    find ${location} -mtime +${toString service.expiresAfter} -exec rm -r {} \+
-                  '';
-                }
-                service.extraOptions
-              ];
-            }
+                  find ${location} -type f -not -iname "*.gpg" -exec rm -r {} \+
+                  find ${location} -mtime +${toString service.expiresAfter} -exec rm -r {} \+
+                '';
+              }
+              service.extraOptions
+            ];
+          }
         ));
 
         systemUsers.${user} = {

@@ -65,7 +65,7 @@ in
             };
           }
         );
-        default = [];
+        default = [ ];
         description = ''
           List of server using the backup module.
         '';

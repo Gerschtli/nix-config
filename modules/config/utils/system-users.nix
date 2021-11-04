@@ -32,7 +32,7 @@ let
 
       packages = mkOption {
         type = types.listOf types.package;
-        default = [];
+        default = [ ];
         description = ''
           List of packages.
         '';
@@ -40,7 +40,7 @@ let
 
       sshKeys = mkOption {
         type = types.listOf types.path;
-        default = [];
+        default = [ ];
         description = ''
           List of authorized keys.
         '';

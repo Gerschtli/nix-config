@@ -25,20 +25,23 @@ in
 
     custom.services.nginx.enable = true;
 
-    environment.etc = (builtins.listToAttrs
-      (map
-        (file:
-          lib.nameValuePair
-            "${path}/${file}"
-            { source = ./. + "/${file}"; }
+    environment.etc = (
+      builtins.listToAttrs
+        (map
+          (file:
+            lib.nameValuePair
+              "${path}/${file}"
+              { source = ./. + "/${file}"; }
+          )
+          [ "index.html" "robots.txt" "setup.txt" ]
         )
-        ["index.html" "robots.txt" "setup.txt"]
-      )) // {
-        "${path}/setup.sh".source = config.lib.custom.mkScriptPlainNixShell
-          "setup.sh"
-          ./setup.sh
-          { };
-      };
+    )
+    // {
+      "${path}/setup.sh".source = config.lib.custom.mkScriptPlainNixShell
+        "setup.sh"
+        ./setup.sh
+        { };
+    };
 
     services.nginx.virtualHosts = {
       "tobias-happ.de" = {

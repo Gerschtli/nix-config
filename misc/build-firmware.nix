@@ -11,7 +11,7 @@
 {
   imports = [ ./sd-image.nix ];
 
-  system.build.firmware = pkgs.runCommand "firmware" {} ''
+  system.build.firmware = pkgs.runCommand "firmware" { } ''
     mkdir firmware $out
 
     ${config.sdImage.populateFirmwareCommands}
