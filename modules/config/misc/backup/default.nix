@@ -39,9 +39,7 @@ in
       directories = mkOption {
         type = types.listOf types.str;
         default = [];
-        example = literalExample ''
-          [ "~/Documents/program" ]
-        '';
+        example = [ "~/Documents/program" ];
         description = ''
           List of directories to backup.
         '';
