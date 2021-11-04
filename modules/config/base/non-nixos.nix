@@ -27,6 +27,8 @@ in
       enable = mkEnableOption "config for non NixOS systems";
 
       installNix = mkEnableOption "nix installation" // { default = true; };
+
+      #setupNixpkgs = mkEnableOption "config and overlays for nixpkgs";
     };
 
   };
@@ -42,6 +44,11 @@ in
     };
 
     home.packages = mkIf cfg.installNix [ pkgs.nix ];
+
+    #nixpkgs = mkIf cfg.setupNixpkgs {
+    #  config = import (config.lib.custom.path.files + "/config.nix");
+    #  overlays = map import (config.lib.custom.getFileList config.lib.custom.path.overlays);
+    #};
 
     programs.zsh.envExtra = mkAfter ''
       hash -f
