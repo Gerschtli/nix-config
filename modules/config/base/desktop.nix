@@ -74,7 +74,6 @@ in
         xserver = mkIf cfg.enableXserver {
           enable = true;
 
-          # FIXME: enable lightdm after https://github.com/NixOS/nixpkgs/issues/26687 got fixed
           displayManager.lightdm.enable = true;
 
           # FIXME: why is this line needed? ~/.xsession is executed anyway..
