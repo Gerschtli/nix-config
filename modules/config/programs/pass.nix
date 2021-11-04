@@ -28,8 +28,7 @@ in
     custom.programs.gpg.enable = true;
 
     programs = {
-      # FIXME: does not work, see https://github.com/rycee/home-manager/issues/786
-      # browserpass.enable = cfg.browserpass;
+      browserpass.enable = cfg.browserpass;
 
       password-store = {
         enable = true;
