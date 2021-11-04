@@ -20,6 +20,14 @@
     };
   };
 
+  nix = {
+    package = pkgs.nixFlakes;
+
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
+
   systemd.suppressedSystemUnits = [ "systemd-backlight@.service" ];
 
   time.hardwareClockInLocalTime = true;
