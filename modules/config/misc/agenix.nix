@@ -21,7 +21,7 @@ in
       };
 
       secrets = mkOption {
-        type = types.listOf (types.enum [ "gitea-dbpassword" ]);
+        type = types.listOf (types.enum [ "gitea-dbpassword" "gpg-public-key" ]);
         default = [ ];
         description = ''
           Secrets to install.
@@ -43,6 +43,14 @@ in
           file = config.lib.custom.path.modules + "/../secrets/krypton/gitea-dbpassword.age";
           owner = "gitea";
           group = "gitea";
+        };
+      })
+
+      (mkIf (elem "gpg-public-key" cfg.secrets) {
+        gpg-public-key = {
+          file = config.lib.custom.path.modules + "/../secrets/krypton/gpg-public-key.age";
+          owner = "backup";
+          group = "backup";
         };
       })
 

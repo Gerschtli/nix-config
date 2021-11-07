@@ -105,6 +105,8 @@ in
   config = mkIf cfg.enable {
 
     custom = {
+      agenix.secrets = [ "gpg-public-key" ];
+
       utils = {
         systemd.timers = listToAttrs (flip map (attrValues cfg.services) (
           service:
@@ -133,7 +135,7 @@ in
                   ${service.script}
 
                   find ${location} -type f -not -iname "*.gpg" -exec ${pkgs.gnupg}/bin/gpg2 \
-                    --homedir ${locationGpg} --recipient-file ${config.lib.custom.path.secrets + "/gpg-public-key"} --encrypt {} \;
+                    --homedir ${locationGpg} --recipient-file /run/secrets/gpg-public-key --encrypt {} \;
                   rm -r ${locationGpg}
 
                   find ${location} -type f -not -iname "*.gpg" -exec rm -r {} \+
