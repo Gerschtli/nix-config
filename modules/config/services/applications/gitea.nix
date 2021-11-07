@@ -24,28 +24,32 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.services.backup.services.gitea = {
-      inherit (config.services.gitea) user;
-      description = "Gitea";
-      interval = "Tue *-*-* 04:00:00";
-      expiresAfter = 28;
+    custom = {
+      agenix.secrets = [ "gitea-dbpassword" ];
 
-      script = ''
-        pushd ${config.services.gitea.stateDir}
-        ${pkgs.gitea}/bin/gitea dump \
-          --config ${config.services.gitea.stateDir}/custom/conf/app.ini \
-          --work-path ${config.services.gitea.stateDir}
-        popd
+      services.backup.services.gitea = {
+        inherit (config.services.gitea) user;
+        description = "Gitea";
+        interval = "Tue *-*-* 04:00:00";
+        expiresAfter = 28;
 
-        mv ${config.services.gitea.stateDir}/gitea-dump-*.zip .
-        chmod g+r *
-      '';
+        script = ''
+          pushd ${config.services.gitea.stateDir}
+          ${pkgs.gitea}/bin/gitea dump \
+            --config ${config.services.gitea.stateDir}/custom/conf/app.ini \
+            --work-path ${config.services.gitea.stateDir}
+          popd
+
+          mv ${config.services.gitea.stateDir}/gitea-dump-*.zip .
+          chmod g+r *
+        '';
+      };
     };
 
     services = {
       gitea = {
         enable = true;
-        database.passwordFile = config.lib.custom.path.secrets + "/gitea-dbpassword";
+        database.passwordFile = "/run/secrets/gitea-dbpassword";
 
         rootUrl = "https://${domain}/";
         cookieSecure = true;
