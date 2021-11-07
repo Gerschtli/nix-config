@@ -21,7 +21,7 @@ in
       };
 
       secrets = mkOption {
-        type = types.listOf (types.enum [ "gitea-dbpassword" "gpg-public-key" ]);
+        type = types.listOf (types.enum [ "gitea-dbpassword" "gpg-public-key" "teamspeak-serverquery-password" ]);
         default = [ ];
         description = ''
           Secrets to install.
@@ -51,6 +51,14 @@ in
           file = config.lib.custom.path.modules + "/../secrets/krypton/gpg-public-key.age";
           owner = "backup";
           group = "backup";
+        };
+      })
+
+      (mkIf (elem "teamspeak-serverquery-password" cfg.secrets) {
+        teamspeak-serverquery-password = {
+          file = config.lib.custom.path.modules + "/../secrets/krypton/teamspeak-serverquery-password.age";
+          owner = "teamspeak-update-notifier";
+          group = "teamspeak-update-notifier";
         };
       })
 
