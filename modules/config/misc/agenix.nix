@@ -4,6 +4,14 @@ with lib;
 
 let
   cfg = config.custom.agenix;
+
+  buildConfig = { name, host, user }: mkIf (elem name cfg.secrets) {
+    ${name} = {
+      file = config.lib.custom.path.modules + "/../secrets/${host}/${name}.age";
+      owner = user;
+      group = user;
+    };
+  };
 in
 
 {
@@ -38,28 +46,22 @@ in
 
     age.secrets = mkMerge [
 
-      (mkIf (elem "gitea-dbpassword" cfg.secrets) {
-        gitea-dbpassword = {
-          file = config.lib.custom.path.modules + "/../secrets/krypton/gitea-dbpassword.age";
-          owner = "gitea";
-          group = "gitea";
-        };
+      (buildConfig {
+        name = "gitea-dbpassword";
+        host = "krypton";
+        user = "gitea";
       })
 
-      (mkIf (elem "gpg-public-key" cfg.secrets) {
-        gpg-public-key = {
-          file = config.lib.custom.path.modules + "/../secrets/krypton/gpg-public-key.age";
-          owner = "backup";
-          group = "backup";
-        };
+      (buildConfig {
+        name = "gpg-public-key";
+        host = "krypton";
+        user = "backup";
       })
 
-      (mkIf (elem "teamspeak-serverquery-password" cfg.secrets) {
-        teamspeak-serverquery-password = {
-          file = config.lib.custom.path.modules + "/../secrets/krypton/teamspeak-serverquery-password.age";
-          owner = "teamspeak-update-notifier";
-          group = "teamspeak-update-notifier";
-        };
+      (buildConfig {
+        name = "teamspeak-serverquery-password";
+        host = "krypton";
+        user = "teamspeak-update-notifier";
       })
 
     ];
