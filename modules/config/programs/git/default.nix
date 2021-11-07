@@ -36,7 +36,14 @@ let
   '';
 
   extractName = path: removeSuffix ".sh" (baseNameOf path);
-  hooksPathPackages = with pkgs; [ gitAndTools.git-lfs gitAndTools.gitFull gnugrep nixpkgs-fmt openssh ];
+  hooksPathPackages = with pkgs; [
+    findutils
+    gitAndTools.git-lfs
+    gitAndTools.gitFull
+    gnugrep
+    nixpkgs-fmt
+    openssh
+  ];
 
   hooksIncludes = map
     (filename:

@@ -1,9 +1,7 @@
 source @hooksLib@
 
-shopt -s globstar
-
 check() {
-    nixpkgs-fmt --check ./**/*.nix; track_result
+    find . -type f -iname "*.nix" -exec nixpkgs-fmt --check {} \+; track_result
 }
 
 if [[ "${HOOK_TYPE}" = "pre-commit" ]]; then
