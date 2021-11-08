@@ -85,8 +85,8 @@ in
 
         keybindings =
           let
+            inherit (swayConfig) modifier;
             swayConfig = config.wayland.windowManager.sway.config;
-            modifier = swayConfig.modifier;
             exec = command: "exec \"${command}\"";
           in
           mkOptionDefault {

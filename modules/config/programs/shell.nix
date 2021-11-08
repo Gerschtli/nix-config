@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.custom.programs.shell;
 
-  dynamicShellInitModule = types.submodule ({ ... }: {
+  dynamicShellInitModule = types.submodule (_: {
     options = {
       condition = mkOption {
         type = types.str;
