@@ -12,6 +12,14 @@ let
       group = user;
     };
   };
+  buildSshConfig = { name, path, secret }: mkIf (elem secret cfg.secrets) {
+    ${name} = {
+      inherit path;
+      file = config.lib.custom.path.modules + "/../home-manager-configurations/secrets/${name}.age";
+      owner = "root";
+      group = "root";
+    };
+  };
 in
 
 {
@@ -23,23 +31,18 @@ in
 
   options = {
 
-    custom.agenix = {
-      enable = mkEnableOption "agenix" // {
-        default = cfg.secrets != [ ];
-      };
-
-      secrets = mkOption {
-        type = types.listOf (types.enum [
-          "gitea-dbpassword"
-          "gpg-public-key"
-          "id-rsa-backup"
-          "teamspeak-serverquery-password"
-        ]);
-        default = [ ];
-        description = ''
-          Secrets to install.
-        '';
-      };
+    custom.agenix.secrets = mkOption {
+      type = types.listOf (types.enum [
+        "gitea-dbpassword"
+        "gpg-public-key"
+        "id-rsa-backup"
+        "ssh-vcs"
+        "teamspeak-serverquery-password"
+      ]);
+      default = [ ];
+      description = ''
+        Secrets to install.
+      '';
     };
 
   };
@@ -47,39 +50,59 @@ in
 
   ###### implementation
 
-  config = mkIf cfg.enable {
+  config = {
 
-    age.secrets = mkMerge [
+    age = {
+      secrets = mkMerge [
 
-      (buildConfig {
-        name = "gitea-dbpassword";
-        host = "krypton";
-        user = "gitea";
-      })
+        (buildConfig {
+          name = "gitea-dbpassword";
+          host = "krypton";
+          user = "gitea";
+        })
 
-      (buildConfig {
-        name = "gpg-public-key";
-        host = "krypton";
-        user = "backup";
-      })
+        (buildConfig {
+          name = "gpg-public-key";
+          host = "krypton";
+          user = "backup";
+        })
 
-      (buildConfig {
-        name = "id-rsa-backup";
-        host = "xenon";
-        user = "storage";
-      })
+        (buildConfig {
+          name = "id-rsa-backup";
+          host = "xenon";
+          user = "storage";
+        })
 
-      (buildConfig {
-        name = "teamspeak-serverquery-password";
-        host = "krypton";
-        user = "teamspeak-update-notifier";
-      })
+        (buildConfig {
+          name = "teamspeak-serverquery-password";
+          host = "krypton";
+          user = "teamspeak-update-notifier";
+        })
 
-    ];
+        (buildSshConfig {
+          name = "ssh-config-vcs";
+          path = "/root/.ssh/config.d/vcs";
+          secret = "ssh-vcs";
+        })
+        (buildSshConfig {
+          name = "ssh-key-vcs";
+          path = "/root/.ssh/keys/id_rsa.vcs";
+          secret = "ssh-vcs";
+        })
+        (buildSshConfig {
+          name = "ssh-key-vcs-pub";
+          path = "/root/.ssh/keys/id_rsa.vcs.pub";
+          secret = "ssh-vcs";
+        })
 
-    environment.systemPackages = [
-      (import <agenix-cli>).default
-    ];
+      ];
+
+      sshKeyPaths =
+        let path = "/root/.ssh-age/id_rsa.age";
+        in optional (pathExists path) path;
+    };
+
+    custom.agenix.secrets = [ "ssh-vcs" ];
 
   };
 
