@@ -19,6 +19,7 @@ list+=(
     ~/.dotfiles/home-manager/home-manager-configurations/modules/secrets
     ~/.dotfiles/home-manager/home-manager-configurations/modules/secrets/ssh/modules/*
     ~/.password-store
+    ~/.ssh-age
 )
 
 for dir in "${list[@]}"; do

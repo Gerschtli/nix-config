@@ -89,6 +89,7 @@ _pull_changes "gpg"           "${dotfiles}/gpg"
 _pull_changes "home-manager"  "${dotfiles_hm}"
 _pull_changes_ssh             "${dotfiles_hm}"
 _pull_changes "pass"          "${HOME}/.password-store"
+_pull_changes "ssh-age"       "${HOME}/.ssh-age"
 
 
 # dotfiles bootstrap
