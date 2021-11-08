@@ -6,8 +6,6 @@
 #       wpa_passphrase ESSID PSK > /mnt/etc/wpa_supplicant.conf
 # 4. Unmount, inject sd-card in raspberry and boot
 
-{ ... }:
-
 {
   imports = [
     <nixpkgs/nixos/modules/installer/sd-card/sd-image-aarch64.nix>
