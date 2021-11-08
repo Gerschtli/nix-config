@@ -43,7 +43,7 @@ in
       uids = {
         backup = 500;
         storage = 501;
-        ip-watcher = 502;
+        # ip-watcher = 502;
         teamspeak-update-notifier = 503;
 
         tobias = 1000;
@@ -52,7 +52,7 @@ in
       gids = {
         backup = 500;
         storage = 501;
-        ip-watcher = 502;
+        # ip-watcher = 502;
         teamspeak-update-notifier = 503;
 
         secret-files = 600;
