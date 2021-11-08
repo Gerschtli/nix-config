@@ -79,53 +79,57 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.utils = {
-      systemd.timers.storage-backup = {
-        inherit (cfg) interval;
-        description = "Storage backup";
+    custom = {
+      agenix.secrets = [ "id-rsa-backup" ];
 
-        serviceConfig = {
+      utils = {
+        systemd.timers.storage-backup = {
+          inherit (cfg) interval;
+          description = "Storage backup";
+
           serviceConfig = {
-            Group = user;
-            User = user;
-            PermissionsStartOnly = true;
+            serviceConfig = {
+              Group = user;
+              User = user;
+              PermissionsStartOnly = true;
+            };
+            unitConfig.RequiresMountsFor = mkIf useMount location;
+            preStart = ''
+              mkdir -p ${backupDir}
+              chown ${user}:${user} ${backupDir}
+              chmod 0750 ${backupDir}
+            '';
+            script = ''
+              cd ${backupDir}
+
+              ${
+                concatMapStringsSep
+                  "\n"
+                  (server: ''
+                    ${pkgs.rsync}/bin/rsync \
+                      --archive \
+                      --compress \
+                      --include "*.gpg" \
+                      --prune-empty-dirs \
+                      --verbose \
+                      --whole-file \
+                      --rsh "${pkgs.openssh}/bin/ssh \
+                        -o UserKnownHostsFile=/dev/null \
+                        -o StrictHostKeyChecking=no \
+                        -i /run/secrets/id-rsa-backup" \
+                      "${backupUser}@${server.ip}:${config.custom.services.backup.location}/*" \
+                      "${backupDir}/${server.name}"
+                  '')
+                  cfg.server
+              }
+
+              find ${backupDir} -type f -mtime +${toString cfg.expiresAfter} -exec rm {} \+
+            '';
           };
-          unitConfig.RequiresMountsFor = mkIf useMount location;
-          preStart = ''
-            mkdir -p ${backupDir}
-            chown ${user}:${user} ${backupDir}
-            chmod 0750 ${backupDir}
-          '';
-          script = ''
-            cd ${backupDir}
-
-            ${
-              concatMapStringsSep
-                "\n"
-                (server: ''
-                  ${pkgs.rsync}/bin/rsync \
-                    --archive \
-                    --compress \
-                    --include "*.gpg" \
-                    --prune-empty-dirs \
-                    --verbose \
-                    --whole-file \
-                    --rsh "${pkgs.openssh}/bin/ssh \
-                      -o UserKnownHostsFile=/dev/null \
-                      -o StrictHostKeyChecking=no \
-                      -i ${config.lib.custom.path.secrets + "/id_rsa.backup"}" \
-                    "${backupUser}@${server.ip}:${config.custom.services.backup.location}/*" \
-                    "${backupDir}/${server.name}"
-                '')
-                cfg.server
-            }
-
-            find ${backupDir} -type f -mtime +${toString cfg.expiresAfter} -exec rm {} \+
-          '';
         };
-      };
 
-      systemUsers.${user} = { };
+        systemUsers.${user} = { };
+      };
     };
 
     system.activationScripts.backup = mkIf (! useMount) ''

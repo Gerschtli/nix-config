@@ -29,7 +29,12 @@ in
       };
 
       secrets = mkOption {
-        type = types.listOf (types.enum [ "gitea-dbpassword" "gpg-public-key" "teamspeak-serverquery-password" ]);
+        type = types.listOf (types.enum [
+          "gitea-dbpassword"
+          "gpg-public-key"
+          "id-rsa-backup"
+          "teamspeak-serverquery-password"
+        ]);
         default = [ ];
         description = ''
           Secrets to install.
@@ -56,6 +61,12 @@ in
         name = "gpg-public-key";
         host = "krypton";
         user = "backup";
+      })
+
+      (buildConfig {
+        name = "id-rsa-backup";
+        host = "xenon";
+        user = "storage";
       })
 
       (buildConfig {
