@@ -28,7 +28,10 @@ in
     custom.programs.gpg.enable = true;
 
     programs = {
-      browserpass.enable = cfg.browserpass;
+      browserpass = {
+        enable = cfg.browserpass;
+        browsers = [ "chrome" ];
+      };
 
       password-store = {
         enable = true;
