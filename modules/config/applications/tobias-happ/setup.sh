@@ -120,18 +120,6 @@ if _is_nixos && _is_root; then
         _clone "nixos" git@github.com:Gerschtli/nixos-configurations.git "${nixos}"
     fi
 
-    secrets_repo_host=$(_read_enum "Enter host name for nixos secrets" krypton xenon "")
-    if [[ "${secrets_repo_host}" != "" ]]; then
-        if [[ -d "${nixos}/${secrets_path}" ]] &&
-            _read_boolean "Create backup before removing ${nixos}/${secrets_path}?" Y; then
-            mv -v "${nixos}/${secrets_path}"{,.bak}
-        fi
-        rm -vrf "${nixos:?}/${secrets_path:?}"
-
-        secrets_repo="secrets-${secrets_repo_host}-nixos"
-        _clone "${secrets_repo}" "gitea@git.tobias-happ.de:Gerschtli/${secrets_repo}.git" "${nixos}/${secrets_path}"
-    fi
-
     _clone "home-manager-configurations" git@github.com:Gerschtli/home-manager-configurations.git "${nixos_hm}"
 
     _clone_ssh "${nixos_hm}/${ssh_path}"
