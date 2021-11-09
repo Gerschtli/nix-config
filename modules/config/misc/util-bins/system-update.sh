@@ -12,9 +12,7 @@ _has_unit_enabled() {
 
 _log() {
     echo
-    echo -e "${PURPLE}===================== ${GREEN} SYSTEM-UPDATE ${PURPLE} ======================${RESET}"
-    echo -e "${PURPLE}============================================================${RESET}"
-    echo -e "[${BLUE}${1}${RESET}] => ${2}"
+    echo -e "[${YELLOW}${BOLD}${1}${RESET}] ${BOLD}${2}${RESET}"
     echo
 }
 
