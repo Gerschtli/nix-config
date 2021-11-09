@@ -149,3 +149,11 @@ if [[ -d "${HOME}/.ssh/modules" ]]; then
     _log "migration" "remove ~/.ssh/modules"
     rm -vr "${HOME}/.ssh/modules"
 fi
+
+for project in "${nixos}" "${nixos_hm}" "${dotfiles_hm}"; do
+    dir="${project}/modules/secrets"
+    if [[ -d "${dir}" ]] && _read_boolean "Remove ${dir}?"; then
+        _log "migration" "remove ${dir}"
+        rm -vr "${dir}"
+    fi
+done

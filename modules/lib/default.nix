@@ -18,6 +18,5 @@ in
     config = ../config;
     files = ../files;
     overlays = ../overlays;
-    secrets = toString ../secrets;
   };
 }
