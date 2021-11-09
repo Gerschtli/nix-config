@@ -6,6 +6,6 @@ echo
 nox-update --quiet @activeLinkPath@ result |
     grep -v '\.drv : $' |
     sed 's|^ */nix/store/[a-z0-9]*-||' |
-    sort -u
+    sort -u || :
 
 rm result

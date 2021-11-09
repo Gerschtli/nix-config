@@ -32,7 +32,7 @@ _show_result_diff() {
     nox-update --quiet "${1}" result |
         grep -v '\.drv : $' |
         sed 's|^ */nix/store/[a-z0-9]*-||' |
-        sort -u
+        sort -u || :
 
     rm result
 }
