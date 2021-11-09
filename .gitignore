@@ -1,5 +1,3 @@
 configuration.nix
 home-manager-configurations
-modules/secrets/*
-!modules/secrets/.gitkeep
 result
