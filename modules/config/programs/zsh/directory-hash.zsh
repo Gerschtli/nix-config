@@ -6,13 +6,11 @@ _set-hashes() {
 
     local dotfiles="${HOME}/.dotfiles"
     local home_manager="${dotfiles}/home-manager/home-manager-configurations"
-    local ssh_path="modules/secrets/ssh/modules"
 
     directories=(
         "dotfiles" "${dotfiles}"
         "gpg" "${dotfiles}/gpg"
         "home-manager" "${home_manager}"
-        "ssh" "${home_manager}/${ssh_path}"
     )
 
     if [[ $(id -u) == 0 ]]; then
@@ -22,7 +20,6 @@ _set-hashes() {
         directories+=(
            "nixos" "${nixos}"
            "home-manager" "${home_manager_nixos}"
-           "ssh" "${home_manager_nixos}/${ssh_path}"
         )
     fi
 

@@ -25,16 +25,6 @@ _pull_changes() {
     fi
 }
 
-_pull_changes_ssh() {
-    local ssh_path="modules/secrets/ssh/modules"
-
-    if [[ -d "${1}/${ssh_path}" ]]; then
-        for ssh_module in "${1}/${ssh_path}/"*; do
-            _pull_changes "ssh $(basename "${ssh_module}")" "${ssh_module}"
-        done
-    fi
-}
-
 _show_result_diff() {
     echo
 
@@ -50,11 +40,11 @@ _show_result_diff() {
 # add key
 if _available keychain; then
     _log "keychain" "add key"
-    keychain "${HOME}/.ssh/modules/vcs/keys/id_rsa.vcs"
+    keychain "${HOME}/.ssh/keys/id_rsa.vcs"
 else
     _log "ssh-agent" "add key"
 
-    key="${HOME}/.ssh/modules/vcs/keys/id_rsa.vcs"
+    key="${HOME}/.ssh/keys/id_rsa.vcs"
     if ! ssh-add -l | grep " ${key} " > /dev/null 2>&1; then
         ssh-add "${key}"
     fi
@@ -81,13 +71,10 @@ dotfiles="${HOME}/.dotfiles"
 dotfiles_hm="${dotfiles}/home-manager/home-manager-configurations"
 
 _pull_changes "nixos"         "${nixos}"
-_pull_changes "nixos secrets" "${nixos}/modules/secrets"
 _pull_changes "home-manager"  "${nixos_hm}"
-_pull_changes_ssh             "${nixos_hm}"
 _pull_changes "dotfiles"      "${dotfiles}"
 _pull_changes "gpg"           "${dotfiles}/gpg"
 _pull_changes "home-manager"  "${dotfiles_hm}"
-_pull_changes_ssh             "${dotfiles_hm}"
 _pull_changes "pass"          "${HOME}/.password-store"
 _pull_changes "ssh-age"       "${HOME}/.ssh-age"
 
