@@ -135,7 +135,7 @@ fi
 
 
 # migrations
-if [[ -d "${HOME}/.ssh-age" ]]; then
+if [[ -d "${HOME}/.ssh-age" && "$(stat -c %A "${HOME}/.ssh-age")" != "drwx------" ]]; then
     _log "migration" "set permissions for ~/.ssh-age"
     chmod -v 0700 "${HOME}/.ssh-age"
 fi
@@ -152,7 +152,7 @@ fi
 
 for project in "${nixos}" "${nixos_hm}" "${dotfiles_hm}"; do
     dir="${project}/modules/secrets"
-    if [[ -d "${dir}" ]] && _read_boolean "Remove ${dir}?"; then
+    if [[ -d "${dir}" && -w "${dir}" ]] && _read_boolean "Remove ${dir}?"; then
         _log "migration" "remove ${dir}"
         rm -vr "${dir}"
     fi
