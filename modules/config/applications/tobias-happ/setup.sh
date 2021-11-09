@@ -10,8 +10,6 @@ nixos="/etc/nixos"
 nixos_hm="${nixos}/home-manager-configurations"
 dotfiles="${HOME}/.dotfiles"
 dotfiles_hm="${dotfiles}/home-manager/home-manager-configurations"
-secrets_path="modules/secrets"
-ssh_path="${secrets_path}/ssh/modules"
 
 _log() {
     echo
@@ -32,16 +30,6 @@ _clone() {
     git clone "${url}" "${directory}"
 }
 
-_clone_ssh() {
-    local directory="${1}"
-
-    for name in private vcs; do
-        if [[ "${name}" == "vcs" ]] || _read_boolean "Install ssh repo ${name}?"; then
-            _clone "ssh repo ${name}" "gitea@git.tobias-happ.de:Gerschtli/ssh-${name}.git" "${directory}/${name}"
-        fi
-    done
-}
-
 _exit_if_new_device() {
     if [[ -n "${NEW_DEVICE}" ]]; then
         _log "Please set up your nixos/home-manager configurations and rerun this script in cleanup mode!"
@@ -50,35 +38,11 @@ _exit_if_new_device() {
     fi
 }
 
-_fix_permissions() {
-    local directory="${1}"
-    if [[ ! -w "${directory}" ]]; then
-        return
-    fi
-
-    _log "Fix permissions for ${directory}"
-
-    local secret_files="${directory}/.secret-files"
-
-    while read -r line; do
-        local file="${directory}/${line}"
-        if [[ -e "${file}" ]]; then
-            chmod 0640 "${file}"
-            # try to set group if group is available
-            chgrp secret-files "${file}" 2> /dev/null || :
-        fi
-    done < "${secret_files}"
-}
-
 _last_steps() {
     if nix-env -q --json | jq ".[].pname" | grep '"nix"' > /dev/null; then
         _log "Uninstall manual installed nix package..."
         nix-env --uninstall nix
     fi
-
-    for module in "${nixos_hm}/${ssh_path}/"* "${dotfiles_hm}/${ssh_path}/"*; do
-        _fix_permissions "${module}"
-    done
 
     if [[ -d "${dotfiles}" ]]; then
         _log "Setup dotfiles..."
@@ -121,8 +85,6 @@ if _is_nixos && _is_root; then
     fi
 
     _clone "home-manager-configurations" git@github.com:Gerschtli/home-manager-configurations.git "${nixos_hm}"
-
-    _clone_ssh "${nixos_hm}/${ssh_path}"
 fi
 
 if ! _is_root && ( ! _is_nixos || _read_boolean "Install dotfiles?" ); then
@@ -130,8 +92,6 @@ if ! _is_root && ( ! _is_nixos || _read_boolean "Install dotfiles?" ); then
 
     if ! _is_nixos; then
         _clone "home-manager-configurations" git@github.com:Gerschtli/home-manager-configurations.git "${dotfiles_hm}"
-
-        _clone_ssh "${dotfiles_hm}/${ssh_path}"
     fi
 
     if _read_boolean "Install gpg repo?"; then
@@ -141,6 +101,10 @@ if ! _is_root && ( ! _is_nixos || _read_boolean "Install dotfiles?" ); then
             _clone "password store" gitea@git.tobias-happ.de:Gerschtli/pass.git "${HOME}/.password-store"
         fi
     fi
+fi
+
+if ! _is_root || _read_boolean "Install ssh-age repo?"; then
+    _clone "ssh-age" gitea@git.tobias-happ.de:Gerschtli/ssh-age.git "${HOME}/.ssh-age"
 fi
 
 
@@ -194,7 +158,6 @@ elif ! _is_nixos && ! _is_root; then
 
         _log "Run home-manager switch..."
         home-manager switch -b hm-bak -f "${home_file}"
-
     fi
 fi
 
