@@ -132,3 +132,20 @@ if ! _is_nixos || _is_root; then
         nix-store --optimise
     fi
 fi
+
+
+# migrations
+if [[ -d "${HOME}/.ssh-age" ]]; then
+    _log "migration" "set permissions for ~/.ssh-age"
+    chmod -v 0700 "${HOME}/.ssh-age"
+fi
+
+if [[ -f "${HOME}/.ssh/known_hosts.old" ]]; then
+    _log "migration" "remove ~/.ssh/known_hosts.old"
+    rm -v "${HOME}/.ssh/known_hosts.old"
+fi
+
+if [[ -d "${HOME}/.ssh/modules" ]]; then
+    _log "migration" "remove ~/.ssh/modules"
+    rm -vr "${HOME}/.ssh/modules"
+fi
