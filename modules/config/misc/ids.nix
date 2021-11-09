@@ -55,7 +55,7 @@ in
         # ip-watcher = 502;
         teamspeak-update-notifier = 503;
 
-        secret-files = 600;
+        # secret-files = 600;
       };
     };
 

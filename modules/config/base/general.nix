@@ -84,22 +84,15 @@ in
 
     time.timeZone = "Europe/Berlin";
 
-    users = {
-      groups.secret-files = {
+    users.users = {
+      root.shell = pkgs.zsh;
+
+      tobias = {
         # FIXME: move mkIf to ids module
-        gid = mkIf config.custom.ids.enable config.custom.ids.gids.secret-files;
-      };
-
-      users = {
-        root.shell = pkgs.zsh;
-
-        tobias = {
-          # FIXME: move mkIf to ids module
-          uid = mkIf config.custom.ids.enable config.custom.ids.uids.tobias;
-          extraGroups = [ "secret-files" "wheel" ];
-          isNormalUser = true;
-          shell = pkgs.zsh;
-        };
+        uid = mkIf config.custom.ids.enable config.custom.ids.uids.tobias;
+        extraGroups = [ "wheel" ];
+        isNormalUser = true;
+        shell = pkgs.zsh;
       };
     };
 
