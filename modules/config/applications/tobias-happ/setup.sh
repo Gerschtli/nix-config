@@ -105,6 +105,9 @@ fi
 
 if ! _is_root || _read_boolean "Install ssh-age repo?"; then
     _clone "ssh-age" gitea@git.tobias-happ.de:Gerschtli/ssh-age.git "${HOME}/.ssh-age"
+
+    _log "Change permissions of ~/.ssh-age..."
+    chmod -v 0700 "${HOME}/.ssh-age"
 fi
 
 
@@ -129,17 +132,17 @@ if _is_nixos && _is_root; then
     _exit_if_new_device
 
     parameter=$(_read_enum "Enter hostname" argon krypton neon xenon)
-    ln -sf "${nixos}/configuration-${parameter}.nix" "${nixos}/configuration.nix"
+    ln -vsnf "${nixos}/configuration-${parameter}.nix" "${nixos}/configuration.nix"
     nixos-rebuild switch || _read_boolean "Was nixos-rebuild successful?"
 elif ! _is_nixos && ! _is_root; then
     home_file="${dotfiles_hm}/home-files/$(hostname)/$(whoami).nix"
 
     if [[ "${USER}" == "nix-on-droid" ]]; then
         _log "Link home.nix file..."
-        ln -snf "${home_file}" "${HOME}/.config/nixpkgs/home.nix"
+        ln -vsnf "${home_file}" "${HOME}/.config/nixpkgs/home.nix"
 
         _log "Link nix-on-droid.nix file..."
-        ln -snf "${dotfiles}/nix-on-droid/nix-on-droid.nix" "${HOME}/.config/nixpkgs/nix-on-droid.nix"
+        ln -vsnf "${dotfiles}/nix-on-droid/nix-on-droid.nix" "${HOME}/.config/nixpkgs/nix-on-droid.nix"
 
         _log "Run nix-on-droid switch..."
         nix-on-droid switch --verbose
