@@ -82,6 +82,7 @@ let
     la = "ls -AFv";
     l1 = "ls -AFh1v";
     ll = "ls -AFhlv";
+    llr = "ll /nix/var/nix/gcroots/auto --color=always | grep result";
 
     cp = "cp -av";
     mv = "mv -v";
