@@ -67,8 +67,6 @@ in
       gitProtocol = "ssh";
     };
 
-    systemd.user.startServices = true;
-
     xdg.mimeApps = {
       enable = true;
 

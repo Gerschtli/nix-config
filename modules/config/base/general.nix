@@ -109,6 +109,8 @@ in
 
     programs.home-manager.enable = true;
 
+    systemd.user.startServices = "sd-switch";
+
     xdg.configFile = {
       "nixpkgs/config.nix".source = config.lib.custom.path.files + "/config.nix";
     } // builtins.listToAttrs (
