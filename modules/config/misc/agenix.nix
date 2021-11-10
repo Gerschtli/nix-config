@@ -15,7 +15,7 @@ let
   buildSshConfig = { name, path, secret }: mkIf (elem secret cfg.secrets) {
     ${name} = {
       inherit path;
-      file = config.lib.custom.path.modules + "/../home-manager-configurations/secrets/${name}.age";
+      file = config.lib.custom.path.modules + "/../home-manager-configurations/secrets/ssh/${name}.age";
       owner = "root";
       group = "root";
     };
@@ -80,17 +80,17 @@ in
         })
 
         (buildSshConfig {
-          name = "ssh-config-vcs";
+          name = "vcs/config";
           path = "/root/.ssh/config.d/vcs";
           secret = "ssh-vcs";
         })
         (buildSshConfig {
-          name = "ssh-key-vcs";
+          name = "vcs/id-rsa-vcs";
           path = "/root/.ssh/keys/id_rsa.vcs";
           secret = "ssh-vcs";
         })
         (buildSshConfig {
-          name = "ssh-key-vcs-pub";
+          name = "vcs/id-rsa-vcs-pub";
           path = "/root/.ssh/keys/id_rsa.vcs.pub";
           secret = "ssh-vcs";
         })
@@ -98,8 +98,11 @@ in
       ];
 
       sshKeyPaths =
-        let path = "/root/.ssh-age/id_rsa.age";
-        in optional (pathExists path) path;
+        let
+          add = file: optional (pathExists file) file;
+        in
+        (add "/root/.age-bak/key.txt")
+        ++ (add "/root/.age/key.txt");
     };
 
     custom.agenix.secrets = [ "ssh-vcs" ];

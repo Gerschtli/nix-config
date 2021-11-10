@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -i bash -p coreutils curl findutils git gnugrep gnused hostname jq openssh
+#! nix-shell -i bash -p age coreutils curl findutils git gnugrep gnused hostname jq openssh
 
 { # prevent execution if this script was only partially downloaded
 set -euo pipefail
@@ -103,11 +103,16 @@ if ! _is_root && ( ! _is_nixos || _read_boolean "Install dotfiles?" ); then
     fi
 fi
 
-if ! _is_root || _read_boolean "Install ssh-age repo?"; then
-    _clone "ssh-age" gitea@git.tobias-happ.de:Gerschtli/ssh-age.git "${HOME}/.ssh-age"
+_clone "age-bak" gitea@git.tobias-happ.de:Gerschtli/age-bak.git "${HOME}/.age-bak"
 
-    _log "Change permissions of ~/.ssh-age..."
-    chmod -v 0700 "${HOME}/.ssh-age"
+_log "Change permissions of ~/.age-bak..."
+chmod -v 0700 "${HOME}/.age-bak"
+
+if _read_boolean "Create ~/.age/key.txt?"; then
+    _log "age" "generate age key"
+    mkdir -p "${HOME}/.age"
+    age-keygen -o "${HOME}/.age/key.txt"
+
 fi
 
 
