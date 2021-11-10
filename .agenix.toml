@@ -1,6 +1,31 @@
 [identities]
-vcs = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCgJkeHi1A+ERs+vDAGzs8rQfHjSzRym7S+jGz4rYXgweRgMKqn0mp5OXy5MGGZDijzbHSVXRpe27Kh9M35ETlnttqWMnj1XAVPE/jraQ6x0qgrfsD1PqNrNPgqHm8LJhxhmTATI1FP2g/ivx9G+0CWG8l9W+7UOdX/gGNSsakp9lX6csm36okDUemZErWbkygSq+puh0kT/zoCzd81VilHF58iMMSA8A/hUpUCJK3vMiNNK0lyoE2JShpe3CL5ze7fTkcw/JW33NE08HnGOKe34a0Q1W4G0FsY8FX/HpHq1GMium7yhANW9fCP8wY/di2QE11OH6CE9PIQO7ngXrjOzo/tUGWCjuSWFKWQx6QC17zWTQcDOyotgBnlGeCkcfSdveZuiJ7kPgRKAWiMV2IwDDmIVxVVTdPtVHFTmrbzEsZObW4SJL7I2aOHo+f5AEIBcVP8NWw0fmD7RZenIMrNlzPpoIWNBX/RAHBus8TfwYD437gxsfcpiTNzYfbEzOYsPst/AM2pK9l0V9bcbfWLM7S3Q5Ev4j2fGUn9U6vDbJ3NwS+JV5WV5B/ZADTjbCrwqbJrQUytLZ74phq14qK99CKBlWwsjblEQTqUNYtJ7wfuWHrxlEuN3xHvUhuMcBa14lfDgDe2ollet1mDbDIKHwpJgcwYHR0sgFL4JfeBEQ=="
+bak = "age1kttfv4zpvv0cshe8q7lvakycytn34pja9pcy4ylq94kw90k3yfwsxja79j"
+krypton-root = "age1vheh9hvezl0k2fe7wpfjnfp6ajcezz78jlhxj6wvzxdvkte4lfys03ktuq"
+krypton-tobias = "age1r2maar050kkskxpaestrd738dpphptp886mdt4kta2p3mup3mc9s4r4020"
+neon-root = "age1p72skzuq8tn9klz0z6k6xaj4q90ztalujwta2nx5c4ekfy9r6u9s7zjuh0"
+neon-tobias = "age1z7t97jm3uh6xjvx709zd634wnqgavm6e3rgsqx7782mcq9vntpeq0qxhh2"
+xenon-root = "age1glu7paaertha2q28whxehvgn7euj52z5pka0edlrp6pnhqypvcmqm2lg64"
+xenon-tobias = "age1dxhjmnugds3263vsh02zrxagxal5x25ycs3xpueja7yfvcx8lves8p5rkv"
+
+[groups]
+all = [
+    "bak",
+    "krypton-root",
+    "krypton-tobias",
+    "neon-root",
+    "neon-tobias",
+    "xenon-root",
+    "xenon-tobias",
+]
+desktops = [
+    "bak",
+    "neon-tobias",
+]
 
 [[paths]]
-glob = "secrets/*"
-identities = [ "vcs" ]
+glob = "secrets/ssh/private/*"
+groups = [ "desktops" ]
+
+[[paths]]
+glob = "secrets/ssh/vcs/*"
+groups = [ "all" ]

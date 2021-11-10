@@ -74,7 +74,6 @@ _pull_changes "dotfiles"      "${dotfiles}"
 _pull_changes "gpg"           "${dotfiles}/gpg"
 _pull_changes "home-manager"  "${dotfiles_hm}"
 _pull_changes "pass"          "${HOME}/.password-store"
-_pull_changes "ssh-age"       "${HOME}/.ssh-age"
 
 
 # dotfiles bootstrap
@@ -135,9 +134,14 @@ fi
 
 
 # migrations
-if [[ -d "${HOME}/.ssh-age" && "$(stat -c %A "${HOME}/.ssh-age")" != "drwx------" ]]; then
-    _log "migration" "set permissions for ~/.ssh-age"
-    chmod -v 0700 "${HOME}/.ssh-age"
+if [[ ! -f "${HOME}/.age/key.txt" ]] && _read_boolean "Generate ~/.age/key.txt?"; then
+    mkdir -p "${HOME}/.age"
+    age-keygen -o "${HOME}/.age/key.txt"
+fi
+
+if [[ -d "${HOME}/.ssh-age" ]] && _read_boolean "Remove ~/.ssh-age?"; then
+    _log "migration" "remove ~/.ssh-age"
+    rm -vrf "${HOME}/.ssh-age"
 fi
 
 if [[ -f "${HOME}/.ssh/known_hosts.old" ]]; then
@@ -147,13 +151,13 @@ fi
 
 if [[ -d "${HOME}/.ssh/modules" ]]; then
     _log "migration" "remove ~/.ssh/modules"
-    rm -vr "${HOME}/.ssh/modules"
+    rm -vrf "${HOME}/.ssh/modules"
 fi
 
 for project in "${nixos}" "${nixos_hm}" "${dotfiles_hm}"; do
     dir="${project}/modules/secrets"
     if [[ -d "${dir}" && -w "${dir}" ]] && _read_boolean "Remove ${dir}?"; then
         _log "migration" "remove ${dir}"
-        rm -vr "${dir}"
+        rm -vrf "${dir}"
     fi
 done

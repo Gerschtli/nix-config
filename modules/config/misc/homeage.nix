@@ -7,19 +7,19 @@ let
 
   buildSshConfig = name: {
     path = "ssh-config-${name}";
-    source = config.lib.custom.path.modules + "/../secrets/ssh-config-${name}.age";
+    source = config.lib.custom.path.modules + "/../secrets/ssh/${name}/config.age";
     cpOnService = [ "${config.home.homeDirectory}/.ssh/config.d/${name}" ];
   };
 
-  buildSshKey = name: [
+  buildSshKey = module: name: [
     {
       path = "ssh-key-${name}";
-      source = config.lib.custom.path.modules + "/../secrets/ssh-key-${name}.age";
+      source = config.lib.custom.path.modules + "/../secrets/ssh/${module}/id-rsa-${name}.age";
       cpOnService = [ "${config.home.homeDirectory}/.ssh/keys/id_rsa.${name}" ];
     }
     {
       path = "ssh-key-${name}-pub";
-      source = config.lib.custom.path.modules + "/../secrets/ssh-key-${name}-pub.age";
+      source = config.lib.custom.path.modules + "/../secrets/ssh/${module}/id-rsa-${name}-pub.age";
       cpOnService = [ "${config.home.homeDirectory}/.ssh/keys/id_rsa.${name}.pub" ];
     }
   ];
@@ -54,7 +54,12 @@ in
     ];
 
     homeage = {
-      identityPaths = [ "${config.home.homeDirectory}/.ssh-age/id_rsa.age" ];
+      identityPaths =
+        let
+          add = file: optional (pathExists file) file;
+        in
+        (add "${config.home.homeDirectory}/.age-bak/key.txt")
+        ++ (add "${config.home.homeDirectory}/.age/key.txt");
 
       file = builtins.listToAttrs (
         map
@@ -62,12 +67,12 @@ in
           (flatten (
             (optional (elem "ssh-private" cfg.secrets) [
               (buildSshConfig "private")
-              (buildSshKey "private")
-              (buildSshKey "strato")
+              (buildSshKey "private" "private")
+              (buildSshKey "private" "strato")
             ])
             ++ (optional (elem "ssh-vcs" cfg.secrets) [
               (buildSshConfig "vcs")
-              (buildSshKey "vcs")
+              (buildSshKey "vcs" "vcs")
             ])
           ))
       );
