@@ -109,7 +109,8 @@ in
 
     programs.home-manager.enable = true;
 
-    systemd.user.startServices = "sd-switch";
+    # FIXME: set to sd-switch once it works for krypton
+    systemd.user.startServices = "legacy";
 
     xdg.configFile = {
       "nixpkgs/config.nix".source = config.lib.custom.path.files + "/config.nix";
