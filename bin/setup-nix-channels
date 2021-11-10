@@ -22,7 +22,8 @@ nix-channel --add https://github.com/Gerschtli/home-manager/archive/custom.tar.g
 nix-channel --add https://github.com/Gerschtli/nur-packages/archive/master.tar.gz nur-gerschtli
 nix-channel --add https://github.com/ryantm/agenix/archive/master.tar.gz agenix
 nix-channel --add https://github.com/cole-h/agenix-cli/archive/main.tar.gz agenix-cli
-nix-channel --add https://github.com/jordanisaacs/homeage/archive/main.tar.gz homeage
+#nix-channel --add https://github.com/jordanisaacs/homeage/archive/main.tar.gz homeage
+nix-channel --add https://github.com/Gerschtli/homeage/archive/support-script.tar.gz homeage
 
 if [[ ${NIX_ON_DROID} == 1 ]]; then
     nix-channel --add https://github.com/t184256/nix-on-droid/archive/master.tar.gz nix-on-droid
