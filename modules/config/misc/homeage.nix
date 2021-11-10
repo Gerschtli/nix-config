@@ -34,12 +34,22 @@ in
 
   options = {
 
-    custom.misc.homeage.secrets = mkOption {
-      type = types.listOf (types.enum [ "ssh-private" "ssh-vcs" ]);
-      default = [ ];
-      description = ''
-        Secrets to install.
-      '';
+    custom.misc.homeage = {
+      secrets = mkOption {
+        type = types.listOf (types.enum [ "ssh-private" "ssh-vcs" ]);
+        default = [ ];
+        description = ''
+          Secrets to install.
+        '';
+      };
+
+      directory = mkOption {
+        type = types.nullOr types.string;
+        default = null;
+        description = ''
+          Directory to save secrets in. See <literal>homeage.mount</literal>.
+        '';
+      };
     };
 
   };
@@ -63,6 +73,7 @@ in
         ++ (add "${config.home.homeDirectory}/.age/key.txt");
 
       installationType = "activation";
+      mount = mkIf (cfg.directory != null) cfg.directory;
 
       file = builtins.listToAttrs (
         map
