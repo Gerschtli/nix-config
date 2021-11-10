@@ -62,6 +62,8 @@ in
         (add "${config.home.homeDirectory}/.age-bak/key.txt")
         ++ (add "${config.home.homeDirectory}/.age/key.txt");
 
+      installationType = "activation";
+
       file = builtins.listToAttrs (
         map
           (entry: nameValuePair entry.path entry)
