@@ -16,6 +16,16 @@ _log() {
     echo
 }
 
+_migration_remove() {
+    local file="${1}"
+    local ask="${2:-}"
+
+    if [[ -f "${file}" || -d "${file}" ]] && ( [[ "${ask}" != "1" ]] || _read_boolean "Remove ${file}?" ); then
+        _log "migration" "remove ${file}"
+        rm -vrf "${file}"
+    fi
+}
+
 _pull_changes() {
     if [[ -d "${2}" && -w "${2}" ]]; then
         _log "pull changes" "update ${1} project"
@@ -34,6 +44,7 @@ _show_result_diff() {
 
     rm result
 }
+
 
 # add key
 if _available keychain; then
@@ -139,35 +150,15 @@ if [[ ! -f "${HOME}/.age/key.txt" ]] && _read_boolean "Generate ~/.age/key.txt?"
     age-keygen -o "${HOME}/.age/key.txt"
 fi
 
-if [[ -d "${HOME}/.ssh-age" ]] && _read_boolean "Remove ~/.ssh-age?"; then
-    _log "migration" "remove ~/.ssh-age"
-    rm -vrf "${HOME}/.ssh-age"
-fi
-
-if [[ -f "${HOME}/.ssh/keys/id_rsa.age" || -f "${HOME}/.ssh/keys/id_rsa.age.pub" ]]; then
-    _log "migration" "remove ~/.ssh/keys/id_rsa.age*"
-    rm -v "${HOME}/.ssh/keys/id_rsa.age"*
-fi
-
-if [[ -f "${HOME}/.ssh/id_rsa" || -f "${HOME}/.ssh/id_rsa.pub" ]]; then
-    _log "migration" "remove ~/.ssh/id_rsa*"
-    rm -v "${HOME}/.ssh/id_rsa"*
-fi
-
-if [[ -f "${HOME}/.ssh/known_hosts.old" ]]; then
-    _log "migration" "remove ~/.ssh/known_hosts.old"
-    rm -v "${HOME}/.ssh/known_hosts.old"
-fi
-
-if [[ -d "${HOME}/.ssh/modules" ]]; then
-    _log "migration" "remove ~/.ssh/modules"
-    rm -vrf "${HOME}/.ssh/modules"
-fi
+_migration_remove "${HOME}/.age-bak" 1
+_migration_remove "${HOME}/.ssh-age" 1
+_migration_remove "${HOME}/.ssh/id_rsa"
+_migration_remove "${HOME}/.ssh/id_rsa.pub"
+_migration_remove "${HOME}/.ssh/keys/id_rsa.age"
+_migration_remove "${HOME}/.ssh/keys/id_rsa.age.pub"
+_migration_remove "${HOME}/.ssh/known_hosts.old"
+_migration_remove "${HOME}/.ssh/modules"
 
 for project in "${nixos}" "${nixos_hm}" "${dotfiles_hm}"; do
-    dir="${project}/modules/secrets"
-    if [[ -d "${dir}" && -w "${dir}" ]] && _read_boolean "Remove ${dir}?"; then
-        _log "migration" "remove ${dir}"
-        rm -vrf "${dir}"
-    fi
+    _migration_remove "${project}/modules/secrets" 1
 done
