@@ -12,14 +12,6 @@ let
       group = user;
     };
   };
-  buildSshConfig = { name, path, secret }: mkIf (elem secret cfg.secrets) {
-    ${name} = {
-      inherit path;
-      file = config.lib.custom.path.modules + "/../home-manager-configurations/secrets/ssh/${name}.age";
-      owner = "root";
-      group = "root";
-    };
-  };
 in
 
 {
@@ -35,7 +27,6 @@ in
       type = types.listOf (types.enum [
         "gitea-dbpassword"
         "id-rsa-backup"
-        "ssh-vcs"
         "teamspeak-serverquery-password"
       ]);
       default = [ ];
@@ -72,22 +63,6 @@ in
           user = "teamspeak-update-notifier";
         })
 
-        (buildSshConfig {
-          name = "vcs/config";
-          path = "/root/.ssh/config.d/vcs";
-          secret = "ssh-vcs";
-        })
-        (buildSshConfig {
-          name = "vcs/id-rsa-vcs";
-          path = "/root/.ssh/keys/id_rsa.vcs";
-          secret = "ssh-vcs";
-        })
-        (buildSshConfig {
-          name = "vcs/id-rsa-vcs-pub";
-          path = "/root/.ssh/keys/id_rsa.vcs.pub";
-          secret = "ssh-vcs";
-        })
-
       ];
 
       sshKeyPaths =
@@ -97,8 +72,6 @@ in
         (add "/root/.age-bak/key.txt")
         ++ (add "/root/.age/key.txt");
     };
-
-    custom.agenix.secrets = [ "ssh-vcs" ];
 
   };
 
