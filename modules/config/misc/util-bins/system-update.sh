@@ -149,6 +149,11 @@ if [[ -f "${HOME}/.ssh/keys/id_rsa.age" || -f "${HOME}/.ssh/keys/id_rsa.age.pub"
     rm -v "${HOME}/.ssh/keys/id_rsa.age"*
 fi
 
+if [[ -f "${HOME}/.ssh/id_rsa" || -f "${HOME}/.ssh/id_rsa.pub" ]]; then
+    _log "migration" "remove ~/.ssh/id_rsa*"
+    rm -v "${HOME}/.ssh/id_rsa"*
+fi
+
 if [[ -f "${HOME}/.ssh/known_hosts.old" ]]; then
     _log "migration" "remove ~/.ssh/known_hosts.old"
     rm -v "${HOME}/.ssh/known_hosts.old"
