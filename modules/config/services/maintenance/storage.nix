@@ -99,6 +99,7 @@ in
               chown ${user}:${user} ${backupDir}
               chmod 0750 ${backupDir}
             '';
+            # TODO: remove support for *.gpg files
             script = ''
               cd ${backupDir}
 
@@ -109,6 +110,7 @@ in
                     ${pkgs.rsync}/bin/rsync \
                       --archive \
                       --compress \
+                      --include "*.age" \
                       --include "*.gpg" \
                       --prune-empty-dirs \
                       --verbose \
