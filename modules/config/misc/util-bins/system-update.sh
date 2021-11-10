@@ -144,6 +144,11 @@ if [[ -d "${HOME}/.ssh-age" ]] && _read_boolean "Remove ~/.ssh-age?"; then
     rm -vrf "${HOME}/.ssh-age"
 fi
 
+if [[ -f "${HOME}/.ssh/keys/id_rsa.age" || -f "${HOME}/.ssh/keys/id_rsa.age.pub" ]]; then
+    _log "migration" "remove ~/.ssh/keys/id_rsa.age*"
+    rm -v "${HOME}/.ssh/keys/id_rsa.age"*
+fi
+
 if [[ -f "${HOME}/.ssh/known_hosts.old" ]]; then
     _log "migration" "remove ~/.ssh/known_hosts.old"
     rm -v "${HOME}/.ssh/known_hosts.old"
