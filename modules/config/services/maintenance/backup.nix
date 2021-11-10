@@ -104,57 +104,53 @@ in
 
   config = mkIf cfg.enable {
 
-    custom = {
-      agenix.secrets = [ "gpg-public-key" ];
+    custom.utils = {
+      systemd.timers = listToAttrs (flip map (attrValues cfg.services) (
+        service:
+        let
+          location = "${cfg.location}/${service.name}";
+          # TODO: refactor public key definition
+          ageKey = "age1kttfv4zpvv0cshe8q7lvakycytn34pja9pcy4ylq94kw90k3yfwsxja79j";
+        in
 
-      utils = {
-        systemd.timers = listToAttrs (flip map (attrValues cfg.services) (
-          service:
-          let
-            location = "${cfg.location}/${service.name}";
-            locationGpg = "${location}/gpg-home";
-          in
+        nameValuePair "${service.name}-backup" {
+          inherit (service) interval;
+          description = "${service.description} backup";
 
-          nameValuePair "${service.name}-backup" {
-            inherit (service) interval;
-            description = "${service.description} backup";
+          serviceConfig = mkMerge [
+            {
+              serviceConfig = {
+                Group = user;
+                User = service.user;
+              };
+              preStart = ''
+                mkdir -p ${location}
+                chmod 0750 ${location}
+              '';
+              # TODO: remove support for *.gpg files
+              script = ''
+                cd ${location}
+                ${service.script}
 
-            serviceConfig = mkMerge [
-              {
-                serviceConfig = {
-                  Group = user;
-                  User = service.user;
-                };
-                preStart = ''
-                  mkdir -p ${location} ${locationGpg}
-                  chmod 0750 ${location}
-                  chmod 0700 ${locationGpg}
-                '';
-                script = ''
-                  cd ${location}
-                  ${service.script}
+                find ${location} -type f -not -iname "*.age" -not -iname "*.gpg" -exec ${pkgs.age}/bin/age \
+                  --encrypt --recipient "${ageKey}" --output {}.age {} \;
 
-                  find ${location} -type f -not -iname "*.gpg" -exec ${pkgs.gnupg}/bin/gpg2 \
-                    --homedir ${locationGpg} --recipient-file /run/secrets/gpg-public-key --encrypt {} \;
-                  rm -r ${locationGpg}
-
-                  find ${location} -type f -not -iname "*.gpg" -exec rm -r {} \+
-                  find ${location} -mtime +${toString service.expiresAfter} -exec rm -r {} \+
-                '';
-              }
-              service.extraOptions
-            ];
-          }
-        ));
-
-        systemUsers.${user} = {
-          home = cfg.location;
-
-          packages = [ pkgs.rsync ];
-          sshKeys = [
-            (config.lib.custom.path.files + "/keys/id_rsa.backup.pub")
+                find ${location} -type f -not -iname "*.age" -not -iname "*.gpg" -exec rm -r {} \+
+                find ${location} -mtime +${toString service.expiresAfter} -exec rm -r {} \+
+              '';
+            }
+            service.extraOptions
           ];
-        };
+        }
+      ));
+
+      systemUsers.${user} = {
+        home = cfg.location;
+
+        packages = [ pkgs.rsync ];
+        sshKeys = [
+          (config.lib.custom.path.files + "/keys/id_rsa.backup.pub")
+        ];
       };
     };
 

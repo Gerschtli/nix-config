@@ -34,7 +34,6 @@ in
     custom.agenix.secrets = mkOption {
       type = types.listOf (types.enum [
         "gitea-dbpassword"
-        "gpg-public-key"
         "id-rsa-backup"
         "ssh-vcs"
         "teamspeak-serverquery-password"
@@ -59,12 +58,6 @@ in
           name = "gitea-dbpassword";
           host = "krypton";
           user = "gitea";
-        })
-
-        (buildConfig {
-          name = "gpg-public-key";
-          host = "krypton";
-          user = "backup";
         })
 
         (buildConfig {
