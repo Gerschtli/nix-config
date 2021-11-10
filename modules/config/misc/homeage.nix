@@ -51,6 +51,7 @@ in
 
     home.packages = [
       (import <agenix-cli>).default
+      pkgs.age
     ];
 
     homeage = {
