@@ -5,10 +5,6 @@ with lib;
 let
   cfg = config.custom.development.nix;
 
-  devHomeManager = "/home/tobias/projects/home-manager";
-  devNixpkgs = "/home/tobias/projects/nixpkgs";
-  devNurGerschtli = "/home/tobias/projects/nur-packages";
-
   buildWithDiff = name: command: activeLinkPath:
     config.lib.custom.mkScript
       name
@@ -18,6 +14,8 @@ let
         inherit activeLinkPath command;
         _doNotClearPath = true;
       };
+
+  forkDir = "/home/tobias/projects";
 in
 
 {
@@ -60,18 +58,23 @@ in
     })
 
     (mkIf cfg.nixos.enable {
-      custom.programs.shell.shellAliases = {
-        n-rebuild-dev = "nixos-rebuild test --fast";
-        n-rebuild-dev-all = "nixos-rebuild test --fast -I home-manager=${devHomeManager} -I nixpkgs=${devNixpkgs}";
-        n-rebuild-dev-hm = "nixos-rebuild test --fast -I home-manager=${devHomeManager}";
-        n-rebuild-dev-ng = "nixos-rebuild test --fast -I nur-gerschtli=${devNurGerschtli}";
-        n-rebuild-dev-np = "nixos-rebuild test --fast -I nixpkgs=${devNixpkgs}";
-        n-rebuild-switch = "nixos-rebuild switch";
-        n-rebuild-test = "nixos-rebuild test";
-      };
-
       home.packages = [
-        (buildWithDiff "n-rebuild-build" "nixos-rebuild" "/run/current-system")
+        (config.lib.custom.mkScript
+          "n-rebuild"
+          ./n-rebuild.sh
+          [ pkgs.ccze ]
+          {
+            inherit forkDir;
+            buildCmd = "${buildWithDiff "n-rebuild-build" "nixos-rebuild" "/run/current-system"}/bin/n-rebuild-build";
+            _doNotClearPath = true;
+          }
+        )
+
+        (config.lib.custom.mkZshCompletion
+          "n-rebuild"
+          ./n-rebuild-completion.zsh
+          { inherit forkDir; }
+        )
       ];
     })
 
