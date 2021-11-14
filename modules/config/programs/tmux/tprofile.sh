@@ -7,11 +7,15 @@ ONLY_FETCH=
 _check_requirements() {
     [[ -z "${TMUX}" || -z "${TMUX_PANE}" ]] && echo "command needs to be executed in tmux session" && exit 1
 
+    # shellcheck disable=SC2157
     if [[ -r "${CONF}" ]]; then
         # shellcheck disable=SC1090
         source "${CONF}"
     elif [[ -d "${HOME}/projects/${CONF_NAME}" ]]; then
         ROOT="${HOME}/projects/${CONF_NAME}"
+        PRESET="git-single"
+    elif [[ -n "@workDirectory@" && -d "${HOME}/projects/@workDirectory@/${CONF_NAME}" ]]; then
+        ROOT="${HOME}/projects/@workDirectory@/${CONF_NAME}"
         PRESET="git-single"
     else
         echo "neither ${CONF} nor projects named ${CONF_NAME} do not exist"

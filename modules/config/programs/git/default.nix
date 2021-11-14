@@ -323,6 +323,23 @@ in
           };
         };
       };
+
+      includes = mkIf config.custom.misc.work.enable [
+        {
+          condition = "gitdir:~/projects/${config.custom.misc.work.directory}/";
+
+          contents = {
+            core.excludesfile =
+              let
+                ignoreListWork = ignoreList ++ [ ".envrc" "shell.nix" ];
+                content = concatStringsSep "\n" ignoreListWork + "\n";
+              in
+              writeFile "gitignore" content;
+
+            user.email = config.custom.misc.work.mailAddress;
+          };
+        }
+      ];
     };
 
   };

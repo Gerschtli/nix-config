@@ -36,6 +36,14 @@ _set-hashes() {
             hash -d "p-$(basename ${i})"="${i}"
         done
     fi
+
+    if [[ -n "${WORK_DIRECTORY}" ]]; then
+        local j
+        for j in "${HOME}/projects/${WORK_DIRECTORY}"/*(/); do
+            hash -d "w-$(basename ${j})"="${j}"
+        done
+
+    fi
 }
 
 _set-hashes

@@ -16,7 +16,13 @@ for file in "${prefix}"*"${suffix}"; do
     fi
 done
 
-for dir in ~/projects/*; do
+project_directories=("${HOME}/projects/"*)
+# shellcheck disable=SC2157
+if [[ -n "@workDirectory@" ]]; then
+    project_directories+=("${HOME}/projects/@workDirectory@/"*)
+fi
+
+for dir in "${project_directories[@]}"; do
     list+=("$(basename "${dir}")")
 done
 

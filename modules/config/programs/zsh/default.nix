@@ -42,7 +42,11 @@ in
         alias -g P="| $PAGER"
 
         ${builtins.readFile ./completion.zsh}
+        ${optionalString config.custom.misc.work.enable ''
+          WORK_DIRECTORY="${config.custom.misc.work.directory}"
+        ''}
         ${builtins.readFile ./directory-hash.zsh}
+        unset WORK_DIRECTORY
         ${builtins.readFile ./keybindings.zsh}
       '';
 

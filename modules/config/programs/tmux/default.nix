@@ -176,13 +176,19 @@ in
         "tprofile"
         ./tprofile.sh
         [ pkgs.tmux ]
-        { inherit tmuxProfiles; }
+        {
+          inherit tmuxProfiles;
+          workDirectory = config.custom.misc.work.directory;
+        }
       )
 
       (config.lib.custom.mkZshCompletion
         "tprofile"
         ./tprofile-completion.zsh
-        { inherit tmuxProfiles; }
+        {
+          inherit tmuxProfiles;
+          workDirectory = config.custom.misc.work.directory;
+        }
       )
     ];
 
