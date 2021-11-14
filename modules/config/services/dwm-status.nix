@@ -26,6 +26,8 @@ in
           Name of backlight device.
         '';
       };
+
+      useGlobalAlsaUtils = mkEnableOption "use global alsa utils instead of nix' one";
     };
 
   };
@@ -38,7 +40,10 @@ in
     services.dwm-status = {
       enable = true;
 
-      package = pkgs.nur-gerschtli.dwm-status;
+      package =
+        if cfg.useGlobalAlsaUtils
+        then pkgs.nur-gerschtli.dwm-status-without-alsa-utils
+        else pkgs.nur-gerschtli.dwm-status;
 
       order =
         let
