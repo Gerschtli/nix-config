@@ -9,8 +9,15 @@ let
     config.lib.custom.mkScript
       "lock-screen"
       ./lock-screen.sh
-      [ pkgs.i3lock-fancy pkgs.scrot pkgs.xorg.xset ]
-      { };
+      [ pkgs.xorg.xset ]
+      {
+        _doNotClearPath = cfg.useSlock;
+
+        lockCommand =
+          if cfg.useSlock
+          then "slock"
+          else "${pkgs.i3lock-fancy}/bin/i3lock-fancy --nofork --text '' -- ${pkgs.scrot}/bin/scrot --silent --overwrite";
+      };
 in
 
 {
@@ -21,6 +28,11 @@ in
 
     custom.wm.general = {
       enable = mkEnableOption "common config for window-managers";
+
+      # FIXME: i3lock throws error on ubuntu: "i3lock-color: Cannot grab pointer/keyboard"
+      useSlock = mkEnableOption "slock as screen locker";
+
+      useSudoForHibernate = mkEnableOption "to use sudo for hibernate command";
 
       lockScreenPackage = mkOption {
         type = types.package;
@@ -56,15 +68,25 @@ in
     ] ++ (
       map
         (item:
+          let useSudo = item ? sudo && item.sudo; in
           config.lib.custom.mkScript
             (if item ? name then item.name else item.command)
             ./wm-script.sh
-            [ pkgs.gnome3.zenity pkgs.systemd ]
-            { inherit (item) command message; }
+            [ pkgs.gnome3.zenity ]
+            {
+              inherit (item) command message;
+
+              _doNotClearPath = useSudo;
+
+              systemctlCommand =
+                if useSudo
+                then "sudo systemctl"
+                else "${pkgs.systemd}/bin/systemctl";
+            }
         )
         [
           { command = "poweroff"; name = "halt"; message = "halt the system"; }
-          { command = "hibernate"; message = "suspend to disk"; }
+          { command = "hibernate"; message = "suspend to disk"; sudo = cfg.useSudoForHibernate; }
           { command = "hybrid-sleep"; message = "suspend to disk and ram"; }
           { command = "reboot"; message = "reboot"; }
           { command = "suspend"; name = "sys-suspend"; message = "suspend to ram"; }
