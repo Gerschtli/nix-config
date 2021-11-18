@@ -15,6 +15,7 @@ in
     teamspeak_server
 
     # remove as soon as available in stable
+    jdk17_headless
     ventoy-bin
     ;
 }

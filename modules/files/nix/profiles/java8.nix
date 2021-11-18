@@ -1,12 +1,12 @@
 with import <nixpkgs> { };
 
 mkShell {
-  name = "java11";
+  name = "java8";
 
   buildInputs = [
-    jdk11
+    jdk8
     maven
   ];
 
-  JAVA_HOME = "${jdk11}/lib/openjdk";
+  JAVA_HOME = "${jdk8}/lib/openjdk";
 }
