@@ -122,7 +122,7 @@ fi
 if [[ -r "${HOME}/.config/nixpkgs/home.nix" ]] && _available home-manager; then
     _log "nix" "build home-manager configuration"
     home-manager build
-    _show_result_diff "/nix/var/nix/profiles/per-user/tobias/home-manager"
+    _show_result_diff "/nix/var/nix/profiles/per-user/${USER}/home-manager"
 
     _log "nix" "switch home-manager configuration"
     home-manager switch -b hm-bak

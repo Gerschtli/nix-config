@@ -43,7 +43,7 @@ in
       };
 
       home.packages = [
-        (buildWithDiff "hm-build" "home-manager" "/nix/var/nix/profiles/per-user/tobias/home-manager")
+        (buildWithDiff "hm-build" "home-manager" "/nix/var/nix/profiles/per-user/${config.home.username}/home-manager")
       ];
     })
 
