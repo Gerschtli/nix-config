@@ -102,6 +102,26 @@ in
       };
     };
 
+    xdg.mimeApps = {
+      enable = true;
+
+      defaultApplications = {
+        "application/pdf" = "qpdfview.desktop";
+
+        "image/jpeg" = "org.nomacs.ImageLounge.desktop";
+        "image/png" = "org.nomacs.ImageLounge.desktop";
+
+        "message/rfc822" = "thunderbird.desktop";
+        "x-scheme-handler/mailto" = "thunderbird.desktop";
+
+        "text/html" = "google-chrome.desktop";
+        "x-scheme-handler/http" = "google-chrome.desktop";
+        "x-scheme-handler/https" = "google-chrome.desktop";
+        "x-scheme-handler/about" = "google-chrome.desktop";
+        "x-scheme-handler/unknown" = "google-chrome.desktop";
+      };
+    };
+
   };
 
 }
