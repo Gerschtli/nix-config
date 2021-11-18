@@ -36,7 +36,7 @@ in
 
     custom.misc.homeage = {
       secrets = mkOption {
-        type = types.listOf (types.enum [ "ssh-private" "ssh-vcs" ]);
+        type = types.listOf (types.enum [ "ssh-private" "ssh-sedo" "ssh-vcs" ]);
         default = [ ];
         description = ''
           Secrets to install.
@@ -83,6 +83,10 @@ in
               (buildSshConfig "private")
               (buildSshKey "private" "private")
               (buildSshKey "private" "strato")
+            ])
+            ++ (optional (elem "ssh-sedo" cfg.secrets) [
+              (buildSshConfig "sedo")
+              (buildSshKey "sedo" "sedo")
             ])
             ++ (optional (elem "ssh-vcs" cfg.secrets) [
               (buildSshConfig "vcs")
