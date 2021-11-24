@@ -39,6 +39,10 @@ let
     autocmd BufWritePre * %s/\s\+$//e
 
 
+    "" Set tab size to 4 in gitcommit
+    autocmd FileType gitcommit setl ts=4
+
+
     "" Directories for swp files
     set nobackup
     set noswapfile
