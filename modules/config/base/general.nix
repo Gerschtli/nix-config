@@ -28,7 +28,8 @@ let
     LANG = localeEnglish;
     LANGUAGE = localeEnglish;
 
-    PAGER = "${pkgs.less}/bin/less -FRX";
+    LESS = "FRXx4"; # x4 sets tab width to 4 spaces
+    PAGER = "${pkgs.less}/bin/less";
   };
 in
 

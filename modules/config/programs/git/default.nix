@@ -219,6 +219,7 @@ in
           editor = "${config.custom.programs.neovim.finalPackage}/bin/nvim";
           hooksPath = toString hooksPath;
           loosecompression = 9;
+          pager = "${pkgs.less}/bin/less -x1,5"; # set tab width to 4 starting at offset of 1 to cope with diff format
           preloadindex = true;
         };
 

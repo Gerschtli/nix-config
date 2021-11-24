@@ -58,6 +58,8 @@ let
       real-which() {
         realpath $(which -a $1)
       }
+
+      ${pkgs.ncurses}/bin/tabs -4 # set tab width to 4 spaces
     ''
 
     cfg.initExtra

@@ -14,6 +14,7 @@ let
 
     "" Tabs. May be overriten by autocmd rules
     set tabstop=4
+    set ts=4
     set softtabstop=0
     set shiftwidth=4
     set expandtab
