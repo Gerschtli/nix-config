@@ -20,7 +20,7 @@ nix-channel --add https://nixos.org/channels/nixpkgs-unstable unstable
 #nix-channel --add https://github.com/nix-community/home-manager/archive/release-21.05.tar.gz home-manager
 nix-channel --add https://github.com/Gerschtli/home-manager/archive/custom.tar.gz home-manager
 nix-channel --add https://github.com/Gerschtli/nur-packages/archive/master.tar.gz nur-gerschtli
-nix-channel --add https://github.com/ryantm/agenix/archive/master.tar.gz agenix
+nix-channel --add https://github.com/ryantm/agenix/archive/main.tar.gz agenix
 nix-channel --add https://github.com/cole-h/agenix-cli/archive/main.tar.gz agenix-cli
 #nix-channel --add https://github.com/jordanisaacs/homeage/archive/main.tar.gz homeage
 nix-channel --add https://github.com/Gerschtli/homeage/archive/support-script.tar.gz homeage
