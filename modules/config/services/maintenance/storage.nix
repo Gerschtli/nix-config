@@ -118,7 +118,7 @@ in
                       --rsh "${pkgs.openssh}/bin/ssh \
                         -o UserKnownHostsFile=/dev/null \
                         -o StrictHostKeyChecking=no \
-                        -i /run/secrets/id-rsa-backup" \
+                        -i ${config.age.secrets.id-rsa-backup.path}" \
                       "${backupUser}@${server.ip}:${config.custom.services.backup.location}/*" \
                       "${backupDir}/${server.name}"
                   '')

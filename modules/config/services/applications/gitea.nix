@@ -49,7 +49,7 @@ in
     services = {
       gitea = {
         enable = true;
-        database.passwordFile = "/run/secrets/gitea-dbpassword";
+        database.passwordFile = config.age.secrets.gitea-dbpassword.path;
 
         rootUrl = "https://${domain}/";
         cookieSecure = true;

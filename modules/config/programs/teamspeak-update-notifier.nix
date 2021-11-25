@@ -10,7 +10,7 @@ let
     host = 127.0.0.1
     port = 10011
     username = serveradmin
-    password_file = /run/secrets/teamspeak-serverquery-password
+    password_file = ${config.age.secrets.teamspeak-serverquery-password.path}
     server_id = 1
 
     [notifier]
