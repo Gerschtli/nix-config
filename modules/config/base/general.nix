@@ -88,7 +88,6 @@ in
         ncat # nmap
         ncdu
         nload # network traffic monitor
-        nox
         pwgen
         ripgrep
         tree

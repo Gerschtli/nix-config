@@ -43,8 +43,11 @@ in
       (config.lib.custom.mkScript
         "system-update"
         ./system-update.sh
-        (with pkgs; [ age gitAndTools.gitFull gnugrep gnused nox ])
-        { _doNotClearPath = true; }
+        (with pkgs; [ age gitAndTools.gitFull gnugrep gnused ])
+        {
+          inherit (pkgs) nixUnstable;
+          _doNotClearPath = true;
+        }
       )
     ];
 

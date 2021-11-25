@@ -9,8 +9,9 @@ let
     config.lib.custom.mkScript
       name
       ./build-with-diff.sh
-      [ pkgs.gnugrep pkgs.gnused pkgs.nox ]
+      [ pkgs.gnugrep pkgs.gnused ]
       {
+        inherit (pkgs) nixUnstable;
         inherit activeLinkPath command;
         _doNotClearPath = true;
       };

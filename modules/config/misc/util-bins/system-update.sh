@@ -36,11 +36,7 @@ _pull_changes() {
 _show_result_diff() {
     echo
 
-    # see https://github.com/madjar/nox/issues/63#issuecomment-303280129
-    nox-update --quiet "${1}" result |
-        grep -v '\.drv : $' |
-        sed 's|^ */nix/store/[a-z0-9]*-||' |
-        sort -u || :
+    @nixUnstable@/bin/nix store diff-closures "${1}" result
 
     rm result
 }
