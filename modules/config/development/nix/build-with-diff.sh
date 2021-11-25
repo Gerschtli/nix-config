@@ -2,6 +2,6 @@
 
 echo
 
-@nixUnstable@/bin/nix store diff-closures @activeLinkPath@ result
+@nixUnstable@/bin/nix store diff-closures @activeLinkPath@ ./result
 
 rm result

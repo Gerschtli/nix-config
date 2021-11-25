@@ -36,7 +36,7 @@ _pull_changes() {
 _show_result_diff() {
     echo
 
-    @nixUnstable@/bin/nix store diff-closures "${1}" result
+    @nixUnstable@/bin/nix store diff-closures "${1}" ./result
 
     rm result
 }
