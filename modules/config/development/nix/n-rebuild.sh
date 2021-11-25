@@ -5,7 +5,7 @@ _usage() {
     echo "$0 <debug|dev|build|test|switch> [fork]*"
 }
 
-args=()
+args=(--keep-going)
 case "${mode}" in
     debug) args+=(test --fast --show-trace) ;;
     dev) args+=(test --fast) ;;

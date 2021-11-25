@@ -103,7 +103,7 @@ if _is_nixos && _is_root; then
     _show_result_diff "/run/current-system"
 
     _log "nix" "switch nixos configuration"
-    nixos-rebuild switch || : # fails randomly because of virtualbox
+    nixos-rebuild switch --keep-going
 fi
 
 if [[ -r "${HOME}/.config/nixpkgs/nix-on-droid.nix" ]] && _available nix-on-droid; then
