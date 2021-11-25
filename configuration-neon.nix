@@ -3,6 +3,8 @@
 {
   imports = [ (import ./modules "neon") ];
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   custom = {
     base.desktop = {
       enable = true;
