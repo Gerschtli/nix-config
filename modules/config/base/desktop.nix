@@ -125,7 +125,7 @@ in
           };
         };
 
-        users.users.tobias.extraGroups = [ "video" ];
+        users.users.tobias.extraGroups = [ "networkmanager" "video" ];
       }
     )
 
