@@ -125,21 +125,6 @@ if [[ -r "${HOME}/.config/nixpkgs/home.nix" ]] && _available home-manager; then
 fi
 
 
-# nix cleanup
-# no cleanup for non root users on NixOS
-if ! _is_nixos || _is_root; then
-    if ! _has_unit_enabled "nix-gc.timer"; then
-        _log "nix" "nix-collect-garbage"
-        nix-collect-garbage --delete-older-than 14d 2> /dev/null
-    fi
-
-    if ! _has_unit_enabled "nix-optimise.timer" && [[ "$(whoami)" != "nix-on-droid" ]]; then
-        _log "nix" "nix-store --optimise"
-        nix-store --optimise
-    fi
-fi
-
-
 # migrations
 if [[ ! -f "${HOME}/.age/key.txt" ]] && _read_boolean "Generate ~/.age/key.txt?"; then
     mkdir -p "${HOME}/.age"
@@ -158,3 +143,18 @@ _migration_remove "${HOME}/.ssh/modules"
 for project in "${nixos}" "${nixos_hm}" "${dotfiles_hm}"; do
     _migration_remove "${project}/modules/secrets" 1
 done
+
+
+# nix cleanup
+# no cleanup for non root users on NixOS
+if ! _is_nixos || _is_root; then
+    if ! _has_unit_enabled "nix-gc.timer"; then
+        _log "nix" "nix-collect-garbage"
+        nix-collect-garbage --delete-older-than 14d 2> /dev/null
+    fi
+
+    if ! _has_unit_enabled "nix-optimise.timer" && [[ "$(whoami)" != "nix-on-droid" ]]; then
+        _log "nix" "nix-store --optimise"
+        nix-store --optimise
+    fi
+fi
