@@ -30,19 +30,19 @@ _set-hashes() {
 
     local projects="${HOME}/projects"
 
-    if [[ -d "${projects}" ]]; then
+    if [[ -d "${projects}" && -z "$(find "${projects}" -prune -empty)" ]]; then
         local i
         for i in "${projects}"/*(/); do
             hash -d "p-$(basename ${i})"="${i}"
         done
-    fi
 
-    if [[ -n "${WORK_DIRECTORY}" ]]; then
-        local j
-        for j in "${HOME}/projects/${WORK_DIRECTORY}"/*(/); do
-            hash -d "w-$(basename ${j})"="${j}"
-        done
-
+        if [[ -n "${WORK_DIRECTORY}" && -d "${projects}/${WORK_DIRECTORY}"
+            && -z "$(find "${projects}/${WORK_DIRECTORY}" -prune -empty)" ]]; then
+            local j
+            for j in "${projects}/${WORK_DIRECTORY}"/*(/); do
+                hash -d "w-$(basename ${j})"="${j}"
+            done
+        fi
     fi
 }
 
