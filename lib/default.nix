@@ -1,4 +1,4 @@
-{ lib, pkgs, ... } @ args:
+{ lib, ... } @ args:
 
 let
   callPackage = lib.callPackageWith args;
@@ -12,11 +12,4 @@ in
   inherit (fileList) getFileList getRecursiveNixFileList;
   inherit (script) mkScript mkScriptPlain mkScriptPlainNixShell mkZshCompletion;
   inherit (wrapProgram) wrapProgram;
-
-  path = {
-    modules = ../.;
-    config = ../config;
-    files = ../files;
-    overlays = ../overlays;
-  };
 }
