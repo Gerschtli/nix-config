@@ -152,7 +152,11 @@ elif ! _is_nixos && ! _is_root; then
         _log "Run nix-on-droid switch..."
         nix-on-droid switch --verbose
     else
-        if ! available home-manager; then
+        if [[ -z "${NIX_PATH}" ]]; then
+            export NIX_PATH="${HOME}/.nix-defexpr/channels"
+        fi
+
+        if ! _available home-manager; then
             _log "Install home-manager..."
             nix-shell '<home-manager>' -A install
         fi
