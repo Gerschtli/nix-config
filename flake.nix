@@ -36,5 +36,29 @@
     , dwm-status
     , teamspeak-update-notifier
     , nixpkgs-for-jdk15
-    }: { };
+    }: {
+      overlay = final: prev: {
+        inherit (nixpkgs-for-jdk15) jdk15;
+
+        inherit (unstable.legacyPackages.${prev.system})
+          # need bleeding edge version
+          jetbrains
+          portfolio
+          teamspeak_server
+
+          # TODO: remove as soon as available in stable
+          jdk17_headless
+          ventoy-bin
+          ;
+
+        gerschtli =
+          prev.lib.foldr (a: b: a // b) { } (
+            map (flake: flake.overlay final prev) [
+              dmenu
+              dwm
+              dwm-status
+              teamspeak-update-notifier
+            ]);
+      };
+    };
 }
