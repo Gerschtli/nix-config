@@ -1,7 +1,7 @@
-@command@ build
+@command@ build --flake "@homeDirectory@/.nix-config"
 
 echo
 
-@nixUnstable@/bin/nix store diff-closures @activeLinkPath@ ./result --extra-experimental-features nix-command
+@nixFlakes@/bin/nix store diff-closures @activeLinkPath@ ./result
 
 rm result

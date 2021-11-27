@@ -1,11 +1,10 @@
 mode="${1}"
-forks=("${@:2}")
 
 _usage() {
-    echo "$0 <debug|dev|build|test|switch> [fork]*"
+    echo "$0 <debug|dev|build|test|switch>"
 }
 
-args=(--keep-going)
+args=(--keep-going --flake /root/.nix-config)
 case "${mode}" in
     debug) args+=(test --fast --show-trace) ;;
     dev) args+=(test --fast) ;;
@@ -20,10 +19,6 @@ case "${mode}" in
         exit 1
         ;;
 esac
-
-for fork in "${forks[@]}"; do
-    args+=(-I "${fork}=@forkDir@/${fork}")
-done
 
 before_date=$(date +"%Y-%m-%d %H:%M:%S")
 

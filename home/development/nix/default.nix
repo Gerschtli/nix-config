@@ -11,12 +11,11 @@ let
       ./build-with-diff.sh
       [ pkgs.gnugrep pkgs.gnused ]
       {
-        inherit (pkgs) nixUnstable;
+        inherit (config.home) homeDirectory;
+        inherit (pkgs) nixFlakes;
         inherit activeLinkPath command;
         _doNotClearPath = true;
       };
-
-  forkDir = "/home/tobias/projects";
 in
 
 {
@@ -40,7 +39,7 @@ in
 
     (mkIf cfg.home-manager.enable {
       custom.programs.shell.shellAliases = {
-        hm-switch = "home-manager switch -b hm-bak";
+        hm-switch = "home-manager switch -b hm-bak --flake '${config.home.homeDirectory}/.nix-config'";
       };
 
       home.packages = [
@@ -65,7 +64,6 @@ in
           ./n-rebuild.sh
           [ pkgs.ccze ]
           {
-            inherit forkDir;
             buildCmd = "${buildWithDiff "n-rebuild-build" "nixos-rebuild" "/run/current-system"}/bin/n-rebuild-build";
             _doNotClearPath = true;
           }
@@ -74,7 +72,7 @@ in
         (config.lib.custom.mkZshCompletion
           "n-rebuild"
           ./n-rebuild-completion.zsh
-          { inherit forkDir; }
+          { }
         )
       ];
     })
