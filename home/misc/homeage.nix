@@ -27,9 +27,6 @@ in
 
 {
 
-  imports = [ <homeage/module> ];
-
-
   ###### interface
 
   options = {
@@ -60,8 +57,8 @@ in
   config = {
 
     home.packages = [
-      (import <agenix-cli>).default
       pkgs.age
+      pkgs.agenix
     ];
 
     homeage = {

@@ -7,7 +7,6 @@ let
 in
 
 {
-  imports = [ <home-manager/nixos> ];
 
   ###### interface
 
