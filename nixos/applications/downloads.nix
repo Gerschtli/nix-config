@@ -52,7 +52,6 @@ in
 
     system.activationScripts.downloads = ''
       mkdir -p ${location}
-      chown -R ${config.services.nginx.user}:${config.services.nginx.group} ${location}
     '';
 
   };
