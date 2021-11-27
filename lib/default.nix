@@ -1,4 +1,4 @@
-{ lib, ... } @ args:
+{ lib, pkgs } @ args:
 
 let
   callPackage = lib.callPackageWith args;
