@@ -69,6 +69,12 @@ in
         "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU="
       ];
       trustedUsers = [ "root" "tobias" ];
+
+      package = pkgs.nixFlakes;
+
+      extraOptions = ''
+        experimental-features = nix-command flakes
+      '';
     };
 
     programs.zsh = {
