@@ -117,6 +117,17 @@
           { lib.custom = customLibPerSystem system; }
         ];
 
+      buildHome = system: hostName: username: home-manager.lib.homeManagerConfiguration {
+        inherit username system;
+
+        configuration = ./hosts/${hostName}/home-${username}.nix;
+        homeDirectory = "/home/${username}";
+        extraModules = homeModulesPerSystem system;
+        extraSpecialArgs.rootPath = ./.;
+        pkgs = pkgsPerSystem system;
+        stateVersion = "21.05";
+      };
+
       buildNixosSystem = system: hostName: nixpkgs.lib.nixosSystem {
         inherit system;
 
@@ -145,6 +156,11 @@
     in
     {
       inherit overlay;
+
+      homeConfigurations = {
+        "tobias@gamer" = buildHome "x86_64-linux" "gamer" "tobias";
+        "tobhap@M386" = buildHome "x86_64-linux" "M386" "tobhap";
+      };
 
       nixosConfigurations = {
         krypton = buildNixosSystem "x86_64-linux" "krypton";
