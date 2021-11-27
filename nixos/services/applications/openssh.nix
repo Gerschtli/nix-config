@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, rootPath, ... }:
 
 with lib;
 
@@ -38,11 +38,11 @@ in
 
     users.users = {
       root.openssh.authorizedKeys.keyFiles = mkIf cfg.rootLogin [
-        (config.lib.custom.path.files + "/keys/id_rsa.tobias.pub")
+        (rootPath + "/files/keys/id_rsa.tobias.pub")
       ];
 
       tobias.openssh.authorizedKeys.keyFiles = [
-        (config.lib.custom.path.files + "/keys/id_rsa.tobias.pub")
+        (rootPath + "/files/keys/id_rsa.tobias.pub")
       ];
     };
 

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, rootPath, ... }:
 
 with lib;
 
@@ -151,7 +151,7 @@ let
     set -g message-style bg=colour166,fg=colour232,bold
   '';
 
-  tmuxProfiles = config.lib.custom.path.files + "/tmux/profiles";
+  tmuxProfiles = rootPath + "/files/tmux/profiles";
 in
 
 {

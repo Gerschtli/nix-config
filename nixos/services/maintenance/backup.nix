@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, rootPath, ... }:
 
 with lib;
 
@@ -149,7 +149,7 @@ in
 
         packages = [ pkgs.rsync ];
         sshKeys = [
-          (config.lib.custom.path.files + "/keys/id_rsa.backup.pub")
+          (rootPath + "/files/keys/id_rsa.backup.pub")
         ];
       };
     };

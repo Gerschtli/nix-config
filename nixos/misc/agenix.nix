@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, rootPath, ... }:
 
 with lib;
 
@@ -7,7 +7,7 @@ let
 
   buildConfig = { name, host, user }: mkIf (elem name cfg.secrets) {
     ${name} = {
-      file = config.lib.custom.path.modules + "/../secrets/${host}/${name}.age";
+      file = rootPath + "/secrets/${host}/${name}.age";
       owner = user;
       group = user;
     };

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, rootPath, ... }:
 
 with lib;
 
@@ -70,8 +70,8 @@ in
 
     services.lorri.enable = true;
 
-    xdg.configFile."${nixProfiles}" = {
-      source = config.lib.custom.path.files + "/nix/profiles";
+    xdg.configFile.${nixProfiles} = {
+      source = rootPath + "/files/nix/profiles";
       recursive = true;
     };
 

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, rootPath, ... }:
 
 with lib;
 
@@ -45,8 +45,8 @@ in
       useUserPackages = true;
 
       users = {
-        root = import (config.lib.custom.path.homeFiles + "/${cfg.hostName}/root.nix");
-        tobias = import (config.lib.custom.path.homeFiles + "/${cfg.hostName}/tobias.nix");
+        root = import (rootPath + "/hosts/${cfg.hostName}/home-root.nix");
+        tobias = import (rootPath + "/hosts/${cfg.hostName}/home-tobias.nix");
       };
     };
 
