@@ -65,11 +65,23 @@
     , dwm
     , dwm-status
     , teamspeak-update-notifier
-    }: {
+    }:
+    let
+      pkgsPerSystem = system: import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [ overlay ];
+      };
+
+      unstablePerSystem = system: import unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
+
       overlay = final: prev: {
         inherit (nixpkgs-for-jdk15) jdk15;
 
-        inherit (unstable.legacyPackages.${prev.system})
+        inherit (unstablePerSystem prev.system)
           # need bleeding edge version
           jetbrains
           portfolio
@@ -80,6 +92,8 @@
           ventoy-bin
           ;
 
+        agenix = agenix-cli.packages.${prev.system}.agenix;
+
         gerschtli =
           prev.lib.foldr (a: b: a // b) { } (
             map (flake: flake.overlay final prev) [
@@ -88,6 +102,54 @@
               dwm-status
               teamspeak-update-notifier
             ]);
+      };
+
+      customLibPerSystem = system: import ./lib {
+        inherit (nixpkgs) lib;
+        pkgs = pkgsPerSystem system;
+      };
+
+      homeModulesPerSystem = system:
+        ((customLibPerSystem system).getRecursiveNixFileList ./home)
+        ++ [
+          homeage.homeManagerModules.homeage
+
+          { lib.custom = customLibPerSystem system; }
+        ];
+
+      buildNixosSystem = system: hostName: nixpkgs.lib.nixosSystem {
+        inherit system;
+
+        specialArgs = {
+          homeModules = homeModulesPerSystem system;
+          rootPath = ./.;
+        };
+
+        modules = [
+          ./hosts/${hostName}/configuration.nix
+          ./hosts/${hostName}/hardware-configuration.nix
+
+          agenix.nixosModules.age
+          home-manager.nixosModules.home-manager
+
+          {
+            custom.base.general = { inherit hostName; };
+
+            lib.custom = customLibPerSystem system;
+
+            nixpkgs.pkgs = pkgsPerSystem system;
+          }
+        ]
+        ++ (customLibPerSystem system).getRecursiveNixFileList ./nixos;
+      };
+    in
+    {
+      inherit overlay;
+
+      nixosConfigurations = {
+        krypton = buildNixosSystem "x86_64-linux" "krypton";
+        neon = buildNixosSystem "x86_64-linux" "neon";
+        xenon = buildNixosSystem "aarch64-linux" "xenon";
       };
     };
 }

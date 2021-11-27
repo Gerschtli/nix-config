@@ -1,4 +1,4 @@
-{ config, lib, pkgs, rootPath, ... }:
+{ config, lib, pkgs, homeModules, rootPath, ... }:
 
 with lib;
 
@@ -43,6 +43,8 @@ in
       backupFileExtension = "hm-bak";
       useGlobalPkgs = true;
       useUserPackages = true;
+      extraSpecialArgs = { inherit rootPath; };
+      sharedModules = homeModules;
 
       users = {
         root = import (rootPath + "/hosts/${cfg.hostName}/home-root.nix");
