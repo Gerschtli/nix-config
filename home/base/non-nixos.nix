@@ -41,7 +41,7 @@ in
       modules = [ "home-manager" ];
     };
 
-    home.packages = mkIf cfg.installNix [ pkgs.nix ];
+    home.packages = mkIf cfg.installNix [ pkgs.nixFlakes ];
 
     programs.zsh.envExtra = mkAfter ''
       hash -f
@@ -53,6 +53,7 @@ in
       substituters = ${concatStringsSep " " substituters}
       trusted-public-keys = ${concatStringsSep " " trustedPublicKeys}
       trusted-users = root tobias
+      experimental-features = nix-command flakes
     '';
 
   };
