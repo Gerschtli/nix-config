@@ -43,8 +43,8 @@ in
       };
 
       packages = with pkgs; [
-        nur-gerschtli.dmenu
-        nur-gerschtli.dwm
+        gerschtli.dmenu
+        gerschtli.dwm
         playerctl
         scrot
         xclip
@@ -69,7 +69,7 @@ in
 
     xsession = {
       enable = true;
-      windowManager.command = "${pkgs.nur-gerschtli.dwm}/bin/dwm";
+      windowManager.command = "${pkgs.gerschtli.dwm}/bin/dwm";
 
       numlock.enable = true;
 

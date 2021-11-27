@@ -4,6 +4,15 @@ with lib;
 
 let
   cfg = config.custom.programs.pass;
+
+  # see dmenucmd in dwm config
+  dmenuCmd = ''dmenu -fn "Ubuntu Mono Nerd Font:size=9" -nb "#222222" -nf "#bbbbbb" -sb "#540303" -sf "#eeeeee"'';
+
+  package = pkgs.pass.overrideAttrs (old: {
+    postBuild = ''
+      sed -i -e 's@ dmenu @ ${dmenuCmd} @g' contrib/dmenu/passmenu
+    '';
+  });
 in
 
 {
@@ -34,8 +43,8 @@ in
       };
 
       password-store = {
+        inherit package;
         enable = true;
-        package = pkgs.nur-gerschtli.pass;
         settings.PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
       };
     };

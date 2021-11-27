@@ -26,8 +26,7 @@ in
       sdks = {
         enable = true;
         links = {
-          inherit (pkgs.nur-gerschtli) jdk15;
-          inherit (pkgs) jdk8 jdk11 jdk17_headless;
+          inherit (pkgs) jdk8 jdk11 jdk15 jdk17_headless;
         };
       };
 

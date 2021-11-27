@@ -42,8 +42,8 @@ in
 
       package =
         if cfg.useGlobalAlsaUtils
-        then pkgs.nur-gerschtli.dwm-status-without-alsa-utils
-        else pkgs.nur-gerschtli.dwm-status;
+        then pkgs.gerschtli.dwm-status-without-alsa-utils
+        else pkgs.gerschtli.dwm-status;
 
       order =
         let

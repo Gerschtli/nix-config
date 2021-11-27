@@ -53,7 +53,7 @@ in
         fontDir.enable = true;
 
         fonts = with pkgs; [
-          nur-gerschtli.nerdfonts-ubuntu-mono
+          (nerdfonts.override { fonts = [ "UbuntuMono" ]; })
           source-code-pro
           ubuntu_font_family
         ];

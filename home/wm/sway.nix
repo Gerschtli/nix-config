@@ -59,8 +59,8 @@ in
         inherit fonts;
         modifier = "Mod4";
         terminal = "${config.programs.urxvt.package}/bin/urxvt";
-        menu = "${pkgs.nur-gerschtli.dmenu}/bin/dmenu_path | "
-          + "${pkgs.nur-gerschtli.dmenu}/bin/dmenu -fn '${dmenuFont}' -nb '#222222' -nf '#bbbbbb' -sb '#540303' -sf '#eeeeee' | "
+        menu = "${pkgs.gerschtli.dmenu}/bin/dmenu_path | "
+          + "${pkgs.gerschtli.dmenu}/bin/dmenu -fn '${dmenuFont}' -nb '#222222' -nf '#bbbbbb' -sb '#540303' -sf '#eeeeee' | "
           + "${pkgs.findutils}/bin/xargs swaymsg exec --";
 
         input = {

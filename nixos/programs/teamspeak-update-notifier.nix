@@ -51,7 +51,7 @@ in
       serviceConfig = {
         Group = user;
         User = user;
-        ExecStart = "${pkgs.nur-gerschtli.teamspeak-update-notifier}/bin/teamspeak-update-notifier ${configFile}";
+        ExecStart = "${pkgs.gerschtli.teamspeak-update-notifier}/bin/teamspeak-update-notifier ${configFile}";
         Restart = "always";
         RestartSec = 5;
       };
