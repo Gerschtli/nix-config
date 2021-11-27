@@ -79,7 +79,7 @@
       };
 
       overlay = final: prev: {
-        inherit (nixpkgs-for-jdk15) jdk15;
+        inherit (nixpkgs-for-jdk15.legacyPackages.${prev.system}) jdk15;
 
         inherit (unstablePerSystem prev.system)
           # need bleeding edge version
