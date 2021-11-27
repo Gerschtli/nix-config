@@ -5,8 +5,6 @@ with lib;
 let
   cfg = config.custom.base.general;
 
-  overlays = config.lib.custom.getFileList config.lib.custom.path.overlays;
-
   localeGerman = "de_DE.UTF-8";
   localeEnglish = "en_US.UTF-8";
 
@@ -111,17 +109,6 @@ in
 
     # FIXME: set to sd-switch once it works for krypton
     systemd.user.startServices = "legacy";
-
-    xdg.configFile = {
-      "nixpkgs/config.nix".source = config.lib.custom.path.files + "/config.nix";
-    } // builtins.listToAttrs (
-      map
-        (file: {
-          name = "nixpkgs/overlays/${baseNameOf file}";
-          value.source = file;
-        })
-        overlays
-    );
 
   };
 
