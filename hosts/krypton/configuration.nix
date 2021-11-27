@@ -1,8 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ (import ./modules "krypton") ];
-
   custom = {
     applications = {
       downloads.enable = true;

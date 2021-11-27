@@ -1,15 +1,6 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
-let
-  homeDirectory = "/home/tobhap";
-  username = "tobhap";
-in
-
 {
-  imports = [ ../../modules ];
-
   custom = {
     base = {
       desktop = {
@@ -40,13 +31,9 @@ in
     programs.ssh.modules = [ "sedo" ];
   };
 
-  home = {
-    inherit homeDirectory username;
-
-    sessionVariables = {
-      # see: https://github.com/NixOS/nixpkgs/issues/38991#issuecomment-400657551
-      LOCALE_ARCHIVE_2_11 = "/usr/bin/locale/locale-archive";
-      LOCALE_ARCHIVE_2_27 = "${pkgs.glibcLocales}/lib/locale/locale-archive";
-    };
+  home.sessionVariables = {
+    # see: https://github.com/NixOS/nixpkgs/issues/38991#issuecomment-400657551
+    LOCALE_ARCHIVE_2_11 = "/usr/bin/locale/locale-archive";
+    LOCALE_ARCHIVE_2_27 = "${pkgs.glibcLocales}/lib/locale/locale-archive";
   };
 }

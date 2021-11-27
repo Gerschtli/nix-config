@@ -1,8 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ (import ./modules "neon") ];
-
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   custom = {

@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ (import ./modules "xenon") ];
-
   custom = {
     base.server.enable = true;
 

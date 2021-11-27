@@ -1,8 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ../../modules ];
-
   custom = {
     base = {
       general.lightWeight = true;
