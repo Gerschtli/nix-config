@@ -21,8 +21,6 @@ in
 
   config = mkIf cfg.enable {
 
-    nixpkgs.config.allowUnfree = true;
-
     users.users.tobias = {
       extraGroups = [ "tty" "dialout" ];
       packages = [ pkgs.arduino ];

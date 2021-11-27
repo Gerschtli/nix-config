@@ -60,8 +60,6 @@ in
       ];
     };
 
-    nixpkgs.config.allowUnfree = true;
-
     services.teamspeak3.enable = true;
 
   };

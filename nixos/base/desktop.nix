@@ -64,8 +64,6 @@ in
         pulseaudio.enable = true;
       };
 
-      nixpkgs.config.allowUnfree = true;
-
       programs.ssh.askPassword = "";
 
       services = {

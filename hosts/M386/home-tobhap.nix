@@ -50,10 +50,4 @@ in
       LOCALE_ARCHIVE_2_27 = "${pkgs.glibcLocales}/lib/locale/locale-archive";
     };
   };
-
-  # FIXME: move to non-nixos.setupNixpkgs when hm 21.11 is released
-  nixpkgs = {
-    config = import (config.lib.custom.path.files + "/config.nix");
-    overlays = map import (config.lib.custom.getFileList config.lib.custom.path.overlays);
-  };
 }

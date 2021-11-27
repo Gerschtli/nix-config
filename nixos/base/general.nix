@@ -72,8 +72,6 @@ in
       trustedUsers = [ "root" "tobias" ];
     };
 
-    nixpkgs.overlays = map import (config.lib.custom.getFileList config.lib.custom.path.overlays);
-
     programs.zsh = {
       enable = true;
       enableGlobalCompInit = false;
