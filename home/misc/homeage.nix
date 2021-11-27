@@ -62,12 +62,9 @@ in
     ];
 
     homeage = {
-      identityPaths =
-        let
-          add = file: optional (pathExists file) file;
-        in
-        (add "${config.home.homeDirectory}/.age-bak/key.txt")
-        ++ (add "${config.home.homeDirectory}/.age/key.txt");
+      identityPaths = [
+        "${config.home.homeDirectory}/.age/key.txt"
+      ];
 
       installationType = "activation";
       mount = mkIf (cfg.directory != null) cfg.directory;

@@ -62,12 +62,9 @@ in
 
       ];
 
-      sshKeyPaths =
-        let
-          add = file: optional (pathExists file) file;
-        in
-        (add "/root/.age-bak/key.txt")
-        ++ (add "/root/.age/key.txt");
+      sshKeyPaths = [
+        "/root/.age/key.txt"
+      ];
     };
 
   };
