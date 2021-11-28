@@ -81,12 +81,6 @@ in
         # Increase key repeat speed
         ${pkgs.xorg.xset}/bin/xset r rate 250 30
 
-        # Send notification if last nix-channel --update is more than a week ago
-        if [[ $(find /nix/var/nix/profiles/per-user -type l -iname "channels-*" -mtime -7 | wc -l) == 0 ]]; then
-            ${pkgs.libnotify}/bin/notify-send "Please update me!" \
-              "Last time you updated your nix-channel is more than a week ago.. :("
-        fi
-
         # Fix java applications, dwm needs to be up and running before executing this command
         for i in 1 2 3; do
           sleep 1
