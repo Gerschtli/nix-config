@@ -1,18 +1,8 @@
 source @bashLib@
 
-list=()
-
-if _is_root; then
-    list+=(
-        /etc/nixos
-        /etc/nixos/home-manager-configurations
-    )
-fi
-
-list+=(
-    ~/.dotfiles
-    ~/.dotfiles/gpg
-    ~/.dotfiles/home-manager/home-manager-configurations
+list=(
+    ~/.nix-config
+    ~/.atom
     ~/.password-store
 )
 
@@ -22,7 +12,6 @@ for dir in "${list[@]}"; do
     fi
 
     name="${dir#"${HOME}/"}"
-    name="${name#/etc/}"
 
     echo -e "\n[${BLUE}DIR${RESET}] ${name}\n"
     git -C "${dir}" status
