@@ -149,6 +149,8 @@
             lib.custom = customLibPerSystem system;
 
             nixpkgs.pkgs = pkgsPerSystem system;
+
+            nix.registry.nixpkgs.flake = nixpkgs;
           }
         ]
         ++ (customLibPerSystem system).getRecursiveNixFileList ./nixos;
