@@ -42,17 +42,26 @@ in
       };
 
       home.packages = [
-        (buildWithDiff "hm-build" "home-manager" "/nix/var/nix/profiles/per-user/${config.home.username}/home-manager")
+        (buildWithDiff
+          "hm-build"
+          "home-manager build --flake '${config.home.homeDirectory}/.nix-config'"
+          "/nix/var/nix/profiles/per-user/${config.home.username}/home-manager"
+        )
       ];
     })
 
     (mkIf cfg.nix-on-droid.enable {
+      # FIXME: use nix-on-droid command again once flake support is available
       custom.programs.shell.shellAliases = {
-        nod-switch = "nix-on-droid switch";
+        nod-switch = "nix build .#nixOnDroidConfigurations.oneplus5.activationPackage --impure && ./result/activate";
       };
 
       home.packages = [
-        (buildWithDiff "nod-build" "nix-on-droid" "/nix/var/nix/profiles/nix-on-droid")
+        (buildWithDiff
+          "nod-build"
+          "nix build .#nixOnDroidConfigurations.oneplus5.activationPackage --impure"
+          "/nix/var/nix/profiles/nix-on-droid"
+        )
       ];
     })
 
@@ -63,7 +72,11 @@ in
           ./n-rebuild.sh
           [ pkgs.ccze ]
           {
-            buildCmd = "${buildWithDiff "n-rebuild-build" "nixos-rebuild" "/run/current-system"}/bin/n-rebuild-build";
+            buildCmd = "${buildWithDiff
+              "n-rebuild-build"
+              "nixos-rebuild build --flake /root/.nix-config"
+              "/run/current-system"
+            }/bin/n-rebuild-build";
             _doNotClearPath = true;
           }
         )

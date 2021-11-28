@@ -1,4 +1,4 @@
-@command@ build --flake "@homeDirectory@/.nix-config"
+@command@
 
 echo
 
