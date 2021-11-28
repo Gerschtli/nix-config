@@ -1,6 +1,12 @@
+{ homeModules, rootPath }:
+
 { config, lib, pkgs, ... }:
 
 {
+  # FIXME: move these into home-manager module of nix-on-droid
+  imports = homeModules;
+  _module.args = { inherit rootPath; };
+
   custom = {
     base = {
       general.lightWeight = true;
@@ -12,6 +18,8 @@
     };
 
     development.nix.nix-on-droid.enable = true;
+
+    misc.homeage.directory = "${config.xdg.dataHome}/secrets";
 
     programs = {
       shell = {

@@ -1,9 +1,6 @@
-{ pkgs, config, lib, ... }:
+{ homeModules, rootPath }:
 
-let
-  homeDir = builtins.getEnv "HOME";
-  homeFile = "${homeDir}/.config/nixpkgs/home.nix";
-in
+{ config, lib, pkgs, ... }:
 
 {
   environment.etcBackupExtension = ".nod-bak";
@@ -15,9 +12,16 @@ in
 
   home-manager = {
     backupFileExtension = "hm-bak";
-    config = import homeFile;
+    config = import (rootPath + "/hosts/oneplus5/home-nix-on-droid.nix") { inherit homeModules rootPath; };
     useGlobalPkgs = true;
     useUserPackages = true;
+  };
+
+  nix = {
+    package = pkgs.nixFlakes;
+    extraConfig = ''
+      experimental-features = nix-command flakes
+    '';
   };
 
   system.stateVersion = "19.09";

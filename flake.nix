@@ -128,6 +128,13 @@
         stateVersion = "21.05";
       };
 
+      buildNixOnDroid = system: device: nix-on-droid.lib.${system}.nix-on-droid {
+        config = import (./hosts + "/${device}/nix-on-droid.nix") {
+          homeModules = homeModulesPerSystem system;
+          rootPath = ./.;
+        };
+      };
+
       buildNixosSystem = system: hostName: nixpkgs.lib.nixosSystem {
         inherit system;
 
@@ -162,6 +169,10 @@
       homeConfigurations = {
         "tobias@gamer" = buildHome "x86_64-linux" "gamer" "tobias";
         "tobhap@M386" = buildHome "x86_64-linux" "M386" "tobhap";
+      };
+
+      nixOnDroidConfigurations = {
+        oneplus5 = buildNixOnDroid "aarch64-linux" "oneplus5";
       };
 
       nixosConfigurations = {
