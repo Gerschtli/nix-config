@@ -44,10 +44,7 @@ in
         "system-update"
         ./system-update.sh
         (with pkgs; [ age gitAndTools.gitFull gnugrep gnused ])
-        {
-          inherit (pkgs) nixUnstable;
-          _doNotClearPath = true;
-        }
+        { _doNotClearPath = true; }
       )
     ];
 

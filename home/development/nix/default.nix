@@ -12,7 +12,6 @@ let
       [ pkgs.gnugrep pkgs.gnused ]
       {
         inherit (config.home) homeDirectory;
-        inherit (pkgs) nixFlakes;
         inherit activeLinkPath command;
         _doNotClearPath = true;
       };

@@ -2,6 +2,6 @@
 
 echo
 
-@nixFlakes@/bin/nix store diff-closures @activeLinkPath@ ./result
+nix store diff-closures @activeLinkPath@ ./result
 
 rm result
