@@ -6,6 +6,7 @@ krypton-tobias = "age1r2maar050kkskxpaestrd738dpphptp886mdt4kta2p3mup3mc9s4r4020
 M386-tobhap = "age18pcr8yd24dhhcc6rvj3hgazz5yrcwawhs22hffzse450d9avdaqqxz7khx"
 neon-root = "age1p72skzuq8tn9klz0z6k6xaj4q90ztalujwta2nx5c4ekfy9r6u9s7zjuh0"
 neon-tobias = "age1z7t97jm3uh6xjvx709zd634wnqgavm6e3rgsqx7782mcq9vntpeq0qxhh2"
+oneplus5-nix-on-droid = "age1kttfv4zpvv0cshe8q7lvakycytn34pja9pcy4ylq94kw90k3yfwsxja79j"
 xenon-root = "age1glu7paaertha2q28whxehvgn7euj52z5pka0edlrp6pnhqypvcmqm2lg64"
 xenon-tobias = "age1dxhjmnugds3263vsh02zrxagxal5x25ycs3xpueja7yfvcx8lves8p5rkv"
 
@@ -18,6 +19,7 @@ all = [
     "M386-tobhap",
     "neon-root",
     "neon-tobias",
+    "oneplus5-nix-on-droid",
     "xenon-root",
     "xenon-tobias",
 ]
@@ -26,6 +28,7 @@ private = [
     "gamer-tobias",
     "M386-tobhap",
     "neon-tobias",
+    "oneplus5-nix-on-droid",
 ]
 
 [[paths]]
