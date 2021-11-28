@@ -36,11 +36,6 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.misc.dotfiles = {
-      enable = true;
-      modules = [ "home-manager" ];
-    };
-
     home.packages = mkIf cfg.installNix [ pkgs.nixFlakes ];
 
     programs.zsh.envExtra = mkAfter ''

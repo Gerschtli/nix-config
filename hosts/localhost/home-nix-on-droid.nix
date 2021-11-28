@@ -13,8 +13,6 @@
 
     development.nix.nix-on-droid.enable = true;
 
-    misc.dotfiles.modules = [ "nix-on-droid" ];
-
     programs = {
       shell = {
         envExtra = lib.mkOrder 0 ''

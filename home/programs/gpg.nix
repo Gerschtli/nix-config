@@ -25,19 +25,12 @@ in
 
   config = mkIf cfg.enable {
 
-    custom = {
-      misc.dotfiles = {
-        enable = true;
-        modules = [ "gpg" ];
-      };
-
-      programs.shell.loginExtra = ''
-        # remove existing keys
-        if [[ $SHLVL -eq 1 ]]; then
-          systemctl --user restart gpg-agent.socket
-        fi
-      '';
-    };
+    custom.programs.shell.loginExtra = ''
+      # remove existing keys
+      if [[ $SHLVL -eq 1 ]]; then
+        systemctl --user restart gpg-agent.socket
+      fi
+    '';
 
     programs.gpg.enable = true;
 

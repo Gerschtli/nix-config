@@ -29,12 +29,8 @@ in
     custom = {
       development.lorri.enable = true;
 
-      misc.dotfiles = {
-        enable = true;
-        modules = [ "atom" ];
-      };
-
       programs = {
+        atom.enable = true;
         idea-ultimate.enable = true;
 
         pass = mkIf cfg.private {
