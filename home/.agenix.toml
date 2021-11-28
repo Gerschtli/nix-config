@@ -1,0 +1,41 @@
+[identities]
+bak = "age1kttfv4zpvv0cshe8q7lvakycytn34pja9pcy4ylq94kw90k3yfwsxja79j"
+gamer-tobias = "age1xmwue6azg27l7kwsjr7a84gax5ed7tzdzfw4c3vz3aejr539tpdswmlpt8"
+krypton-root = "age1vheh9hvezl0k2fe7wpfjnfp6ajcezz78jlhxj6wvzxdvkte4lfys03ktuq"
+krypton-tobias = "age1r2maar050kkskxpaestrd738dpphptp886mdt4kta2p3mup3mc9s4r4020"
+M386-tobhap = "age18pcr8yd24dhhcc6rvj3hgazz5yrcwawhs22hffzse450d9avdaqqxz7khx"
+neon-root = "age1p72skzuq8tn9klz0z6k6xaj4q90ztalujwta2nx5c4ekfy9r6u9s7zjuh0"
+neon-tobias = "age1z7t97jm3uh6xjvx709zd634wnqgavm6e3rgsqx7782mcq9vntpeq0qxhh2"
+xenon-root = "age1glu7paaertha2q28whxehvgn7euj52z5pka0edlrp6pnhqypvcmqm2lg64"
+xenon-tobias = "age1dxhjmnugds3263vsh02zrxagxal5x25ycs3xpueja7yfvcx8lves8p5rkv"
+
+[groups]
+all = [
+    "bak",
+    "gamer-tobias",
+    "krypton-root",
+    "krypton-tobias",
+    "M386-tobhap",
+    "neon-root",
+    "neon-tobias",
+    "xenon-root",
+    "xenon-tobias",
+]
+private = [
+    "bak",
+    "gamer-tobias",
+    "M386-tobhap",
+    "neon-tobias",
+]
+
+[[paths]]
+glob = "secrets/ssh/private/*"
+groups = [ "private" ]
+
+[[paths]]
+glob = "secrets/ssh/vcs/*"
+groups = [ "all" ]
+
+[[paths]]
+glob = "secrets/ssh/sedo/*"
+identities = [ "bak", "M386-tobhap" ]
