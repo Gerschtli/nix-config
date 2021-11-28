@@ -1,0 +1,1 @@
+curl https://tobias-happ.de/setup.sh -o setup.sh && chmod +x setup.sh && ./setup.sh

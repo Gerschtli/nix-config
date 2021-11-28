@@ -1,0 +1,12 @@
+[identities]
+bak = "age1kttfv4zpvv0cshe8q7lvakycytn34pja9pcy4ylq94kw90k3yfwsxja79j"
+krypton-root = "age1vheh9hvezl0k2fe7wpfjnfp6ajcezz78jlhxj6wvzxdvkte4lfys03ktuq"
+xenon-root = "age1glu7paaertha2q28whxehvgn7euj52z5pka0edlrp6pnhqypvcmqm2lg64"
+
+[[paths]]
+glob = "secrets/krypton/*"
+identities = [ "bak", "krypton-root" ]
+
+[[paths]]
+glob = "secrets/xenon/*"
+identities = [ "bak", "xenon-root" ]
