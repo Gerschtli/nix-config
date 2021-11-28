@@ -129,6 +129,22 @@ _migration_remove "/etc/nixos" 1
 _migration_remove "${HOME}/.dotfiles" 1
 _migration_remove "${HOME}/.gnupg-setup" 1
 
+if [[ -f "${HOME}/.dotfiles-cache" ]]; then
+    mapfile -t dotfiles_links < <(sed -e 's/.*://' "${HOME}/.dotfiles-cache")
+    dotfiles_links+=("${HOME}/.dotfiles-cache")
+
+    _log "migration" "current dotfiles files to remove"
+    for dotfiles_link in "${dotfiles_links[@]}"; do
+        echo "${dotfiles_link}"
+    done
+
+    if _read_boolean "Remove all current deployed dotfiles links?"; then
+        for dotfiles_link in "${dotfiles_links[@]}"; do
+            rm -v "${dotfiles_link}"
+        done
+    fi
+fi
+
 
 # nix cleanup
 # no cleanup for non root users on NixOS
