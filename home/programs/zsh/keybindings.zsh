@@ -91,8 +91,9 @@ fi
 # case-insensitive if the search string does not have uppercase letters and no
 # numeric argument was given. The string may begin with "^" to anchor the search
 # to the beginning of the line.
-bindkey -M vicmd "\C-r" history-incremental-search-backward
-bindkey -M viins "\C-r" history-incremental-search-backward
+# NOTE: disabled because fzf binds to this
+#bindkey -M vicmd "\C-r" history-incremental-search-backward
+#bindkey -M viins "\C-r" history-incremental-search-backward
 
 # history-incremental-search-forward (^S ^Xs) (unbound) (unbound)
 # Search forward incrementally for a specified string. The search is
