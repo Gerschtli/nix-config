@@ -55,7 +55,6 @@ in
 
       programs = {
         bash.enable = true;
-        fzf.enable = true;
         git.enable = true;
         htop.enable = true;
         neovim.enable = true;
@@ -105,7 +104,10 @@ in
       stateVersion = "21.05";
     };
 
-    programs.home-manager.enable = true;
+    programs = {
+      fzf.enable = true;
+      home-manager.enable = true;
+    };
 
     # FIXME: set to sd-switch once it works for krypton
     systemd.user.startServices = "legacy";
