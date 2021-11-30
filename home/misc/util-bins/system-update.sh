@@ -114,10 +114,13 @@ if [[ ! -f "${HOME}/.age/key.txt" || -L "${HOME}/.age" ]] && _read_boolean "Gene
     fi
 
     mkdir -p "${HOME}/.age"
-    age-keygen -o "${HOME}/.age/key.txt"
+    age-keygen -o "${HOME}/.age/key.txt" 2>&1 |
+        sed -e "s,^Public key: \(.*\)\$,\n# $(hostname)-${USER} = \"\1\"," |
+        tee -a "${HOME}/.nix-config/.agenix.toml"
+else
+    _migration_remove "${HOME}/.age-bak" 1
 fi
 
-_migration_remove "${HOME}/.age-bak" 1
 _migration_remove "${HOME}/.ssh-age"
 _migration_remove "${HOME}/.ssh/id_rsa"
 _migration_remove "${HOME}/.ssh/id_rsa.pub"
