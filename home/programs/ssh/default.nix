@@ -108,8 +108,6 @@ in
     programs = {
       keychain = {
         enable = cfg.enableKeychain;
-        enableBashIntegration = true;
-        enableZshIntegration = true;
         agents = [ "ssh" ];
         keys = [ ];
       };
