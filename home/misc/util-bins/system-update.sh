@@ -109,7 +109,7 @@ if ! _is_nixos && ! _is_root && _available home-manager; then
 fi
 
 
-# migrations
+# general migrations
 if [[ ! -f "${HOME}/.age/key.txt" || -L "${HOME}/.age" ]] && _read_boolean "Generate ~/.age/key.txt?"; then
     if [[ -L "${HOME}/.age" ]]; then
         rm -v "${HOME}/.age"
@@ -126,13 +126,22 @@ fi
 _migration_remove "${HOME}/.ssh-age"
 _migration_remove "${HOME}/.ssh/id_rsa"
 _migration_remove "${HOME}/.ssh/id_rsa.pub"
+_migration_remove "${HOME}/.ssh/known_hosts.old"
+_migration_remove "${HOME}/.gnupg-setup" 1
+
+mapfile -t to_be_removed_pkgs < <(nix-env -q --json | jq -r ".[].pname" | grep -Ev '^(home-manager|nix-on-droid)-path$')
+if [[ "${#to_be_removed_pkgs}" -ne 0 ]]; then
+    _log "migration" "remove manual installed packages via nix-env"
+    nix-env --uninstall "${to_be_removed_pkgs[@]}"
+fi
+
+
+# temporary migrations
 _migration_remove "${HOME}/.ssh/keys/id_rsa.age"
 _migration_remove "${HOME}/.ssh/keys/id_rsa.age.pub"
-_migration_remove "${HOME}/.ssh/known_hosts.old"
 _migration_remove "${HOME}/.ssh/modules"
 _migration_remove "/etc/nixos" 1
 _migration_remove "${HOME}/.dotfiles" 1
-_migration_remove "${HOME}/.gnupg-setup" 1
 
 if [[ -f "${HOME}/.dotfiles-cache" ]]; then
     mapfile -t dotfiles_links < <(sed -e 's/.*://' "${HOME}/.dotfiles-cache")
