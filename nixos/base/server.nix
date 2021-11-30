@@ -62,15 +62,6 @@ in
       SystemMaxUse=2G
     '';
 
-    system.autoUpgrade = {
-      enable = true;
-      dates = "Mon *-*-* 07:00:00";
-    };
-
-    systemd.services.nixos-upgrade.script = mkBefore ''
-      ${config.nix.package}/bin/nix-channel --update
-    '';
-
   };
 
 }
