@@ -67,11 +67,9 @@
     , teamspeak-update-notifier
     }:
     let
-      pkgsPerSystem = system: import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = [ overlay ];
-      };
+      rootPath = ./.;
+
+      ## overlay config
 
       unstablePerSystem = system: import unstable {
         inherit system;
@@ -104,6 +102,16 @@
             ]);
       };
 
+      ## configure nixpkgs
+
+      pkgsPerSystem = system: import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [ overlay ];
+      };
+
+      ## builder helper
+
       customLibPerSystem = system: import ./lib {
         inherit (nixpkgs) lib;
         pkgs = pkgsPerSystem system;
@@ -117,21 +125,23 @@
           { lib.custom = customLibPerSystem system; }
         ];
 
+      ## builder
+
       buildHome = system: hostName: username: home-manager.lib.homeManagerConfiguration {
         inherit username system;
 
         configuration = ./hosts/${hostName}/home-${username}.nix;
         homeDirectory = "/home/${username}";
         extraModules = homeModulesPerSystem system;
-        extraSpecialArgs.rootPath = ./.;
+        extraSpecialArgs = { inherit rootPath; };
         pkgs = pkgsPerSystem system;
         stateVersion = "21.05";
       };
 
       buildNixOnDroid = system: device: nix-on-droid.lib.${system}.nix-on-droid {
         config = import (./hosts + "/${device}/nix-on-droid.nix") {
+          inherit rootPath;
           homeModules = homeModulesPerSystem system;
-          rootPath = ./.;
         };
       };
 
@@ -139,8 +149,8 @@
         inherit system;
 
         specialArgs = {
+          inherit rootPath;
           homeModules = homeModulesPerSystem system;
-          rootPath = ./.;
         };
 
         modules = [
