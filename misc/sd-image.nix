@@ -6,9 +6,11 @@
 #       wpa_passphrase ESSID PSK > /mnt/etc/wpa_supplicant.conf
 # 4. Unmount, inject sd-card in raspberry and boot
 
+{ modulesPath, ... }:
+
 {
   imports = [
-    <nixpkgs/nixos/modules/installer/sd-card/sd-image-aarch64.nix>
+    (modulesPath + "/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
   ];
 
   networking = {
@@ -33,6 +35,6 @@
 
   users.users.root = {
     password = "nixos";
-    openssh.authorizedKeys.keyFiles = [ ../modules/files/keys/id_rsa.tobias.pub ];
+    openssh.authorizedKeys.keyFiles = [ ../files/keys/id_rsa.tobias.pub ];
   };
 }
