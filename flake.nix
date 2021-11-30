@@ -2,7 +2,9 @@
   description = "A collection of my system configs and dotfiles.";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
+    # TODO: move back to upstream if 21.11 is stable
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
+    nixpkgs.url = "github:Gerschtli/nixpkgs/custom";
     unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # commit before jdk15 drop
