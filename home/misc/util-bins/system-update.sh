@@ -1,5 +1,7 @@
 source @bashLib@
 
+nix_config="${HOME}/.nix-config"
+
 _get_sudo_prefix() {
     if ! _is_root; then
         echo "sudo"
@@ -70,7 +72,7 @@ fi
 
 
 # update projects
-_pull_changes "nix-config"  "${HOME}/.nix-config"
+_pull_changes "nix-config"  "${nix_config}"
 _pull_changes "atom"        "${HOME}/.atom"
 _pull_changes "pass"        "${HOME}/.password-store"
 
@@ -79,31 +81,31 @@ _pull_changes "pass"        "${HOME}/.password-store"
 # TODO: use scripts defined in home/development/nix
 if _is_nixos && _is_root; then
     _log "nix" "build nixos configuration"
-    nixos-rebuild build --keep-going --flake /root/.nix-config
+    nixos-rebuild build --keep-going --flake "${nix_config}"
     _show_result_diff "/run/current-system"
 
     _log "nix" "switch nixos configuration"
-    nixos-rebuild switch --keep-going --flake /root/.nix-config
+    nixos-rebuild switch --keep-going --flake "${nix_config}"
 fi
 
 if [[ "${USER}" == "nix-on-droid" ]] && _available nix-on-droid; then
     _log "nix" "build nix-on-droid configuration"
-    nix build "${HOME}/.nix-config#nixOnDroidConfigurations.oneplus5.activationPackage" --impure
+    nix build "${nix_config}#nixOnDroidConfigurations.oneplus5.activationPackage" --impure
     nix-on-droid build
     _show_result_diff "/nix/var/nix/profiles/nix-on-droid"
 
     _log "nix" "switch nix-on-droid configuration"
-    nix build "${HOME}/.nix-config#nixOnDroidConfigurations.oneplus5.activationPackage" --impure
+    nix build "${nix_config}#nixOnDroidConfigurations.oneplus5.activationPackage" --impure
     ./result/activate
 fi
 
 if ! _is_nixos && ! _is_root && _available home-manager; then
     _log "nix" "build home-manager configuration"
-    home-manager build --flake "${HOME}/.nix-config"
+    home-manager build --flake "${nix_config}"
     _show_result_diff "/nix/var/nix/profiles/per-user/${USER}/home-manager"
 
     _log "nix" "switch home-manager configuration"
-    home-manager switch --flake "${HOME}/.nix-config" -b hm-bak
+    home-manager switch --flake "${nix_config}" -b hm-bak
 fi
 
 
@@ -116,7 +118,7 @@ if [[ ! -f "${HOME}/.age/key.txt" || -L "${HOME}/.age" ]] && _read_boolean "Gene
     mkdir -p "${HOME}/.age"
     age-keygen -o "${HOME}/.age/key.txt" 2>&1 |
         sed -e "s,^Public key: \(.*\)\$,\n# $(hostname)-${USER} = \"\1\"," |
-        tee -a "${HOME}/.nix-config/.agenix.toml"
+        tee -a "${nix_config}/.agenix.toml"
 else
     _migration_remove "${HOME}/.age-bak" 1
 fi
