@@ -41,8 +41,8 @@ If any of these systems need to be reinstalled, you can use
 
 As I am currently transitioning to a flake setup, there is still some stuff to do :)
 
-* [ ] Add functionality to apply patches to individual inputs
-* [ ] Apply [systemd-boot patch][systemd-boot-patch] to boot into specialisations
+* [ ] Add functionality to apply patches to individual inputs (EDIT: non-trivial because `builtins.getFlake` does not
+  accept paths to `/nix/store`..)
 * [ ] Flakify nix profiles
 * [ ] Add fenced syntax highlighting for vim [vim-nix fork of rummik][rummik/vim-nix]
 * [ ] Build all configurations with Github Actions and push everything to [cachix][cachix]
