@@ -134,17 +134,24 @@ _migration_remove "${HOME}/.gnupg-setup" 1
 
 if [[ -f "${HOME}/.dotfiles-cache" ]]; then
     mapfile -t dotfiles_links < <(sed -e 's/.*://' "${HOME}/.dotfiles-cache")
-    dotfiles_links+=("${HOME}/.dotfiles-cache")
 
     _log "migration" "current dotfiles files to remove"
     for dotfiles_link in "${dotfiles_links[@]}"; do
-        echo "${dotfiles_link}"
+        if [[ -L "${dotfiles_link}" ]]; then
+            echo "${dotfiles_link}"
+        else
+            echo "SKIP ${dotfiles_link} (not a link)"
+        fi
     done
 
     if _read_boolean "Remove all current deployed dotfiles links?"; then
         for dotfiles_link in "${dotfiles_links[@]}"; do
-            rm -v "${dotfiles_link}"
+            if [[ -L "${dotfiles_link}" ]]; then
+                rm -v "${dotfiles_link}"
+            fi
         done
+
+        rm -v "${HOME}/.dotfiles-cache"
     fi
 fi
 
