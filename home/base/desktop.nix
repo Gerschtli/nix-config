@@ -27,7 +27,7 @@ in
   config = mkIf cfg.enable {
 
     custom = {
-      development.lorri.enable = true;
+      development.direnv.enable = true;
 
       programs = {
         atom.enable = true;

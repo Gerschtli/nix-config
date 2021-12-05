@@ -1,12 +1,9 @@
-{ config, lib, pkgs, rootPath, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
-  cfg = config.custom.development.lorri;
-
-  nixProfiles = "nix/profiles";
-  nixProfilesDir = "${config.xdg.configHome}/${nixProfiles}";
+  cfg = config.custom.development.direnv;
 in
 
 {
@@ -14,7 +11,7 @@ in
 
   options = {
 
-    custom.development.lorri.enable = mkEnableOption "lorri setup";
+    custom.development.direnv.enable = mkEnableOption "direnv setup";
 
   };
 
@@ -22,21 +19,6 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-
-    home.packages = [
-      (config.lib.custom.mkScript
-        "lorri-init"
-        ./lorri-init.sh
-        (with pkgs; [ direnv gnutar gzip lorri nix ])
-        { inherit nixProfilesDir; }
-      )
-
-      (config.lib.custom.mkZshCompletion
-        "lorri-init"
-        ./lorri-init-completion.zsh
-        { inherit nixProfilesDir; }
-      )
-    ];
 
     programs = {
       direnv = {
@@ -66,13 +48,6 @@ in
           done
         fi
       '';
-    };
-
-    services.lorri.enable = true;
-
-    xdg.configFile.${nixProfiles} = {
-      source = rootPath + "/files/nix/profiles";
-      recursive = true;
     };
 
   };
