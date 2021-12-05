@@ -56,7 +56,7 @@
     , statix
     }:
     let
-      rootPath = ./.;
+      rootPath = toString ./.;
 
       ## overlay config
 
@@ -120,7 +120,7 @@
       buildHome = system: hostName: username: home-manager.lib.homeManagerConfiguration {
         inherit username system;
 
-        configuration = ./hosts/${hostName}/home-${username}.nix;
+        configuration = ./hosts + "/${hostName}/home-${username}.nix";
         homeDirectory = "/home/${username}";
         extraModules = homeModulesPerSystem system;
         extraSpecialArgs = { inherit rootPath; };
@@ -144,8 +144,8 @@
         };
 
         modules = [
-          ./hosts/${hostName}/configuration.nix
-          ./hosts/${hostName}/hardware-configuration.nix
+          (./hosts + "/${hostName}/configuration.nix")
+          (./hosts + "/${hostName}/hardware-configuration.nix")
 
           agenix.nixosModules.age
           home-manager.nixosModules.home-manager
