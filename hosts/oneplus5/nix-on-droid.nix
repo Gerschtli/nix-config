@@ -24,7 +24,7 @@
     '';
   };
 
-  system.stateVersion = "19.09";
+  system.stateVersion = "21.11";
 
   time.timeZone = "Europe/Berlin";
 

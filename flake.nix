@@ -131,7 +131,7 @@
         extraModules = homeModulesPerSystem system;
         extraSpecialArgs = { inherit rootPath; };
         pkgs = pkgsPerSystem system;
-        stateVersion = "21.05";
+        stateVersion = "21.11";
       };
 
       buildNixOnDroid = system: device: nix-on-droid.lib.${system}.nix-on-droid {
