@@ -2,9 +2,7 @@
   description = "A collection of my system configs and dotfiles.";
 
   inputs = {
-    # TODO: move back to upstream if 21.11 is stable
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
-    nixpkgs.url = "github:Gerschtli/nixpkgs/custom";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
     unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # commit before jdk15 drop
@@ -12,7 +10,7 @@
     nixpkgs-for-jdk15.url = "github:NixOS/nixpkgs/df175b7f61d852dc599fe248b1a8666c312457bd";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-21.05";
+      url = "github:nix-community/home-manager/release-21.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-on-droid = {
