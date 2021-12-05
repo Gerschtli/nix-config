@@ -71,6 +71,5 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 [rummik/vim-nix]: https://github.com/rummik/vim-nix
 [shellcheck]: https://github.com/koalaman/shellcheck
 [statix]: https://github.com/nerdypepper/statix
-[systemd-boot-patch]: https://github.com/NixOS/nixpkgs/commit/13fad0f81b2bd50fd421bd5856a35f1f7c032257
 
 <!-- vim: set sw=2: -->
