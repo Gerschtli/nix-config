@@ -44,7 +44,6 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 
 * [ ] Add functionality to apply patches to individual inputs (EDIT: non-trivial because `builtins.getFlake` does not
   accept paths to `/nix/store`..)
-* [ ] Flakify nix profiles
 * [ ] Build all configurations with Github Actions and push everything to [cachix][cachix]
 * [ ] Update flake inputs regularly via Github Actions cronjob
 * [ ] Let all servers fetch latest version of this repo regularly and apply configuration

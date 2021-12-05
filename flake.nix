@@ -213,5 +213,21 @@
           touch $out
         '';
       });
+
+      # use like:
+      # $ echo "use flake ~/.nix-config#jdk11" > .envrc
+      # $ direnv allow .
+      devShells = foreachSystem ({ pkgs, ... }:
+        builtins.mapAttrs
+          (name: jdk: pkgs.mkShell {
+            inherit name;
+            buildInputs = [ jdk pkgs.maven ];
+            JAVA_HOME = "${jdk}/lib/openjdk";
+          })
+          {
+            inherit (pkgs) jdk8 jdk11 jdk15;
+            jdk17 = pkgs.jdk17_headless;
+          }
+      );
     };
 }
