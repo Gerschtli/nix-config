@@ -28,9 +28,9 @@
   # hardware.bluetooth.enable = true;
 
   # Need to run: wpa_passphrase ESSID PSK > /etc/wpa_supplicant.conf
+  # TODO: use networking.wireless.environmentFile
   networking.wireless = {
     enable = true;
-    interfaces = [ "wlan0" ];
   };
 
   # needed because wpa_supplicant fails on startup
