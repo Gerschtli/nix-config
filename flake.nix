@@ -31,6 +31,12 @@
     dwm.url = "github:Gerschtli/dwm";
     dwm-status.url = "github:Gerschtli/dwm-status";
     teamspeak-update-notifier.url = "github:Gerschtli/teamspeak-update-notifier";
+
+    # FIXME: use statix of nixpkgs when 0.4.2 is available
+    statix = {
+      url = "github:nerdypepper/statix/v0.4.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -47,6 +53,7 @@
     , dwm
     , dwm-status
     , teamspeak-update-notifier
+    , statix
     }:
     let
       rootPath = ./.;
@@ -58,27 +65,32 @@
         config.allowUnfree = true;
       };
 
-      overlay = final: prev: {
-        inherit (nixpkgs-for-jdk15.legacyPackages.${prev.system}) jdk15;
+      overlay = nixpkgs.lib.composeManyExtensions [
+        (final: prev: {
+          inherit (agenix-cli.packages.${prev.system}) agenix;
+          inherit (nixpkgs-for-jdk15.legacyPackages.${prev.system}) jdk15;
 
-        inherit (unstablePerSystem prev.system)
-          # need bleeding edge version
-          jetbrains
-          portfolio
-          teamspeak_server
-          ;
+          inherit (unstablePerSystem prev.system)
+            # need bleeding edge version
+            jetbrains
+            portfolio
+            teamspeak_server
+            ;
 
-        agenix = agenix-cli.packages.${prev.system}.agenix;
+          gerschtli =
+            prev.lib.composeManyExtensions
+              [
+                dmenu.overlay
+                dwm.overlay
+                dwm-status.overlay
+                teamspeak-update-notifier.overlay
+              ]
+              final
+              prev;
+        })
 
-        gerschtli =
-          prev.lib.foldr (a: b: a // b) { } (
-            map (flake: flake.overlay final prev) [
-              dmenu
-              dwm
-              dwm-status
-              teamspeak-update-notifier
-            ]);
-      };
+        statix.overlay
+      ];
 
       ## configure nixpkgs
 
