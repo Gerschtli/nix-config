@@ -84,10 +84,6 @@
           jetbrains
           portfolio
           teamspeak_server
-
-          # TODO: remove as soon as available in stable
-          jdk17_headless
-          ventoy-bin
           ;
 
         agenix = agenix-cli.packages.${prev.system}.agenix;
