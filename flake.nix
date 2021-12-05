@@ -115,6 +115,17 @@
           { lib.custom = customLibPerSystem system; }
         ];
 
+      foreachSystem = builder:
+        nixpkgs.lib.genAttrs
+          [ "aarch64-linux" "x86_64-linux" ]
+          (system:
+            let
+              pkgs = pkgsPerSystem system;
+              customLib = customLibPerSystem system;
+            in
+            builder { inherit customLib pkgs system; }
+          );
+
       ## builder
 
       buildHome = system: hostName: username: home-manager.lib.homeManagerConfiguration {
@@ -180,5 +191,27 @@
         neon = buildNixosSystem "x86_64-linux" "neon";
         xenon = buildNixosSystem "aarch64-linux" "xenon";
       };
+
+      apps = foreachSystem ({ customLib, pkgs, ... }: {
+        format = {
+          type = "app";
+          program = "${customLib.mkScriptPlain "format" ./files/apps/format.sh [ pkgs.nixpkgs-fmt pkgs.statix ] { }}";
+        };
+      });
+
+      checks = foreachSystem ({ pkgs, ... }: {
+        nixpkgs-fmt = pkgs.runCommand "nixpkgs-fmt-check" { } ''
+          shopt -s globstar
+          ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check ${./.}/**/*.nix
+          touch $out
+        '';
+
+        # FIXME: use exit-code when https://github.com/nerdypepper/statix/issues/20 is resolved
+        statix = pkgs.runCommand "statix-check" { } ''
+          ${pkgs.statix}/bin/statix check ${./.} --format errfmt | tee output
+          [[ "$(cat output)" == "" ]]
+          touch $out
+        '';
+      });
     };
 }

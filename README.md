@@ -10,6 +10,7 @@ This is my humble flakes-only collection of all and everything needed to set up 
   [age][age]
 * [nix-on-droid][nix-on-droid]-managed android phone with [home-manager][home-manager]
 * Generated shell scripts are always linted with [shellcheck][shellcheck]
+* Checks source code with [statix][statix] and [nixpkgs-fmt][nixpkgs-fmt]
 
 ## Supported configurations
 
@@ -52,7 +53,6 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 * [ ] Move setup script to a flake app
 * [ ] Merge host-specific READMEs
 * [ ] Implement a clean up migration for the deprecated channel setup
-* [ ] Add some checks like [statix][statix] and [nixpkgs-fmt][nixpkgs-fmt]
 * [ ] Flakify scripts in [misc](misc)
 * [ ] Provide ISO-images for NixOS configurations
 * [ ] Set up nixos-shell and similar for an ubuntu image to easily test setup script
