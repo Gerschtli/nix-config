@@ -45,7 +45,6 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 * [ ] Add functionality to apply patches to individual inputs (EDIT: non-trivial because `builtins.getFlake` does not
   accept paths to `/nix/store`..)
 * [ ] Flakify nix profiles
-* [ ] Add fenced syntax highlighting for vim [vim-nix fork of rummik][rummik/vim-nix]
 * [ ] Build all configurations with Github Actions and push everything to [cachix][cachix]
 * [ ] Update flake inputs regularly via Github Actions cronjob
 * [ ] Let all servers fetch latest version of this repo regularly and apply configuration
@@ -68,7 +67,6 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 [nixos-manual]: https://nixos.org/manual/nixos/stable/index.html#sec-installation
 [nixos]: https://nixos.org/
 [nixpkgs-fmt]: https://github.com/nix-community/nixpkgs-fmt
-[rummik/vim-nix]: https://github.com/rummik/vim-nix
 [shellcheck]: https://github.com/koalaman/shellcheck
 [statix]: https://github.com/nerdypepper/statix
 
