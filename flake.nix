@@ -19,36 +19,18 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    agenix.url = "github:ryantm/agenix";
     agenix-cli = {
       url = "github:cole-h/agenix-cli";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    homeage = {
-      # url = "github:jordanisaacs/homeage";
-      url = "github:Gerschtli/homeage/support-script";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # homeage.url = "github:jordanisaacs/homeage";
+    homeage.url = "github:Gerschtli/homeage/support-script";
 
-    dmenu = {
-      url = "github:Gerschtli/dmenu";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    dwm = {
-      url = "github:Gerschtli/dwm";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    dwm-status = {
-      url = "github:Gerschtli/dwm-status";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    teamspeak-update-notifier = {
-      url = "github:Gerschtli/teamspeak-update-notifier";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    dmenu.url = "github:Gerschtli/dmenu";
+    dwm.url = "github:Gerschtli/dwm";
+    dwm-status.url = "github:Gerschtli/dwm-status";
+    teamspeak-update-notifier.url = "github:Gerschtli/teamspeak-update-notifier";
   };
 
   outputs =
