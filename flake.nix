@@ -115,9 +115,9 @@
           { lib.custom = customLibPerSystem system; }
         ];
 
-      foreachSystem = builder:
+      forSystems = systems: builder:
         nixpkgs.lib.genAttrs
-          [ "aarch64-linux" "x86_64-linux" ]
+          systems
           (system:
             let
               pkgs = pkgsPerSystem system;
@@ -125,6 +125,9 @@
             in
             builder { inherit customLib pkgs system; }
           );
+
+      forX86System = forSystems [ "x86_64-linux" ];
+      foreachSystem = forSystems [ "aarch64-linux" "x86_64-linux" ];
 
       ## builder
 
@@ -201,26 +204,25 @@
 
       # FIXME: enable checks for all systems when statix can be build on aarch64-linux
       # checks = foreachSystem ({ pkgs, ... }:
-      checks.x86_64-linux = let pkgs = pkgsPerSystem "x86_64-linux"; in
-        {
-          nixpkgs-fmt = pkgs.runCommand "nixpkgs-fmt-check" { } ''
-            shopt -s globstar
-            ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check ${./.}/**/*.nix
-            touch $out
-          '';
+      checks = forX86System ({ pkgs, ... }: {
+        nixpkgs-fmt = pkgs.runCommand "nixpkgs-fmt-check" { } ''
+          shopt -s globstar
+          ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check ${./.}/**/*.nix
+          touch $out
+        '';
 
-          # FIXME: use exit-code when https://github.com/nerdypepper/statix/issues/20 is resolved
-          statix = pkgs.runCommand "statix-check" { } ''
-            ${pkgs.statix}/bin/statix check ${./.} --format errfmt | tee output
-            [[ "$(cat output)" == "" ]]
-            touch $out
-          '';
-        };
+        # FIXME: use exit-code when https://github.com/nerdypepper/statix/issues/20 is resolved
+        statix = pkgs.runCommand "statix-check" { } ''
+          ${pkgs.statix}/bin/statix check ${./.} --format errfmt | tee output
+          [[ "$(cat output)" == "" ]]
+          touch $out
+        '';
+      });
 
       # use like:
       # $ echo "use flake ~/.nix-config#jdk11" > .envrc
       # $ direnv allow .
-      devShells = foreachSystem ({ pkgs, ... }:
+      devShells = forX86System ({ pkgs, ... }:
         builtins.mapAttrs
           (name: jdk: pkgs.mkShell {
             inherit name;
