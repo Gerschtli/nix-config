@@ -41,6 +41,7 @@ let
     git-lfs
     git
     gnugrep
+    nix_2_4
     openssh
   ];
 
