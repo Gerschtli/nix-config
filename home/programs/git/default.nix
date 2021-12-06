@@ -41,7 +41,6 @@ let
     git-lfs
     git
     gnugrep
-    nixpkgs-fmt
     openssh
   ];
 
