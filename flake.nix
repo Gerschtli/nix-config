@@ -142,10 +142,12 @@
         stateVersion = "21.11";
       };
 
+      # FIXME: pass in instance of pkgs when argument is added
       buildNixOnDroid = system: device: nix-on-droid.lib.${system}.nix-on-droid {
         config = import (./hosts + "/${device}/nix-on-droid.nix") {
           inherit rootPath;
           homeModules = homeModulesPerSystem system;
+          pkgs = pkgsPerSystem system;
         };
       };
 

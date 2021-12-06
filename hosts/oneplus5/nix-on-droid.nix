@@ -1,8 +1,10 @@
-{ homeModules, rootPath }:
+{ homeModules, pkgs, rootPath }:
 
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 {
+  _module.args = { inherit pkgs; };
+
   environment.etcBackupExtension = ".nod-bak";
 
   environment.packages = with pkgs; [

@@ -55,6 +55,7 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 * [ ] Provide ISO-images for NixOS configurations
 * [ ] Set up nixos-shell and similar for an ubuntu image to easily test setup script
 * [ ] Pin nixpkgs version in nix registry via home-manager config
+* [ ] Use nix-on-droid overlays for its configurations
 
 
 [age]: https://age-encryption.org/
