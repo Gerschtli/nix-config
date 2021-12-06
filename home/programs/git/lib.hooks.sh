@@ -32,30 +32,6 @@ has_changed() {
     [[ ${changed} != 0 ]]
 }
 
-has_command() {
-    local command="${1}"
-
-    hash "${command}" > /dev/null 2>&1
-}
-
-has_command_and_file() {
-    local command="${1}"
-    local file="${2}"
-
-    has_command "${command}" && [[ -r "${file}" ]]
-}
-
-has_match() {
-    local expression="${1}"
-    local input="${2:-/dev/stdin}"
-
-    grep -E "${expression}" "${input}" > /dev/null 2>&1
-}
-
-is_submodule() {
-    [[ -f "$(git rev-parse --show-toplevel)/.git" ]]
-}
-
 run_scripts() {
     for script in "${INCLUDES[@]:-}"; do
         "${script}" "$@"; track_result
