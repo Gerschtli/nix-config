@@ -29,7 +29,7 @@ in
       (config.lib.custom.mkScript
         "conf-status"
         ./conf-status.sh
-        [ pkgs.gitAndTools.gitFull ]
+        [ pkgs.git ]
         { }
       )
 

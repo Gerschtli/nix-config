@@ -38,8 +38,8 @@ let
   extractName = path: removeSuffix ".sh" (baseNameOf path);
   hooksPathPackages = with pkgs; [
     findutils
-    gitAndTools.git-lfs
-    gitAndTools.gitFull
+    git-lfs
+    git
     gnugrep
     nixpkgs-fmt
     openssh
@@ -96,7 +96,7 @@ in
 
   config = mkIf cfg.enable {
 
-    home.packages = [ pkgs.gitAndTools.tig ];
+    home.packages = [ pkgs.tig ];
 
     programs.git = {
       enable = true;
