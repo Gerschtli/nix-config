@@ -1,10 +1,4 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i bash -p coreutils curl git gnugrep hostname jq openssh
-
-{ # prevent execution if this script was only partially downloaded
-set -euo pipefail
-
-@bashLibContent@
+source @bashLib@
 
 nix_config="${HOME}/.nix-config"
 
@@ -114,5 +108,3 @@ if nix-env -q --json | jq ".[].pname" | grep '"nix"' > /dev/null; then
 fi
 
 echo
-
-}

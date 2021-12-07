@@ -200,7 +200,22 @@
       apps = foreachSystem ({ customLib, pkgs, ... }: {
         format = {
           type = "app";
-          program = "${customLib.mkScriptPlain "format" ./files/apps/format.sh [ pkgs.nixpkgs-fmt pkgs.statix ] { }}";
+          program = "${customLib.mkScriptPlain
+            "format"
+            ./files/apps/format.sh
+            [ pkgs.nixpkgs-fmt pkgs.statix ]
+            { }
+          }";
+        };
+
+        setup = {
+          type = "app";
+          program = "${customLib.mkScriptPlain
+            "setup"
+            ./files/apps/setup.sh
+            (with pkgs; [ coreutils curl git gnugrep hostname jq openssh ])
+            { }
+          }";
         };
       });
 

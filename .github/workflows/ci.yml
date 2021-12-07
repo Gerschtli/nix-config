@@ -13,7 +13,8 @@ jobs:
         nix-command:
           - build .#nixOnDroidConfigurations.oneplus5.activationPackage --impure
           - build .#nixosConfigurations.xenon.config.system.build.toplevel
-          - run .#format
+          - eval .#apps.aarch64-linux.format.program
+          - eval .#apps.aarch64-linux.setup.program
 
     steps:
       - name: Checkout repository
@@ -74,7 +75,8 @@ jobs:
           - build .#homeConfigurations."tobhap@M386".activationPackage
           - build .#nixosConfigurations.krypton.config.system.build.toplevel
           - build .#nixosConfigurations.neon.config.system.build.toplevel
-          - run .#format
+          - eval .#apps.x86_64-linux.format.program
+          - eval .#apps.x86_64-linux.setup.program
           - develop .#jdk8 --profile profile
           - develop .#jdk11 --profile profile
           - develop .#jdk15 --profile profile
