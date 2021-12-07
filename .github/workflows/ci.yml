@@ -1,8 +1,13 @@
-name: CI
+name: Build and test flake outputs
 on:
   push:
-  schedule:
-    - cron: 0 0 * * 1
+  workflow_call:
+    inputs:
+      branch:
+        description: Branch name to build on
+        default: master
+        required: false
+        type: string
 
 jobs:
   nix-aarch64:
@@ -19,6 +24,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          ref: ${{ inputs.branch }}
 
       - name: Install nix
         uses: cachix/install-nix-action@v16
@@ -85,6 +92,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          ref: ${{ inputs.branch }}
 
       - name: Install nix
         uses: cachix/install-nix-action@v16
