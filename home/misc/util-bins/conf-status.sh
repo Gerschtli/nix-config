@@ -3,6 +3,7 @@ source @bashLib@
 list=(
     ~/.nix-config
     ~/.atom
+    ~/.files
     ~/.password-store
 )
 
