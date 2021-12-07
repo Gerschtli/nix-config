@@ -4,7 +4,7 @@ This is my humble flakes-only collection of all and everything needed to set up 
 
 ## Features
 
-* Automation scripts to [setup a fresh installation](nixos/applications/tobias-happ/setup.sh) and
+* Automation scripts to [setup a fresh installation](files/apps/setup.sh) and
   [update the system](home/misc/util-bins/system-update.sh) easily
 * Secret management in [NixOS][nixos] ([agenix][agenix]) and [home-manager][home-manager] ([homeage][homeage]) with
   [age][age]
@@ -29,15 +29,18 @@ See [flake.nix](flake.nix) for more information like `system`.
 
 ## First installation
 
-If any of these systems need to be reinstalled, you can use
-[nixos/applications/tobias-happ/setup.sh](nixos/applications/tobias-happ/setup.sh) or the hosted version available at
-<https://tobias-happ.de/setup.sh> and just run it.
+If any of these systems need to be reinstalled, you can run:
+
+```sh
+$ nix run github:Gerschtli/nix-config#setup
+```
 
 **Note:**
 * NixOS-managed systems should be set up like written in the [NixOS manual][nixos-manual].
 * For the Raspberry Pi use the provided script in [misc/sd-image.nix](misc/sd-image.nix) to create the sd-card image.
 * For home-manager-managed systems there are several manual steps needed to set up, see the README in the respective
   directory in [hosts](hosts).
+* To speed up the initial nix builds, you can use the [gerschtli binary cache](cachix-gerschtli)
 
 ## TODOs
 
@@ -48,7 +51,6 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 * [ ] Update flake inputs regularly via Github Actions cronjob
 * [ ] Let all servers fetch latest version of this repo regularly and apply configuration
 * [ ] Upgrade all systems to this flake setup
-* [ ] Move setup script to a flake app
 * [ ] Merge host-specific READMEs
 * [ ] Implement a clean up migration for the deprecated channel setup
 * [ ] Flakify scripts in [misc](misc)
@@ -56,11 +58,13 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 * [ ] Set up nixos-shell and similar for an ubuntu image to easily test setup script
 * [ ] Pin nixpkgs version in nix registry via home-manager config
 * [ ] Use nix-on-droid overlays for its configurations
+* [ ] Set up cachix when running `.#setup`
 
 
 [age]: https://age-encryption.org/
 [agenix]: https://github.com/ryantm/agenix
 [cachix]: https://www.cachix.org/
+[cachix-gerschtli]: https://app.cachix.org/cache/gerschtli
 [home-manager]: https://github.com/nix-community/home-manager
 [homeage]: https://github.com/jordanisaacs/homeage
 [nix-on-droid]: https://github.com/t184256/nix-on-droid
