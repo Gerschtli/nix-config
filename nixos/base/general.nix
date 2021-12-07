@@ -85,6 +85,11 @@ in
 
     system.stateVersion = "21.11";
 
+    systemd.services.home-manager-tobias = {
+      after = [ "run-user-${toString config.custom.ids.uids.tobias}.mount" ];
+      wants = [ "run-user-${toString config.custom.ids.uids.tobias}.mount" ];
+    };
+
     time.timeZone = "Europe/Berlin";
 
     users.users = {
