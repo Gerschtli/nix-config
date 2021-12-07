@@ -10,14 +10,13 @@ let
     , file
     , name
     , path ? [ ]
-    , preamble ? ""
+    , preamble
     }:
     pkgs.runCommand
       name
       (envs // {
         inherit (pkgs) runtimeShell;
         bashLib = ./lib.sh;
-        bashLibContent = builtins.readFile ./lib.sh;
         path =
           makeBinPath (path ++ [ pkgs.coreutils ])
             + optionalString (envs ? _doNotClearPath && envs._doNotClearPath) ":\${PATH}";
@@ -57,13 +56,6 @@ in
       destPath = "$out";
       executable = true;
       preamble = ./preamble.sh;
-    };
-
-  mkScriptPlainNixShell = name: file: envs:
-    builder {
-      inherit name file envs;
-      destPath = "$out";
-      executable = true;
     };
 
   mkZshCompletion = name: file: envs:
