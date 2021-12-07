@@ -131,7 +131,7 @@ _migration_remove "${HOME}/.ssh/known_hosts.old"
 _migration_remove "${HOME}/.gnupg-setup" 1
 
 mapfile -t to_be_removed_pkgs < <(nix-env -q --json | jq -r ".[].pname" | grep -Ev '^(home-manager|nix-on-droid)-path$')
-if [[ "${#to_be_removed_pkgs}" -ne 0 ]]; then
+if [[ "${#to_be_removed_pkgs[@]}" -ne 0 ]]; then
     _log "migration" "remove manual installed packages via nix-env"
     nix-env --uninstall "${to_be_removed_pkgs[@]}"
 fi
