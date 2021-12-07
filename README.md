@@ -11,6 +11,7 @@ This is my humble flakes-only collection of all and everything needed to set up 
 * [nix-on-droid][nix-on-droid]-managed android phone with [home-manager][home-manager]
 * Generated shell scripts are always linted with [shellcheck][shellcheck]
 * Checks source code with [statix][statix] and [nixpkgs-fmt][nixpkgs-fmt]
+* Every output is built with Github Actions and pushed to [cachix][cachix]
 
 ## Supported configurations
 
@@ -44,7 +45,6 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 
 * [ ] Add functionality to apply patches to individual inputs (EDIT: non-trivial because `builtins.getFlake` does not
   accept paths to `/nix/store`..)
-* [ ] Build all configurations with Github Actions and push everything to [cachix][cachix]
 * [ ] Update flake inputs regularly via Github Actions cronjob
 * [ ] Let all servers fetch latest version of this repo regularly and apply configuration
 * [ ] Upgrade all systems to this flake setup
