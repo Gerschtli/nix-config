@@ -62,7 +62,7 @@ in
 
       ];
 
-      sshKeyPaths = [
+      identityPaths = [
         "/root/.age/key.txt"
       ];
     };
