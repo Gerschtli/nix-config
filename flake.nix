@@ -176,7 +176,12 @@
 
             nixpkgs.pkgs = pkgsPerSystem system;
 
-            nix.registry.nixpkgs.flake = nixpkgs;
+            nix.registry = {
+              nixpkgs.flake = nixpkgs;
+              nix-config.flake = self;
+            };
+
+            system.configurationRevision = self.rev or "dirty";
           }
         ]
         ++ (customLibPerSystem system).getRecursiveNixFileList ./nixos;
