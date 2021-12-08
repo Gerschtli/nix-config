@@ -57,15 +57,18 @@
     }:
     let
       rootPath = toString ./.;
+      config = {
+        allowAliases = false;
+        allowUnfree = true;
+      };
 
       ## overlay config
 
       unstablePerSystem = system: import unstable {
-        inherit system;
-        config.allowUnfree = true;
+        inherit config system;
       };
 
-      overlay = nixpkgs.lib.composeManyExtensions [
+      overlays = [
         (final: prev: {
           inherit (agenix-cli.packages.${prev.system}) agenix;
           inherit (nixpkgs-for-jdk15.legacyPackages.${prev.system}) jdk15;
@@ -95,9 +98,7 @@
       ## configure nixpkgs
 
       pkgsPerSystem = system: import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = [ overlay ];
+        inherit config overlays system;
       };
 
       ## builder helper
@@ -180,8 +181,6 @@
       };
     in
     {
-      inherit overlay;
-
       homeConfigurations = {
         "tobias@gamer" = buildHome "x86_64-linux" "gamer" "tobias";
         "tobhap@M386" = buildHome "x86_64-linux" "M386" "tobhap";
