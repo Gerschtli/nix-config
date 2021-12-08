@@ -33,7 +33,7 @@ in
 
     programs.urxvt = {
       enable = true;
-      package = pkgs.rxvt_unicode-with-plugins;
+      package = pkgs.rxvt-unicode;
 
       scroll.bar.enable = false;
 

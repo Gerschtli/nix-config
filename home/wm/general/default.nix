@@ -57,7 +57,7 @@ in
     home.packages = [
       lockScreenPackage
       pkgs.pavucontrol
-      pkgs.xdg_utils
+      pkgs.xdg-utils
 
       (config.lib.custom.mkScript
         "inhibit-suspend"
@@ -72,7 +72,7 @@ in
           config.lib.custom.mkScript
             (if item ? name then item.name else item.command)
             ./wm-script.sh
-            [ pkgs.gnome3.zenity ]
+            [ pkgs.gnome.zenity ]
             {
               inherit (item) command message;
 

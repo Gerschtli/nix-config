@@ -82,7 +82,7 @@ in
         iotop
         jq
         mmv-go
-        ncat # nmap
+        nmap
         ncdu
         nload # network traffic monitor
         pwgen

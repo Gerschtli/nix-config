@@ -43,7 +43,7 @@ in
       (config.lib.custom.mkScript
         "system-update"
         ./system-update.sh
-        (with pkgs; [ age gitAndTools.gitFull gnugrep gnused ])
+        (with pkgs; [ age git gnugrep gnused ])
         { _doNotClearPath = true; }
       )
     ];

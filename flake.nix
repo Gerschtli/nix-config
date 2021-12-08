@@ -68,29 +68,31 @@
         inherit config system;
       };
 
+      gerschtliOverlays = [
+        dmenu.overlay
+        dwm.overlay
+        dwm-status.overlay
+        teamspeak-update-notifier.overlay
+      ];
+
       overlays = [
-        (final: prev: {
-          inherit (agenix-cli.packages.${prev.system}) agenix;
-          inherit (nixpkgs-for-jdk15.legacyPackages.${prev.system}) jdk15;
+        (final: prev:
+          let
+            inherit (prev.stdenv.hostPlatform) system;
+          in
+          {
+            inherit (agenix-cli.packages.${system}) agenix;
+            inherit (nixpkgs-for-jdk15.legacyPackages.${system}) jdk15;
 
-          inherit (unstablePerSystem prev.system)
-            # need bleeding edge version
-            jetbrains
-            portfolio
-            teamspeak_server
-            ;
+            inherit (unstablePerSystem system)
+              # need bleeding edge version
+              jetbrains
+              portfolio
+              teamspeak_server
+              ;
 
-          gerschtli =
-            prev.lib.composeManyExtensions
-              [
-                dmenu.overlay
-                dwm.overlay
-                dwm-status.overlay
-                teamspeak-update-notifier.overlay
-              ]
-              final
-              prev;
-        })
+            gerschtli = prev.lib.composeManyExtensions gerschtliOverlays final prev;
+          })
 
         statix.overlay
       ];
