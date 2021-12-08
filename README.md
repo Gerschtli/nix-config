@@ -59,6 +59,7 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 * [ ] Pin nixpkgs version in nix registry via home-manager config
 * [ ] Use nix-on-droid overlays for its configurations
 * [ ] Set up cachix when running `.#setup`
+* [ ] Fix homeage: age files are not gcroots + home-manager service fails on system startup
 
 
 [age]: https://age-encryption.org/
