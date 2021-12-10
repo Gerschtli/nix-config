@@ -143,6 +143,7 @@ in
         what = cfg.mountDevice;
         where = location;
         type = "ext4";
+        wantedBy = [ "multi-user.target" ];
       }
     ];
 
