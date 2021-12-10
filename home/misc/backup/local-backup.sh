@@ -12,9 +12,9 @@ _sync() {
         echo
 
         if [[ -z ${restore} ]]; then
-            ${command} "${dir}" "${host_name}:${base_dir}"
+            ${command} "${dir}" "${hostname}:${base_dir}"
         else
-            ${command} "${host_name}:${base_dir}/$(basename "${dir}")" "$(dirname "${dir}")"
+            ${command} "${hostname}:${base_dir}/$(basename "${dir}")" "$(dirname "${dir}")"
         fi
 
         echo
@@ -24,9 +24,9 @@ _sync() {
 command="rsync @rsyncOptions@"
 
 if _read_boolean "Connect to xenon via local ip?" Y; then
-    host_name=private.local.xenon.wlan
+    hostname=private.local.xenon.wlan
 else
-    host_name=private.xenon.wlan
+    hostname=private.xenon.wlan
 fi
 
 if _read_boolean "Do you want to backup your data?" Y; then
