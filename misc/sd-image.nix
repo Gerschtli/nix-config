@@ -10,7 +10,7 @@
 
 {
   imports = [
-    (modulesPath + "/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
+    (modulesPath + "/installer/sd-card/sd-image-aarch64.nix")
   ];
 
   networking = {
