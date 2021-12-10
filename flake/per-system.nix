@@ -44,7 +44,9 @@ in
   inherit pkgs;
 
   pkgsNixOnDroid = import inputs.nixpkgs {
-    inherit config system;
+    inherit system;
+    # allowAliases is needed for nix-on-droid overlays (system <- stdenv.hostPlatform.system)
+    config = config // { allowAliases = true; };
     overlays = overlays ++ inputs.nix-on-droid.overlays;
   };
 
