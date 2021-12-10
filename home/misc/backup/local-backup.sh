@@ -24,9 +24,9 @@ _sync() {
 command="rsync @rsyncOptions@"
 
 if _read_boolean "Connect to xenon via local ip?" Y; then
-    hostname=private.local.xenon.wlan
+    hostname=private.local.xenon
 else
-    hostname=private.xenon.wlan
+    hostname=private.xenon
 fi
 
 if _read_boolean "Do you want to backup your data?" Y; then
