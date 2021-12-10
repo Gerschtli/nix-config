@@ -48,7 +48,6 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 
 * [ ] Add functionality to apply patches to individual inputs (EDIT: non-trivial because `builtins.getFlake` does not
   accept paths to `/nix/store`..)
-* [ ] Update flake inputs regularly via Github Actions cronjob
 * [ ] Let all servers fetch latest version of this repo regularly and apply configuration
 * [ ] Upgrade all systems to this flake setup
 * [ ] Merge host-specific READMEs
@@ -56,8 +55,7 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 * [ ] Flakify scripts in [misc](misc)
 * [ ] Provide ISO-images for NixOS configurations
 * [ ] Set up nixos-shell and similar for an ubuntu image to easily test setup script
-* [ ] Pin nixpkgs version in nix registry via home-manager config
-* [ ] Use nix-on-droid overlays for its configurations
+* [ ] Pin nixpkgs and nix-config version in nix registry via home-manager config
 * [ ] Set up cachix when running `.#setup`
 * [ ] Fix homeage: age files are not gcroots + home-manager service fails on system startup
 
