@@ -5,21 +5,48 @@ on:
     inputs:
       branch:
         description: Branch name to build on
-        default: master
+        default: ''
         required: false
         type: string
 
 jobs:
-  nix-aarch64:
+  nix:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
+        system:
+          - aarch64
+          - x86_64
         nix-command:
-          - build .#nixOnDroidConfigurations.oneplus5.activationPackage --impure
-          - build .#nixosConfigurations.xenon.config.system.build.toplevel
-          - eval .#apps.aarch64-linux.format.program
-          - eval .#apps.aarch64-linux.setup.program
+          - flake check
+          - eval .#apps.$_system.format.program
+          - eval .#apps.$_system.setup.program
+
+        include:
+          - nix-command: develop .#jdk8 --profile profile
+            system: x86_64
+          - nix-command: develop .#jdk11 --profile profile
+            system: x86_64
+          - nix-command: develop .#jdk15 --profile profile
+            system: x86_64
+          - nix-command: develop .#jdk17 --profile profile
+            system: x86_64
+
+          - nix-command: build .#homeConfigurations."tobias@gamer".activationPackage
+            system: x86_64
+          - nix-command: build .#homeConfigurations."tobhap@M386".activationPackage
+            system: x86_64
+
+          - nix-command: build .#nixOnDroidConfigurations.oneplus5.activationPackage --impure
+            system: aarch64
+
+          - nix-command: build .#nixosConfigurations.krypton.config.system.build.toplevel
+            system: x86_64
+          - nix-command: build .#nixosConfigurations.neon.config.system.build.toplevel
+            system: x86_64
+          - nix-command: build .#nixosConfigurations.xenon.config.system.build.toplevel
+            system: aarch64
 
     steps:
       - name: Checkout repository
@@ -36,7 +63,8 @@ jobs:
           name: gerschtli
           signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
 
-      - name: Build command
+      - name: Build command (aarch64)
+        if: matrix.system == 'aarch64'
         #uses: uraimo/run-on-arch-action@v2.1.1
         uses: Gerschtli/run-on-arch-action@groups
         with:
@@ -45,6 +73,8 @@ jobs:
           githubToken: ${{ github.token }}
           dockerRunArgs: --volume /nix:/nix
           install: apk --no-cache add curl git xz
+          env: |
+            _system: ${{ matrix.system }}-linux
           run: |
             set -euo pipefail
 
@@ -71,40 +101,10 @@ jobs:
               --show-trace \
               ${{ matrix.nix-command }}
 
-  nix-x86:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        nix-command:
-          - flake check
-          - build .#homeConfigurations."tobias@gamer".activationPackage
-          - build .#homeConfigurations."tobhap@M386".activationPackage
-          - build .#nixosConfigurations.krypton.config.system.build.toplevel
-          - build .#nixosConfigurations.neon.config.system.build.toplevel
-          - eval .#apps.x86_64-linux.format.program
-          - eval .#apps.x86_64-linux.setup.program
-          - develop .#jdk8 --profile profile
-          - develop .#jdk11 --profile profile
-          - develop .#jdk15 --profile profile
-          - develop .#jdk17 --profile profile
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ inputs.branch }}
-
-      - name: Install nix
-        uses: cachix/install-nix-action@v16
-
-      - name: Setup cachix
-        uses: cachix/cachix-action@v10
-        with:
-          name: gerschtli
-          signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
-
-      - name: Build command
+      - name: Build command (x86_64)
+        if: matrix.system == 'x86_64'
+        env:
+          _system: ${{ matrix.system }}-linux
         run: |
           nix \
             --log-format bar-with-logs \
