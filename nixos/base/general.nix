@@ -15,7 +15,7 @@ in
     custom.base.general = {
       enable = mkEnableOption "basic config" // { default = true; };
 
-      hostName = mkOption {
+      hostname = mkOption {
         type = types.enum [ "krypton" "neon" "xenon" ];
         description = "Host name.";
       };
@@ -47,13 +47,13 @@ in
       sharedModules = homeModules;
 
       users = {
-        root = import (rootPath + "/hosts/${cfg.hostName}/home-root.nix");
-        tobias = import (rootPath + "/hosts/${cfg.hostName}/home-tobias.nix");
+        root = import (rootPath + "/hosts/${cfg.hostname}/home-root.nix");
+        tobias = import (rootPath + "/hosts/${cfg.hostname}/home-tobias.nix");
       };
     };
 
     networking = {
-      inherit (cfg) hostName;
+      hostName = cfg.hostname;
       usePredictableInterfaceNames = false;
     };
 

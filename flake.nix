@@ -19,6 +19,8 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    flake-utils.url = "github:numtide/flake-utils";
+
     agenix.url = "github:ryantm/agenix";
     agenix-cli = {
       url = "github:cole-h/agenix-cli";
@@ -39,223 +41,69 @@
     };
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , unstable
-    , nixpkgs-for-jdk15
-    , home-manager
-    , nix-on-droid
-    , agenix
-    , agenix-cli
-    , homeage
-    , dmenu
-    , dwm
-    , dwm-status
-    , teamspeak-update-notifier
-    , statix
-    }:
+  outputs = { self, nixpkgs, ... } @ inputs:
     let
-      rootPath = toString ./.;
-      config = {
-        allowAliases = false;
-        allowUnfree = true;
+      flakeLib = import ./flake {
+        inherit inputs;
+        rootPath = ./.;
       };
 
-      ## overlay config
-
-      unstablePerSystem = system: import unstable {
-        inherit config system;
-      };
-
-      gerschtliOverlays = [
-        dmenu.overlay
-        dwm.overlay
-        dwm-status.overlay
-        teamspeak-update-notifier.overlay
-      ];
-
-      overlays = [
-        (final: prev:
-          let
-            inherit (prev.stdenv.hostPlatform) system;
-          in
-          {
-            inherit (agenix-cli.packages.${system}) agenix;
-            inherit (nixpkgs-for-jdk15.legacyPackages.${system}) jdk15;
-
-            inherit (unstablePerSystem system)
-              # need bleeding edge version
-              jetbrains
-              portfolio
-              teamspeak_server
-              ;
-
-            gerschtli = prev.lib.composeManyExtensions gerschtliOverlays final prev;
-          })
-
-        statix.overlay
-      ];
-
-      ## configure nixpkgs
-
-      pkgsPerSystem = system: import nixpkgs {
-        inherit config overlays system;
-      };
-
-      ## builder helper
-
-      customLibPerSystem = system: import ./lib {
-        inherit (nixpkgs) lib;
-        pkgs = pkgsPerSystem system;
-      };
-
-      homeModulesPerSystem = system:
-        ((customLibPerSystem system).getRecursiveNixFileList ./home)
-        ++ [
-          homeage.homeManagerModules.homeage
-
-          { lib.custom = customLibPerSystem system; }
-        ];
-
-      forSystems = systems: builder:
-        nixpkgs.lib.genAttrs
-          systems
-          (system:
-            let
-              pkgs = pkgsPerSystem system;
-              customLib = customLibPerSystem system;
-            in
-            builder { inherit customLib pkgs system; }
-          );
-
-      forX86System = forSystems [ "x86_64-linux" ];
-      foreachSystem = forSystems [ "aarch64-linux" "x86_64-linux" ];
-
-      ## builder
-
-      buildHome = system: hostName: username: home-manager.lib.homeManagerConfiguration {
-        inherit username system;
-
-        configuration = ./hosts + "/${hostName}/home-${username}.nix";
-        homeDirectory = "/home/${username}";
-        extraModules = homeModulesPerSystem system;
-        extraSpecialArgs = { inherit rootPath; };
-        pkgs = pkgsPerSystem system;
-        stateVersion = "21.11";
-      };
-
-      # FIXME: pass in instance of pkgs when argument is added
-      buildNixOnDroid = system: device: nix-on-droid.lib.${system}.nix-on-droid {
-        config = import (./hosts + "/${device}/nix-on-droid.nix") {
-          inherit rootPath;
-          homeModules = homeModulesPerSystem system;
-          pkgs = pkgsPerSystem system;
-        };
-      };
-
-      buildNixosSystem = system: hostName: nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        specialArgs = {
-          inherit rootPath;
-          homeModules = homeModulesPerSystem system;
-        };
-
-        modules = [
-          (./hosts + "/${hostName}/configuration.nix")
-          (./hosts + "/${hostName}/hardware-configuration.nix")
-
-          agenix.nixosModules.age
-          home-manager.nixosModules.home-manager
-
-          {
-            custom.base.general = { inherit hostName; };
-
-            lib.custom = customLibPerSystem system;
-
-            nixpkgs.pkgs = pkgsPerSystem system;
-
-            nix.registry = {
-              nixpkgs.flake = nixpkgs;
-              nix-config.flake = self;
-            };
-
-            system.configurationRevision = self.rev or "dirty";
-          }
-        ]
-        ++ (customLibPerSystem system).getRecursiveNixFileList ./nixos;
-      };
+      inherit (nixpkgs.lib) listToAttrs;
+      inherit (flakeLib) mkHome mkNixOnDroid mkNixos eachSystem;
     in
     {
-      homeConfigurations = {
-        "tobias@gamer" = buildHome "x86_64-linux" "gamer" "tobias";
-        "tobhap@M386" = buildHome "x86_64-linux" "M386" "tobhap";
-      };
+      homeConfigurations = listToAttrs [
+        (mkHome "x86_64-linux" "tobias@gamer")
+        (mkHome "x86_64-linux" "tobhap@M386")
+      ];
 
-      nixOnDroidConfigurations = {
-        oneplus5 = buildNixOnDroid "aarch64-linux" "oneplus5";
-      };
+      nixOnDroidConfigurations = listToAttrs [
+        (mkNixOnDroid "aarch64-linux" "oneplus5")
+      ];
 
-      nixosConfigurations = {
-        krypton = buildNixosSystem "x86_64-linux" "krypton";
-        neon = buildNixosSystem "x86_64-linux" "neon";
-        xenon = buildNixosSystem "aarch64-linux" "xenon";
-      };
+      nixosConfigurations = listToAttrs [
+        (mkNixos "x86_64-linux" "krypton")
+        (mkNixos "x86_64-linux" "neon")
+        (mkNixos "aarch64-linux" "xenon")
+      ];
+    }
+    // eachSystem ({ mkApp, mkCheck, mkDevShellJdk }: {
+      apps = listToAttrs [
+        (mkApp "format" {
+          file = ./files/apps/format.sh;
+          path = pkgs: with pkgs; [ nixpkgs-fmt statix ];
+        })
+        (mkApp "setup" {
+          file = ./files/apps/setup.sh;
+          path = pkgs: with pkgs; [ coreutils curl git gnugrep hostname jq openssh ];
+        })
+      ];
 
-      apps = foreachSystem ({ customLib, pkgs, ... }: {
-        format = {
-          type = "app";
-          program = "${customLib.mkScriptPlain
-            "format"
-            ./files/apps/format.sh
-            [ pkgs.nixpkgs-fmt pkgs.statix ]
-            { }
-          }";
-        };
-
-        setup = {
-          type = "app";
-          program = "${customLib.mkScriptPlain
-            "setup"
-            ./files/apps/setup.sh
-            (with pkgs; [ coreutils curl git gnugrep hostname jq openssh ])
-            { }
-          }";
-        };
-      });
-
-      # FIXME: enable checks for all systems when statix can be build on aarch64-linux
-      # checks = foreachSystem ({ pkgs, ... }:
-      checks = forX86System ({ pkgs, ... }: {
-        nixpkgs-fmt = pkgs.runCommand "nixpkgs-fmt-check" { } ''
-          shopt -s globstar
-          ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check ${./.}/**/*.nix
-          touch $out
-        '';
+      checks = listToAttrs [
+        (mkCheck "nixpkgs-fmt" {
+          script = pkgs: ''
+            shopt -s globstar
+            ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check ${./.}/**/*.nix
+          '';
+        })
 
         # FIXME: use exit-code when https://github.com/nerdypepper/statix/issues/20 is resolved
-        statix = pkgs.runCommand "statix-check" { } ''
-          ${pkgs.statix}/bin/statix check ${./.} --format errfmt | tee output
-          [[ "$(cat output)" == "" ]]
-          touch $out
-        '';
-      });
+        (mkCheck "statix" {
+          script = pkgs: ''
+            ${pkgs.statix}/bin/statix check ${./.} --format errfmt | tee output
+            [[ "$(cat output)" == "" ]]
+          '';
+        })
+      ];
 
       # use like:
       # $ echo "use flake ~/.nix-config#jdk11" > .envrc
       # $ direnv allow .
-      devShells = forX86System ({ pkgs, ... }:
-        builtins.mapAttrs
-          (name: jdk: pkgs.mkShell {
-            inherit name;
-            buildInputs = [ jdk pkgs.maven ];
-            JAVA_HOME = "${jdk}/lib/openjdk";
-          })
-          {
-            inherit (pkgs) jdk8 jdk11 jdk15;
-            jdk17 = pkgs.jdk17_headless;
-          }
-      );
-    };
+      devShells = listToAttrs [
+        (mkDevShellJdk "jdk8" { jdk = pkgs: pkgs.jdk8; })
+        (mkDevShellJdk "jdk11" { jdk = pkgs: pkgs.jdk11; })
+        (mkDevShellJdk "jdk15" { jdk = pkgs: pkgs.jdk15; })
+        (mkDevShellJdk "jdk17" { jdk = pkgs: pkgs.jdk17_headless; })
+      ];
+    });
 }
