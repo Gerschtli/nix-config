@@ -69,8 +69,10 @@ _clone "age-bak" gitea@git.tobias-happ.de:Gerschtli/age-bak.git "${HOME}/.age-ba
 _log "Change permissions of ~/.age-bak..."
 chmod -v 0700 "${HOME}/.age-bak"
 
-_log "Link ~/.age to ~/.age-bak..."
-ln -snv "${HOME}/.age" "${HOME}/.age-bak"
+if [[ ! -e "${HOME}/.age" ]]; then
+    _log "Link ~/.age to ~/.age-bak..."
+    ln -snv  "${HOME}/.age-bak" "${HOME}/.age"
+fi
 
 
 # preparation for non nixos systems
@@ -82,10 +84,10 @@ fi
 
 # installation
 if _is_nixos && _is_root; then
-    host_name=$(_read_enum "Enter hostname" krypton neon xenon)
+    hostname=$(_read_enum "Enter hostname" krypton neon xenon)
 
     _log "Run nixos-rebuild switch..."
-    nixos-rebuild switch --keep-going --flake "${nix_config}#${host_name}"
+    nixos-rebuild switch --keep-going --flake "${nix_config}#${hostname}"
 elif [[ "${USER}" == "nix-on-droid" ]]; then
     _log "Build nix-on-droid activationPackage..."
     nix build "${nix_config}#nixOnDroidConfigurations.oneplus5.activationPackage" --impure

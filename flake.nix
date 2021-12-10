@@ -75,7 +75,8 @@
         })
         (mkApp "setup" {
           file = ./files/apps/setup.sh;
-          path = pkgs: with pkgs; [ coreutils curl git gnugrep hostname jq openssh ];
+          path = pkgs: with pkgs; [ coreutils curl git gnugrep hostname jq nix_2_4 openssh ];
+          envs = { _doNotClearPath = true; };
         })
       ];
 
