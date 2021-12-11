@@ -38,7 +38,6 @@ $ nix run github:Gerschtli/nix-config#setup
 **Note:**
 * NixOS-managed systems should be set up like written in the [NixOS manual][nixos-manual].
 * For the Raspberry Pi use the provided script in [misc/sd-image.nix](misc/sd-image.nix) to create the sd-card image.
-* To speed up the initial nix builds, you can use the [gerschtli binary cache](cachix-gerschtli)
 
 ### Manual instructions for non-NixOS systems
 
@@ -80,7 +79,6 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 * [ ] Provide ISO-images for NixOS configurations
 * [ ] Set up nixos-shell and similar for an ubuntu image to easily test setup script
 * [ ] Pin nixpkgs and nix-config version in nix registry via home-manager config
-* [ ] Set up cachix when running `.#setup`
 * [ ] Fix homeage: age files are not gcroots + home-manager service fails on system startup
 
 

@@ -81,6 +81,12 @@ if nix-env -q --json | jq ".[].pname" | grep '"nix"' > /dev/null; then
     nix-env --set-flag priority 1000 nix
 fi
 
+# set up cachix (skip nixos for now)
+if ! _is_nixos && ! _is_root; then
+    _log "Set up cachix..."
+    cachix use gerschtli
+    cachix use nix-on-droid
+fi
 
 # installation
 if _is_nixos && _is_root; then
