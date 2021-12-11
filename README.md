@@ -38,9 +38,34 @@ $ nix run github:Gerschtli/nix-config#setup
 **Note:**
 * NixOS-managed systems should be set up like written in the [NixOS manual][nixos-manual].
 * For the Raspberry Pi use the provided script in [misc/sd-image.nix](misc/sd-image.nix) to create the sd-card image.
-* For home-manager-managed systems there are several manual steps needed to set up, see the README in the respective
-  directory in [hosts](hosts).
 * To speed up the initial nix builds, you can use the [gerschtli binary cache](cachix-gerschtli)
+
+### Manual instructions for non-NixOS systems
+
+#### Ubuntu 20.04
+
+```sh
+# update and install system packages
+sudo apt update
+sudo apt upgrade
+sudo apt install zsh
+
+# install nix setup
+echo "experimental-features = nix-command flakes" > /tmp/nix.conf
+sh < <(curl -L https://nixos.org/nix/install) --no-channel-add --no-modify-profile --nix-extra-conf-file /tmp/nix.conf
+nix run github:Gerschtli/nix-config#setup
+
+# download and install UbuntuMono from nerdfonts.com
+
+# set login shell
+chsh -s /bin/zsh
+
+# configure inotify watcher
+sudo echo "fs.inotify.max_user_watches = 524288" > /etc/sysctl.d/local.conf
+
+# set default shell (needed if using home-manager to setup xsession)
+sudo ln -snf bash /bin/sh
+```
 
 ## TODOs
 
@@ -50,7 +75,6 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
   accept paths to `/nix/store`..)
 * [ ] Let all servers fetch latest version of this repo regularly and apply configuration
 * [ ] Upgrade all systems to this flake setup
-* [ ] Merge host-specific READMEs
 * [ ] Implement a clean up migration for the deprecated channel setup
 * [ ] Flakify scripts in [misc](misc)
 * [ ] Provide ISO-images for NixOS configurations
