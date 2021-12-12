@@ -1,9 +1,13 @@
 { inputs, rootPath, system, pkgsNixOnDroid, homeModules, name, ... }:
 
-# FIXME: pass in instance of pkgs when argument is added
-inputs.nix-on-droid.lib.${system}.nix-on-droid {
-  config = import (rootPath + "/hosts/${name}/nix-on-droid.nix") {
+inputs.nix-on-droid.lib.nixOnDroidConfiguration {
+  inherit system;
+
+  config = rootPath + "/hosts/${name}/nix-on-droid.nix";
+
+  extraSpecialArgs = {
     inherit homeModules rootPath;
-    pkgs = pkgsNixOnDroid;
   };
+
+  pkgs = pkgsNixOnDroid;
 }

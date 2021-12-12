@@ -51,15 +51,14 @@ in
     })
 
     (mkIf cfg.nix-on-droid.enable {
-      # FIXME: use nix-on-droid command again once flake support is available
       custom.programs.shell.shellAliases = {
-        nod-switch = "nix build .#nixOnDroidConfigurations.oneplus5.activationPackage --impure && ./result/activate";
+        nod-switch = "nix-on-droid switch --flake '${config.home.homeDirectory}/.nix-config#oneplus5'";
       };
 
       home.packages = [
         (buildWithDiff
           "nod-build"
-          "nix build .#nixOnDroidConfigurations.oneplus5.activationPackage --impure"
+          "nix-on-droid build --flake '${config.home.homeDirectory}/.nix-config#oneplus5'"
           "/nix/var/nix/profiles/nix-on-droid"
         )
       ];

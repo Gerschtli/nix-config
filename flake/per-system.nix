@@ -47,7 +47,7 @@ in
     inherit system;
     # allowAliases is needed for nix-on-droid overlays (system <- stdenv.hostPlatform.system)
     config = config // { allowAliases = true; };
-    overlays = overlays ++ inputs.nix-on-droid.overlays;
+    overlays = overlays ++ [ inputs.nix-on-droid.overlay ];
   };
 
   customLib = import (rootPath + "/lib") {

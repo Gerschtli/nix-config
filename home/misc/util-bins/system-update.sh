@@ -91,13 +91,11 @@ fi
 
 if [[ "${USER}" == "nix-on-droid" ]] && _available nix-on-droid; then
     _log "nix" "build nix-on-droid configuration"
-    nix build "${nix_config}#nixOnDroidConfigurations.oneplus5.activationPackage" --impure
-    nix-on-droid build
+    nix-on-droid build --flake "${nix_config}#oneplus5"
     _show_result_diff "/nix/var/nix/profiles/nix-on-droid"
 
     _log "nix" "switch nix-on-droid configuration"
-    nix build "${nix_config}#nixOnDroidConfigurations.oneplus5.activationPackage" --impure
-    ./result/activate
+    nix-on-droid switch --flake "${nix_config}#oneplus5"
 fi
 
 if ! _is_nixos && ! _is_root && _available home-manager; then

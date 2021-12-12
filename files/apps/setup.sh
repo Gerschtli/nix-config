@@ -95,13 +95,8 @@ if _is_nixos && _is_root; then
     _log "Run nixos-rebuild switch..."
     nixos-rebuild switch --keep-going --flake "${nix_config}#${hostname}"
 elif [[ "${USER}" == "nix-on-droid" ]]; then
-    _log "Build nix-on-droid activationPackage..."
-    nix build "${nix_config}#nixOnDroidConfigurations.oneplus5.activationPackage" --impure
-
-    _log "Run activate script..."
-    ./result/activate
-
-    rm -v result
+    _log "Run nix-on-droid switch..."
+    nix-on-droid switch --flake "${nix_config}#oneplus5"
 elif ! _is_nixos && ! _is_root; then
     _log "Build home-manager activationPackage..."
     nix build "${nix_config}#homeConfigurations.${USER}@$(hostname).activationPackage"
