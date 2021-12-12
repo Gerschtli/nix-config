@@ -43,6 +43,7 @@ in
     };
 
     home.packages = with pkgs; [
+      gh
       gimp
       google-chrome
       libreoffice
@@ -57,11 +58,6 @@ in
       musescore
       thunderbird
     ]);
-
-    programs.gh = {
-      enable = true;
-      settings.git_protocol = "ssh";
-    };
 
   };
 
