@@ -22,8 +22,8 @@ _migration_remove() {
     local file="${1}"
     local ask="${2:-}"
 
-    if [[ -e "${file}" && -w "${file}" ]] && ( [[ "${ask}" != "1" ]] || _read_boolean "Remove ${file}?" ); then
-        _log "migration" "remove ${file}"
+    if [[ -e "${file}" && -w "${file}" ]] && ( [[ "${ask}" != "1" ]] || _read_boolean "Remove ${file//"${HOME}"/"~"}?" ); then
+        _log "migration" "remove ${file//"${HOME}"/"~"}"
         rm -vrf "${file}"
     fi
 }
