@@ -22,17 +22,11 @@
     misc.homeage.directory = "${config.xdg.dataHome}/secrets";
 
     programs = {
-      shell = {
-        envExtra = lib.mkOrder 0 ''
-          source "/data/data/com.termux.nix/files/home/.nix-profile/etc/profile.d/nix-on-droid-session-init.sh"
-        '';
-
-        initExtra = ''
-          if [ -z "''${SSH_AUTH_SOCK:-}" ]; then
-            eval $(ssh-agent -s)
-          fi
-        '';
-      };
+      shell.initExtra = ''
+        if [ -z "''${SSH_AUTH_SOCK:-}" ]; then
+          eval $(ssh-agent -s)
+        fi
+      '';
 
       ssh = {
         enableKeychain = false;
