@@ -14,7 +14,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-on-droid = {
-      url = "github:Gerschtli/nix-on-droid/flake";
+      url = "github:Gerschtli/nix-on-droid/fixes";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };

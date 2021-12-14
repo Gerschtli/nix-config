@@ -38,7 +38,9 @@ in
 
   home-manager = {
     backupFileExtension = "hm-bak";
-    config = import (rootPath + "/hosts/oneplus5/home-nix-on-droid.nix") { inherit homeModules rootPath; };
+    config = rootPath + "/hosts/oneplus5/home-nix-on-droid.nix";
+    extraSpecialArgs = { inherit rootPath; };
+    sharedModules = homeModules;
     useGlobalPkgs = true;
     useUserPackages = true;
   };

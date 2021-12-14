@@ -272,16 +272,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1639487384,
-        "narHash": "sha256-AQOTRuSZiEWrFWTY5cDMvFGQbF0JRurv8L4+3y7m6AI=",
+        "lastModified": 1639510627,
+        "narHash": "sha256-UoJsGBmecxjQ3yc/hP6MimbH5o0w1NNbloqjVDu8zFE=",
         "owner": "Gerschtli",
         "repo": "nix-on-droid",
-        "rev": "427074a4921ea7af59d40b91c9a04b6a0e6d0fb4",
+        "rev": "9b115f14933a61b9f19f0fbda590d9e009d1362b",
         "type": "github"
       },
       "original": {
         "owner": "Gerschtli",
-        "ref": "flake",
+        "ref": "fixes",
         "repo": "nix-on-droid",
         "type": "github"
       }
