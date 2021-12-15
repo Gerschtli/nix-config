@@ -33,12 +33,6 @@
     dwm.url = "github:Gerschtli/dwm";
     dwm-status.url = "github:Gerschtli/dwm-status";
     teamspeak-update-notifier.url = "github:Gerschtli/teamspeak-update-notifier";
-
-    # FIXME: use statix of nixpkgs when 0.4.2 is available
-    statix = {
-      url = "github:nerdypepper/statix/v0.4.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { self, nixpkgs, ... } @ inputs:
