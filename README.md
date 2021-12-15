@@ -88,6 +88,8 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 * [ ] Set up nixos-shell and similar for an ubuntu image to easily test setup script
 * [ ] Pin nixpkgs and nix-config version in nix registry via home-manager config
 * [ ] Fix homeage: age files are not gcroots + home-manager service fails on system startup
+* [ ] [systemd-boot-builder.py][systemd-boot-builder.py] does not clean up boot loader entries of specialisations, try
+  to improve this script
 
 
 [age]: https://age-encryption.org/
@@ -102,5 +104,6 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 [nixpkgs-fmt]: https://github.com/nix-community/nixpkgs-fmt
 [shellcheck]: https://github.com/koalaman/shellcheck
 [statix]: https://github.com/nerdypepper/statix
+[systemd-boot-builder.py]: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/system/boot/loader/systemd-boot/systemd-boot-builder.py
 
 <!-- vim: set sw=2: -->
