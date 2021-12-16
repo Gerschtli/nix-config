@@ -58,8 +58,10 @@ sudo apt upgrade
 sudo apt install zsh
 
 # install nix setup
-echo "experimental-features = nix-command flakes" > /tmp/nix.conf
-sh < <(curl -L https://nixos.org/nix/install) --no-channel-add --no-modify-profile --nix-extra-conf-file /tmp/nix.conf
+mkdir -p ~/.config/nix
+echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
+sh <(curl -L https://nixos.org/nix/install) --no-channel-add --no-modify-profile
+. ~/.nix-profile/etc/profile.d/nix.sh
 nix run github:Gerschtli/nix-config#setup
 
 # download and install UbuntuMono from nerdfonts.com
@@ -68,7 +70,7 @@ nix run github:Gerschtli/nix-config#setup
 chsh -s /bin/zsh
 
 # configure inotify watcher
-sudo echo "fs.inotify.max_user_watches = 524288" > /etc/sysctl.d/local.conf
+echo "fs.inotify.max_user_watches = 524288" | sudo tee /etc/sysctl.d/local.conf
 
 # set default shell (needed if using home-manager to setup xsession)
 sudo ln -snf bash /bin/sh
