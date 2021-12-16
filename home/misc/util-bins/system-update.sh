@@ -135,6 +135,13 @@ if [[ "${#to_be_removed_pkgs[@]}" -ne 0 ]]; then
 fi
 
 
+# temporary migrations
+if [[ "${USER}" != "nix-on-droid" ]]; then
+    _log "migration" "remove channel setup"
+    rm -vr "/nix/var/nix/profiles/per-user/${USER}/channels"* "${HOME}/.nix-channels" "${HOME}/.nix-defexpr" || :
+fi
+
+
 # nix cleanup
 # no cleanup for non root users on NixOS
 if ! _is_nixos || _is_root; then
