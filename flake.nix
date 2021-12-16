@@ -92,8 +92,7 @@
       ];
 
       # use like:
-      # $ echo "use flake ~/.nix-config#jdk11" > .envrc
-      # $ direnv allow .
+      # $ direnv-init jdk11
       devShells = listToAttrs [
         (mkDevShellJdk "jdk8" { jdk = pkgs: pkgs.jdk8; })
         (mkDevShellJdk "jdk11" { jdk = pkgs: pkgs.jdk11; })

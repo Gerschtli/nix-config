@@ -20,6 +20,24 @@ in
 
   config = mkIf cfg.enable {
 
+    home.packages = [
+      (config.lib.custom.mkScript
+        "direnv-init"
+        ./direnv-init.sh
+        [ pkgs.direnv ]
+        { }
+      )
+
+      (config.lib.custom.mkZshCompletion
+        "direnv-init"
+        ./direnv-init-completion.zsh
+        {
+          # FIXME: fetch names of devShells dynamically
+          devShells = [ "jdk8" "jdk11" "jdk15" "jdk17" ];
+        }
+      )
+    ];
+
     programs = {
       direnv = {
         enable = true;
