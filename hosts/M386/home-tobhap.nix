@@ -29,7 +29,11 @@
       };
     };
 
-    programs.ssh.modules = [ "sedo" ];
+    programs = {
+      ssh.modules = [ "sedo" ];
+
+      watson.enable = true;
+    };
   };
 
   home = {
