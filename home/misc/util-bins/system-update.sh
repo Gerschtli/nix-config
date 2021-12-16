@@ -135,37 +135,6 @@ if [[ "${#to_be_removed_pkgs[@]}" -ne 0 ]]; then
 fi
 
 
-# temporary migrations
-_migration_remove "${HOME}/.ssh/keys/id_rsa.age"
-_migration_remove "${HOME}/.ssh/keys/id_rsa.age.pub"
-_migration_remove "${HOME}/.ssh/modules"
-_migration_remove "/etc/nixos" 1
-_migration_remove "${HOME}/.dotfiles" 1
-
-if [[ -f "${HOME}/.dotfiles-cache" ]]; then
-    mapfile -t dotfiles_links < <(sed -e 's/.*://' "${HOME}/.dotfiles-cache")
-
-    _log "migration" "current dotfiles files to remove"
-    for dotfiles_link in "${dotfiles_links[@]}"; do
-        if [[ -L "${dotfiles_link}" ]]; then
-            echo "${dotfiles_link}"
-        else
-            echo "SKIP ${dotfiles_link} (not a link)"
-        fi
-    done
-
-    if _read_boolean "Remove all current deployed dotfiles links?"; then
-        for dotfiles_link in "${dotfiles_links[@]}"; do
-            if [[ -L "${dotfiles_link}" ]]; then
-                rm -v "${dotfiles_link}"
-            fi
-        done
-
-        rm -v "${HOME}/.dotfiles-cache"
-    fi
-fi
-
-
 # nix cleanup
 # no cleanup for non root users on NixOS
 if ! _is_nixos || _is_root; then

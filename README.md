@@ -83,7 +83,6 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 * [ ] Add functionality to apply patches to individual inputs (EDIT: non-trivial because `builtins.getFlake` does not
   accept paths to `/nix/store`..)
 * [ ] Let all servers fetch latest version of this repo regularly and apply configuration
-* [ ] Upgrade all systems to this flake setup
 * [ ] Implement a clean up migration for the deprecated channel setup
 * [ ] Flakify scripts in [misc](misc)
 * [ ] Provide ISO-images for NixOS configurations
