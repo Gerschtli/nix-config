@@ -12,6 +12,9 @@
         mkdir -p "$(dirname "$file")"
         ln -sn "${source}${path}" "$file"
 
+        # link share for desktop entries
+        ln -sn "${source}/share" "$out/share"
+
         wrapProgram "$file" --prefix PATH : "${lib.makeBinPath packages}"
       '';
 }
