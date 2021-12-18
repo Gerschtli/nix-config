@@ -83,7 +83,7 @@ _pull_changes "pass"        "${HOME}/.password-store"
 if _is_nixos && _is_root; then
     _log "nix" "build nixos configuration"
     nixos-rebuild build --keep-going --flake "${nix_config}"
-    _show_result_diff "/run/current-system"
+    _show_result_diff "/nix/var/nix/profiles/system"
 
     _log "nix" "switch nixos configuration"
     nixos-rebuild switch --keep-going --flake "${nix_config}"

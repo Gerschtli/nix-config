@@ -74,7 +74,7 @@ in
             buildCmd = "${buildWithDiff
               "n-rebuild-build"
               "nixos-rebuild build --flake /root/.nix-config"
-              "/run/current-system"
+              "/nix/var/nix/profiles/system"
             }/bin/n-rebuild-build";
             _doNotClearPath = true;
           }
