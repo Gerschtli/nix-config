@@ -4,7 +4,7 @@ _usage() {
     echo "$0 <debug|dev|build|test|switch>"
 }
 
-args=(--keep-going --flake /root/.nix-config)
+args=(--flake /root/.nix-config)
 case "${mode}" in
     debug) args+=(test --fast --show-trace) ;;
     dev) args+=(test --fast) ;;
