@@ -4,6 +4,9 @@ with lib;
 
 let
   cfg = config.custom.development.direnv;
+
+  # FIXME: fetch names of devShells dynamically
+  devShells = [ "jdk8" "jdk11" "jdk15" "jdk17" ];
 in
 
 {
@@ -31,10 +34,23 @@ in
       (config.lib.custom.mkZshCompletion
         "direnv-init"
         ./direnv-init-completion.zsh
+        { inherit devShells; }
+      )
+
+      (config.lib.custom.mkScript
+        "lorri-init"
+        ./lorri-init.sh
+        # FIXME: change lorri do not need any further runtime dependencies
+        (with pkgs; [ direnv gnutar gzip lorri nix_2_4 ])
         {
-          # FIXME: fetch names of devShells dynamically
-          devShells = [ "jdk8" "jdk11" "jdk15" "jdk17" ];
+          nixConfigDir = "${config.home.homeDirectory}/.nix-config";
         }
+      )
+
+      (config.lib.custom.mkZshCompletion
+        "lorri-init"
+        ./lorri-init-completion.zsh
+        { inherit devShells; }
       )
     ];
 
@@ -67,6 +83,16 @@ in
         fi
       '';
     };
+
+    services.lorri.enable = true;
+
+    # FIXME: add used nix package to home-manager module
+    # FIXME: change lorri do not need any further runtime dependencies
+    systemd.user.services.lorri.Service.Environment =
+      let
+        path = with pkgs; makeBinPath [ nix_2_4 gitMinimal gnutar gzip ];
+      in
+      mkForce [ "PATH=${path}" ];
 
   };
 
