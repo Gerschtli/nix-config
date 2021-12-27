@@ -42,9 +42,7 @@ in
         exfat
         ntfs3g
 
-        # for android mtp
-        jmtpfs
-        go-mtpfs
+        jmtpfs # use like jmtpfs /mnt
       ];
 
       fonts = {
@@ -66,17 +64,13 @@ in
 
       programs.ssh.askPassword = "";
 
-      services = {
-        udev.packages = with pkgs; [ android-udev-rules ];
+      services.xserver = mkIf cfg.enableXserver {
+        enable = true;
 
-        xserver = mkIf cfg.enableXserver {
-          enable = true;
+        displayManager.lightdm.enable = true;
 
-          displayManager.lightdm.enable = true;
-
-          # FIXME: why is this line needed? ~/.xsession is executed anyway..
-          windowManager.dwm.enable = true;
-        };
+        # FIXME: why is this line needed? ~/.xsession is executed anyway..
+        windowManager.dwm.enable = true;
       };
 
       sound.enable = true;
