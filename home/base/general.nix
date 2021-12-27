@@ -58,6 +58,7 @@ in
         git.enable = true;
         htop.enable = true;
         neovim.enable = true;
+        nnn.enable = true;
         prompts = {
           liquidprompt.enable = mkIf (!cfg.lightWeight) true;
           pure.enable = mkIf cfg.lightWeight true;
