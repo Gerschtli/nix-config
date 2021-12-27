@@ -87,7 +87,10 @@ in
     (mkIf cfg.laptop
       {
         hardware = {
-          bluetooth.enable = true;
+          bluetooth = {
+            enable = true;
+            disabledPlugins = [ "sap" ];
+          };
 
           # for bluetooth support
           pulseaudio.package = pkgs.pulseaudioFull;
