@@ -27,11 +27,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1638563796,
-        "narHash": "sha256-syuJtJf3OEb02qsZ3zTeavH31X2fVGMjgV4GnhuthwE=",
+        "lastModified": 1640369392,
+        "narHash": "sha256-J0wS3BY+kD1QotA/wjWsL2eKZ9T83s/nq6MPUovrzbs=",
         "owner": "cole-h",
         "repo": "agenix-cli",
-        "rev": "0bfd2f38a6640bc33b31c4c2b841715736851b27",
+        "rev": "73e07332451acc465bc59785db259b0b0e81dc8f",
         "type": "github"
       },
       "original": {
@@ -79,11 +79,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1638992977,
-        "narHash": "sha256-jV+5oh2ysFL6wZPSp8DT4VRGhjNmkTEPJl5RCyGhybQ=",
+        "lastModified": 1640330660,
+        "narHash": "sha256-01p7SPj4X2HKv3WxURnu/XvXRBwujU+KOJ6W2fBRdCI=",
         "owner": "Gerschtli",
         "repo": "dwm",
-        "rev": "21363c7e0c85a794d460c3b43107bf044681f873",
+        "rev": "c6898994a3b4803db33597090582fda30457d2f8",
         "type": "github"
       },
       "original": {
@@ -229,11 +229,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1639748481,
-        "narHash": "sha256-h9jq27/2EufFx5ujcZTf1aL1L/qKIGSGEjsjRi1Fo1A=",
+        "lastModified": 1640119459,
+        "narHash": "sha256-qgOw4xu1Ci4P8I4F09X3kxM9+jlfmGw4h3jufJi54C4=",
         "owner": "t184256",
         "repo": "nix-on-droid",
-        "rev": "98eca42af0b7b9c6dfc672946e33f70b1e5c3bf1",
+        "rev": "c1b61fc3404a2a60392b48fce1f36029349a1bfe",
         "type": "github"
       },
       "original": {
@@ -335,11 +335,11 @@
     },
     "nixpkgs_6": {
       "locked": {
-        "lastModified": 1639891440,
-        "narHash": "sha256-FJxa6ObwOQKZy3VhwN5bJRzX+MV/Yq9WLHK/4jlPKrs=",
+        "lastModified": 1640443850,
+        "narHash": "sha256-s3EhD+iNjyIE/gZkV5vES6d0eI4dJ2WBlaXyUsEmaek=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e6377ff35544226392b49fa2cf05590f9f0c4b43",
+        "rev": "6979c0e49bb491e18dd4870abb104cc7375aa7e8",
         "type": "github"
       },
       "original": {
@@ -387,11 +387,11 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1638993725,
-        "narHash": "sha256-cFUEtVfC+tj/i3cew2p0BpxTXhNxrUKU3PH1ibtmE0M=",
+        "lastModified": 1640330985,
+        "narHash": "sha256-rK/F7v/1KNGUZkBmE0txIuT8HqXcuY5seyusZaClUFA=",
         "owner": "Gerschtli",
         "repo": "teamspeak-update-notifier",
-        "rev": "3765613e1029a7e9f2fa049d7a5c0c6e32624c40",
+        "rev": "d143987777257846a45225852ec45348792f164c",
         "type": "github"
       },
       "original": {
@@ -402,11 +402,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1639925673,
-        "narHash": "sha256-hR/d0JcT11z6Bi69ipowMtvRye7OymVfDw1/wwVBWnc=",
+        "lastModified": 1640418986,
+        "narHash": "sha256-a8GGtxn2iL3WAkY5H+4E0s3Q7XJt6bTOvos9qqxT5OQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c62eb9c6aea5ae8210dd86ff24fa6b51f8872db7",
+        "rev": "5c37ad87222cfc1ec36d6cd1364514a9efc2f7f2",
         "type": "github"
       },
       "original": {
