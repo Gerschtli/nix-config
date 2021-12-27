@@ -12,6 +12,7 @@ This is my humble flakes-only collection of all and everything needed to set up 
 * Generated shell scripts are always linted with [shellcheck][shellcheck]
 * Checks source code with [statix][statix] and [nixpkgs-fmt][nixpkgs-fmt]
 * Every output is built with Github Actions and pushed to [cachix][cachix]
+* Weekly automatic flake input updates committed to master when CI passes
 
 ## Supported configurations
 
