@@ -110,7 +110,7 @@ in
       aliases = {
         ad = "add --all --ignore-errors --";
         ba = "branch -a --verbose";
-        bc = "checkout -b";
+        bc = "switch --create";
         bd = "branch --verbose --delete";
         bdd = "branch --verbose -D";
         ca = "commit -q --branch --status --verbose --amend";
@@ -118,12 +118,10 @@ in
         cm = "commit --branch --status --verbose";
         cn = externGitAlias ''git reflog expire --all && git fsck --unreachable --full && git prune && \
           git gc --aggressive --quiet && git repack -Adq && git prune-packed --quiet'';
-        co = "checkout";
         fe = "fetch --progress";
         fm = externGitAlias "git fe --all && git fe --all --tags";
         lg = "log --stat";
         lp = "log -10 --patch-with-stat";
-        ma = "merge --abort";
         me = "merge --stat --summary";
         mm = externGitAlias "git me origin/$(git branch-name)";
         pd = "push --no-verify --delete --progress origin";
@@ -138,15 +136,16 @@ in
         rh = "reset --hard";
         rp = "rebase --skip";
         rs = "reset --soft";
+        rt = "restore";
         rv = "remote --verbose";
         sa = "stash push";
         sau = "stash push --include-untracked";
         sc = "stash clear";
         sl = "stash list";
-        sm = "submodule";
         so = "stash pop";
+        sp = "stash show --patch";
         st = "status";
-        sw = "stash show";
+        sw = "switch";
 
         cma = externGitAlias "git co master && git rebase origin/master";
         mma = "merge origin/master";
