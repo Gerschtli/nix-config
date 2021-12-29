@@ -118,6 +118,8 @@ in
         cm = "commit --branch --status --verbose";
         cn = externGitAlias ''git reflog expire --all && git fsck --unreachable --full && git prune && \
           git gc --aggressive --quiet && git repack -Adq && git prune-packed --quiet'';
+        df = "diff";
+        di = "diff --ignore-all-space";
         fe = "fetch --progress";
         fm = externGitAlias "git fe --all && git fe --all --tags";
         lg = "log --stat";
