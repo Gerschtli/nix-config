@@ -39,6 +39,7 @@ in
         };
 
         ssh.modules = [ "private" ];
+        tmux.urlview = true;
       };
     };
 

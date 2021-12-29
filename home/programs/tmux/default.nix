@@ -160,7 +160,11 @@ in
 
   options = {
 
-    custom.programs.tmux.enable = mkEnableOption "tmux config";
+    custom.programs.tmux = {
+      enable = mkEnableOption "tmux config";
+
+      urlview = mkEnableOption "urlview plugin";
+    };
 
   };
 
@@ -171,26 +175,34 @@ in
 
     custom.programs.shell.shellAliases.tmux = "tmux -2";
 
-    home.packages = [
-      (config.lib.custom.mkScript
-        "tprofile"
-        ./tprofile.sh
-        [ pkgs.tmux ]
-        {
-          inherit tmuxProfiles;
-          workDirectory = config.custom.misc.work.directory;
-        }
-      )
+    home = {
+      file.".urlview" = mkIf cfg.urlview {
+        text = ''
+          COMMAND ${pkgs.google-chrome}/bin/google-chrome-stable %s > /dev/null 2>&1
+        '';
+      };
 
-      (config.lib.custom.mkZshCompletion
-        "tprofile"
-        ./tprofile-completion.zsh
-        {
-          inherit tmuxProfiles;
-          workDirectory = config.custom.misc.work.directory;
-        }
-      )
-    ];
+      packages = [
+        (config.lib.custom.mkScript
+          "tprofile"
+          ./tprofile.sh
+          [ pkgs.tmux ]
+          {
+            inherit tmuxProfiles;
+            workDirectory = config.custom.misc.work.directory;
+          }
+        )
+
+        (config.lib.custom.mkZshCompletion
+          "tprofile"
+          ./tprofile-completion.zsh
+          {
+            inherit tmuxProfiles;
+            workDirectory = config.custom.misc.work.directory;
+          }
+        )
+      ];
+    };
 
     programs.tmux = {
       inherit extraConfig;
@@ -205,6 +217,18 @@ in
       clock24 = true;
       secureSocket = false;
       escapeTime = 100;
+
+      plugins = with pkgs.tmuxPlugins; (
+        [
+          {
+            plugin = fingers;
+            extraConfig = ''
+              set -g @fingers-compact-hints 0
+              set -g @fingers-ctrl-action '${pkgs.findutils}/bin/xargs ${pkgs.xdg-utils}/bin/xdg-open > /dev/null 2>&1'
+            '';
+          }
+        ] ++ optionals cfg.urlview [ urlview ]
+      );
     };
 
   };
