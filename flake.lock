@@ -79,11 +79,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1640330660,
-        "narHash": "sha256-01p7SPj4X2HKv3WxURnu/XvXRBwujU+KOJ6W2fBRdCI=",
+        "lastModified": 1640811737,
+        "narHash": "sha256-wPKAVxy2HU18exgPU1i0Kpaywf7jcky3fX/h4hNOgBY=",
         "owner": "Gerschtli",
         "repo": "dwm",
-        "rev": "c6898994a3b4803db33597090582fda30457d2f8",
+        "rev": "561b0c0c0f6ae7bd90b4decb8ef1bec447bba9f8",
         "type": "github"
       },
       "original": {

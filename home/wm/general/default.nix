@@ -49,7 +49,7 @@ in
   config = mkIf cfg.enable {
 
     custom = {
-      programs.urxvt.enable = true;
+      programs.alacritty.enable = true;
 
       wm.general = { inherit lockScreenPackage; };
     };
