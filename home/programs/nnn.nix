@@ -4,6 +4,13 @@ with lib;
 
 let
   cfg = config.custom.programs.nnn;
+
+  lessEnvVar = builtins.concatStringsSep " " [
+    config.home.sessionVariables.LESS
+    "--clear-screen"
+    "-+--no-init"
+    "-+--quit-if-one-screen"
+  ];
 in
 
 {
@@ -23,7 +30,7 @@ in
 
     custom.programs.shell.shellAliases = {
       n = "nnn";
-      nnn = "LESS='${config.home.sessionVariables.LESS} -+--quit-if-one-screen -+--no-init' nnn -T v"; # group hidden files
+      nnn = "LESS='${lessEnvVar}' nnn -T v"; # group hidden files
     };
 
     # FIXME: move env vars to nnn home-manager module

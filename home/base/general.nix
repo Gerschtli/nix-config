@@ -26,7 +26,12 @@ let
     LANG = localeEnglish;
     LANGUAGE = localeEnglish;
 
-    LESS = "--RAW-CONTROL-CHARS --clear-screen --quit-if-one-screen --no-init --tabs=4";
+    LESS = builtins.concatStringsSep " " [
+      "--RAW-CONTROL-CHARS"
+      "--no-init"
+      "--quit-if-one-screen"
+      "--tabs=4"
+    ];
     PAGER = "${pkgs.less}/bin/less";
   };
 in
