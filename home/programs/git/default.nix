@@ -120,6 +120,8 @@ in
           git gc --aggressive --quiet && git repack -Adq && git prune-packed --quiet'';
         df = "diff";
         di = "diff --ignore-all-space";
+        ds = "diff --staged";
+        dsi = "diff --staged --ignore-all-space";
         fe = "fetch --progress";
         fm = externGitAlias "git fe --all && git fe --all --tags";
         lg = "log --stat";
@@ -136,6 +138,7 @@ in
         rc = "rebase --continue";
         re = "reset";
         rh = "reset --hard";
+        ri = "rebase --interactive";
         rp = "rebase --skip";
         rs = "reset --soft";
         rt = "restore";
