@@ -26,7 +26,7 @@ let
     LANG = localeEnglish;
     LANGUAGE = localeEnglish;
 
-    LESS = "FRXx4"; # x4 sets tab width to 4 spaces
+    LESS = "--RAW-CONTROL-CHARS --clear-screen --quit-if-one-screen --no-init --tabs=4";
     PAGER = "${pkgs.less}/bin/less";
   };
 in
