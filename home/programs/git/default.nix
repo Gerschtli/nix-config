@@ -130,7 +130,7 @@ in
         mm = externGitAlias "git me origin/$(git branch-name)";
         pd = "push --no-verify --delete --progress origin";
         pf = externGitAlias "git ph --force-with-lease origin $(git branch-name)";
-        pnf = externGitAlias "git pnf --no-verify";
+        pnf = externGitAlias "git pf --no-verify";
         ph = "push --progress --tags --set-upstream";
         pu = externGitAlias "for i in $(git remote); do git ph $i $(git branch-name); done";
         pn = externGitAlias "for i in $(git remote); do git ph --no-verify $i $(git branch-name); done";
@@ -151,8 +151,9 @@ in
         sp = "stash show --patch";
         st = "status";
         sw = "switch";
+        sd = "switch --detach";
 
-        cma = externGitAlias "git co master && git rebase origin/master";
+        cma = externGitAlias "git switch master && git rebase origin/master";
         mma = "merge origin/master";
         rma = "rebase origin/master";
         rup = "rebase upstream/master";
