@@ -39,6 +39,7 @@ in
         name = "atom";
         source = pkgs.atom;
         path = "/bin/atom";
+        pathsToLink = [ "/bin/apm" ];
       })
     ];
 
