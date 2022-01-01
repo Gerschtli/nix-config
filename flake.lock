@@ -148,12 +148,13 @@
         ]
       },
       "locked": {
-        "lastModified": 1639871969,
-        "narHash": "sha256-6feWUnMygRzA9tzkrfAzpA5/NBYg75bkFxnqb1DtD7E=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "697cc8c68ed6a606296efbbe9614c32537078756",
-        "type": "github"
+        "lastModified": 1641063969,
+        "narHash": "sha256-JIvMBMPFmbs0ljKaDPV2WJokoBP4wV2J+5aRVsT+I9g=",
+        "ref": "HEAD",
+        "rev": "1826d8e843ef713efac2ac8fc336d27dde6092a0",
+        "revCount": 1824,
+        "type": "git",
+        "url": "file:///home/tobias/projects/home-manager"
       },
       "original": {
         "owner": "nix-community",
