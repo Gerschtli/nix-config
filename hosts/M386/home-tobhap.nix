@@ -30,6 +30,8 @@
     };
 
     programs = {
+      idea-ultimate.enable = lib.mkForce false;
+
       maven.enable = true;
 
       ssh.modules = [ "sedo" ];
