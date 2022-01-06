@@ -30,6 +30,8 @@
     };
 
     programs = {
+      maven.enable = true;
+
       ssh.modules = [ "sedo" ];
 
       watson.enable = true;
