@@ -11,7 +11,7 @@
         ${lib.concatMapStringsSep "\n" (p: ''
           mkdir -p "$(dirname "${(placeholder "out") + p}")"
           ln -sn "${source + p}" "${(placeholder "out") + p}"
-        '') (pathsToLink ++ [ path ])}
+        '') (pathsToLink ++ [ path "/share/pixmaps" ])}
 
         # desktop entry
         mkdir -p "${placeholder "out"}/share/applications"
