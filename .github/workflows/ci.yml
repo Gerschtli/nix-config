@@ -65,8 +65,7 @@ jobs:
 
       - name: Build command (aarch64)
         if: matrix.system == 'aarch64'
-        #uses: uraimo/run-on-arch-action@v2.1.1
-        uses: Gerschtli/run-on-arch-action@groups
+        uses: uraimo/run-on-arch-action@13e4281fcff03a9fbf9c564b6bc77cbef951a6f8
         with:
           arch: aarch64
           distro: alpine_latest
