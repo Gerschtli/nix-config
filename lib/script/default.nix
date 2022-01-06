@@ -45,7 +45,7 @@ in
   mkScript = name: file: path: envs:
     builder {
       inherit name file path envs;
-      destPath = "$out/bin/${name}";
+      destPath = "${placeholder "out"}/bin/${name}";
       executable = true;
       preamble = ./preamble.sh;
     };
@@ -53,7 +53,7 @@ in
   mkScriptPlain = name: file: path: envs:
     builder {
       inherit name file path envs;
-      destPath = "$out";
+      destPath = placeholder "out";
       executable = true;
       preamble = ./preamble.sh;
     };
@@ -62,7 +62,7 @@ in
     builder {
       inherit file;
       name = "${name}-completion";
-      destPath = "$out/share/zsh/site-functions/_${name}";
+      destPath = "${placeholder "out"}/share/zsh/site-functions/_${name}";
       preamble = ./preamble.completion.zsh;
       envs = envs // {
         inherit name;

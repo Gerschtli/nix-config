@@ -2,5 +2,5 @@
 
 pkgs.runCommand name { } ''
   ${args.script pkgs}
-  touch $out
+  touch ${placeholder "out"}
 ''

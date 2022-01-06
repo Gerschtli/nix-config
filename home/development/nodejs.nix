@@ -17,9 +17,9 @@ let
     };
 
     installPhase = ''
-      mkdir -p $out/share/zsh-better-npm-completion
+      mkdir -p ${placeholder "out"}/share/zsh-better-npm-completion
 
-      install -m 0644 zsh-better-npm-completion.plugin.zsh $out/share/zsh-better-npm-completion
+      install -m 0644 zsh-better-npm-completion.plugin.zsh ${placeholder "out"}/share/zsh-better-npm-completion
     '';
   };
 in

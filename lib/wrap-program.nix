@@ -9,14 +9,16 @@
         . ${pkgs.makeWrapper}/nix-support/setup-hook
 
         ${lib.concatMapStringsSep "\n" (p: ''
-          mkdir -p "$(dirname "$out${p}")"
-          ln -sn "${source}${p}" "$out${p}"
+          mkdir -p "$(dirname "${(placeholder "out") + p}")"
+          ln -sn "${source + p}" "${(placeholder "out") + p}"
         '') (pathsToLink ++ [ path ])}
 
         # desktop entry
-        mkdir -p "$out/share/applications"
-        sed -e "s|Exec=.*$|Exec=$out/bin/${name}|" "${source}/share/applications/${name}.desktop" > "$out/share/applications/${name}.desktop"
+        mkdir -p "${placeholder "out"}/share/applications"
+        sed -e "s|Exec=.*$|Exec=${placeholder "out"}/bin/${name}|" \
+          "${source}/share/applications/${name}.desktop" \
+          > "${placeholder "out"}/share/applications/${name}.desktop"
 
-        wrapProgram "$out/${path}" --prefix PATH : "${lib.makeBinPath packages}"
+        wrapProgram "${placeholder "out"}/${path}" --prefix PATH : "${lib.makeBinPath packages}"
       '';
 }
