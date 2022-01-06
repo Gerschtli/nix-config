@@ -1,0 +1,6 @@
+let
+  nix-config = builtins.getFlake "@rootPath@";
+  pkgs = nix-config.inputs.nixpkgs.legacyPackages.${builtins.currentSystem};
+in
+
+{ inherit nix-config pkgs; }

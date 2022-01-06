@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, rootPath, ... }:
 
 with lib;
 
@@ -15,6 +15,14 @@ let
         inherit activeLinkPath command;
         _doNotClearPath = true;
       };
+
+  replFile = pkgs.runCommand
+    "repl.nix"
+    { rootPath = toString rootPath; }
+    ''
+      cp ${./repl.nix.template} ${placeholder "out"}
+      substituteAllInPlace ${placeholder "out"}
+    '';
 in
 
 {
@@ -35,6 +43,12 @@ in
   ###### implementation
 
   config = mkMerge [
+
+    {
+      custom.programs.shell.shellAliases = {
+        nrepl = "nix repl ${replFile}";
+      };
+    }
 
     (mkIf cfg.home-manager.enable {
       custom.programs.shell.shellAliases = {
