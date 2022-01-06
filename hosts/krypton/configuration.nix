@@ -15,11 +15,6 @@
 
     ids.enable = false;
 
-    programs.weechat = {
-      enable = true;
-      port = 8000;
-    };
-
     services = {
       backup.enable = true;
 
