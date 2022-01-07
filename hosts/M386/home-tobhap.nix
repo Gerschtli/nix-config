@@ -14,6 +14,8 @@
     development.nix.home-manager.enable = true;
 
     misc = {
+      homeage.secrets = [ "sedo" ];
+
       sdks = {
         enable = true;
         links = {
@@ -34,6 +36,10 @@
 
       maven.enable = true;
 
+      shell.initExtra = ''
+        . ${config.home.homeDirectory}/.aliases.sh
+      '';
+
       ssh.modules = [ "sedo" ];
 
       watson.enable = true;
@@ -44,6 +50,7 @@
     packages = with pkgs; [
       kubectl
       kubernetes-helm
+      mariadb.client
     ];
 
     sessionVariables = {

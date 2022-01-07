@@ -33,7 +33,7 @@ in
 
     custom.misc.homeage = {
       secrets = mkOption {
-        type = types.listOf (types.enum [ "ssh-private" "ssh-sedo" "ssh-vcs" ]);
+        type = types.listOf (types.enum [ "sedo" "ssh-private" "ssh-sedo" "ssh-vcs" ]);
         default = [ ];
         description = ''
           Secrets to install.
@@ -73,7 +73,19 @@ in
         map
           (entry: nameValuePair entry.path entry)
           (flatten (
-            (optional (elem "ssh-private" cfg.secrets) [
+            (optional (elem "sedo" cfg.secrets) [
+              {
+                path = "sedo-aliases";
+                source = rootPath + "/secrets/M386/aliases.sh.age";
+                cpOnService = [ "${config.home.homeDirectory}/.aliases.sh" ];
+              }
+              {
+                path = "sedo-settings";
+                source = rootPath + "/secrets/M386/settings.xml.age";
+                cpOnService = [ "${config.home.homeDirectory}/.m2/settings.xml" ];
+              }
+            ])
+            ++ (optional (elem "ssh-private" cfg.secrets) [
               (buildSshConfig "private")
               (buildSshKey "private" "private")
               (buildSshKey "private" "strato")
