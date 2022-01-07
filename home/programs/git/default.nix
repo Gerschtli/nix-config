@@ -11,8 +11,8 @@ let
     builtins.readFile
     (config.lib.custom.getFileList ./gitignores);
 
-  commitMsgTemplate = ''
-
+  commitMsgTemplate = prefix: ''
+    ${prefix}
     # (If applied, this commit will...) <subject> (Max 50 char)
     # |<----  Using a Maximum Of 50 Characters  ---->|
 
@@ -41,6 +41,7 @@ let
     git-lfs
     git
     gnugrep
+    gnused
     nix_2_4
     openssh
   ];
@@ -68,14 +69,16 @@ let
             hooksPathPackages
             { hooksLib = ./lib.hooks.sh; includes = hooksIncludes; };
         })
-      [
+      ([
         ./post-checkout.sh
         ./post-commit.sh
         ./post-merge.sh
         ./post-rewrite.sh
         ./pre-commit.sh
         ./pre-push.sh
-      ]
+      ] ++ optionals config.custom.misc.work.enable [
+        ./prepare-commit-msg.sh
+      ])
   );
 
   writeFile = name: content: toString (pkgs.writeText name content);
@@ -217,7 +220,7 @@ in
 
         commit = {
           status = true;
-          template = writeFile "commit.msg" commitMsgTemplate;
+          template = writeFile "commit.msg" (commitMsgTemplate "");
         };
 
         core = {
@@ -337,6 +340,8 @@ in
           condition = "gitdir:~/projects/${config.custom.misc.work.directory}/";
 
           contents = {
+            commit.template = writeFile "commit.msg" (commitMsgTemplate "PREFIX");
+
             core.excludesfile =
               let
                 ignoreListWork = ignoreList ++ [ ".envrc" "shell.nix" "**/MyEmbeddedMariaDbConfig.java" ];
