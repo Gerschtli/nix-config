@@ -240,6 +240,7 @@ in
           renames = "copies";
           tool = "nvim";
 
+          age.textconv = "${pkgs.age}/bin/age --identity ${config.home.homeDirectory}/.age/key.txt --decrypt";
           gpg.textconv = "${pkgs.gnupg}/bin/gpg --use-agent -q --batch --decrypt";
         };
 
