@@ -58,7 +58,7 @@ in
 
     home.packages = [
       pkgs.age
-      pkgs.agenix
+      pkgs.agenix-cli
     ];
 
     homeage = {

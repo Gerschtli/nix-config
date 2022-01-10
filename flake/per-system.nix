@@ -19,7 +19,7 @@ let
 
   overlays = [
     (final: prev: {
-      inherit (inputs.agenix-cli.packages.${system}) agenix;
+      inherit (inputs.agenix-cli.packages.${system}) agenix-cli;
       inherit (inputs.nixpkgs-for-jdk15.legacyPackages.${system}) jdk15;
 
       inherit (unstable)
