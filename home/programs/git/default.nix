@@ -155,6 +155,7 @@ in
         st = "status";
         sw = "switch";
         sd = "switch --detach";
+        tl = "tag --list -n";
 
         cma = externGitAlias "git switch master && git rebase origin/master";
         mma = "merge origin/master";
