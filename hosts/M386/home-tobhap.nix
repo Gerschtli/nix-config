@@ -61,6 +61,8 @@
       KUBECONFIG = lib.concatMapStringsSep ":" (path: "${config.home.homeDirectory}/.kube/${path}") [
         "config"
         "integration/config"
+        "stage/config"
+        "production/config"
       ];
     };
   };
