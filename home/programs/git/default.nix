@@ -157,10 +157,10 @@ in
         sd = "switch --detach";
         tl = "tag --list -n";
 
-        cma = externGitAlias "git switch master && git rebase origin/master";
         mma = "merge origin/master";
         rma = "rebase origin/master";
         rup = "rebase upstream/master";
+        sma = externGitAlias "git switch master && git rebase origin/master";
 
         aliases = ''config --get-regexp "^alias"'';
 
