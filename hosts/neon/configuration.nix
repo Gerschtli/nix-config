@@ -9,6 +9,8 @@
       laptop = true;
     };
 
+    programs.docker.enable = true;
+
     system = {
       boot.mode = "efi";
 
