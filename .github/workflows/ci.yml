@@ -8,6 +8,9 @@ on:
         default: ''
         required: false
         type: string
+    secrets:
+      CACHIX_SIGNING_KEY:
+        required: true
 
 jobs:
   nix:

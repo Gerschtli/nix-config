@@ -40,11 +40,13 @@ jobs:
           push_options: --force
 
   build:
-    uses: Gerschtli/nix-config/.github/workflows/ci.yml@master
+    uses: ./.github/workflows/ci.yml
     needs: update
     if: needs.update.outputs.update_available == 'true'
     with:
       branch: ${{ needs.update.outputs.branch }}
+    secrets:
+      CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
 
   merge:
     runs-on: ubuntu-latest
