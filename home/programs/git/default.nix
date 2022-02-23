@@ -342,6 +342,14 @@ in
           condition = "gitdir:~/projects/${config.custom.misc.work.directory}/";
 
           contents = {
+            alias.bcf = externGitAlias (
+              config.lib.custom.mkScriptPlain
+                "git-alias-bcf"
+                ./git-alias-bcf.sh
+                [ pkgs.git ]
+                { }
+            );
+
             commit.template = writeFile "commit.msg" (commitMsgTemplate "PREFIX");
 
             core.excludesfile =
