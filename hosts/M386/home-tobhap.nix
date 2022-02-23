@@ -51,6 +51,7 @@
       kubectl
       kubernetes-helm
       mariadb.client
+      minikube
     ];
 
     sessionVariables = {
@@ -60,9 +61,10 @@
 
       KUBECONFIG = lib.concatMapStringsSep ":" (path: "${config.home.homeDirectory}/.kube/${path}") [
         "config"
-        "integration/config"
-        "stage/config"
-        "production/config"
+        "config.integration"
+        "config.integration2"
+        "config.stage"
+        "config.production"
       ];
     };
   };
