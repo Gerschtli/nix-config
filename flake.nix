@@ -63,7 +63,7 @@
         (mkNixos "aarch64-linux" "xenon")
       ];
     }
-    // eachSystem ({ mkApp, mkCheck, mkDevShellJdk }: {
+    // eachSystem ({ mkApp, mkCheck, mkDevShellJdk, mkDevShellPhp }: {
       apps = listToAttrs [
         (mkApp "format" {
           file = ./files/apps/format.sh;
@@ -100,6 +100,9 @@
         (mkDevShellJdk "jdk11" { jdk = pkgs: pkgs.jdk11; })
         (mkDevShellJdk "jdk15" { jdk = pkgs: pkgs.jdk15; })
         (mkDevShellJdk "jdk17" { jdk = pkgs: pkgs.jdk17_headless; })
+
+        (mkDevShellPhp "php74" { phpVersion = "74"; })
+        (mkDevShellPhp "php80" { phpVersion = "80"; })
       ];
     });
 }

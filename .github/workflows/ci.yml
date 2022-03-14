@@ -35,6 +35,10 @@ jobs:
             system: x86_64
           - nix-command: develop .#jdk17 --profile profile
             system: x86_64
+          - nix-command: develop .#php74 --profile profile
+            system: x86_64
+          - nix-command: develop .#php80 --profile profile
+            system: x86_64
 
           - nix-command: build .#homeConfigurations."tobias@gamer".activationPackage
             system: x86_64

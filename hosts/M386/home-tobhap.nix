@@ -52,6 +52,7 @@
       kubernetes-helm
       mariadb.client
       minikube
+      php # for ide integration
     ];
 
     sessionVariables = {
