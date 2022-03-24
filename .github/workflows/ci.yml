@@ -72,7 +72,7 @@ jobs:
 
       - name: Build command (aarch64)
         if: matrix.system == 'aarch64'
-        uses: uraimo/run-on-arch-action@13e4281fcff03a9fbf9c564b6bc77cbef951a6f8
+        uses: uraimo/run-on-arch-action@cf07819e78d46489184ad0398946746517ca82ba
         with:
           arch: aarch64
           distro: alpine_latest
