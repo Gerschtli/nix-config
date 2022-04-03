@@ -27,7 +27,11 @@
       };
     };
 
-    programs.go.enable = true;
+    programs = {
+      go.enable = true;
+
+      vscode.enable = true;
+    };
 
     services.dwm-status.backlightDevice = "amdgpu_bl1";
 
