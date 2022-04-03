@@ -14,6 +14,7 @@
         directories = [
           "~/Documents/finance"
           "~/Documents/general"
+          "~/Documents/lajazzo-media"
           "~/Documents/lajazzo-noten"
         ];
       };
