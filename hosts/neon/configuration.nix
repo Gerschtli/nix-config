@@ -23,6 +23,4 @@
   };
 
   systemd.suppressedSystemUnits = [ "systemd-backlight@backlight:acpi_video0.service" ];
-
-  time.hardwareClockInLocalTime = true;
 }
