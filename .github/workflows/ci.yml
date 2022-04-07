@@ -62,7 +62,7 @@ jobs:
           ref: ${{ inputs.branch }}
 
       - name: Install nix
-        uses: cachix/install-nix-action@v16
+        uses: cachix/install-nix-action@v17
 
       - name: Setup cachix
         uses: cachix/cachix-action@v10
