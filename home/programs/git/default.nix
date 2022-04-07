@@ -38,7 +38,6 @@ let
   extractName = path: removeSuffix ".sh" (baseNameOf path);
   hooksPathPackages = with pkgs; [
     findutils
-    git-lfs
     git
     gnugrep
     gnused
@@ -108,7 +107,6 @@ in
       userEmail = "tobias.happ@gmx.de";
 
       ignores = ignoreList;
-      lfs.enable = true;
 
       aliases = {
         ad = "add --all --ignore-errors --";
