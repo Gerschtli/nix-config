@@ -95,6 +95,7 @@ in
         ripgrep
         tree
         wget
+        yq
 
         gzip
         unzip
