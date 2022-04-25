@@ -127,6 +127,7 @@ in
         fm = externGitAlias "git fe --all && git fe --all --tags";
         lg = "log --stat";
         lp = "log -10 --patch-with-stat";
+        ma = "merge --abort";
         me = "merge --stat --summary";
         mm = externGitAlias "git me origin/$(git branch-name)";
         pd = "push --no-verify --delete --progress origin";
