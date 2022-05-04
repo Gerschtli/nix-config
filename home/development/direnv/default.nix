@@ -24,23 +24,25 @@ in
   config = mkIf cfg.enable {
 
     home.packages = [
-      (config.lib.custom.mkScript
+      /* Disable direnv-init for now because lorri-init is still preferred and should not be confused
+        (config.lib.custom.mkScript
         "direnv-init"
         ./direnv-init.sh
         [ pkgs.direnv ]
         { }
-      )
+        )
 
-      (config.lib.custom.mkZshCompletion
+        (config.lib.custom.mkZshCompletion
         "direnv-init"
         ./direnv-init-completion.zsh
         { inherit devShells; }
-      )
+        )
+      */
 
       (config.lib.custom.mkScript
         "lorri-init"
         ./lorri-init.sh
-        # FIXME: change lorri do not need any further runtime dependencies
+        # FIXME: change lorri to not need any further runtime dependencies
         (with pkgs; [ direnv gnutar gzip lorri nix_2_4 ])
         {
           nixConfigDir = "${config.home.homeDirectory}/.nix-config";

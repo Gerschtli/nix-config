@@ -95,6 +95,7 @@
 
       # use like:
       # $ direnv-init jdk11
+      # $ lorri-init jdk11
       devShells = listToAttrs [
         (mkDevShellJdk "jdk8" { jdk = pkgs: pkgs.jdk8; })
         (mkDevShellJdk "jdk11" { jdk = pkgs: pkgs.jdk11; })
