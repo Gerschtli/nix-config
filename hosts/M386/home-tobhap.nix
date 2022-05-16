@@ -52,6 +52,7 @@
       kubernetes-helm
       mariadb.client
       minikube
+      nodejs # for ide integration
       php # for ide integration
     ];
 
