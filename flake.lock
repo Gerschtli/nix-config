@@ -451,17 +451,17 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1644334231,
-        "narHash": "sha256-mmZLV3GD+pHtrFFZgacF3HxxkksYk+xEt8A3H+jnNo8=",
+        "lastModified": 1651417932,
+        "narHash": "sha256-WLu8Dj8EG6d8rqEw+Ti9NguHnSmpF40BY1GcLWudt6Q=",
         "owner": "nerdypepper",
         "repo": "statix",
-        "rev": "014be14e7dc64520b41aedb2d9c9aa719cdf0577",
+        "rev": "53b454cd6acba89fe6b5bb39df431afa28a6ee13",
         "type": "github"
       },
       "original": {
         "owner": "nerdypepper",
+        "ref": "v0.5.5",
         "repo": "statix",
-        "rev": "014be14e7dc64520b41aedb2d9c9aa719cdf0577",
         "type": "github"
       }
     },

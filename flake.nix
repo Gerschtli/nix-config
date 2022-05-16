@@ -34,7 +34,7 @@
     dwm-status.url = "github:Gerschtli/dwm-status";
     teamspeak-update-notifier.url = "github:Gerschtli/teamspeak-update-notifier";
 
-    statix.url = "github:nerdypepper/statix/014be14e7dc64520b41aedb2d9c9aa719cdf0577";
+    statix.url = "github:nerdypepper/statix/v0.5.5";
   };
 
   outputs = { self, nixpkgs, ... } @ inputs:
