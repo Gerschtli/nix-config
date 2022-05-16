@@ -70,7 +70,7 @@ in
         (item:
           let useSudo = item ? sudo && item.sudo; in
           config.lib.custom.mkScript
-            (if item ? name then item.name else item.command)
+            (item.name or item.command)
             ./wm-script.sh
             [ pkgs.gnome.zenity ]
             {
