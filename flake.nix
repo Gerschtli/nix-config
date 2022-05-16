@@ -84,11 +84,9 @@
           '';
         })
 
-        # FIXME: use exit-code when https://github.com/nerdypepper/statix/issues/20 is resolved
         (mkCheck "statix" {
           script = pkgs: ''
-            ${pkgs.statix}/bin/statix check ${./.} --format errfmt | tee output
-            [[ "$(cat output)" == "" ]]
+            ${pkgs.statix}/bin/statix check ${./.}
           '';
         })
       ];
