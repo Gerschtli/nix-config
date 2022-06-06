@@ -108,7 +108,7 @@ in
         whois
       ];
 
-      stateVersion = "21.11";
+      stateVersion = "22.05";
     };
 
     programs = {
