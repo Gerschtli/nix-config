@@ -35,6 +35,7 @@ in
       [ "aarch64-linux" "x86_64-linux" ]
       (system:
         builderPerSystem {
+          inherit system;
           mkApp = wrapper ./builders/mkApp.nix system;
           mkCheck = wrapper ./builders/mkCheck.nix system;
           mkDevShellJdk = wrapper ./builders/mkDevShellJdk.nix system;

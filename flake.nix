@@ -63,7 +63,7 @@
         (mkNixos "aarch64-linux" "xenon")
       ];
     }
-    // eachSystem ({ mkApp, mkCheck, mkDevShellJdk, mkDevShellPhp }: {
+    // eachSystem ({ mkApp, mkCheck, mkDevShellJdk, mkDevShellPhp, system }: {
       apps = listToAttrs [
         (mkApp "format" {
           file = ./files/apps/format.sh;
@@ -103,5 +103,7 @@
         (mkDevShellPhp "php74" { phpVersion = "74"; })
         (mkDevShellPhp "php80" { phpVersion = "80"; })
       ];
+
+      formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
     });
 }
