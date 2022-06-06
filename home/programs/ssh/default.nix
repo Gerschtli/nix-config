@@ -100,11 +100,6 @@ in
       )
     ];
 
-    # FIXME: remove in 21.11
-    home.file.".ssh/config".text = mkBefore ''
-      Include ~/.ssh/config.d/*
-    '';
-
     programs = {
       keychain = {
         enable = cfg.enableKeychain;
@@ -123,8 +118,7 @@ in
         controlPath = "~/.ssh/socket-%r@%h-%p";
         controlPersist = "10m";
 
-        # FIXME: use in 21.11
-        #includes = [ "~/.ssh/config.d/*" ];
+        includes = [ "~/.ssh/config.d/*" ];
         extraConfig = ''
           CheckHostIP yes
           ConnectTimeout 60
