@@ -23,6 +23,7 @@ jobs:
           - x86_64
         nix-command:
           - flake check
+          - fmt
           - eval .#apps.$_system.format.program
           - eval .#apps.$_system.setup.program
 
