@@ -45,12 +45,9 @@ in
     useUserPackages = true;
   };
 
-  nix = {
-    package = pkgs.nix_2_4;
-    extraConfig = ''
-      experimental-features = nix-command flakes
-    '';
-  };
+  nix.extraConfig = ''
+    experimental-features = nix-command flakes
+  '';
 
   system.stateVersion = "21.11";
 

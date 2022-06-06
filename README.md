@@ -47,7 +47,7 @@ $ nix run github:Gerschtli/nix-config#setup
 ```sh
 mkdir -p ~/.config/nix
 echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
-nix-shell -p nix_2_4 --run "nix run github:Gerschtli/nix-config#setup"
+nix-shell -p nix --run "nix run github:Gerschtli/nix-config#setup"
 ```
 
 #### Ubuntu 20.04

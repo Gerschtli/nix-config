@@ -36,7 +36,7 @@ in
 
   config = mkIf cfg.enable {
 
-    home.packages = mkIf cfg.installNix [ pkgs.nix_2_4 ];
+    home.packages = mkIf cfg.installNix [ pkgs.nix ];
 
     programs.zsh.envExtra = mkAfter ''
       hash -f

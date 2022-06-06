@@ -41,7 +41,7 @@ let
     git
     gnugrep
     gnused
-    nix_2_4
+    nix
     openssh
   ];
 

@@ -43,7 +43,7 @@ in
         "lorri-init"
         ./lorri-init.sh
         # FIXME: change lorri to not need any further runtime dependencies
-        (with pkgs; [ direnv gnutar gzip lorri nix_2_4 ])
+        (with pkgs; [ direnv gnutar gzip lorri nix ])
         {
           nixConfigDir = "${config.home.homeDirectory}/.nix-config";
         }
@@ -87,14 +87,6 @@ in
     };
 
     services.lorri.enable = true;
-
-    # FIXME: add used nix package to home-manager module
-    # FIXME: change lorri do not need any further runtime dependencies
-    systemd.user.services.lorri.Service.Environment =
-      let
-        path = with pkgs; makeBinPath [ nix_2_4 gitMinimal gnutar gzip ];
-      in
-      mkForce [ "PATH=${path}" ];
 
   };
 
