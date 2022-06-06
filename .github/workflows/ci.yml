@@ -101,6 +101,7 @@ jobs:
             cachix use nix-on-droid
 
             echo "::group::Build command"
+            git config --global --add safe.directory "$(pwd)"
             nix \
               --log-format bar-with-logs \
               --option keep-going true \
