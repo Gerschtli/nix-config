@@ -31,6 +31,7 @@ let
         ${pkgs.shellcheck}/bin/shellcheck \
           --check-sourced \
           --enable all \
+          --exclude SC2310,SC2312 \
           --external-sources \
           --shell bash \
           "$file"

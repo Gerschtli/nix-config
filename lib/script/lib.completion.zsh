@@ -5,7 +5,9 @@ _clean_path_and_append() {
     local suffix="${2}"
     local file="${3}"
 
-    list+=("${"${file#"${prefix}"}"//"${suffix}"}")
+    local file_wo_prefix="${file#"${prefix}"}"
+
+    list+=("${file_wo_prefix//"${suffix}"}")
 }
 
 _search_and_append_by_prefix_and_suffix() {
