@@ -45,7 +45,7 @@ in
     useUserPackages = true;
   };
 
-  nix.extraConfig = ''
+  nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
 
