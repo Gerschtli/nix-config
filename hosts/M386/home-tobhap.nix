@@ -48,6 +48,7 @@
 
   home = {
     packages = with pkgs; [
+      dbeaver
       kubectl
       kubernetes-helm
       mariadb.client
