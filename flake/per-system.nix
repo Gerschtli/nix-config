@@ -11,10 +11,10 @@ let
   };
 
   gerschtliOverlays = [
-    inputs.dmenu.overlay
-    inputs.dwm.overlay
-    inputs.dwm-status.overlay
-    inputs.teamspeak-update-notifier.overlay
+    inputs.dmenu.overlays.default
+    inputs.dwm.overlays.default
+    inputs.dwm-status.overlays.default
+    inputs.teamspeak-update-notifier.overlays.default
   ];
 
   overlays = [
