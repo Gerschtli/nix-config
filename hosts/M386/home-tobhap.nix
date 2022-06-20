@@ -11,7 +11,11 @@
       non-nixos.enable = true;
     };
 
-    development.nix.home-manager.enable = true;
+    development = {
+      helm.enable = true;
+
+      nix.home-manager.enable = true;
+    };
 
     misc = {
       homeage.secrets = [ "sedo" ];
@@ -49,7 +53,6 @@
     packages = with pkgs; [
       dbeaver
       kubectl
-      kubernetes-helm
       mariadb.client
       minikube
       nodejs # for ide integration
