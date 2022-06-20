@@ -19,8 +19,7 @@
       sdks = {
         enable = true;
         links = {
-          inherit (pkgs) jdk8 jdk11 jdk15;
-          jdk17 = pkgs.jdk17_headless;
+          inherit (pkgs) jdk8 jdk11 jdk15 jdk17;
         };
       };
 

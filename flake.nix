@@ -98,7 +98,7 @@
         (mkDevShellJdk "jdk8" { jdk = pkgs: pkgs.jdk8; })
         (mkDevShellJdk "jdk11" { jdk = pkgs: pkgs.jdk11; })
         (mkDevShellJdk "jdk15" { jdk = pkgs: pkgs.jdk15; })
-        (mkDevShellJdk "jdk17" { jdk = pkgs: pkgs.jdk17_headless; })
+        (mkDevShellJdk "jdk17" { jdk = pkgs: pkgs.jdk17; })
 
         (mkDevShellPhp "php74" { phpVersion = "74"; })
         (mkDevShellPhp "php80" { phpVersion = "80"; })
