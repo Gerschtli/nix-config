@@ -102,6 +102,7 @@
 
         (mkDevShellPhp "php74" { phpVersion = "74"; })
         (mkDevShellPhp "php80" { phpVersion = "80"; })
+        (mkDevShellPhp "php81" { phpVersion = "81"; })
       ];
 
       formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;

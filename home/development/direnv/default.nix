@@ -6,7 +6,7 @@ let
   cfg = config.custom.development.direnv;
 
   # FIXME: fetch names of devShells dynamically
-  devShells = [ "jdk8" "jdk11" "jdk15" "jdk17" "php74" "php80" ];
+  devShells = [ "jdk8" "jdk11" "jdk15" "jdk17" "php74" "php80" "php81" ];
 in
 
 {

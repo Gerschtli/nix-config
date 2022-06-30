@@ -40,6 +40,8 @@ jobs:
             system: x86_64
           - nix-command: develop .#php80 --profile profile
             system: x86_64
+          - nix-command: develop .#php81 --profile profile
+            system: x86_64
 
           - nix-command: build .#homeConfigurations."tobias@gamer".activationPackage
             system: x86_64
