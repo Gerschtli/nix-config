@@ -1,9 +1,11 @@
 revert() {
+    xset s off
     xset -dpms
 }
 
 trap revert HUP INT TERM
-xset +dpms dpms 3 3 3
+xset s 5
+xset +dpms
 
 @lockCommand@
 
