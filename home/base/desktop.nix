@@ -3,6 +3,16 @@ with lib;
 
 let
   cfg = config.custom.base.desktop;
+
+  chrome = pkgs.runCommand "chrome-wrapped" { } ''
+    . ${pkgs.makeWrapper}/nix-support/setup-hook
+
+    mkdir -p "${placeholder "out"}/bin"
+    ln -sn "${pkgs.google-chrome}/bin/google-chrome-stable" "${placeholder "out"}/bin/google-chrome-stable"
+
+    # to fix scaling issues on 1440p monitors
+    wrapProgram "${placeholder "out"}/bin/google-chrome-stable" --add-flags "--force-device-scale-factor=1 --high-dpi-support=1"
+  '';
 in
 
 {
@@ -44,9 +54,9 @@ in
     };
 
     home.packages = with pkgs; [
+      chrome
       gh
       gimp
-      google-chrome
       libreoffice
       nomacs
       pdftk
