@@ -32,7 +32,7 @@ in
           bold.family = "UbuntuMono Nerd Font";
           italic.family = "UbuntuMono Nerd Font";
           bold_italic.family = "UbuntuMono Nerd Font";
-          size = 7;
+          size = 9;
         };
 
         colors = {
