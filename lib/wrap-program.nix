@@ -15,7 +15,7 @@
 
         # desktop entry
         mkdir -p "${placeholder "out"}/share/applications"
-        sed -e "s|Exec=.*$|Exec=${placeholder "out"}/bin/${name}|" \
+        sed -e "s|Exec=${source + path}|Exec=${placeholder "out"}/bin/${name}|" \
           "${source}/share/applications/${desktopFileName}.desktop" \
           > "${placeholder "out"}/share/applications/${desktopFileName}.desktop"
 
