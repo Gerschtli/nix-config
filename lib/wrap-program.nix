@@ -1,8 +1,8 @@
 { lib, pkgs }:
 
 {
-  wrapProgram = { name, source, path, pathsToLink ? [ ], packages }:
-    if packages == [ ]
+  wrapProgram = { name, desktopFileName ? name, source, path, pathsToLink ? [ ], packages ? [ ], flags ? [ ] }:
+    if packages == [ ] && flags == [ ]
     then source
     else
       pkgs.runCommand "${name}-wrapped" { } ''
@@ -16,9 +16,11 @@
         # desktop entry
         mkdir -p "${placeholder "out"}/share/applications"
         sed -e "s|Exec=.*$|Exec=${placeholder "out"}/bin/${name}|" \
-          "${source}/share/applications/${name}.desktop" \
-          > "${placeholder "out"}/share/applications/${name}.desktop"
+          "${source}/share/applications/${desktopFileName}.desktop" \
+          > "${placeholder "out"}/share/applications/${desktopFileName}.desktop"
 
-        wrapProgram "${placeholder "out"}/${path}" --prefix PATH : "${lib.makeBinPath packages}"
+        wrapProgram "${placeholder "out"}/${path}" \
+          ${lib.optionalString (packages != []) ''--prefix PATH : "${lib.makeBinPath packages}"''} \
+          ${lib.optionalString (flags != []) ''--add-flags "${toString flags}"''}
       '';
 }

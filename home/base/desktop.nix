@@ -4,15 +4,17 @@ with lib;
 let
   cfg = config.custom.base.desktop;
 
-  chrome = pkgs.runCommand "chrome-wrapped" { } ''
-    . ${pkgs.makeWrapper}/nix-support/setup-hook
-
-    mkdir -p "${placeholder "out"}/bin"
-    ln -sn "${pkgs.google-chrome}/bin/google-chrome-stable" "${placeholder "out"}/bin/google-chrome-stable"
-
-    # to fix scaling issues on 1440p monitors
-    wrapProgram "${placeholder "out"}/bin/google-chrome-stable" --add-flags "--force-device-scale-factor=1 --high-dpi-support=1"
-  '';
+  # to fix scaling issues on 1440p monitors
+  chrome = config.lib.custom.wrapProgram {
+    name = "google-chrome-stable";
+    desktopFileName = "google-chrome";
+    source = pkgs.google-chrome;
+    path = "/bin/google-chrome-stable";
+    flags = [
+      "--force-device-scale-factor=1"
+      "--high-dpi-support=1"
+    ];
+  };
 in
 
 {
