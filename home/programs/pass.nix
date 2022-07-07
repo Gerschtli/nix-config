@@ -10,7 +10,7 @@ let
 
   package = pkgs.pass.overrideAttrs (old: {
     postBuild = ''
-      sed -i -e 's@ dmenu @ ${dmenuCmd} @g' contrib/dmenu/passmenu
+      sed -i -e 's@"$dmenu"@${dmenuCmd}@' contrib/dmenu/passmenu
     '';
   });
 in
