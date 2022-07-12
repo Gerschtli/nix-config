@@ -264,6 +264,8 @@ in
 
         i18n.logOutputEncoding = "utf8";
 
+        init.defaultBranch = "master";
+
         interactive.singlekey = false;
 
         log.date = "iso";
