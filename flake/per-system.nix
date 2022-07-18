@@ -31,8 +31,6 @@ let
 
       gerschtli = prev.lib.composeManyExtensions gerschtliOverlays final prev;
     })
-
-    inputs.statix.overlay
   ];
 
   pkgs = import inputs.nixpkgs {
