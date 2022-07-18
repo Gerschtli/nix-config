@@ -66,6 +66,8 @@ jobs:
 
       - name: Install nix
         uses: cachix/install-nix-action@v17
+        with:
+          install_url: "https://releases.nixos.org/nix/nix-2.9.2/install"
 
       - name: Setup cachix
         uses: cachix/cachix-action@v10
@@ -95,7 +97,7 @@ jobs:
             export USER=root
 
             echo "::group::Install nix"
-            sh <(curl -L https://nixos.org/nix/install) --no-channel-add
+            sh <(curl -L https://releases.nixos.org/nix/nix-2.9.2/install) --no-channel-add
             . ${HOME}/.nix-profile/etc/profile.d/nix.sh
 
             echo "::group::Setup cachix"

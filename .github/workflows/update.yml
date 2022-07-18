@@ -19,6 +19,8 @@ jobs:
 
       - name: Install nix
         uses: cachix/install-nix-action@v17
+        with:
+          install_url: "https://releases.nixos.org/nix/nix-2.9.2/install"
 
       - name: Update inputs
         run: nix flake update
