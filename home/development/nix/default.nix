@@ -9,7 +9,7 @@ let
     config.lib.custom.mkScript
       name
       ./build-with-diff.sh
-      [ pkgs.gnugrep pkgs.gnused ]
+      [ pkgs.nvd ]
       {
         inherit (config.home) homeDirectory;
         inherit activeLinkPath command;

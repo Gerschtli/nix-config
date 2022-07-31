@@ -38,7 +38,7 @@ _pull_changes() {
 _show_result_diff() {
     echo
 
-    nix store diff-closures "${1}" ./result
+    nvd diff "${1}" ./result
 
     rm result
 }

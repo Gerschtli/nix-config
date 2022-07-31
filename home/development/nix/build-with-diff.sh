@@ -2,6 +2,6 @@
 
 echo
 
-nix store diff-closures @activeLinkPath@ ./result
+nvd diff @activeLinkPath@ ./result
 
 rm result
