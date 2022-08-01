@@ -49,7 +49,7 @@ in
     experimental-features = nix-command flakes
   '';
 
-  system.stateVersion = "21.11";
+  system.stateVersion = "22.05";
 
   time.timeZone = "Europe/Berlin";
 
