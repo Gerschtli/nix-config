@@ -124,13 +124,19 @@ fi
 
 _migration_remove "${HOME}/.ssh/id_rsa"
 _migration_remove "${HOME}/.ssh/id_rsa.pub"
+_migration_remove "${HOME}/.ssh/known_hosts.old"
 _migration_remove "${HOME}/.gnupg-setup" 1
+_migration_remove "/etc/nixos/configuration.nix" 1
+_migration_remove "/etc/nixos/hardware-configuration.nix" 1
 
 mapfile -t to_be_removed_pkgs < <(nix-env -q --json | jq -r ".[].pname" | grep -Ev '^(home-manager|nix-on-droid)-path$')
 if [[ "${#to_be_removed_pkgs[@]}" -ne 0 ]]; then
     _log "migration" "remove manual installed packages via nix-env"
     nix-env --uninstall "${to_be_removed_pkgs[@]}"
 fi
+
+_log "migration" "remove channel setup"
+rm -vr "/nix/var/nix/profiles/per-user/${USER}/channels"* || :
 
 
 # nix cleanup
