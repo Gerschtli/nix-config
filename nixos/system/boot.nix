@@ -14,7 +14,7 @@ in
 
     custom.system.boot = {
       mode = mkOption {
-        type = types.enum [ "efi" "grub" "raspberry" ];
+        type = types.enum [ "efi" "grub" "oracle" "raspberry" ];
         description = ''
           Sets mode for boot options.
         '';
@@ -63,7 +63,15 @@ in
           inherit (cfg) device;
 
           enable = true;
-          version = 2;
+        };
+      }
+    )
+
+    (mkIf (cfg.mode == "oracle")
+      {
+        boot.loader.grub = {
+          efiSupport = true;
+          device = "nodev";
         };
       }
     )

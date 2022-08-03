@@ -16,7 +16,7 @@ in
       enable = mkEnableOption "basic config" // { default = true; };
 
       hostname = mkOption {
-        type = types.enum [ "krypton" "neon" "xenon" ];
+        type = types.enum [ "argon" "krypton" "neon" "xenon" ];
         description = "Host name.";
       };
     };

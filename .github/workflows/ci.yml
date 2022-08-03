@@ -51,6 +51,8 @@ jobs:
           - nix-command: build .#nixOnDroidConfigurations.oneplus5.activationPackage --impure
             system: aarch64
 
+          - nix-command: build .#nixosConfigurations.argon.config.system.build.toplevel
+            system: aarch64
           - nix-command: build .#nixosConfigurations.krypton.config.system.build.toplevel
             system: x86_64
           - nix-command: build .#nixosConfigurations.neon.config.system.build.toplevel

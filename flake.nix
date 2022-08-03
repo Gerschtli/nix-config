@@ -56,6 +56,7 @@
       ];
 
       nixosConfigurations = listToAttrs [
+        (mkNixos "aarch64-linux" "argon")
         (mkNixos "x86_64-linux" "krypton")
         (mkNixos "x86_64-linux" "neon")
         (mkNixos "aarch64-linux" "xenon")

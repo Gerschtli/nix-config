@@ -17,6 +17,7 @@ This is my humble flakes-only collection of all and everything needed to set up 
 ## Supported configurations
 
 * [NixOS][nixos]-managed
+  * `argon` (Oracle Cloud Compute Instance)
   * `krypton` (private server)
   * `neon` (private laptop)
   * `xenon` (Raspberry Pi 3B+)
@@ -77,10 +78,31 @@ echo "fs.inotify.max_user_watches = 524288" | sudo tee /etc/sysctl.d/local.conf
 sudo ln -snf bash /bin/sh
 ```
 
+#### Oracle Cloud ARM Compute Instance
+
+1. Create "VM.Standard.A1.Flex"
+   1. with Ubuntu 20.04
+   1. 4 OCPUs and 24 GB of memory
+   1. set ssh public key
+1. ssh into instance with `ubuntu` user
+1. Login as `root`
+1. Set ssh public key in `/root/.ssh/authorized_keys`
+1. Run [nixos-infect][nixos-infect] like
+   ```sh
+   curl https://raw.githubusercontent.com/elitak/nixos-infect/master/nixos-infect | NIX_CHANNEL=nixos-22.05 bash -x
+   ```
+1. ssh into instance with `root` user
+1. Run setup script like
+   ```sh
+   nix run --extra-experimental-features flakes --extra-experimental-features nix-command github:Gerschtli/nix-config#setup
+   ```
+
 ## TODOs
 
 As I am currently transitioning to a flake setup, there is still some stuff to do :)
 
+* [ ] NixOS setup script: `/run/user/1000` is not created and `/home/tobias/.age` is missing
+* [ ] git diff "age" fails when not able to decrypt
 * [ ] Add functionality to apply patches to individual inputs (EDIT: non-trivial because `builtins.getFlake` does not
   accept paths to `/nix/store`..)
 * [ ] Let all servers fetch latest version of this repo regularly and apply configuration
@@ -91,7 +113,6 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 * [ ] [systemd-boot-builder.py][systemd-boot-builder.py] does not clean up boot loader entries of specialisations, try
   to improve this script
 
-
 [age]: https://age-encryption.org/
 [agenix]: https://github.com/ryantm/agenix
 [cachix]: https://www.cachix.org/
@@ -99,6 +120,7 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 [home-manager]: https://github.com/nix-community/home-manager
 [homeage]: https://github.com/jordanisaacs/homeage
 [nix-on-droid]: https://github.com/t184256/nix-on-droid
+[nixos-infect]: https://github.com/elitak/nixos-infect
 [nixos-manual]: https://nixos.org/manual/nixos/stable/index.html#sec-installation
 [nixos]: https://nixos.org/
 [nixpkgs-fmt]: https://github.com/nix-community/nixpkgs-fmt

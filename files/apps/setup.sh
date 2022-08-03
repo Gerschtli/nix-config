@@ -90,10 +90,16 @@ fi
 
 # installation
 if _is_nixos && _is_root; then
-    hostname=$(_read_enum "Enter hostname" krypton neon xenon)
+    hostname=$(_read_enum "Enter hostname" argon krypton neon xenon)
 
     _log "Run nixos-rebuild switch..."
-    nixos-rebuild switch --keep-going --flake "${nix_config}#${hostname}"
+    nixos-rebuild switch --keep-going --flake "${nix_config}#${hostname}" || :
+
+    _log "Set password for root..."
+    passwd root
+
+    _log "Set password for tobias..."
+    passwd tobias
 elif [[ "${USER}" == "nix-on-droid" ]]; then
     _log "Run nix-on-droid switch..."
     nix-on-droid switch --flake "${nix_config}#oneplus5"
