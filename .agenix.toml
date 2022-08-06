@@ -48,6 +48,10 @@ glob = "secrets/ssh/sedo/*"
 identities = [ "bak", "M386-tobhap" ]
 
 [[paths]]
+glob = "secrets/argon/*"
+identities = [ "bak", "argon-root" ]
+
+[[paths]]
 glob = "secrets/krypton/*"
 identities = [ "bak", "krypton-root" ]
 

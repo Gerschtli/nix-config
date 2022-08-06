@@ -24,6 +24,7 @@ in
       type = types.listOf (types.enum [
         "gitea-dbpassword"
         "id-rsa-backup"
+        "mysql-backup-password"
         "teamspeak-serverquery-password"
       ]);
       default = [ ];
@@ -52,6 +53,12 @@ in
           name = "id-rsa-backup";
           host = "xenon";
           user = "storage";
+        })
+
+        (buildConfig {
+          name = "mysql-backup-password";
+          host = "argon";
+          user = "backup";
         })
 
         (buildConfig {

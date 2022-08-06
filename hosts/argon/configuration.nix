@@ -2,9 +2,15 @@
 
 {
   custom = {
+    applications.original-chattengauer.enable = true;
+
     base.server.enable = true;
 
-    services.openssh.enable = true;
+    services = {
+      backup.enable = true;
+
+      openssh.enable = true;
+    };
 
     system.boot.mode = "oracle";
   };
