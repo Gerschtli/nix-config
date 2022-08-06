@@ -127,15 +127,14 @@ in
                 mkdir -p ${location}
                 chmod 0750 ${location}
               '';
-              # TODO: remove support for *.gpg files
               script = ''
                 cd ${location}
                 ${service.script}
 
-                find ${location} -type f -not -iname "*.age" -not -iname "*.gpg" -exec ${pkgs.age}/bin/age \
+                find ${location} -type f -not -iname "*.age" -exec ${pkgs.age}/bin/age \
                   --encrypt --recipient "${ageKey}" --output {}.age {} \;
 
-                find ${location} -type f -not -iname "*.age" -not -iname "*.gpg" -exec rm -r {} \+
+                find ${location} -type f -not -iname "*.age" -exec rm -r {} \+
                 find ${location} -mtime +${toString service.expiresAfter} -exec rm -r {} \+
               '';
             }
