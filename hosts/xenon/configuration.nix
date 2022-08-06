@@ -11,6 +11,10 @@
       expiresAfter = 90;
       server = [
         {
+          name = "argon";
+          ip = "132.145.246.91";
+        }
+        {
           name = "krypton";
           ip = "195.201.88.53";
         }
