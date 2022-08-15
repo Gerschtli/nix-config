@@ -60,6 +60,11 @@ jobs:
           - nix-command: build .#nixosConfigurations.xenon.config.system.build.toplevel
             system: aarch64
 
+          - nix-command: build .#rpi-firmware
+            system: aarch64
+          - nix-command: build .#rpi-image
+            system: aarch64
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3

@@ -41,7 +41,7 @@ $ nix run github:Gerschtli/nix-config#setup
 * NixOS-managed systems should be set up like written in the [NixOS manual][nixos-manual].
 * For the Raspberry Pi use the provided script in [misc/sd-image.nix](misc/sd-image.nix) to create the sd-card image.
 
-### Manual instructions for non-NixOS systems
+### Manual instructions for some systems
 
 #### nix-on-droid
 
@@ -50,6 +50,32 @@ mkdir -p ~/.config/nix
 echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
 nix-shell -p nix --run "nix run github:Gerschtli/nix-config#setup"
 ```
+
+#### Raspberry Pi
+
+1. Build image
+   ```sh
+   nix build ".#rpi-image"
+   ```
+1. Copy (`dd`) `result/sd-image/*.img` to sd-card
+1. Mount sd-card and run
+   ```sh
+   wpa_passphrase ESSID PSK > /mnt/etc/wpa_supplicant.conf
+   ```
+1. Unmount, inject sd-card in raspberry and boot
+
+##### Update firmware
+
+Firmware of Raspberry Pi needs to be updated manually on a regular basis with the following steps:
+
+1. Build firmware
+   ```sh
+   nix build ".#rpi-firmware"
+   ```
+1. Mount `/dev/disk/by-label/FIRMWARE`
+1. Create backup of all files
+1. Copy `result/*` to firmware partition (ensure that old ones are deleted)
+1. Unmount and reboot
 
 #### Ubuntu 20.04
 
@@ -106,7 +132,6 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 * [ ] Add functionality to apply patches to individual inputs (EDIT: non-trivial because `builtins.getFlake` does not
   accept paths to `/nix/store`..)
 * [ ] Let all servers fetch latest version of this repo regularly and apply configuration
-* [ ] Flakify scripts in [misc](misc)
 * [ ] Provide ISO-images for NixOS configurations
 * [ ] Set up nixos-shell and similar for an ubuntu image to easily test setup script
 * [ ] Fix homeage: age files are not gcroots + home-manager service fails on system startup

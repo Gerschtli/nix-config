@@ -1,21 +1,32 @@
-# Build latest firmware for raspberry pi
-# 1. Build
-#       nix-build "<nixpkgs/nixos>" -I nixos-config=misc/build-firmware.nix -A config.system.build.firmware
-# 2. Mount /dev/disk/by-label/FIRMWARE
-# 3. Create backup of all files
-# 4. Copy result/* to firmware partition (ensure that old ones are deleted)
-# 5. Unmount and reboot
+{ nixpkgs }:
 
-{ config, pkgs, ... }:
+let
+  configuration =
+    { config, pkgs, modulesPath, ... }:
 
-{
-  imports = [ ./sd-image.nix ];
+    {
+      imports = [
+        (modulesPath + "/installer/sd-card/sd-image-aarch64.nix")
+      ];
 
-  system.build.firmware = pkgs.runCommand "firmware" { } ''
-    mkdir firmware ${placeholder "out"}
+      system = {
+        build.firmware = pkgs.runCommand "firmware" { } ''
+          mkdir firmware ${placeholder "out"}
 
-    ${config.sdImage.populateFirmwareCommands}
+          ${config.sdImage.populateFirmwareCommands}
 
-    cp -r firmware/* ${placeholder "out"}
-  '';
-}
+          cp -r firmware/* ${placeholder "out"}
+        '';
+
+        stateVersion = "22.05";
+      };
+    };
+
+  evaluatedConfig = nixpkgs.lib.nixosSystem {
+    system = "aarch64-linux";
+
+    modules = [ configuration ];
+  };
+in
+
+evaluatedConfig.config.system.build.firmware

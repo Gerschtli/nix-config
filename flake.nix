@@ -37,9 +37,9 @@
 
   outputs = { self, nixpkgs, ... } @ inputs:
     let
+      rootPath = ./.;
       flakeLib = import ./flake {
-        inherit inputs;
-        rootPath = ./.;
+        inherit inputs rootPath;
       };
 
       inherit (nixpkgs.lib) listToAttrs;
@@ -105,5 +105,10 @@
       ];
 
       formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
+
+      packages = {
+        rpi-firmware = import ./files/nix/rpi-firmware.nix { inherit nixpkgs; };
+        rpi-image = import ./files/nix/rpi-image.nix { inherit nixpkgs rootPath; };
+      };
     });
 }
