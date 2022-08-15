@@ -128,7 +128,6 @@ sudo ln -snf bash /bin/sh
 As I am currently transitioning to a flake setup, there is still some stuff to do :)
 
 * [ ] NixOS setup script: `/run/user/1000` is not created and `/home/tobias/.age` is missing
-* [ ] git diff "age" fails when not able to decrypt
 * [ ] Add functionality to apply patches to individual inputs (EDIT: non-trivial because `builtins.getFlake` does not
   accept paths to `/nix/store`..)
 * [ ] Let all servers fetch latest version of this repo regularly and apply configuration

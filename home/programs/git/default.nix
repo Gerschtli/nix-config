@@ -240,7 +240,14 @@ in
           renames = "copies";
           tool = "nvim";
 
-          age.textconv = "${pkgs.age}/bin/age --identity ${config.home.homeDirectory}/.age/key.txt --decrypt";
+          age.textconv = toString (
+            config.lib.custom.mkScriptPlain
+              "age-textconv"
+              ./age-textconv.sh
+              [ pkgs.age ]
+              { HOME = config.home.homeDirectory; }
+          );
+
           gpg.textconv = "${pkgs.gnupg}/bin/gpg --use-agent -q --batch --decrypt";
         };
 
