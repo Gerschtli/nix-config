@@ -29,7 +29,14 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.services.openssh.enable = true;
+    custom.services = {
+      openssh.enable = true;
+
+      update = {
+        enable = true;
+        interval = "Mon *-*-* 10:00:00";
+      };
+    };
 
     networking = mkIf (cfg.ipv6Address != null) {
       defaultGateway6 = {
