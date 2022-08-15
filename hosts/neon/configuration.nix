@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 
 {
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   boot.kernelPackages = pkgs.linuxKernel.packageAliases.linux_latest;
 
   custom = {
