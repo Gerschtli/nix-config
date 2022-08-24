@@ -106,22 +106,53 @@ sudo ln -snf bash /bin/sh
 
 #### Oracle Cloud ARM Compute Instance
 
-1. Create "VM.Standard.A1.Flex"
-   1. with Ubuntu 20.04
-   1. 4 OCPUs and 24 GB of memory
-   1. set ssh public key
-1. ssh into instance with `ubuntu` user
-1. Login as `root`
-1. Set ssh public key in `/root/.ssh/authorized_keys`
-1. Run [nixos-infect][nixos-infect] like
-   ```sh
-   curl https://raw.githubusercontent.com/elitak/nixos-infect/master/nixos-infect | NIX_CHANNEL=nixos-22.05 bash -x
-   ```
-1. ssh into instance with `root` user
-1. Run setup script like
-   ```sh
-   nix run --extra-experimental-features flakes --extra-experimental-features nix-command github:Gerschtli/nix-config#setup
-   ```
+1. Create final boot volume
+   1. Create any instance
+   1. Detach boot volume
+1. Create bootstrap instance
+   1. Create "VM.Standard.A1.Flex"
+      1. with Ubuntu 20.04
+      1. 1 OCPUs and 6 GB of memory
+      1. set ssh public key
+      1. Attach previously created boot volume as block volume (via ISCSI)
+   1. ssh into instance with `ubuntu` user
+   1. Login as `root`
+   1. Set ssh public key in `/root/.ssh/authorized_keys` and run [nixos-infect][nixos-infect]:
+      ```sh
+      cat /home/ubuntu/.ssh/authorized_keys > /root/.ssh/authorized_keys
+      curl https://raw.githubusercontent.com/elitak/nixos-infect/master/nixos-infect | NIX_CHANNEL=nixos-22.05 bash -x
+      ```
+   1. ssh into instance with `root` user
+   1. Add the following to `/etc/nixos/configuration.nix`:
+      ```nix
+      {
+        boot.loader.grub.efiSupport = true;
+        boot.loader.grub.device = "nodev";
+        services.openiscsi.enable = true;
+        services.openiscsi.name = "x";
+      }
+      ```
+   1. Activate with `nixos-rebuild switch`
+   1. Copy and run ISCSI mount commands from Oracle Cloud WebUI
+   1. Install NixOS like described in [NixOS manual][nixos-manual] with following options:
+      ```nix
+      {
+        services.openssh.enable = true;
+        services.openssh.permitRootLogin = "yes";
+      }
+      ```
+   1. Copy and run ISCSI unmount commands from Oracle Cloud WebUI
+   1. Detach volume in Oracle Cloud WebUI
+1. Create final instance
+   1. Create instance of previously created boot volume
+   1. ssh into instance with `root` user and password
+   1. Run setup script like
+      ```sh
+      nix run --extra-experimental-features flakes --extra-experimental-features nix-command github:Gerschtli/nix-config#setup
+      ```
+
+**Note:** This is all needed to be able to partition the volume to have more than 100MB available in `/boot`. The boot
+volume of the bootstrap instance can be reused at any time.
 
 ## TODOs
 
