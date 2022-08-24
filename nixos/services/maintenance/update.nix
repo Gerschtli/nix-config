@@ -50,7 +50,7 @@ in
           LAST_GENERATION="$(${pkgs.coreutils}/bin/readlink -f /nix/var/nix/profiles/system)"
 
           ${pkgs.nix}/bin/nix flake update "${location}"
-          ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake "${location}"
+          ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake "${location}" || :
 
           DIFF="$(${pkgs.nvd}/bin/nvd diff "$LAST_GENERATION" /nix/var/nix/profiles/system)"
 
