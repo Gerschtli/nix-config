@@ -12,7 +12,7 @@
       server = [
         {
           name = "argon";
-          ip = "132.145.246.91";
+          ip = "141.147.62.247";
         }
         {
           name = "krypton";

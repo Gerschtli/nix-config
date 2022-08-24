@@ -12,7 +12,7 @@
       openssh.enable = true;
     };
 
-    system.boot.mode = "oracle";
+    system.boot.mode = "efi";
   };
 
   zramSwap.enable = true;
