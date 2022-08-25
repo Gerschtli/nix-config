@@ -52,6 +52,7 @@
   home = {
     packages = with pkgs; [
       dbeaver
+      gitflow
       kubectl
       mariadb.client
       minikube
