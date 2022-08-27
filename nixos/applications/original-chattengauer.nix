@@ -6,6 +6,8 @@ let
   cfg = config.custom.applications.original-chattengauer;
 
   location = "/var/lib/original-chattengauer/app";
+  httpdPort = 8080;
+  domain = "original-chattengauer.de";
 in
 
 {
@@ -14,7 +16,7 @@ in
 
   options = {
 
-    custom.applications.original-chattengauer.enable = mkEnableOption "original-chattengauer.de";
+    custom.applications.original-chattengauer.enable = mkEnableOption domain;
 
   };
 
@@ -23,50 +25,75 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.services = {
-      backup.services.oc-uploads = {
-        description = "Uploads of original_chattengauer.de";
-        interval = "Tue *-*-* 03:00:00";
-        expiresAfter = 28;
-
-        script = ''
-          ${pkgs.gnutar}/bin/tar --xz -cpf oc-uploads-$(date +%s).tar.xz -C ${location} uploads
-        '';
-
-        extraOptions = {
-          path = [ pkgs.xz ];
-        };
+    containers.oc = {
+      autoStart = true;
+      bindMounts.${location} = {
+        hostPath = location;
+        isReadOnly = false;
       };
 
-      httpd.enable = true;
+      config =
+        { pkgs, ... }:
+        {
+          services.httpd = {
+            enable = true;
+            adminAddr = "tobias.happ@gmx.de";
+            enablePHP = true;
+            phpPackage = pkgs.php74;
+            extraModules = [ "rewrite" ];
 
-      mysql = {
-        enable = true;
-        backups = [ "original_chattengauer" ];
+            virtualHosts.${domain} = {
+              documentRoot = location;
+              locations."/".index = "index.php";
+              listen = [{ port = httpdPort; }];
+
+              extraConfig = ''
+                <Directory "${location}">
+                  AllowOverride All
+                </Directory>
+              '';
+            };
+          };
+
+          system = { inherit (config.system) stateVersion; };
+        };
+    };
+
+    custom = {
+      services = {
+        backup.services.oc-uploads = {
+          description = "Uploads of ${domain}";
+          interval = "Tue *-*-* 03:00:00";
+          expiresAfter = 28;
+
+          script = ''
+            ${pkgs.gnutar}/bin/tar --xz -cpf oc-uploads-$(date +%s).tar.xz -C ${location} uploads
+          '';
+
+          extraOptions = {
+            path = [ pkgs.xz ];
+          };
+        };
+
+        mysql = {
+          enable = true;
+          backups = [ "original_chattengauer" ];
+        };
+
+        nginx.enable = true;
       };
     };
 
+    security.acme.certs.${domain}.extraDomainNames = [ "www.${domain}" ];
+
     services = {
-      httpd = {
-        enablePHP = true;
-        phpPackage = pkgs.php74;
-        extraModules = [ "rewrite" ];
-
-        virtualHosts."original-chattengauer.de" = {
-          #enableACME = true;
-          #forceSSL = true;
-          documentRoot = location;
-          locations."/".index = "index.php";
-
-          extraConfig = ''
-            <Directory "${location}">
-              AllowOverride All
-            </Directory>
-          '';
-        };
-      };
-
       mysql.package = mkForce pkgs.mysql57;
+
+      nginx.virtualHosts.${domain} = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/".proxyPass = "http://127.0.0.1:${toString httpdPort}/";
+      };
     };
 
   };
