@@ -136,7 +136,7 @@ if [[ "${#to_be_removed_pkgs[@]}" -ne 0 ]]; then
 fi
 
 _log "migration" "remove channel setup"
-rm -vr "/nix/var/nix/profiles/per-user/${USER}/channels"* || :
+rm -vr "/nix/var/nix/profiles/per-user/${USER}/channels"* 2> /dev/null || :
 
 
 # nix cleanup
