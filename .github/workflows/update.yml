@@ -22,9 +22,6 @@ jobs:
         with:
           install_url: "https://releases.nixos.org/nix/nix-2.9.2/install"
 
-      - name: Update inputs
-        run: nix flake update
-
       - name: Set branch name output
         id: branch
         run: echo "::set-output name=branch::ci/automatic-update-$(date +%Y-%m-%d)"
@@ -32,14 +29,16 @@ jobs:
       - name: Create branch locally
         run: git switch -c ${{ steps.branch.outputs.branch }}
 
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        id: commit
-        with:
-          commit_author: Tobias Happ <tobias.happ@gmx.de>
-          commit_message: "flake.inputs: automatic update"
-          branch: ${{ steps.branch.outputs.branch }}
-          push_options: --force
+      - name: Setup git
+        run: |
+          git config --global user.email "tobias.happ@gmx.de"
+          git config --global user.name "Tobias Happ"
+
+      - name: Update inputs
+        run: "nix --option commit-lockfile-summary 'flake.inputs: automatic update' flake update --commit-lock-file"
+
+      - name: Push changes
+        run: git push --force origin ${{ steps.branch.outputs.branch }}
 
   build:
     uses: ./.github/workflows/ci.yml
