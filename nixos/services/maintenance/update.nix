@@ -44,6 +44,7 @@ in
           USER = "root";
         };
         path = [ pkgs.git pkgs.nix ];
+        restartIfChanged = false;
         script = ''
           set -euo pipefail
 
