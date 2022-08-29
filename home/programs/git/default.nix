@@ -159,6 +159,7 @@ in
         mma = "merge origin/master";
         rma = "rebase origin/master";
         rup = "rebase upstream/master";
+        sde = externGitAlias "git switch develop && git rebase origin/develop";
         sma = externGitAlias "git switch master && git rebase origin/master";
 
         aliases = ''config --get-regexp "^alias"'';
