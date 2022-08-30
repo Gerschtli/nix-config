@@ -25,6 +25,8 @@ let
       inherit (unstable)
         # need bleeding edge version
         jetbrains
+        minecraft-server
+        minecraftServers
         portfolio
         teamspeak_server
         ;

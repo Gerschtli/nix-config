@@ -9,6 +9,8 @@
     services = {
       backup.enable = true;
 
+      minecraft-server.enable = true;
+
       openssh.enable = true;
     };
 
