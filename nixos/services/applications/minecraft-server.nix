@@ -30,15 +30,10 @@ in
       script =
         let
           inherit (config.services.minecraft-server) dataDir;
-          basename = baseNameOf dataDir;
         in
 
         ''
-          ${pkgs.gnutar}/bin/tar \
-            --exclude="${basename}/libraries" \
-            --exclude="${basename}/logs" \
-            --exclude="${basename}/versions" \
-            -cpzf minecraft-server-$(date +%s).tar.gz -C ${dirOf dataDir} ${basename}
+          ${pkgs.gnutar}/bin/tar -cpzf minecraft-server-$(date +%s).tar.gz -C ${dirOf dataDir} ${baseNameOf dataDir}
         '';
 
       extraOptions = {
