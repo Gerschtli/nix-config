@@ -46,6 +46,8 @@ in
       enable = mkEnableOption "basic config" // { default = true; };
 
       lightWeight = mkEnableOption "light weight config for low performance hosts";
+
+      minimal = mkEnableOption "minimal config";
     };
 
   };
@@ -53,72 +55,79 @@ in
 
   ###### implementation
 
-  config = mkIf cfg.enable {
+  config = mkIf cfg.enable (mkMerge [
 
-    custom = {
-      misc.util-bins.enable = true;
-
-      programs = {
+    {
+      custom.programs = {
         bash.enable = true;
-        git.enable = true;
         htop.enable = true;
         neovim.enable = true;
-        nnn.enable = true;
         prompts = {
           liquidprompt.enable = mkIf (!cfg.lightWeight) true;
           pure.enable = mkIf cfg.lightWeight true;
         };
-        rsync.enable = true;
-        ssh = {
-          enable = true;
-          modules = [ "vcs" ];
-        };
         tmux.enable = true;
         zsh.enable = true;
       };
-    };
 
-    home = {
-      inherit sessionVariables;
+      home = {
+        inherit sessionVariables;
 
-      packages = with pkgs; [
-        bc
-        file
-        httpie
-        iotop
-        jq
-        mmv-go
-        nmap
-        ncdu
-        nload # network traffic monitor
-        pwgen
-        ripgrep
-        tree
-        wget
-        yq-go
+        packages = with pkgs; [
+          bc
+          file
+          httpie
+          iotop
+          jq
+          mmv-go
+          nmap
+          ncdu
+          nload # network traffic monitor
+          pwgen
+          ripgrep
+          tree
+          wget
+          yq-go
 
-        gzip
-        unzip
-        xz
-        zip
+          gzip
+          unzip
+          xz
+          zip
 
-        bind # dig
-        netcat
-        psmisc # killall
-        whois
-      ];
+          bind # dig
+          netcat
+          psmisc # killall
+          whois
+        ];
 
-      stateVersion = "22.05";
-    };
+        stateVersion = "22.05";
+      };
 
-    programs = {
-      fzf.enable = true;
-      home-manager.enable = true;
-    };
+      # FIXME: set to sd-switch once it works for krypton
+      systemd.user.startServices = "legacy";
+    }
 
-    # FIXME: set to sd-switch once it works for krypton
-    systemd.user.startServices = "legacy";
+    (mkIf (!cfg.minimal) {
+      custom = {
+        misc.util-bins.enable = true;
 
-  };
+        programs = {
+          git.enable = true;
+          nnn.enable = true;
+          rsync.enable = true;
+          ssh = {
+            enable = true;
+            modules = [ "vcs" ];
+          };
+        };
+      };
+
+      programs = {
+        fzf.enable = true;
+        home-manager.enable = true;
+      };
+    })
+
+  ]);
 
 }
