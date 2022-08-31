@@ -26,8 +26,7 @@
       url = "github:cole-h/agenix-cli";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # homeage.url = "github:jordanisaacs/homeage";
-    homeage.url = "github:Gerschtli/homeage/support-script";
+    homeage.url = "github:jordanisaacs/homeage";
 
     dmenu.url = "github:Gerschtli/dmenu";
     dwm.url = "github:Gerschtli/dwm";

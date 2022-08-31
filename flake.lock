@@ -165,16 +165,15 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1636555271,
-        "narHash": "sha256-zd+HYcZW3PBTKC0eEHhMUHPw/hBJWW+hBLibtA3hgnU=",
-        "owner": "Gerschtli",
+        "lastModified": 1661961620,
+        "narHash": "sha256-QVtWV395URpszYsHiMIYTmCyslSdSh0FT9XtP9XD2ek=",
+        "owner": "jordanisaacs",
         "repo": "homeage",
-        "rev": "b0112bb14610a397d5f033ca23e5fbff2095fe03",
+        "rev": "24017fd69931239da54325276f40de3f1d7b056a",
         "type": "github"
       },
       "original": {
-        "owner": "Gerschtli",
-        "ref": "support-script",
+        "owner": "jordanisaacs",
         "repo": "homeage",
         "type": "github"
       }
