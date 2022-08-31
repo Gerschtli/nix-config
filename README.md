@@ -163,7 +163,7 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
   accept paths to `/nix/store`..)
 * [ ] Provide ISO-images for NixOS configurations
 * [ ] Set up nixos-shell and similar for an ubuntu image to easily test setup script
-* [ ] Fix homeage: age files are not gcroots + home-manager service fails on system startup
+* [ ] Fix homeage: home-manager service fails on system startup
 * [ ] [systemd-boot-builder.py][systemd-boot-builder.py] does not clean up boot loader entries of specialisations, try
   to improve this script
 
