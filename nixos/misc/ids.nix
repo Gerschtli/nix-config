@@ -47,6 +47,7 @@ in
         teamspeak-update-notifier = 503;
 
         tobias = 1000;
+        steini = 1001;
       };
 
       gids = {
