@@ -13,8 +13,6 @@
 
     development.nix.nix-on-droid.enable = true;
 
-    misc.homeage.directory = "${config.xdg.dataHome}/secrets";
-
     programs = {
       shell.initExtra = ''
         if [ -z "''${SSH_AUTH_SOCK:-}" ]; then

@@ -42,7 +42,7 @@ in
 
       directory = mkOption {
         type = types.nullOr types.string;
-        default = null;
+        default = "${config.xdg.dataHome}/secrets";
         description = ''
           Directory to save secrets in. See <literal>homeage.mount</literal>.
         '';
@@ -67,7 +67,7 @@ in
       ];
 
       installationType = "activation";
-      mount = mkIf (cfg.directory != null) cfg.directory;
+      mount = cfg.directory;
 
       file = builtins.listToAttrs (
         map

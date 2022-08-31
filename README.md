@@ -158,12 +158,11 @@ volume of the bootstrap instance can be reused at any time.
 
 As I am currently transitioning to a flake setup, there is still some stuff to do :)
 
-* [ ] NixOS setup script: `/run/user/1000` is not created and `/home/tobias/.age` is missing
+* [ ] NixOS setup script: `/home/tobias/.age` is missing
 * [ ] Add functionality to apply patches to individual inputs (EDIT: non-trivial because `builtins.getFlake` does not
   accept paths to `/nix/store`..)
 * [ ] Provide ISO-images for NixOS configurations
 * [ ] Set up nixos-shell and similar for an ubuntu image to easily test setup script
-* [ ] Fix homeage: home-manager service fails on system startup
 * [ ] [systemd-boot-builder.py][systemd-boot-builder.py] does not clean up boot loader entries of specialisations, try
   to improve this script
 
