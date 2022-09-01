@@ -46,8 +46,8 @@ in
       eula = true;
       openFirewall = true;
       jvmOpts = concatStringsSep " " [
-        "-Xms4092M"
-        "-Xmx20480M"
+        "-Xms4G"
+        "-Xmx16G"
       ];
     };
 
