@@ -9,7 +9,7 @@ jobs:
 
     outputs:
       branch: ${{ steps.branch.outputs.branch }}
-      update_available: ${{ steps.commit.outputs.changes_detected }}
+      update_available: ${{ steps.changes.outputs.update_available }}
 
     steps:
       - name: Checkout repository
@@ -37,7 +37,17 @@ jobs:
       - name: Update inputs
         run: "nix --option commit-lockfile-summary 'flake.inputs: automatic update' flake update --commit-lock-file"
 
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --exit-code origin/master...; then
+            echo "::set-output name=update_available::false"
+          else
+            echo "::set-output name=update_available::true"
+          fi
+
       - name: Push changes
+        if: steps.changes.outputs.update_available == 'true'
         run: git push --force origin ${{ steps.branch.outputs.branch }}
 
   build:
