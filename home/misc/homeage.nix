@@ -8,19 +8,19 @@ let
   buildSshConfig = name: {
     path = "ssh-config-${name}";
     source = rootPath + "/secrets/ssh/${name}/config.age";
-    cpOnService = [ "${config.home.homeDirectory}/.ssh/config.d/${name}" ];
+    copies = [ "${config.home.homeDirectory}/.ssh/config.d/${name}" ];
   };
 
   buildSshKey = module: name: [
     {
       path = "ssh-key-${name}";
       source = rootPath + "/secrets/ssh/${module}/id-rsa-${name}.age";
-      cpOnService = [ "${config.home.homeDirectory}/.ssh/keys/id_rsa.${name}" ];
+      copies = [ "${config.home.homeDirectory}/.ssh/keys/id_rsa.${name}" ];
     }
     {
       path = "ssh-key-${name}-pub";
       source = rootPath + "/secrets/ssh/${module}/id-rsa-${name}-pub.age";
-      cpOnService = [ "${config.home.homeDirectory}/.ssh/keys/id_rsa.${name}.pub" ];
+      copies = [ "${config.home.homeDirectory}/.ssh/keys/id_rsa.${name}.pub" ];
     }
   ];
 in
@@ -77,12 +77,12 @@ in
               {
                 path = "sedo-aliases";
                 source = rootPath + "/secrets/M386/aliases.sh.age";
-                cpOnService = [ "${config.home.homeDirectory}/.aliases.sh" ];
+                copies = [ "${config.home.homeDirectory}/.aliases.sh" ];
               }
               {
                 path = "sedo-settings";
                 source = rootPath + "/secrets/M386/settings.xml.age";
-                cpOnService = [ "${config.home.homeDirectory}/.m2/settings.xml" ];
+                copies = [ "${config.home.homeDirectory}/.m2/settings.xml" ];
               }
             ])
             ++ (optional (elem "ssh-private" cfg.secrets) [

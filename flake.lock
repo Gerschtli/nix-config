@@ -165,11 +165,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1661961620,
-        "narHash": "sha256-QVtWV395URpszYsHiMIYTmCyslSdSh0FT9XtP9XD2ek=",
+        "lastModified": 1662242203,
+        "narHash": "sha256-fd8y/fgJ/QELcVysVAHBDc0/wQI6TuvAXCHNUbYuSVo=",
         "owner": "jordanisaacs",
         "repo": "homeage",
-        "rev": "24017fd69931239da54325276f40de3f1d7b056a",
+        "rev": "7d09b3e0256dc1fb82d5d5d3d4772a4459105b81",
         "type": "github"
       },
       "original": {
