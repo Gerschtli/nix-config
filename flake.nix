@@ -15,23 +15,43 @@
     };
     nix-on-droid = {
       url = "github:t184256/nix-on-droid";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
       inputs.home-manager.follows = "home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    agenix.url = "github:ryantm/agenix";
-    agenix-cli = {
-      url = "github:cole-h/agenix-cli";
+    agenix = {
+      url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    homeage.url = "github:jordanisaacs/homeage";
+    agenix-cli = {
+      url = "github:cole-h/agenix-cli";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    homeage = {
+      url = "github:jordanisaacs/homeage";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    dmenu.url = "github:Gerschtli/dmenu";
-    dwm.url = "github:Gerschtli/dwm";
-    dwm-status.url = "github:Gerschtli/dwm-status";
-    teamspeak-update-notifier.url = "github:Gerschtli/teamspeak-update-notifier";
+    dmenu = {
+      url = "github:Gerschtli/dmenu";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dwm = {
+      url = "github:Gerschtli/dwm";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dwm-status = {
+      url = "github:Gerschtli/dwm-status";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    teamspeak-update-notifier = {
+      url = "github:Gerschtli/teamspeak-update-notifier";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, ... } @ inputs:
