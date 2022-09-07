@@ -157,6 +157,7 @@ in
         tl = "tag --list -n";
 
         mma = "merge origin/master";
+        rde = "rebase origin/develop";
         rma = "rebase origin/master";
         rup = "rebase upstream/master";
         sde = externGitAlias "git switch develop && git rebase origin/develop";
