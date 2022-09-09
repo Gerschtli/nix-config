@@ -32,6 +32,9 @@ let
         ;
 
       gerschtli = prev.lib.composeManyExtensions gerschtliOverlays final prev;
+
+      # the only alias that I need, this allows me to set allowAliases=false
+      inherit (prev.stdenv.hostPlatform) system;
     })
   ];
 
@@ -44,9 +47,7 @@ in
   inherit pkgs;
 
   pkgsNixOnDroid = import inputs.nixpkgs {
-    inherit system;
-    # allowAliases is needed for nix-on-droid overlays (system <- stdenv.hostPlatform.system)
-    config = config // { allowAliases = true; };
+    inherit config system;
     overlays = overlays ++ [ inputs.nix-on-droid.overlay ];
   };
 
