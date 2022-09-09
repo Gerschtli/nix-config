@@ -1,8 +1,8 @@
 { lib, pkgs }:
 
 {
-  wrapProgram = { name, desktopFileName ? name, source, path, pathsToLink ? [ ], packages ? [ ], flags ? [ ] }:
-    if packages == [ ] && flags == [ ]
+  wrapProgram = { name, desktopFileName ? name, source, path, pathsToLink ? [ ], packages ? [ ], flags ? [ ], fixGL ? false }:
+    if packages == [ ] && flags == [ ] && !fixGL
     then source
     else
       pkgs.runCommand "${name}-wrapped" { } ''
@@ -20,6 +20,19 @@
           > "${placeholder "out"}/share/applications/${desktopFileName}.desktop"
 
         wrapProgram "${placeholder "out"}/${path}" \
+          ${
+            let
+              inherit (builtins) filter readFile;
+              inherit (lib) concatMapStringsSep escapeShellArg hasPrefix splitString;
+
+              content = readFile "${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel";
+              lines = splitString "\n" content;
+
+              filteredLines = filter (line: !(hasPrefix "#!/" line) && !(hasPrefix "exec " line)) lines;
+              arguments = concatMapStringsSep " " (line: "--run ${escapeShellArg line}") filteredLines;
+            in
+            lib.optionalString fixGL arguments
+          } \
           ${lib.optionalString (packages != []) ''--prefix PATH : "${lib.makeBinPath packages}"''} \
           ${lib.optionalString (flags != []) ''--add-flags "${toString flags}"''}
       '';

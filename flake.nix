@@ -52,6 +52,12 @@
       url = "github:Gerschtli/teamspeak-update-notifier";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixGL = {
+      url = "github:guibou/nixGL";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, ... } @ inputs:

@@ -36,6 +36,8 @@ let
       # the only alias that I need, this allows me to set allowAliases=false
       inherit (prev.stdenv.hostPlatform) system;
     })
+
+    inputs.nixGL.overlays.default
   ];
 
   pkgs = import inputs.nixpkgs {

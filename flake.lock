@@ -207,6 +207,29 @@
         "type": "github"
       }
     },
+    "nixGL": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1661367362,
+        "narHash": "sha256-Qc8MXcV+YCPREu8kk6oggk23ZBKLqeQRAIsLbHEviPE=",
+        "owner": "guibou",
+        "repo": "nixGL",
+        "rev": "7165ffbccbd2cf4379b6cd6d2edd1620a427e5ae",
+        "type": "github"
+      },
+      "original": {
+        "owner": "guibou",
+        "repo": "nixGL",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1662099760,
@@ -250,6 +273,7 @@
         "home-manager": "home-manager",
         "homeage": "homeage",
         "nix-on-droid": "nix-on-droid",
+        "nixGL": "nixGL",
         "nixpkgs": "nixpkgs",
         "nixpkgs-for-jdk15": "nixpkgs-for-jdk15",
         "teamspeak-update-notifier": "teamspeak-update-notifier",

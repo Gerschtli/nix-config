@@ -14,6 +14,7 @@ let
       "--force-device-scale-factor=1"
       "--high-dpi-support=1"
     ];
+    fixGL = true;
   };
 in
 
