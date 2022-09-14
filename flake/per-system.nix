@@ -35,6 +35,7 @@ let
 
       # the only alias that I need, this allows me to set allowAliases=false
       inherit (prev.stdenv.hostPlatform) system;
+      inherit (prev.nixVersions) nix_2_4; # for nix-on-droid
     })
 
     inputs.nixGL.overlays.default
