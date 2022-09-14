@@ -22,12 +22,15 @@ jobs:
           - aarch64
           - x86_64
         nix-command:
-          - flake check
+          #- flake check # temporarily disabled because of failing nixGL evaluation on aarch64
           - fmt
           - eval .#apps.$_system.format.program
           - eval .#apps.$_system.setup.program
 
         include:
+          - system: x86_64
+            nix-command: flake check
+
           - nix-command: develop .#jdk8 --profile profile
             system: x86_64
           - nix-command: develop .#jdk11 --profile profile
