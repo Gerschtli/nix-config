@@ -2,7 +2,7 @@
 
 let
   configuration =
-    { modulesPath, rootPath, ... }:
+    { modulesPath, ... }:
 
     {
       imports = [
@@ -39,8 +39,6 @@ let
 
   evaluatedConfig = nixpkgs.lib.nixosSystem {
     system = "aarch64-linux";
-
-    specialArgs = { inherit rootPath; };
 
     modules = [ configuration ];
   };
