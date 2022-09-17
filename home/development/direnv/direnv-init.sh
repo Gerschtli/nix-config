@@ -5,5 +5,5 @@ fi
 
 DEV_SHELL="${1}"
 
-echo "use flake ~/.nix-config#${DEV_SHELL}" > .envrc
+echo "use flake nix-config#${DEV_SHELL}" > .envrc
 direnv allow .

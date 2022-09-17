@@ -1,5 +1,5 @@
 let
-  nix-config = builtins.getFlake "@rootPath@";
+  nix-config = builtins.getFlake "nix-config";
   pkgs = nix-config.inputs.nixpkgs.legacyPackages.${builtins.currentSystem};
 in
 

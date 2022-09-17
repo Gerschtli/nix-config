@@ -12,7 +12,7 @@ fi
 
 if [[ ! -f shell.nix || "${force}" == "--force" ]]; then
     _log "Write shell.nix"
-    echo "(builtins.getFlake \"@nixConfigDir@\").devShells.\${builtins.currentSystem}.${dev_shell}" > shell.nix
+    echo "(builtins.getFlake \"nix-config\").devShells.\${builtins.currentSystem}.${dev_shell}" > shell.nix
 fi
 
 _log "Run lorri init"

@@ -18,10 +18,9 @@ let
 
   replFile = pkgs.runCommand
     "repl.nix"
-    { rootPath = toString rootPath; }
+    { }
     ''
       cp ${./repl.nix.template} ${placeholder "out"}
-      substituteAllInPlace ${placeholder "out"}
     '';
 in
 
