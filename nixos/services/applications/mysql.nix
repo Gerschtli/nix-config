@@ -40,7 +40,6 @@ in
       services.backup.services.mysql = {
         description = "Mysql";
         interval = "Tue *-*-* 04:10:00";
-        expiresAfter = 28;
 
         script =
           let

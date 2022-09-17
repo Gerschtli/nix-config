@@ -28,20 +28,8 @@ in
         description = "Teamspeak3 server";
         user = "teamspeak";
         interval = "Tue *-*-* 05:00:00";
-        expiresAfter = 28;
 
-        script =
-          let
-            inherit (config.services.teamspeak3) dataDir;
-          in
-
-          ''
-            ${pkgs.gnutar}/bin/tar -cpzf ts3-$(date +%s).tar.gz -C ${dirOf dataDir} ${baseNameOf dataDir}
-          '';
-
-        extraOptions = {
-          path = [ pkgs.gzip ];
-        };
+        directoryToBackup = config.services.teamspeak3.dataDir;
       };
     };
 

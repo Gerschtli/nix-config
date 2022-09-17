@@ -25,20 +25,8 @@ in
       description = "Minecraft server";
       user = "minecraft";
       interval = "Tue *-*-* 05:10:00";
-      expiresAfter = 28;
 
-      script =
-        let
-          inherit (config.services.minecraft-server) dataDir;
-        in
-
-        ''
-          ${pkgs.gnutar}/bin/tar -cpzf minecraft-server-$(date +%s).tar.gz -C ${dirOf dataDir} ${baseNameOf dataDir}
-        '';
-
-      extraOptions = {
-        path = [ pkgs.gzip ];
-      };
+      directoryToBackup = config.services.minecraft-server.dataDir;
     };
 
     services.minecraft-server = {

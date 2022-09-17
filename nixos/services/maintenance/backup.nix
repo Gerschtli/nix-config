@@ -43,13 +43,24 @@ let
 
       expiresAfter = mkOption {
         type = types.int;
+        default = 28;
         description = ''
           Maximum age of backups in days.
         '';
       };
 
+
+      directoryToBackup = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = ''
+          Directory to backup.  Overwrites value in <config>script</config>.
+        '';
+      };
+
       script = mkOption {
-        type = types.str;
+        type = types.nullOr types.str;
+        default = null;
         description = ''
           Backup script.
         '';
@@ -64,9 +75,19 @@ let
       };
     };
 
-    config = {
-      name = mkDefault name;
-    };
+    config = mkMerge [
+      { name = mkDefault name; }
+
+      (mkIf (config.directoryToBackup != null) {
+        script = ''
+          ${pkgs.gnutar}/bin/tar -cpzf ${name}-$(date +%s).tar.gz -C ${dirOf config.directoryToBackup} ${baseNameOf config.directoryToBackup}
+        '';
+
+        extraOptions = {
+          path = [ pkgs.gzip ];
+        };
+      })
+    ];
   };
 in
 

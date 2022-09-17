@@ -64,15 +64,8 @@ in
         backup.services.oc-uploads = {
           description = "Uploads of ${domain}";
           interval = "Tue *-*-* 03:00:00";
-          expiresAfter = 28;
 
-          script = ''
-            ${pkgs.gnutar}/bin/tar --xz -cpf oc-uploads-$(date +%s).tar.xz -C ${location} uploads
-          '';
-
-          extraOptions = {
-            path = [ pkgs.xz ];
-          };
+          directoryToBackup = "${location}/uploads";
         };
 
         mysql = {
