@@ -6,19 +6,19 @@ let
   cfg = config.custom.misc.homeage;
 
   buildSshConfig = name: {
-    path = "ssh-config-${name}";
+    name = "ssh-config-${name}";
     source = rootPath + "/secrets/ssh/${name}/config.age";
     copies = [ "${config.home.homeDirectory}/.ssh/config.d/${name}" ];
   };
 
   buildSshKey = module: name: [
     {
-      path = "ssh-key-${name}";
+      name = "ssh-key-${name}";
       source = rootPath + "/secrets/ssh/${module}/id-rsa-${name}.age";
       copies = [ "${config.home.homeDirectory}/.ssh/keys/id_rsa.${name}" ];
     }
     {
-      path = "ssh-key-${name}-pub";
+      name = "ssh-key-${name}-pub";
       source = rootPath + "/secrets/ssh/${module}/id-rsa-${name}-pub.age";
       copies = [ "${config.home.homeDirectory}/.ssh/keys/id_rsa.${name}.pub" ];
     }
@@ -71,16 +71,17 @@ in
 
       file = builtins.listToAttrs (
         map
-          (entry: nameValuePair entry.path entry)
+          # TODO: simplify when https://github.com/jordanisaacs/homeage/pull/32 is merged
+          (entry: nameValuePair entry.name (builtins.removeAttrs entry [ "name" ]))
           (flatten (
             (optional (elem "sedo" cfg.secrets) [
               {
-                path = "sedo-aliases";
+                name = "sedo-aliases";
                 source = rootPath + "/secrets/M386/aliases.sh.age";
                 copies = [ "${config.home.homeDirectory}/.aliases.sh" ];
               }
               {
-                path = "sedo-settings";
+                name = "sedo-settings";
                 source = rootPath + "/secrets/M386/settings.xml.age";
                 copies = [ "${config.home.homeDirectory}/.m2/settings.xml" ];
               }

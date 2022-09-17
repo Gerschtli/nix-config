@@ -147,11 +147,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1662242203,
-        "narHash": "sha256-fd8y/fgJ/QELcVysVAHBDc0/wQI6TuvAXCHNUbYuSVo=",
+        "lastModified": 1662769985,
+        "narHash": "sha256-zGk10O4osXxf1n9RafSMpPBsEibAGzx4OL4MLmlodB4=",
         "owner": "jordanisaacs",
         "repo": "homeage",
-        "rev": "7d09b3e0256dc1fb82d5d5d3d4772a4459105b81",
+        "rev": "dd98c460175a0781ad0b51f4392de97c5454a5c4",
         "type": "github"
       },
       "original": {
