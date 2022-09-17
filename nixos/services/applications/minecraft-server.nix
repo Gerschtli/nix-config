@@ -27,6 +27,12 @@ in
       interval = "Tue *-*-* 05:10:00";
 
       directoryToBackup = config.services.minecraft-server.dataDir;
+
+      extraOptions = {
+        conflicts = [ "minecraft-server.service" ];
+        # FIXME: refactor like described in https://unix.stackexchange.com/a/362883
+        serviceConfig.ExecStopPost = "${config.systemd.package}/bin/systemctl start minecraft-server.service";
+      };
     };
 
     services.minecraft-server = {
