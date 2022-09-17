@@ -6,6 +6,7 @@ let
 in
 
 {
+  # FIXME: Move sshd config to nix-on-droid
   build.activation.sshd = ''
     $DRY_RUN_CMD mkdir $VERBOSE_ARG --parents "${config.user.home}/.ssh"
     $DRY_RUN_CMD cat ${rootPath + "/files/keys/id_rsa.tobias.pub"} > "${config.user.home}/.ssh/authorized_keys"
