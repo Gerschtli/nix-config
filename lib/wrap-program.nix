@@ -1,39 +1,45 @@
 { lib, pkgs }:
 
 {
-  wrapProgram = { name, desktopFileName ? name, source, path, pathsToLink ? [ ], packages ? [ ], flags ? [ ], fixGL ? false }:
+  wrapProgram = { name, desktopFileName ? name, source, path, packages ? [ ], flags ? [ ], fixGL ? false }:
     if packages == [ ] && flags == [ ] && !fixGL
     then source
     else
-      pkgs.runCommand "${name}-wrapped" { } ''
-        . ${pkgs.makeWrapper}/nix-support/setup-hook
+      pkgs.symlinkJoin {
+        name = "${name}-wrapped";
+        paths = [ source ];
+        buildInputs = [ pkgs.makeWrapper ];
+        postBuild =
+          let
+            inherit (builtins) filter readFile;
+            inherit (lib) concatMapStringsSep escapeShellArg hasPrefix splitString;
 
-        ${lib.concatMapStringsSep "\n" (p: ''
-          mkdir -p "$(dirname "${(placeholder "out") + p}")"
-          ln -sn "${source + p}" "${(placeholder "out") + p}"
-        '') (pathsToLink ++ [ path ])}
+            desktopEntryPath = "/share/applications/${desktopFileName}.desktop";
+            out = placeholder "out";
 
-        # desktop entry
-        mkdir -p "${placeholder "out"}/share/applications"
-        sed -e "s|Exec=${source + path}|Exec=${placeholder "out"}/bin/${name}|" \
-          "${source}/share/applications/${desktopFileName}.desktop" \
-          > "${placeholder "out"}/share/applications/${desktopFileName}.desktop"
+            content = readFile "${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel";
+            lines = splitString "\n" content;
 
-        wrapProgram "${placeholder "out"}/${path}" \
-          ${
-            let
-              inherit (builtins) filter readFile;
-              inherit (lib) concatMapStringsSep escapeShellArg hasPrefix splitString;
+            filteredLines = filter (line: !(hasPrefix "#!/" line) && !(hasPrefix "exec " line)) lines;
+            wrapProgramArgsForFixGL = concatMapStringsSep " " (line: "--run ${escapeShellArg line}") filteredLines;
+          in
+          ''
+            # desktop entry
+            if [[ -L "${out}/share/applications" ]]; then
+              rm "${out}/share/applications"
+              mkdir "${out}/share/applications"
+            else
+              rm "${out + desktopEntryPath}"
+            fi
 
-              content = readFile "${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel";
-              lines = splitString "\n" content;
+            sed -e "s|Exec=${source + path}|Exec=${out + path}|" \
+              "${source + desktopEntryPath}" \
+              > "${out + desktopEntryPath}"
 
-              filteredLines = filter (line: !(hasPrefix "#!/" line) && !(hasPrefix "exec " line)) lines;
-              arguments = concatMapStringsSep " " (line: "--run ${escapeShellArg line}") filteredLines;
-            in
-            lib.optionalString fixGL arguments
-          } \
-          ${lib.optionalString (packages != []) ''--prefix PATH : "${lib.makeBinPath packages}"''} \
-          ${lib.optionalString (flags != []) ''--add-flags "${toString flags}"''}
-      '';
+            wrapProgram "${out + path}" \
+              ${lib.optionalString fixGL wrapProgramArgsForFixGL} \
+              ${lib.optionalString (packages != []) ''--prefix PATH : "${lib.makeBinPath packages}"''} \
+              ${lib.optionalString (flags != []) ''--add-flags "${toString flags}"''}
+          '';
+      };
 }
