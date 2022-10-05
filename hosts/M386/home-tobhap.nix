@@ -60,6 +60,10 @@
       php # for ide integration
     ];
 
+    sessionPath = [
+      "${config.home.homeDirectory}/projects/sedo/devops-scripts/bin"
+    ];
+
     sessionVariables = {
       # see: https://github.com/NixOS/nixpkgs/issues/38991#issuecomment-400657551
       LOCALE_ARCHIVE_2_11 = "/usr/bin/locale/locale-archive";
