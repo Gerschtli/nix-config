@@ -33,7 +33,7 @@ in
 
     custom.misc.homeage = {
       secrets = mkOption {
-        type = types.listOf (types.enum [ "sedo" "ssh-private" "ssh-sedo" "ssh-vcs" ]);
+        type = types.listOf (types.enum [ "sedo" "ssh-nixinate" "ssh-private" "ssh-sedo" "ssh-vcs" ]);
         default = [ ];
         description = ''
           Secrets to install.
@@ -85,6 +85,10 @@ in
                 source = rootPath + "/secrets/M386/settings.xml.age";
                 copies = [ "${config.home.homeDirectory}/.m2/settings.xml" ];
               }
+            ])
+            ++ (optional (elem "ssh-nixinate" cfg.secrets) [
+              (buildSshConfig "nixinate")
+              (buildSshKey "nixinate" "nixinate")
             ])
             ++ (optional (elem "ssh-private" cfg.secrets) [
               (buildSshConfig "private")
