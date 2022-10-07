@@ -33,7 +33,7 @@
       vscode.enable = true;
     };
 
-    services.dwm-status.backlightDevice = "amdgpu_bl1";
+    services.dwm-status.backlightDevice = "amdgpu_bl*";
 
     wm.dwm.enable = true;
   };

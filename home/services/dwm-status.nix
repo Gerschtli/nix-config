@@ -20,8 +20,7 @@ in
       laptop = mkEnableOption "laptop config";
 
       backlightDevice = mkOption {
-        type = types.str;
-        default = "intel_backlight";
+        type = types.nullOr types.str;
         description = ''
           Name of backlight device.
         '';
@@ -71,7 +70,7 @@ in
 
         (mkIf cfg.laptop {
           backlight = {
-            device = cfg.backlightDevice;
+            fallback = mkIf (cfg.backlightDevice != null) cfg.backlightDevice;
             template = "{ICO} {BL}%";
             icons = [ "" "" "" ];
           };
