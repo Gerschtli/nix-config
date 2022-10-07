@@ -15,6 +15,8 @@
 
     ids.enable = false;
 
+    nixinate.enable = true;
+
     services = {
       backup.enable = true;
 
