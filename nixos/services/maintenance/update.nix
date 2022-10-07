@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.custom.services.update;
 
-  location = "/root/.nix-config";
+  flakeUrl = "github:Gerschtli/nix-config";
 in
 
 {
@@ -39,26 +39,14 @@ in
       description = "System flake update";
 
       serviceConfig = {
-        environment = {
-          HOME = "/root";
-          USER = "root";
-        };
-        path = [ pkgs.git pkgs.nix ];
+        path = [ pkgs.nix ]; # needed for nvd
         restartIfChanged = false;
         script = ''
-          set -euo pipefail
-
           LAST_GENERATION="$(${pkgs.coreutils}/bin/readlink -f /nix/var/nix/profiles/system)"
 
-          ${pkgs.nix}/bin/nix flake update "${location}"
-          ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake "${location}" || :
+          ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake "${flakeUrl}" || :
 
-          DIFF="$(${pkgs.nvd}/bin/nvd diff "$LAST_GENERATION" /nix/var/nix/profiles/system)"
-
-          ${pkgs.git}/bin/git -C "${location}" add flake.lock
-          ${pkgs.git}/bin/git -C "${location}" commit \
-            --message "flake.inputs: automatic local update on ${config.networking.hostName}" \
-            --message "$DIFF"
+          ${pkgs.nvd}/bin/nvd diff "$LAST_GENERATION" /nix/var/nix/profiles/system
         '';
       };
     };
