@@ -20,6 +20,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixinate = {
+      url = "github:matthewcroughan/nixinate";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     flake-utils.url = "github:numtide/flake-utils";
 
     agenix = {
@@ -60,14 +65,14 @@
     };
   };
 
-  outputs = { self, nixpkgs, ... } @ inputs:
+  outputs = { self, nixpkgs, nixinate, ... } @ inputs:
     let
       rootPath = ./.;
       flakeLib = import ./flake {
         inherit inputs rootPath;
       };
 
-      inherit (nixpkgs.lib) listToAttrs;
+      inherit (nixpkgs.lib) listToAttrs mapAttrs' nameValuePair;
       inherit (flakeLib) mkHome mkNixOnDroid mkNixos eachSystem;
     in
     {
@@ -88,17 +93,23 @@
       ];
     }
     // eachSystem ({ mkApp, mkCheck, mkDevShellJdk, mkDevShellPhp, system }: {
-      apps = listToAttrs [
-        (mkApp "format" {
-          file = ./files/apps/format.sh;
-          path = pkgs: with pkgs; [ nixpkgs-fmt statix ];
-        })
-        (mkApp "setup" {
-          file = ./files/apps/setup.sh;
-          path = pkgs: with pkgs; [ cachix coreutils curl git gnugrep hostname jq nix openssh ];
-          envs._doNotClearPath = true;
-        })
-      ];
+      apps = (
+        listToAttrs [
+          (mkApp "format" {
+            file = ./files/apps/format.sh;
+            path = pkgs: with pkgs; [ nixpkgs-fmt statix ];
+          })
+          (mkApp "setup" {
+            file = ./files/apps/setup.sh;
+            path = pkgs: with pkgs; [ cachix coreutils curl git gnugrep hostname jq nix openssh ];
+            envs._doNotClearPath = true;
+          })
+        ]
+      ) // (
+        mapAttrs'
+          (name: nameValuePair ("nixinate-" + name))
+          (nixinate.nixinate.${system} self).nixinate
+      );
 
       checks = listToAttrs [
         (mkCheck "nixpkgs-fmt" {

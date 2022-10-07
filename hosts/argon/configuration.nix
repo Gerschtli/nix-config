@@ -6,6 +6,8 @@
 
     base.server.enable = true;
 
+    nixinate.enable = true;
+
     services = {
       backup.enable = true;
 

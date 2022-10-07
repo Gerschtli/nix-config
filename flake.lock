@@ -230,6 +230,26 @@
         "type": "github"
       }
     },
+    "nixinate": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1664206072,
+        "narHash": "sha256-VPKsLlfSfsJ4GsvtrcFdXiR5VUcsl1jFyKSxB4qvcf8=",
+        "owner": "matthewcroughan",
+        "repo": "nixinate",
+        "rev": "efa632418053bbbaf5b8cf8215c14b699830e3e1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matthewcroughan",
+        "repo": "nixinate",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1664594436,
@@ -274,6 +294,7 @@
         "homeage": "homeage",
         "nix-on-droid": "nix-on-droid",
         "nixGL": "nixGL",
+        "nixinate": "nixinate",
         "nixpkgs": "nixpkgs",
         "nixpkgs-for-jdk15": "nixpkgs-for-jdk15",
         "teamspeak-update-notifier": "teamspeak-update-notifier",
