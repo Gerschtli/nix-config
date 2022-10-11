@@ -51,7 +51,7 @@ in
 
   pkgsNixOnDroid = import inputs.nixpkgs {
     inherit config system;
-    overlays = overlays ++ [ inputs.nix-on-droid.overlay ];
+    overlays = overlays ++ [ inputs.nix-on-droid.overlays.default ];
   };
 
   customLib = import (rootPath + "/lib") {
