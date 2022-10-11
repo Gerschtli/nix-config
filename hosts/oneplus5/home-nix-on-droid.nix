@@ -14,19 +14,10 @@
     development.nix.nix-on-droid.enable = true;
 
     programs = {
-      shell.initExtra = ''
-        if [ -z "''${SSH_AUTH_SOCK:-}" ]; then
-          eval $(ssh-agent -s)
-        fi
-      '';
-
       ssh = {
-        enableKeychain = false;
         controlMaster = "no";
         modules = [ "private" ];
       };
-
-      tmux.enable = lib.mkForce false;
     };
   };
 
@@ -35,6 +26,7 @@
       diffutils
       findutils
       gawk
+      gh
       glibc.bin
       gnugrep
       gnused

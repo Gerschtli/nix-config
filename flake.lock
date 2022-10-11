@@ -194,17 +194,14 @@
         ]
       },
       "locked": {
-        "lastModified": 1664836993,
-        "narHash": "sha256-X5wmYjmEKVG7NE6K+P11wGeIp1LYHAiBf5inJV3is0c=",
-        "owner": "t184256",
-        "repo": "nix-on-droid",
-        "rev": "83ab4679924bcd3d768b66e1f5541e5c807deecc",
-        "type": "github"
+        "lastModified": 1665525426,
+        "narHash": "sha256-avtQduErrzjHTcYJk1ofWM/VSGTaSCJbYNdwSbBBR20=",
+        "path": "/data/data/com.termux.nix/files/home/nix-on-droid",
+        "type": "path"
       },
       "original": {
-        "owner": "t184256",
-        "repo": "nix-on-droid",
-        "type": "github"
+        "path": "/data/data/com.termux.nix/files/home/nix-on-droid",
+        "type": "path"
       }
     },
     "nixGL": {

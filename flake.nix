@@ -14,7 +14,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-on-droid = {
-      url = "github:t184256/nix-on-droid";
+      url = "path:/data/data/com.termux.nix/files/home/nix-on-droid";
+      #url = "github:t184256/nix-on-droid";
       inputs.flake-utils.follows = "flake-utils";
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
