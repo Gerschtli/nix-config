@@ -22,12 +22,19 @@ jobs:
           - aarch64
           - x86_64
         nix-command:
+          - build .#rpi-firmware
           #- flake check # temporarily disabled because of failing nixGL evaluation on aarch64
           - fmt
           - eval .#apps.$_system.format.program
+          - eval .#apps.$_system.nixinate-argon.program
+          - eval .#apps.$_system.nixinate-krypton.program
+          - eval .#apps.$_system.nixinate-xenon.program
           - eval .#apps.$_system.setup.program
 
         include:
+          - system: aarch64
+            nix-command: build .#rpi-image
+
           - system: x86_64
             nix-command: flake check
 
