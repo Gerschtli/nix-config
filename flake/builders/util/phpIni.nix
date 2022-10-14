@@ -3,10 +3,7 @@
 { lib, writeTextDir, phpPackage, phpExtensions, extensions ? [ ], enableXdebug ? false }:
 
 let
-
-  inherit (builtins) readFile;
   inherit (lib) concatMapStringsSep optionalString;
-  inherit (lib.versions) majorMinor;
 
   includePackage = directive: extensionName: "${directive} = ${phpExtensions.${extensionName}}/lib/php/extensions/${extensionName}.so";
 

@@ -2,10 +2,6 @@
 
 with lib;
 
-let
-  cfg = config.custom.ids;
-in
-
 {
 
   ###### interface

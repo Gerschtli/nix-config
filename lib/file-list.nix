@@ -26,6 +26,6 @@ let
 in
 
 {
-  getFileList = getFileList false (x: true);
+  getFileList = getFileList false (_: true);
   getRecursiveNixFileList = getFileList true (hasSuffix ".nix");
 }
