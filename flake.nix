@@ -58,6 +58,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-formatter-pack = {
+      url = "github:Gerschtli/nix-formatter-pack";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixGL = {
       url = "github:guibou/nixGL";
       inputs.flake-utils.follows = "flake-utils";
@@ -65,7 +70,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixinate, ... } @ inputs:
+  outputs = { self, nixpkgs, nixinate, nix-formatter-pack, ... } @ inputs:
     let
       rootPath = ./.;
       flakeLib = import ./flake {
@@ -92,59 +97,62 @@
         (mkNixos "aarch64-linux" "xenon")
       ];
     }
-    // eachSystem ({ mkApp, mkCheck, mkDevShellJdk, mkDevShellPhp, system }: {
-      apps = (
-        listToAttrs [
-          (mkApp "format" {
-            file = ./files/apps/format.sh;
-            path = pkgs: with pkgs; [ nixpkgs-fmt statix ];
-          })
-          (mkApp "setup" {
-            file = ./files/apps/setup.sh;
-            path = pkgs: with pkgs; [ cachix coreutils curl git gnugrep hostname jq nix openssh ];
-            envs._doNotClearPath = true;
-          })
-        ]
-      ) // (
-        mapAttrs'
-          (name: nameValuePair ("nixinate-" + name))
-          (nixinate.nixinate.${system} self).nixinate
-      );
+    // eachSystem ({ mkApp, mkCheck, mkDevShellJdk, mkDevShellPhp, system }:
+      let
+        formatterPackArgs = {
+          inherit nixpkgs system;
+          checkFiles = [ ./. ];
 
-      checks = listToAttrs [
-        (mkCheck "nixpkgs-fmt" {
-          script = pkgs: ''
-            shopt -s globstar
-            ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check ${./.}/**/*.nix
-          '';
-        })
+          config.tools = {
+            deadnix = {
+              enable = true;
+              noLambdaPatternNames = true;
+            };
+            nixpkgs-fmt.enable = true;
+            statix.enable = true;
+          };
+        };
+      in
+      {
+        apps = (
+          listToAttrs [
+            (mkApp "format" {
+              file = ./files/apps/format.sh;
+              path = pkgs: with pkgs; [ nixpkgs-fmt statix ];
+            })
+            (mkApp "setup" {
+              file = ./files/apps/setup.sh;
+              path = pkgs: with pkgs; [ cachix coreutils curl git gnugrep hostname jq nix openssh ];
+              envs._doNotClearPath = true;
+            })
+          ]
+        ) // (
+          mapAttrs'
+            (name: nameValuePair ("nixinate-" + name))
+            (nixinate.nixinate.${system} self).nixinate
+        );
 
-        (mkCheck "statix" {
-          script = pkgs: ''
-            ${pkgs.statix}/bin/statix check ${./.}
-          '';
-        })
-      ];
+        checks.nix-formatter-pack-check = nix-formatter-pack.lib.mkCheck formatterPackArgs;
 
-      # use like:
-      # $ direnv-init jdk11
-      # $ lorri-init jdk11
-      devShells = listToAttrs [
-        (mkDevShellJdk "jdk8" { jdk = pkgs: pkgs.jdk8; })
-        (mkDevShellJdk "jdk11" { jdk = pkgs: pkgs.jdk11; })
-        (mkDevShellJdk "jdk15" { jdk = pkgs: pkgs.jdk15; })
-        (mkDevShellJdk "jdk17" { jdk = pkgs: pkgs.jdk17; })
+        # use like:
+        # $ direnv-init jdk11
+        # $ lorri-init jdk11
+        devShells = listToAttrs [
+          (mkDevShellJdk "jdk8" { jdk = pkgs: pkgs.jdk8; })
+          (mkDevShellJdk "jdk11" { jdk = pkgs: pkgs.jdk11; })
+          (mkDevShellJdk "jdk15" { jdk = pkgs: pkgs.jdk15; })
+          (mkDevShellJdk "jdk17" { jdk = pkgs: pkgs.jdk17; })
 
-        (mkDevShellPhp "php74" { phpVersion = "74"; })
-        (mkDevShellPhp "php80" { phpVersion = "80"; })
-        (mkDevShellPhp "php81" { phpVersion = "81"; })
-      ];
+          (mkDevShellPhp "php74" { phpVersion = "74"; })
+          (mkDevShellPhp "php80" { phpVersion = "80"; })
+          (mkDevShellPhp "php81" { phpVersion = "81"; })
+        ];
 
-      formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
+        formatter = nix-formatter-pack.lib.mkFormatter formatterPackArgs;
 
-      packages = {
-        rpi-firmware = import ./files/nix/rpi-firmware.nix { inherit nixpkgs; };
-        rpi-image = import ./files/nix/rpi-image.nix { inherit nixpkgs rootPath; };
-      };
-    });
+        packages = {
+          rpi-firmware = import ./files/nix/rpi-firmware.nix { inherit nixpkgs; };
+          rpi-image = import ./files/nix/rpi-image.nix { inherit nixpkgs rootPath; };
+        };
+      });
 }

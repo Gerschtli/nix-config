@@ -181,6 +181,27 @@
         "type": "github"
       }
     },
+    "nix-formatter-pack": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nmt": "nmt"
+      },
+      "locked": {
+        "lastModified": 1665939535,
+        "narHash": "sha256-PKStOjsse/jFUjqxjPiuhCHE4YrUUdFTVp2HO0saSyc=",
+        "owner": "Gerschtli",
+        "repo": "nix-formatter-pack",
+        "rev": "5f422a118895c89bebb0f8145218a4a7ddb4fc19",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Gerschtli",
+        "repo": "nix-formatter-pack",
+        "type": "github"
+      }
+    },
     "nix-on-droid": {
       "inputs": {
         "flake-utils": [
@@ -282,6 +303,22 @@
         "type": "github"
       }
     },
+    "nmt": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1648075362,
+        "narHash": "sha256-u36WgzoA84dMVsGXzml4wZ5ckGgfnvS0ryzo/3zn/Pc=",
+        "owner": "rycee",
+        "repo": "nmt",
+        "rev": "d83601002c99b78c89ea80e5e6ba21addcfe12ae",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "rycee",
+        "repo": "nmt",
+        "type": "gitlab"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -292,6 +329,7 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "homeage": "homeage",
+        "nix-formatter-pack": "nix-formatter-pack",
         "nix-on-droid": "nix-on-droid",
         "nixGL": "nixGL",
         "nixinate": "nixinate",
