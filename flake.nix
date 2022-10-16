@@ -97,7 +97,7 @@
         (mkNixos "aarch64-linux" "xenon")
       ];
     }
-    // eachSystem ({ mkApp, mkCheck, mkDevShellJdk, mkDevShellPhp, system }:
+    // eachSystem ({ mkApp, mkDevShellJdk, mkDevShellPhp, system }:
       let
         formatterPackArgs = {
           inherit nixpkgs system;

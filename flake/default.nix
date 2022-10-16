@@ -37,7 +37,6 @@ in
         builderPerSystem {
           inherit system;
           mkApp = wrapper ./builders/mkApp.nix system;
-          mkCheck = wrapper ./builders/mkCheck.nix system;
           mkDevShellJdk = wrapper ./builders/mkDevShellJdk.nix system;
           mkDevShellPhp = wrapper ./builders/mkDevShellPhp.nix system;
         }
