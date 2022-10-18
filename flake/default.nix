@@ -5,7 +5,6 @@ let
   pkgsNixOnDroidFor = forEachSystem (system: import ./nixpkgs.nix { inherit inputs system; nixOnDroid = true; });
 
   customLibFor = forEachSystem (system: import "${rootPath}/lib" {
-    inherit (inputs.nixpkgs) lib;
     pkgs = pkgsFor.${system};
   });
 

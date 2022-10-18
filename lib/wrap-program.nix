@@ -11,8 +11,7 @@
         buildInputs = [ pkgs.makeWrapper ];
         postBuild =
           let
-            inherit (builtins) filter readFile;
-            inherit (lib) concatMapStringsSep escapeShellArg hasPrefix splitString;
+            inherit (lib) concatMapStringsSep escapeShellArg filter hasPrefix splitString readFile;
 
             desktopEntryPath = "/share/applications/${desktopFileName}.desktop";
             out = placeholder "out";

@@ -26,7 +26,7 @@ let
     LANG = localeEnglish;
     LANGUAGE = localeEnglish;
 
-    LESS = builtins.concatStringsSep " " [
+    LESS = concatStringsSep " " [
       "--RAW-CONTROL-CHARS"
       "--no-init"
       "--quit-if-one-screen"

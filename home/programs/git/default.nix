@@ -8,7 +8,7 @@ let
   externGitAlias = alias: "!${alias}";
 
   ignoreList = map
-    builtins.readFile
+    readFile
     (config.lib.custom.getFileList ./gitignores);
 
   commitMsgTemplate = prefix: ''
@@ -54,7 +54,7 @@ let
         hooksPathPackages
         { hooksLib = ./lib.hooks.sh; }
     )
-    (builtins.attrNames (builtins.readDir ./includes));
+    (attrNames (builtins.readDir ./includes));
 
   hooksPath = pkgs.linkFarm "git-hooks" (
     map

@@ -26,7 +26,7 @@ in
     custom.services.nginx.enable = true;
 
     # FIXME: use symlinkJoin instead of /etc files
-    environment.etc = builtins.listToAttrs
+    environment.etc = listToAttrs
       (map
         (file:
           nameValuePair

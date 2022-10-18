@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.custom.programs.nnn;
 
-  lessEnvVar = builtins.concatStringsSep " " [
+  lessEnvVar = concatStringsSep " " [
     config.home.sessionVariables.LESS
     "--clear-screen"
     "-+--no-init"
@@ -35,7 +35,7 @@ in
 
     # FIXME: move env vars to nnn home-manager module
     home.sessionVariables = {
-      NNN_OPTS = builtins.concatStringsSep "" [
+      NNN_OPTS = concatStringsSep "" [
         "H" # show hidden files
         "d" # detail mode
         "e" # text in $VISUAL/$EDITOR/vi

@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.custom.development.direnv;
 
-  devShells = builtins.attrNames inputs.self.devShells.${pkgs.system};
+  devShells = attrNames inputs.self.devShells.${pkgs.system};
 in
 
 {

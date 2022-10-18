@@ -69,9 +69,8 @@ in
       installationType = "activation";
       mount = cfg.directory;
 
-      file = builtins.listToAttrs (
+      file = listToAttrs (
         map
-          # TODO: simplify when https://github.com/jordanisaacs/homeage/pull/32 is merged
           (entry: nameValuePair entry.name (builtins.removeAttrs entry [ "name" ]))
           (flatten (
             (optional (elem "sedo" cfg.secrets) [

@@ -1,7 +1,10 @@
-{ lib, pkgs } @ args:
+{ pkgs }:
 
 let
-  callPackage = lib.callPackageWith args;
+  callPackage = pkgs.lib.callPackageWith {
+    inherit pkgs;
+    inherit (pkgs) lib;
+  };
 
   fileList = callPackage ./file-list.nix { };
   script = callPackage ./script { };
