@@ -148,7 +148,7 @@ sudo ln -snf bash /bin/sh
    1. ssh into instance with `root` user and password
    1. Run setup script like
       ```sh
-      nix run --extra-experimental-features flakes --extra-experimental-features nix-command github:Gerschtli/nix-config#setup
+      nix run --extra-experimental-features "nix-command flakes" github:Gerschtli/nix-config#setup
       ```
 
 **Note:** This is all needed to be able to partition the volume to have more than 100MB available in `/boot`. The boot
