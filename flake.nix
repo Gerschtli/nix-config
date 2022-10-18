@@ -15,7 +15,6 @@
     };
     nix-on-droid = {
       url = "github:t184256/nix-on-droid";
-      inputs.flake-utils.follows = "flake-utils";
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -25,15 +24,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flake-utils.url = "github:numtide/flake-utils";
-
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix-cli = {
       url = "github:cole-h/agenix-cli";
-      inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     homeage = {
@@ -65,20 +61,34 @@
 
     nixGL = {
       url = "github:guibou/nixGL";
-      inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs = { self, nixpkgs, nixinate, nix-formatter-pack, ... } @ inputs:
     let
-      rootPath = ./.;
+      rootPath = toString ./.;
+      forEachSystem = nixpkgs.lib.genAttrs [ "aarch64-linux" "x86_64-linux" ];
       flakeLib = import ./flake {
-        inherit inputs rootPath;
+        inherit inputs rootPath forEachSystem;
       };
 
+      formatterPackArgsFor = forEachSystem (system: {
+        inherit nixpkgs system;
+        checkFiles = [ ./. ];
+
+        config.tools = {
+          deadnix = {
+            enable = true;
+            noLambdaPatternNames = true;
+          };
+          nixpkgs-fmt.enable = true;
+          statix.enable = true;
+        };
+      });
+
       inherit (nixpkgs.lib) listToAttrs mapAttrs' nameValuePair;
-      inherit (flakeLib) mkHome mkNixOnDroid mkNixos eachSystem;
+      inherit (flakeLib) mkApp mkDevShellJdk mkDevShellPhp mkHome mkNixOnDroid mkNixos;
     in
     {
       homeConfigurations = listToAttrs [
@@ -96,63 +106,48 @@
         (mkNixos "x86_64-linux" "neon")
         (mkNixos "aarch64-linux" "xenon")
       ];
-    }
-    // eachSystem ({ mkApp, mkDevShellJdk, mkDevShellPhp, system }:
-      let
-        formatterPackArgs = {
-          inherit nixpkgs system;
-          checkFiles = [ ./. ];
 
-          config.tools = {
-            deadnix = {
-              enable = true;
-              noLambdaPatternNames = true;
-            };
-            nixpkgs-fmt.enable = true;
-            statix.enable = true;
-          };
-        };
-      in
-      {
-        apps = (
-          listToAttrs [
-            (mkApp "format" {
-              file = ./files/apps/format.sh;
-              path = pkgs: with pkgs; [ nixpkgs-fmt statix ];
-            })
-            (mkApp "setup" {
-              file = ./files/apps/setup.sh;
-              path = pkgs: with pkgs; [ cachix coreutils curl git gnugrep hostname jq nix openssh ];
-              envs._doNotClearPath = true;
-            })
-          ]
-        ) // (
-          mapAttrs'
-            (name: nameValuePair ("nixinate-" + name))
-            (nixinate.nixinate.${system} self).nixinate
-        );
+      apps = forEachSystem (system: (
+        listToAttrs [
+          (mkApp system "format" {
+            file = ./files/apps/format.sh;
+            path = pkgs: with pkgs; [ nixpkgs-fmt statix ];
+          })
+          (mkApp system "setup" {
+            file = ./files/apps/setup.sh;
+            path = pkgs: with pkgs; [ cachix coreutils curl git gnugrep hostname jq nix openssh ];
+            envs._doNotClearPath = true;
+          })
+        ]
+      ) // (
+        mapAttrs'
+          (name: nameValuePair ("nixinate-" + name))
+          (nixinate.nixinate.${system} self).nixinate
+      ));
 
-        checks.nix-formatter-pack-check = nix-formatter-pack.lib.mkCheck formatterPackArgs;
-
-        # use like:
-        # $ direnv-init jdk11
-        # $ lorri-init jdk11
-        devShells = listToAttrs [
-          (mkDevShellJdk "jdk8" { jdk = pkgs: pkgs.jdk8; })
-          (mkDevShellJdk "jdk11" { jdk = pkgs: pkgs.jdk11; })
-          (mkDevShellJdk "jdk15" { jdk = pkgs: pkgs.jdk15; })
-          (mkDevShellJdk "jdk17" { jdk = pkgs: pkgs.jdk17; })
-
-          (mkDevShellPhp "php74" { phpVersion = "74"; })
-          (mkDevShellPhp "php80" { phpVersion = "80"; })
-          (mkDevShellPhp "php81" { phpVersion = "81"; })
-        ];
-
-        formatter = nix-formatter-pack.lib.mkFormatter formatterPackArgs;
-
-        packages = {
-          rpi-firmware = import ./files/nix/rpi-firmware.nix { inherit nixpkgs; };
-          rpi-image = import ./files/nix/rpi-image.nix { inherit nixpkgs rootPath; };
-        };
+      checks = forEachSystem (system: {
+        nix-formatter-pack-check = nix-formatter-pack.lib.mkCheck formatterPackArgsFor.${system};
       });
+
+      # use like:
+      # $ direnv-init jdk11
+      # $ lorri-init jdk11
+      devShells = forEachSystem (system: listToAttrs [
+        (mkDevShellJdk system "jdk8" { jdk = pkgs: pkgs.jdk8; })
+        (mkDevShellJdk system "jdk11" { jdk = pkgs: pkgs.jdk11; })
+        (mkDevShellJdk system "jdk15" { jdk = pkgs: pkgs.jdk15; })
+        (mkDevShellJdk system "jdk17" { jdk = pkgs: pkgs.jdk17; })
+
+        (mkDevShellPhp system "php74" { phpVersion = "74"; })
+        (mkDevShellPhp system "php80" { phpVersion = "80"; })
+        (mkDevShellPhp system "php81" { phpVersion = "81"; })
+      ]);
+
+      formatter = forEachSystem (system: nix-formatter-pack.lib.mkFormatter formatterPackArgsFor.${system});
+
+      packages = forEachSystem (_: {
+        rpi-firmware = import ./files/nix/rpi-firmware.nix { inherit nixpkgs; };
+        rpi-image = import ./files/nix/rpi-image.nix { inherit nixpkgs rootPath; };
+      });
+    };
 }

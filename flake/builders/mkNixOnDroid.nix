@@ -1,4 +1,4 @@
-{ inputs, rootPath, system, pkgsNixOnDroid, homeModules, name, ... }:
+{ inputs, rootPath, system, pkgsNixOnDroidFor, homeModulesFor, name, ... }:
 
 inputs.nix-on-droid.lib.nixOnDroidConfiguration {
   inherit system;
@@ -7,6 +7,7 @@ inputs.nix-on-droid.lib.nixOnDroidConfiguration {
 
   extraModules = [
     {
+      _file = ./mkNixOnDroid.nix;
       nix.registry = {
         nixpkgs.flake = inputs.nixpkgs;
         nix-config.flake = inputs.self;
@@ -15,8 +16,9 @@ inputs.nix-on-droid.lib.nixOnDroidConfiguration {
   ];
 
   extraSpecialArgs = {
-    inherit homeModules rootPath;
+    inherit rootPath;
+    homeModules = homeModulesFor.${system};
   };
 
-  pkgs = pkgsNixOnDroid;
+  pkgs = pkgsNixOnDroidFor.${system};
 }

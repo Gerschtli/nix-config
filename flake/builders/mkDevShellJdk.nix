@@ -1,6 +1,7 @@
-{ pkgs, name, args, ... }:
+{ system, pkgsFor, name, args, ... }:
 
 let
+  pkgs = pkgsFor.${system};
   jdk = args.jdk pkgs;
 in
 

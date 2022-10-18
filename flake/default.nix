@@ -1,26 +1,31 @@
-{ inputs, rootPath }:
+{ inputs, rootPath, forEachSystem }:
 
 let
-  homeModulesBuilder = { inputs, rootPath, customLib, ... }:
-    [
-      inputs.homeage.homeManagerModules.homeage
+  pkgsFor = forEachSystem (system: import ./nixpkgs.nix { inherit inputs system; });
+  pkgsNixOnDroidFor = forEachSystem (system: import ./nixpkgs.nix { inherit inputs system; nixOnDroid = true; });
 
+  customLibFor = forEachSystem (system: import "${rootPath}/lib" {
+    inherit (inputs.nixpkgs) lib;
+    pkgs = pkgsFor.${system};
+  });
+
+  homeModulesFor = forEachSystem (system:
+    [
       {
-        lib.custom = customLib;
+        _file = ./default.nix;
+        lib.custom = customLibFor.${system};
       }
+      inputs.homeage.homeManagerModules.homeage
     ]
-    ++ customLib.getRecursiveNixFileList (rootPath + "/home");
+    ++ customLibFor.${system}.getRecursiveNixFileList "${rootPath}/home"
+  );
 
   wrapper = builder: system: name: args:
-    let
-      flakeArgs = { inherit inputs rootPath system; };
-      perSystem = import ./per-system.nix flakeArgs;
-
-      homeModules = homeModulesBuilder (flakeArgs // perSystem);
-
-      builderArgs = flakeArgs // perSystem // { inherit args homeModules name; };
-    in
-    inputs.nixpkgs.lib.nameValuePair name (import builder builderArgs);
+    inputs.nixpkgs.lib.nameValuePair
+      name
+      (import builder {
+        inherit inputs rootPath system pkgsFor pkgsNixOnDroidFor customLibFor homeModulesFor name args;
+      });
 
   simpleWrapper = builder: system: name: wrapper builder system name { };
 in
@@ -30,15 +35,7 @@ in
   mkNixOnDroid = simpleWrapper ./builders/mkNixOnDroid.nix;
   mkNixos = simpleWrapper ./builders/mkNixos.nix;
 
-  eachSystem = builderPerSystem:
-    inputs.flake-utils.lib.eachSystem
-      [ "aarch64-linux" "x86_64-linux" ]
-      (system:
-        builderPerSystem {
-          inherit system;
-          mkApp = wrapper ./builders/mkApp.nix system;
-          mkDevShellJdk = wrapper ./builders/mkDevShellJdk.nix system;
-          mkDevShellPhp = wrapper ./builders/mkDevShellPhp.nix system;
-        }
-      );
+  mkApp = wrapper ./builders/mkApp.nix;
+  mkDevShellJdk = wrapper ./builders/mkDevShellJdk.nix;
+  mkDevShellPhp = wrapper ./builders/mkDevShellPhp.nix;
 }

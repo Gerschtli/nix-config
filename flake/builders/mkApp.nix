@@ -1,9 +1,14 @@
-{ inputs, pkgs, customLib, name, args, ... }:
+{ system, pkgsFor, customLibFor, name, args, ... }:
 
-inputs.flake-utils.lib.mkApp {
-  drv = customLib.mkScript
+let
+  script = customLibFor.${system}.mkScript
     name
     args.file
-    (args.path pkgs)
+    (args.path pkgsFor.${system})
     (args.envs or { });
+in
+
+{
+  type = "app";
+  program = "${script}/bin/${name}";
 }

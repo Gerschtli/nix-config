@@ -1,10 +1,11 @@
-{ inputs, rootPath, system, pkgs, customLib, homeModules, name, ... }:
+{ inputs, rootPath, system, pkgsFor, customLibFor, homeModulesFor, name, ... }:
 
 inputs.nixpkgs.lib.nixosSystem {
   inherit system;
 
   specialArgs = {
-    inherit homeModules rootPath;
+    inherit rootPath;
+    homeModules = homeModulesFor.${system};
   };
 
   modules = [
@@ -15,13 +16,13 @@ inputs.nixpkgs.lib.nixosSystem {
     inputs.home-manager.nixosModules.home-manager
 
     {
+      _file = ./mkNixos.nix;
+
       custom.base.general.hostname = name;
 
-      lib.custom = customLib;
+      lib.custom = customLibFor.${system};
 
-      nixpkgs = {
-        inherit pkgs;
-      };
+      nixpkgs.pkgs = pkgsFor.${system};
 
       nix.registry = {
         nixpkgs.flake = inputs.nixpkgs;
@@ -31,5 +32,5 @@ inputs.nixpkgs.lib.nixosSystem {
       system.configurationRevision = inputs.self.rev or "dirty";
     }
   ]
-  ++ customLib.getRecursiveNixFileList (rootPath + "/nixos");
+  ++ customLibFor.${system}.getRecursiveNixFileList (rootPath + "/nixos");
 }

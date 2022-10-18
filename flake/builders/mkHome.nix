@@ -1,4 +1,4 @@
-{ inputs, rootPath, system, pkgs, customLib, homeModules, name, ... }:
+{ inputs, rootPath, system, pkgsFor, homeModulesFor, name, ... }:
 
 let
   # splits "username@hostname"
@@ -9,14 +9,16 @@ let
 in
 
 inputs.home-manager.lib.homeManagerConfiguration {
-  inherit username pkgs system;
+  inherit username system;
 
+  pkgs = pkgsFor.${system};
   configuration = rootPath + "/hosts/${hostname}/home-${username}.nix";
   homeDirectory = "/home/${username}";
   stateVersion = "22.05";
 
-  extraModules = homeModules ++ [
+  extraModules = homeModulesFor.${system} ++ [
     {
+      _file = ./mkHome.nix;
       nix.registry = {
         nixpkgs.flake = inputs.nixpkgs;
         nix-config.flake = inputs.self;
