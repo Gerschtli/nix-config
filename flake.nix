@@ -109,10 +109,6 @@
 
       apps = forEachSystem (system: (
         listToAttrs [
-          (mkApp system "format" {
-            file = ./files/apps/format.sh;
-            path = pkgs: with pkgs; [ nixpkgs-fmt statix ];
-          })
           (mkApp system "setup" {
             file = ./files/apps/setup.sh;
             path = pkgs: with pkgs; [ cachix coreutils curl git gnugrep hostname jq nix openssh ];
