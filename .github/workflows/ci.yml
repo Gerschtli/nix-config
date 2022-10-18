@@ -82,8 +82,6 @@ jobs:
 
       - name: Install nix
         uses: cachix/install-nix-action@v18
-        with:
-          install_url: "https://releases.nixos.org/nix/nix-2.9.2/install"
 
       - name: Setup cachix
         uses: cachix/cachix-action@v11
@@ -113,7 +111,7 @@ jobs:
             export USER=root
 
             echo "::group::Install nix"
-            sh <(curl -L https://releases.nixos.org/nix/nix-2.9.2/install) --no-channel-add
+            sh <(curl -L https://nixos.org/nix/install) --no-channel-add
             . ${HOME}/.nix-profile/etc/profile.d/nix.sh
 
             echo "::group::Setup cachix"
@@ -122,9 +120,17 @@ jobs:
 
             echo "::group::Build command"
             git config --global --add safe.directory "$(pwd)"
+
+            # setting build-hook is needed because default hook `nix __build-remote` is not available
+            function build_hook() {
+              local nix_path="$(which nix)"
+              echo "${nix_path/bin\/nix/libexec/nix/build-remote}"
+            }
+
             nix \
               --log-format bar-with-logs \
               --option keep-going true \
+              --option build-hook "$(build_hook)" \
               --show-trace \
               ${{ matrix.nix-command }}
 

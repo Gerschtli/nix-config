@@ -19,8 +19,6 @@ jobs:
 
       - name: Install nix
         uses: cachix/install-nix-action@v18
-        with:
-          install_url: "https://releases.nixos.org/nix/nix-2.9.2/install"
 
       - name: Set branch name output
         id: branch
