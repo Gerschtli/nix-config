@@ -27,6 +27,6 @@ inputs.home-manager.lib.homeManagerConfiguration {
   ];
 
   extraSpecialArgs = {
-    inherit rootPath;
+    inherit inputs rootPath;
   };
 }

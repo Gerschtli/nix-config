@@ -16,7 +16,7 @@ inputs.nix-on-droid.lib.nixOnDroidConfiguration {
   ];
 
   extraSpecialArgs = {
-    inherit rootPath;
+    inherit inputs rootPath;
     homeModules = homeModulesFor.${system};
   };
 

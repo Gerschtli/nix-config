@@ -4,7 +4,7 @@ inputs.nixpkgs.lib.nixosSystem {
   inherit system;
 
   specialArgs = {
-    inherit rootPath;
+    inherit inputs rootPath;
     homeModules = homeModulesFor.${system};
   };
 
