@@ -143,6 +143,16 @@ let
 
     " Disables formatting in paste mode
     set pastetoggle=<F3>
+
+
+    "" Auto formatter
+    let g:formatdef_nixpkgs_fmt = '"${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt"'
+    let g:formatters_nix = ['nixpkgs_fmt']
+
+    let g:autoformat_autoindent = 0
+    let g:autoformat_retab = 0
+
+    au BufWrite * :Autoformat
   '';
 
   plugins = with pkgs.vimPlugins; [
@@ -154,6 +164,7 @@ let
     csv-vim
     gitignore-vim
     rust-vim
+    vim-autoformat
     vim-json
     vim-nix
     vim-tmux
