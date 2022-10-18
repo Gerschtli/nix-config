@@ -1,12 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 with lib;
 
 let
   cfg = config.custom.development.direnv;
 
-  # FIXME: fetch names of devShells dynamically
-  devShells = [ "jdk8" "jdk11" "jdk15" "jdk17" "php74" "php80" "php81" ];
+  devShells = builtins.attrNames inputs.self.devShells.${pkgs.system};
 in
 
 {
