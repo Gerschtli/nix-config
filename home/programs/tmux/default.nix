@@ -151,7 +151,7 @@ let
     set -g message-style bg=colour166,fg=colour232,bold
   '';
 
-  tmuxProfiles = rootPath + "/files/tmux/profiles";
+  tmuxProfiles = "${rootPath}/files/tmux/profiles";
 in
 
 {

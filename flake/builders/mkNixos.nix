@@ -9,8 +9,8 @@ inputs.nixpkgs.lib.nixosSystem {
   };
 
   modules = [
-    (rootPath + "/hosts/${name}/configuration.nix")
-    (rootPath + "/hosts/${name}/hardware-configuration.nix")
+    "${rootPath}/hosts/${name}/configuration.nix"
+    "${rootPath}/hosts/${name}/hardware-configuration.nix"
 
     inputs.agenix.nixosModules.age
     inputs.home-manager.nixosModules.home-manager
@@ -32,5 +32,5 @@ inputs.nixpkgs.lib.nixosSystem {
       system.configurationRevision = inputs.self.rev or "dirty";
     }
   ]
-  ++ customLibFor.${system}.getRecursiveNixFileList (rootPath + "/nixos");
+  ++ customLibFor.${system}.getRecursiveNixFileList "${rootPath}/nixos";
 }

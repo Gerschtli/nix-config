@@ -7,7 +7,7 @@ let
 
   buildConfig = { name, host, user }: mkIf (elem name cfg.secrets) {
     ${name} = {
-      file = rootPath + "/secrets/${host}/${name}.age";
+      file = "${rootPath}/secrets/${host}/${name}.age";
       owner = user;
       group = user;
     };

@@ -12,7 +12,7 @@ inputs.home-manager.lib.homeManagerConfiguration {
   inherit username system;
 
   pkgs = pkgsFor.${system};
-  configuration = rootPath + "/hosts/${hostname}/home-${username}.nix";
+  configuration = "${rootPath}/hosts/${hostname}/home-${username}.nix";
   homeDirectory = "/home/${username}";
   stateVersion = "22.05";
 

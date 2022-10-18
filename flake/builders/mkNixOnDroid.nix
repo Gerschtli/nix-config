@@ -3,7 +3,7 @@
 inputs.nix-on-droid.lib.nixOnDroidConfiguration {
   inherit system;
 
-  config = rootPath + "/hosts/${name}/nix-on-droid.nix";
+  config = "${rootPath}/hosts/${name}/nix-on-droid.nix";
 
   extraModules = [
     {

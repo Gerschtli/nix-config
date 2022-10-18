@@ -47,8 +47,8 @@ in
       sharedModules = homeModules;
 
       users = {
-        root = import (rootPath + "/hosts/${cfg.hostname}/home-root.nix");
-        tobias = import (rootPath + "/hosts/${cfg.hostname}/home-tobias.nix");
+        root = import "${rootPath}/hosts/${cfg.hostname}/home-root.nix";
+        tobias = import "${rootPath}/hosts/${cfg.hostname}/home-tobias.nix";
       };
     };
 

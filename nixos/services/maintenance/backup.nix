@@ -169,7 +169,7 @@ in
 
         packages = [ pkgs.rsync ];
         sshKeys = [
-          (rootPath + "/files/keys/id_rsa.backup.pub")
+          "${rootPath}/files/keys/id_rsa.backup.pub"
         ];
       };
     };

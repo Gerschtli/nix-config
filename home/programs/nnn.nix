@@ -48,7 +48,7 @@ in
       package = pkgs.nnn.override { withNerdIcons = true; };
 
       plugins = {
-        src = pkgs.nnn.src + "/plugins";
+        src = "${pkgs.nnn.src}/plugins";
 
         mappings = {
           d = "diffs";

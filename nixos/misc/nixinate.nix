@@ -29,7 +29,7 @@ in
     custom.services.openssh.enable = true;
 
     users.users.tobias.openssh.authorizedKeys.keyFiles = [
-      (rootPath + "/files/keys/id_rsa.nixinate.pub")
+      "${rootPath}/files/keys/id_rsa.nixinate.pub"
     ];
 
   };

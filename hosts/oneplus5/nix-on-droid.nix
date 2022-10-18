@@ -9,7 +9,7 @@ in
   # FIXME: Move sshd config to nix-on-droid
   build.activation.sshd = ''
     $DRY_RUN_CMD mkdir $VERBOSE_ARG --parents "${config.user.home}/.ssh"
-    $DRY_RUN_CMD cat ${rootPath + "/files/keys/id_rsa.tobias.pub"} > "${config.user.home}/.ssh/authorized_keys"
+    $DRY_RUN_CMD cat "${rootPath}/files/keys/id_rsa.tobias.pub" > "${config.user.home}/.ssh/authorized_keys"
 
     if [[ ! -d "${sshdDirectory}" ]]; then
       $DRY_RUN_CMD rm $VERBOSE_ARG --recursive --force "${sshdTmpDirectory}"
@@ -39,7 +39,7 @@ in
 
   home-manager = {
     backupFileExtension = "hm-bak";
-    config = rootPath + "/hosts/oneplus5/home-nix-on-droid.nix";
+    config = "${rootPath}/hosts/oneplus5/home-nix-on-droid.nix";
     extraSpecialArgs = { inherit rootPath; };
     sharedModules = homeModules;
     useGlobalPkgs = true;

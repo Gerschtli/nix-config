@@ -7,19 +7,19 @@ let
 
   buildSshConfig = name: {
     name = "ssh-config-${name}";
-    source = rootPath + "/secrets/ssh/${name}/config.age";
+    source = "${rootPath}/secrets/ssh/${name}/config.age";
     copies = [ "${config.home.homeDirectory}/.ssh/config.d/${name}" ];
   };
 
   buildSshKey = module: name: [
     {
       name = "ssh-key-${name}";
-      source = rootPath + "/secrets/ssh/${module}/id-rsa-${name}.age";
+      source = "${rootPath}/secrets/ssh/${module}/id-rsa-${name}.age";
       copies = [ "${config.home.homeDirectory}/.ssh/keys/id_rsa.${name}" ];
     }
     {
       name = "ssh-key-${name}-pub";
-      source = rootPath + "/secrets/ssh/${module}/id-rsa-${name}-pub.age";
+      source = "${rootPath}/secrets/ssh/${module}/id-rsa-${name}-pub.age";
       copies = [ "${config.home.homeDirectory}/.ssh/keys/id_rsa.${name}.pub" ];
     }
   ];
@@ -77,12 +77,12 @@ in
             (optional (elem "sedo" cfg.secrets) [
               {
                 name = "sedo-aliases";
-                source = rootPath + "/secrets/M386/aliases.sh.age";
+                source = "${rootPath}/secrets/M386/aliases.sh.age";
                 copies = [ "${config.home.homeDirectory}/.aliases.sh" ];
               }
               {
                 name = "sedo-settings";
-                source = rootPath + "/secrets/M386/settings.xml.age";
+                source = "${rootPath}/secrets/M386/settings.xml.age";
                 copies = [ "${config.home.homeDirectory}/.m2/settings.xml" ];
               }
             ])

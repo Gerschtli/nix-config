@@ -19,7 +19,7 @@
     system.boot.mode = "efi";
   };
 
-  home-manager.users.steini = import (rootPath + "/hosts/${config.custom.base.general.hostname}/home-steini.nix");
+  home-manager.users.steini = import "${rootPath}/hosts/${config.custom.base.general.hostname}/home-steini.nix";
 
   security.sudo.extraRules = [
     {
@@ -49,7 +49,7 @@
     isNormalUser = true;
     shell = pkgs.zsh;
     openssh.authorizedKeys.keyFiles = [
-      (rootPath + "/files/keys/id_rsa.steini.pub")
+      "${rootPath}/files/keys/id_rsa.steini.pub"
     ];
   };
 
