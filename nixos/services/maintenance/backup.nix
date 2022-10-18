@@ -130,8 +130,9 @@ in
         service:
         let
           location = "${cfg.location}/${service.name}";
-          # TODO: refactor public key definition
-          ageKey = "age1kttfv4zpvv0cshe8q7lvakycytn34pja9pcy4ylq94kw90k3yfwsxja79j";
+
+          agenixToml = builtins.fromTOML (readFile "${rootPath}/.agenix.toml");
+          ageKey = agenixToml.identities.bak;
         in
 
         nameValuePair "${service.name}-backup" {
