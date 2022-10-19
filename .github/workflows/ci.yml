@@ -117,9 +117,8 @@ jobs:
             . ${HOME}/.nix-profile/etc/profile.d/nix.sh
 
             echo "::group::Setup cachix"
-            nix-env --quiet -j8 -iA cachix -f https://cachix.org/api/v1/install
-            cachix use gerschtli
-            cachix use nix-on-droid
+            nix run nixpkgs#cachix -- use gerschtli
+            nix run nixpkgs#cachix -- use nix-on-droid
 
             echo "::group::Build command"
             git config --global --add safe.directory "$(pwd)"
