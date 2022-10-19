@@ -56,6 +56,7 @@
       kubectl
       mariadb.client
       minikube
+      nixpkgs-fmt # for vscode integration
       nodejs # for ide integration
       php # for ide integration
     ];
