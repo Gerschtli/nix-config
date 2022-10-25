@@ -12,7 +12,7 @@ let
 in
 
 {
-  inherit (fileList) getFileList getRecursiveNixFileList;
+  inherit (fileList) listNixFilesRecursive;
   inherit (script) mkScript mkScriptPlain mkScriptPlainNixShell mkZshCompletion;
   inherit (wrapProgram) wrapProgram;
 }

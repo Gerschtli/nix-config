@@ -9,7 +9,7 @@ let
 
   ignoreList = map
     readFile
-    (config.lib.custom.getFileList ./gitignores);
+    (filesystem.listFilesRecursive ./gitignores);
 
   commitMsgTemplate = prefix: ''
     ${prefix}

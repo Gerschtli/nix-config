@@ -32,5 +32,5 @@ inputs.nixpkgs.lib.nixosSystem {
       system.configurationRevision = inputs.self.rev or "dirty";
     }
   ]
-  ++ customLibFor.${system}.getRecursiveNixFileList "${rootPath}/nixos";
+  ++ customLibFor.${system}.listNixFilesRecursive "${rootPath}/nixos";
 }

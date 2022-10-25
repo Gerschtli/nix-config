@@ -16,7 +16,7 @@ let
       }
       inputs.homeage.homeManagerModules.homeage
     ]
-    ++ customLibFor.${system}.getRecursiveNixFileList "${rootPath}/home"
+    ++ customLibFor.${system}.listNixFilesRecursive "${rootPath}/home"
   );
 
   wrapper = builder: system: name: args:
