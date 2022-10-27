@@ -20,7 +20,8 @@
     };
 
     nixinate = {
-      url = "github:matthewcroughan/nixinate";
+      # FIXME: pin until https://github.com/MatthewCroughan/nixinate/pull/30#issuecomment-1293550407 is resolved
+      url = "github:matthewcroughan/nixinate/bc620b8f801f4d0dcb2a1fb6d061fff0d585d4a5";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

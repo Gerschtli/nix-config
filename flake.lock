@@ -283,16 +283,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1666821508,
-        "narHash": "sha256-VEEUzsIkjzDfnMevkidJro1+gmy+VDTLuY5OBp49l7w=",
+        "lastModified": 1665496492,
+        "narHash": "sha256-CFR9423s2TalOHYEw+6r7v8FmtABKB4NVNQMjwXXt8g=",
         "owner": "matthewcroughan",
         "repo": "nixinate",
-        "rev": "104846083238d11081289e95531e59bddf3cf7a6",
+        "rev": "bc620b8f801f4d0dcb2a1fb6d061fff0d585d4a5",
         "type": "github"
       },
       "original": {
         "owner": "matthewcroughan",
         "repo": "nixinate",
+        "rev": "bc620b8f801f4d0dcb2a1fb6d061fff0d585d4a5",
         "type": "github"
       }
     },
