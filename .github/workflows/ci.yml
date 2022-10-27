@@ -115,8 +115,8 @@ jobs:
             . ${HOME}/.nix-profile/etc/profile.d/nix.sh
 
             echo "::group::Setup cachix"
-            nix run nixpkgs#cachix -- use gerschtli
-            nix run nixpkgs#cachix -- use nix-on-droid
+            nix --print-build-logs run nixpkgs#cachix -- use gerschtli 2>&1 | cat # this is needed to fake non-tty for stderr for pretty build logs
+            nix --print-build-logs run nixpkgs#cachix -- use nix-on-droid 2>&1 | cat # this is needed to fake non-tty for stderr for pretty build logs
 
             echo "::group::Build command"
             git config --global --add safe.directory "$(pwd)"
@@ -132,7 +132,8 @@ jobs:
               --option keep-going true \
               --option build-hook "$(build_hook)" \
               --show-trace \
-              ${{ matrix.nix-command }}
+              ${{ matrix.nix-command }} \
+              2>&1 | cat # this is needed to fake non-tty for stderr for pretty build logs
 
       - name: Build command (x86_64)
         if: matrix.system == 'x86_64'
