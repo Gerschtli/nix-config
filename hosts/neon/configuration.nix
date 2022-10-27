@@ -3,7 +3,8 @@
 {
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  boot.kernelPackages = pkgs.linuxKernel.packageAliases.linux_latest;
+  # FIXME: remove when 22.11 is released
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_5_19;
 
   custom = {
     base.desktop = {
