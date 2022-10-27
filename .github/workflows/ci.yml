@@ -128,7 +128,7 @@ jobs:
             }
 
             nix \
-              --log-format bar-with-logs \
+              --print-build-logs \
               --option keep-going true \
               --option build-hook "$(build_hook)" \
               --show-trace \
@@ -140,7 +140,7 @@ jobs:
           _system: ${{ matrix.system }}-linux
         run: |
           nix \
-            --log-format bar-with-logs \
+            --print-build-logs \
             --option keep-going true \
             --show-trace \
             ${{ matrix.nix-command }}
