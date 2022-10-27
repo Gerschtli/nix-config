@@ -102,6 +102,7 @@ in
 
     programs.git = {
       enable = true;
+      package = pkgs.git_gte_2_38;
 
       userName = "Tobias Happ";
       userEmail = "tobias.happ@gmx.de";
@@ -303,6 +304,7 @@ in
           autoSquash = true;
           autoStash = true;
           stat = true;
+          updateRefs = true;
         };
 
         rerere.enabled = 1;
