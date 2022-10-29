@@ -136,7 +136,6 @@ jobs:
           _system: ${{ matrix.system }}-linux
         run: |
           nix \
-            --print-build-logs \
             --option keep-going true \
             --show-trace \
             ${{ matrix.nix-command }}
