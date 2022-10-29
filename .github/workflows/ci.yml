@@ -31,9 +31,6 @@ jobs:
           - eval .#apps.$_system.setup.program
 
         include:
-          - system: aarch64
-            nix-command: build .#rpi-image
-
           - system: x86_64
             nix-command: flake check
 
@@ -69,8 +66,6 @@ jobs:
           - nix-command: build .#nixosConfigurations.xenon.config.system.build.toplevel
             system: aarch64
 
-          - nix-command: build .#rpi-firmware
-            system: aarch64
           - nix-command: build .#rpi-image
             system: aarch64
 
