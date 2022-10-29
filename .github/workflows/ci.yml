@@ -78,6 +78,9 @@ jobs:
 
       - name: Install nix
         uses: cachix/install-nix-action@v18
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup cachix
         uses: cachix/cachix-action@v12
@@ -96,6 +99,7 @@ jobs:
           install: apk --no-cache add curl git xz
           env: |
             _system: ${{ matrix.system }}-linux
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           run: |
             set -euo pipefail
 
@@ -104,6 +108,7 @@ jobs:
             echo "trusted-users = root" >> /etc/nix/nix.conf
             echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
             echo "build-users-group =" >> /etc/nix/nix.conf
+            echo "access-tokens = github.com=$GITHUB_TOKEN" >> /etc/nix/nix.conf
             export USER=root
 
             echo "::group::Install nix"
@@ -152,6 +157,9 @@ jobs:
 
       - name: Install nix
         uses: cachix/install-nix-action@v18
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup cachix
         uses: cachix/cachix-action@v12
