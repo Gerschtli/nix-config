@@ -22,9 +22,10 @@ jobs:
           - aarch64
           - x86_64
         nix-command:
-          - build .#rpi-firmware
+          - run .#ci-build -- packages.$_system.rpi-firmware
           #- flake check # temporarily disabled because of failing nixGL evaluation on aarch64
           - fmt
+          - eval .#apps.$_system.ci-build.program
           - eval .#apps.$_system.nixinate-argon.program
           - eval .#apps.$_system.nixinate-krypton.program
           - eval .#apps.$_system.nixinate-xenon.program
@@ -49,24 +50,24 @@ jobs:
           - nix-command: develop .#php81 --profile profile
             system: x86_64
 
-          - nix-command: build .#homeConfigurations."tobias@gamer".activationPackage
+          - nix-command: run .#ci-build -- 'homeConfigurations."tobias@gamer".activationPackage'
             system: x86_64
-          - nix-command: build .#homeConfigurations."tobhap@M386".activationPackage
+          - nix-command: run .#ci-build -- 'homeConfigurations."tobhap@M386".activationPackage'
             system: x86_64
 
-          - nix-command: build .#nixOnDroidConfigurations.oneplus5.activationPackage --impure
+          - nix-command: run .#ci-build -- nixOnDroidConfigurations.oneplus5.activationPackage
             system: aarch64
 
-          - nix-command: build .#nixosConfigurations.argon.config.system.build.toplevel
+          - nix-command: run .#ci-build -- nixosConfigurations.argon.config.system.build.toplevel
             system: aarch64
-          - nix-command: build .#nixosConfigurations.krypton.config.system.build.toplevel
+          - nix-command: run .#ci-build -- nixosConfigurations.krypton.config.system.build.toplevel
             system: x86_64
-          - nix-command: build .#nixosConfigurations.neon.config.system.build.toplevel
+          - nix-command: run .#ci-build -- nixosConfigurations.neon.config.system.build.toplevel
             system: x86_64
-          - nix-command: build .#nixosConfigurations.xenon.config.system.build.toplevel
+          - nix-command: run .#ci-build -- nixosConfigurations.xenon.config.system.build.toplevel
             system: aarch64
 
-          - nix-command: build .#rpi-image
+          - nix-command: run .#ci-build -- packages.$_system.rpi-image
             system: aarch64
 
     steps:
