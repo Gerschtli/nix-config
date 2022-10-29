@@ -109,6 +109,13 @@ jobs:
             sh <(curl -L https://nixos.org/nix/install) --no-channel-add
             . ${HOME}/.nix-profile/etc/profile.d/nix.sh
 
+            # setting build-hook is needed because default hook `nix __build-remote` is not available
+            function build_hook() {
+              local nix_path="$(which nix)"
+              echo "${nix_path/bin\/nix/libexec/nix/build-remote}"
+            }
+            echo "build-hook = $(build_hook)" >> /etc/nix/nix.conf
+
             echo "::group::Setup cachix"
             nix --print-build-logs run nixpkgs#cachix -- use gerschtli 2>&1 | cat # this is needed to fake non-tty for stderr for pretty build logs
             nix --print-build-logs run nixpkgs#cachix -- use nix-on-droid 2>&1 | cat # this is needed to fake non-tty for stderr for pretty build logs
@@ -116,16 +123,9 @@ jobs:
             echo "::group::Build command"
             git config --global --add safe.directory "$(pwd)"
 
-            # setting build-hook is needed because default hook `nix __build-remote` is not available
-            function build_hook() {
-              local nix_path="$(which nix)"
-              echo "${nix_path/bin\/nix/libexec/nix/build-remote}"
-            }
-
             nix \
               --print-build-logs \
               --option keep-going true \
-              --option build-hook "$(build_hook)" \
               --show-trace \
               ${{ matrix.nix-command }} \
               2>&1 | cat # this is needed to fake non-tty for stderr for pretty build logs
