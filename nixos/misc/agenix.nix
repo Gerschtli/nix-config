@@ -5,9 +5,9 @@ with lib;
 let
   cfg = config.custom.agenix;
 
-  buildConfig = { name, host, user }: mkIf (elem name cfg.secrets) {
+  buildConfig = { name, host, user, fileName ? name }: mkIf (elem name cfg.secrets) {
     ${name} = {
-      file = "${rootPath}/secrets/${host}/${name}.age";
+      file = "${rootPath}/secrets/${host}/${fileName}.age";
       owner = user;
       group = user;
     };
@@ -22,6 +22,7 @@ in
 
     custom.agenix.secrets = mkOption {
       type = types.listOf (types.enum [
+        "cachix-agent-token-neon"
         "gitea-dbpassword"
         "id-rsa-backup"
         "mysql-backup-password"
@@ -42,6 +43,13 @@ in
 
     age = {
       secrets = mkMerge [
+
+        (buildConfig {
+          name = "cachix-agent-token-neon";
+          fileName = "cachix-agent-token";
+          host = "neon";
+          user = "root";
+        })
 
         (buildConfig {
           name = "gitea-dbpassword";

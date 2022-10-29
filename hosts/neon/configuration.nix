@@ -12,6 +12,8 @@
       laptop = true;
     };
 
+    cachix-agent.enable = true;
+
     programs.docker.enable = true;
 
     system = {

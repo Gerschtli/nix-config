@@ -64,5 +64,9 @@ glob = "secrets/M386/*"
 identities = [ "bak", "M386-tobhap" ]
 
 [[paths]]
+glob = "secrets/neon/*"
+identities = [ "bak", "neon-root" ]
+
+[[paths]]
 glob = "secrets/xenon/*"
 identities = [ "bak", "xenon-root" ]

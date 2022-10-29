@@ -19,6 +19,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    cachix-deploy-flake.url = "github:cachix/cachix-deploy-flake";
     nixinate = {
       # FIXME: pin until https://github.com/MatthewCroughan/nixinate/pull/30#issuecomment-1293550407 is resolved
       url = "github:matthewcroughan/nixinate/bc620b8f801f4d0dcb2a1fb6d061fff0d585d4a5";
@@ -66,7 +67,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixinate, nix-formatter-pack, ... } @ inputs:
+  outputs = { self, nixpkgs, cachix-deploy-flake, nixinate, nix-formatter-pack, ... } @ inputs:
     let
       rootPath = toString ./.;
       forEachSystem = nixpkgs.lib.genAttrs [ "aarch64-linux" "x86_64-linux" ];
@@ -142,7 +143,17 @@
 
       formatter = forEachSystem (system: nix-formatter-pack.lib.mkFormatter formatterPackArgsFor.${system});
 
-      packages = forEachSystem (_: {
+      packages = forEachSystem (system: {
+        cachix-deploy-spec =
+          let
+            cachix-deploy-lib = cachix-deploy-flake.lib nixpkgs.legacyPackages.${system};
+          in
+          cachix-deploy-lib.spec {
+            agents = {
+              neon = self.nixosConfigurations.neon.config.system.build.toplevel;
+            };
+          };
+
         rpi-firmware = import ./files/nix/rpi-firmware.nix { inherit nixpkgs; };
         rpi-image = import ./files/nix/rpi-image.nix { inherit nixpkgs rootPath; };
       });
