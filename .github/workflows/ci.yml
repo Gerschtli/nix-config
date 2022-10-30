@@ -102,12 +102,16 @@ jobs:
             set -euo pipefail
 
             mkdir -p /etc/nix
-            echo "max-jobs = auto" >> /etc/nix/nix.conf
-            echo "trusted-users = root" >> /etc/nix/nix.conf
-            echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
-            echo "build-users-group =" >> /etc/nix/nix.conf
-            echo "keep-going = true" >> /etc/nix/nix.conf
-            echo "access-tokens = github.com=$GITHUB_TOKEN" >> /etc/nix/nix.conf
+
+            cat <<EOF >> /etc/nix/nix.conf
+            max-jobs = auto
+            trusted-users = root
+            experimental-features = nix-command flakes
+            build-users-group =
+            keep-going = true
+            access-tokens = github.com=$GITHUB_TOKEN
+            EOF
+
             export USER=root
 
             echo "::group::Install nix"
@@ -121,18 +125,22 @@ jobs:
             }
             echo "build-hook = $(build_hook)" >> /etc/nix/nix.conf
 
+            function _nix() {
+              nix \
+                --print-build-logs \
+                --show-trace \
+                "$@" \
+                2>&1 | cat # this is needed to fake non-tty for stderr for pretty build logs
+            }
+
             echo "::group::Setup cachix"
-            nix --print-build-logs run nixpkgs#cachix -- use gerschtli 2>&1 | cat # this is needed to fake non-tty for stderr for pretty build logs
-            nix --print-build-logs run nixpkgs#cachix -- use nix-on-droid 2>&1 | cat # this is needed to fake non-tty for stderr for pretty build logs
+            _nix run nixpkgs#cachix -- use gerschtli
+            _nix run nixpkgs#cachix -- use nix-on-droid
 
             echo "::group::Build command"
             git config --global --add safe.directory "$(pwd)"
 
-            nix \
-              --print-build-logs \
-              --show-trace \
-              ${{ matrix.nix-command }} \
-              2>&1 | cat # this is needed to fake non-tty for stderr for pretty build logs
+            _nix ${{ matrix.nix-command }}
 
       - name: Build command (x86_64)
         if: matrix.system == 'x86_64'
