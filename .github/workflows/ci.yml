@@ -57,12 +57,16 @@ jobs:
 
           - nix-command: run .#ci-build -- nixosConfigurations.argon.config.system.build.toplevel
             system: aarch64
+            deploy-spec: .#cachix-deploy-spec-argon
           - nix-command: run .#ci-build -- nixosConfigurations.krypton.config.system.build.toplevel
             system: x86_64
+            deploy-spec: .#cachix-deploy-spec-krypton
           - nix-command: run .#ci-build -- nixosConfigurations.neon.config.system.build.toplevel
             system: x86_64
+            deploy-spec: .#cachix-deploy-spec-neon
           - nix-command: run .#ci-build -- nixosConfigurations.xenon.config.system.build.toplevel
             system: aarch64
+            deploy-spec: .#cachix-deploy-spec-xenon
 
           - nix-command: run .#ci-build -- packages.$_system.rpi-image
             system: aarch64
@@ -151,33 +155,12 @@ jobs:
             --show-trace \
             ${{ matrix.nix-command }}
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: nix
-    if: github.ref == 'refs/heads/master' && inputs.branch == ''
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Install nix
-        uses: cachix/install-nix-action@v18
-        with:
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-      - name: Setup cachix
-        uses: cachix/cachix-action@v12
-        with:
-          name: gerschtli
-          signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
-
       - name: Deploy cachix-agent spec
+        if: github.ref == 'refs/heads/master' && inputs.branch == '' && matrix.deploy-spec
         env:
           CACHIX_ACTIVATE_TOKEN: ${{ secrets.CACHIX_ACTIVATE_TOKEN }}
         run: |
-          nix run .#ci-build -- packages.x86_64-linux.cachix-deploy-spec
-          spec="$(nix build --print-out-paths .#cachix-deploy-spec)"
+          spec="$(nix build --print-out-paths ${{ matrix.deploy-spec }})"
           cachix push gerschtli "$spec"
           cachix deploy activate "$spec"
 
