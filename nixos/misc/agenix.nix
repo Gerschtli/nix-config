@@ -23,6 +23,7 @@ in
     custom.agenix.secrets = mkOption {
       type = types.listOf (types.enum [
         "cachix-agent-token-argon"
+        "cachix-agent-token-krypton"
         "cachix-agent-token-neon"
         "gitea-dbpassword"
         "id-rsa-backup"
@@ -49,6 +50,13 @@ in
           name = "cachix-agent-token-argon";
           fileName = "cachix-agent-token";
           host = "argon";
+          user = "root";
+        })
+
+        (buildConfig {
+          name = "cachix-agent-token-krypton";
+          fileName = "cachix-agent-token";
+          host = "krypton";
           user = "root";
         })
 
