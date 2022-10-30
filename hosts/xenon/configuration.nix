@@ -4,6 +4,8 @@
   custom = {
     base.server.enable = true;
 
+    cachix-agent.enable = true;
+
     nixinate.enable = true;
 
     services.storage = {

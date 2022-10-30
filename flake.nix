@@ -158,6 +158,7 @@
               argon = self.nixosConfigurations.argon.config.system.build.toplevel;
               krypton = self.nixosConfigurations.krypton.config.system.build.toplevel;
               neon = self.nixosConfigurations.neon.config.system.build.toplevel;
+              xenon = self.nixosConfigurations.xenon.config.system.build.toplevel;
             };
           };
 

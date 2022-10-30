@@ -25,6 +25,7 @@ in
         "cachix-agent-token-argon"
         "cachix-agent-token-krypton"
         "cachix-agent-token-neon"
+        "cachix-agent-token-xenon"
         "gitea-dbpassword"
         "id-rsa-backup"
         "mysql-backup-password"
@@ -64,6 +65,13 @@ in
           name = "cachix-agent-token-neon";
           fileName = "cachix-agent-token";
           host = "neon";
+          user = "root";
+        })
+
+        (buildConfig {
+          name = "cachix-agent-token-xenon";
+          fileName = "cachix-agent-token";
+          host = "xenon";
           user = "root";
         })
 
