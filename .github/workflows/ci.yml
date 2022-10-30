@@ -101,7 +101,11 @@ jobs:
           install: apk --no-cache add curl git xz
           env: |
             _system: ${{ matrix.system }}-linux
+            CACHIX_ACTIVATE_TOKEN: ${{ secrets.CACHIX_ACTIVATE_TOKEN || 'no-value' }}
+            CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+            DEPLOY_SPEC: ${{ matrix.deploy-spec || 'no-value' }}
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            USER: root
           run: |
             set -euo pipefail
 
@@ -116,15 +120,13 @@ jobs:
             access-tokens = github.com=$GITHUB_TOKEN
             EOF
 
-            export USER=root
-
             echo "::group::Install nix"
             # retry logic taken from https://github.com/cachix/install-nix-action/blob/master/install-nix.sh
             # There is --retry-on-errors, but only newer curl versions support that
             curl_retries=5
             while ! curl -sS -o "install" -v --fail -L "https://nixos.org/nix/install"; do
               sleep 1
-              ((curl_retries--))
+              curl_retries=$((curl_retries--))
               if [[ $curl_retries -le 0 ]]; then
                 echo "curl retries failed" >&2
                 exit 1
@@ -151,13 +153,23 @@ jobs:
             }
 
             echo "::group::Setup cachix"
-            _nix run nixpkgs#cachix -- use gerschtli
-            _nix run nixpkgs#cachix -- use nix-on-droid
+            _nix profile install nixpkgs#cachix
+            cachix use gerschtli
+            cachix use nix-on-droid
 
             echo "::group::Build command"
             git config --global --add safe.directory "$(pwd)"
 
             _nix ${{ matrix.nix-command }}
+
+            ${{ github.ref == 'refs/heads/master' && inputs.branch == '' && matrix.deploy-spec && '
+            echo "::group::Build spec"
+            spec="$(_nix build --print-out-paths "$DEPLOY_SPEC")"
+
+            echo "::group::Deploy spec"
+            cachix push gerschtli "$spec"
+            cachix deploy activate "$spec"
+            ' }}
 
       - name: Build command (x86_64)
         if: matrix.system == 'x86_64'
@@ -168,8 +180,8 @@ jobs:
             --show-trace \
             ${{ matrix.nix-command }}
 
-      - name: Deploy cachix-agent spec
-        if: github.ref == 'refs/heads/master' && inputs.branch == '' && matrix.deploy-spec
+      - name: Deploy cachix-agent spec (x86_64)
+        if: matrix.system == 'x86_64' && github.ref == 'refs/heads/master' && inputs.branch == '' && matrix.deploy-spec
         env:
           CACHIX_ACTIVATE_TOKEN: ${{ secrets.CACHIX_ACTIVATE_TOKEN }}
         run: |
