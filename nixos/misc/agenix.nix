@@ -22,6 +22,7 @@ in
 
     custom.agenix.secrets = mkOption {
       type = types.listOf (types.enum [
+        "cachix-agent-token-argon"
         "cachix-agent-token-neon"
         "gitea-dbpassword"
         "id-rsa-backup"
@@ -43,6 +44,13 @@ in
 
     age = {
       secrets = mkMerge [
+
+        (buildConfig {
+          name = "cachix-agent-token-argon";
+          fileName = "cachix-agent-token";
+          host = "argon";
+          user = "root";
+        })
 
         (buildConfig {
           name = "cachix-agent-token-neon";

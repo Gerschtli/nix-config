@@ -155,6 +155,7 @@
           in
           cachix-deploy-lib.spec {
             agents = {
+              argon = self.nixosConfigurations.argon.config.system.build.toplevel;
               neon = self.nixosConfigurations.neon.config.system.build.toplevel;
             };
           };
