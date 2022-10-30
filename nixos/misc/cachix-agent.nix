@@ -25,9 +25,10 @@ in
 
     custom.agenix.secrets = [ "cachix-agent-token-${hostName}" ];
 
-    environment.etc."cachix-agent.token".source = config.age.secrets."cachix-agent-token-${hostName}".path;
-
-    services.cachix-agent.enable = true;
+    services.cachix-agent = {
+      enable = true;
+      credentialsFile = config.age.secrets."cachix-agent-token-${hostName}".path;
+    };
 
   };
 
