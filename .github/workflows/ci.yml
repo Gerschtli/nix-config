@@ -82,6 +82,7 @@ jobs:
         with:
           extra_nix_config: |
             keep-going = true
+            show-trace = true
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup cachix
@@ -92,7 +93,7 @@ jobs:
 
       - name: Build command (aarch64)
         if: matrix.system == 'aarch64'
-        uses: uraimo/run-on-arch-action@v2
+        uses: Gerschtli/run-on-arch-action@tty
         with:
           arch: aarch64
           distro: alpine_latest
@@ -117,6 +118,7 @@ jobs:
             experimental-features = nix-command flakes
             build-users-group =
             keep-going = true
+            show-trace = true
             access-tokens = github.com=$GITHUB_TOKEN
             EOF
 
@@ -144,27 +146,22 @@ jobs:
             }
             echo "build-hook = $(build_hook)" >> /etc/nix/nix.conf
 
-            function _nix() {
-              nix \
-                --print-build-logs \
-                --show-trace \
-                "$@" \
-                2>&1 | cat # this is needed to fake non-tty for stderr for pretty build logs
-            }
 
             echo "::group::Setup cachix"
-            _nix profile install nixpkgs#cachix
+            nix profile install nixpkgs#cachix
             cachix use gerschtli
             cachix use nix-on-droid
+
 
             echo "::group::Build command"
             git config --global --add safe.directory "$(pwd)"
 
-            _nix ${{ matrix.nix-command }}
+            nix ${{ matrix.nix-command }}
+
 
             ${{ github.ref == 'refs/heads/master' && inputs.branch == '' && matrix.deploy-spec && '
             echo "::group::Build spec"
-            spec="$(_nix build --print-out-paths "$DEPLOY_SPEC")"
+            spec="$(nix build --print-out-paths "$DEPLOY_SPEC")"
 
             echo "::group::Deploy spec"
             cachix push gerschtli "$spec"
@@ -175,17 +172,17 @@ jobs:
         if: matrix.system == 'x86_64'
         env:
           _system: ${{ matrix.system }}-linux
-        run: |
-          nix \
-            --show-trace \
-            ${{ matrix.nix-command }}
+        run: nix ${{ matrix.nix-command }}
 
       - name: Deploy cachix-agent spec (x86_64)
         if: matrix.system == 'x86_64' && github.ref == 'refs/heads/master' && inputs.branch == '' && matrix.deploy-spec
         env:
           CACHIX_ACTIVATE_TOKEN: ${{ secrets.CACHIX_ACTIVATE_TOKEN }}
         run: |
-          spec="$(nix build --print-out-paths ${{ matrix.deploy-spec }})"
+          echo "::group::Build spec"
+          spec="$(nix build --print-out-paths "${{ matrix.deploy-spec }}")"
+
+          echo "::group::Deploy spec"
           cachix push gerschtli "$spec"
           cachix deploy activate "$spec"
 
