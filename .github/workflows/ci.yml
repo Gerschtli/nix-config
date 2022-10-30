@@ -169,7 +169,7 @@ jobs:
           CACHIX_ACTIVATE_TOKEN: ${{ secrets.CACHIX_ACTIVATE_TOKEN }}
         run: |
           nix run .#ci-build -- packages.x86_64-linux.cachix-deploy-spec
-          spec="$(realpath ./result)"
+          spec="$(nix build --print-out-paths .#cachix-deploy-spec)"
           cachix push gerschtli "$spec"
           cachix deploy activate "$spec"
 
