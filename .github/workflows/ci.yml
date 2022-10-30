@@ -119,7 +119,20 @@ jobs:
             export USER=root
 
             echo "::group::Install nix"
-            sh <(curl -L https://nixos.org/nix/install) --no-channel-add
+            # retry logic taken from https://github.com/cachix/install-nix-action/blob/master/install-nix.sh
+            # There is --retry-on-errors, but only newer curl versions support that
+            curl_retries=5
+            while ! curl -sS -o "install" -v --fail -L "https://nixos.org/nix/install"; do
+              sleep 1
+              ((curl_retries--))
+              if [[ $curl_retries -le 0 ]]; then
+                echo "curl retries failed" >&2
+                exit 1
+              fi
+            done
+
+            sh "install" --no-channel-add
+            rm install
             . ${HOME}/.nix-profile/etc/profile.d/nix.sh
 
             # setting build-hook is needed because default hook `nix __build-remote` is not available
