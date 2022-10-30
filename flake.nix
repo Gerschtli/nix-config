@@ -70,6 +70,8 @@
         inherit inputs rootPath forEachSystem;
       };
 
+      cachixDeployLibFor = forEachSystem (system: cachix-deploy-flake.lib nixpkgs.legacyPackages.${system});
+
       formatterPackArgsFor = forEachSystem (system: {
         inherit nixpkgs system;
         checkFiles = [ ./. ];
@@ -84,7 +86,7 @@
         };
       });
 
-      inherit (nixpkgs.lib) listToAttrs;
+      inherit (nixpkgs.lib) listToAttrs mapAttrs;
       inherit (flakeLib) mkApp mkDevShellJdk mkDevShellPhp mkHome mkNixOnDroid mkNixos;
     in
     {
@@ -139,18 +141,9 @@
       formatter = forEachSystem (system: nix-formatter-pack.lib.mkFormatter formatterPackArgsFor.${system});
 
       packages = forEachSystem (system: {
-        cachix-deploy-spec =
-          let
-            cachix-deploy-lib = cachix-deploy-flake.lib nixpkgs.legacyPackages.${system};
-          in
-          cachix-deploy-lib.spec {
-            agents = {
-              argon = self.nixosConfigurations.argon.config.system.build.toplevel;
-              krypton = self.nixosConfigurations.krypton.config.system.build.toplevel;
-              neon = self.nixosConfigurations.neon.config.system.build.toplevel;
-              xenon = self.nixosConfigurations.xenon.config.system.build.toplevel;
-            };
-          };
+        cachix-deploy-spec = cachixDeployLibFor.${system}.spec {
+          agents = mapAttrs (_name: value: value.config.system.build.toplevel) self.nixosConfigurations;
+        };
 
         rpi-firmware = import ./files/nix/rpi-firmware.nix { inherit nixpkgs; };
         rpi-image = import ./files/nix/rpi-image.nix { inherit nixpkgs rootPath; };
