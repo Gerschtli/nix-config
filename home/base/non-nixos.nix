@@ -49,6 +49,8 @@ in
       trusted-public-keys = ${concatStringsSep " " trustedPublicKeys}
       trusted-users = root tobias
       experimental-features = nix-command flakes
+      log-lines = 30
+      show-trace = true
     '';
 
   };
