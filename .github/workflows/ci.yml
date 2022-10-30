@@ -26,9 +26,6 @@ jobs:
           #- flake check # temporarily disabled because of failing nixGL evaluation on aarch64
           - fmt
           - eval .#apps.$_system.ci-build.program
-          - eval .#apps.$_system.nixinate-argon.program
-          - eval .#apps.$_system.nixinate-krypton.program
-          - eval .#apps.$_system.nixinate-xenon.program
           - eval .#apps.$_system.setup.program
 
         include:

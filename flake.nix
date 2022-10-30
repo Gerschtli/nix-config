@@ -20,11 +20,6 @@
     };
 
     cachix-deploy-flake.url = "github:cachix/cachix-deploy-flake";
-    nixinate = {
-      # FIXME: pin until https://github.com/MatthewCroughan/nixinate/pull/30#issuecomment-1293550407 is resolved
-      url = "github:matthewcroughan/nixinate/bc620b8f801f4d0dcb2a1fb6d061fff0d585d4a5";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     agenix = {
       url = "github:ryantm/agenix";
@@ -67,7 +62,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, cachix-deploy-flake, nixinate, nix-formatter-pack, ... } @ inputs:
+  outputs = { self, nixpkgs, cachix-deploy-flake, nix-formatter-pack, ... } @ inputs:
     let
       rootPath = toString ./.;
       forEachSystem = nixpkgs.lib.genAttrs [ "aarch64-linux" "x86_64-linux" ];
@@ -89,7 +84,7 @@
         };
       });
 
-      inherit (nixpkgs.lib) listToAttrs mapAttrs' nameValuePair;
+      inherit (nixpkgs.lib) listToAttrs;
       inherit (flakeLib) mkApp mkDevShellJdk mkDevShellPhp mkHome mkNixOnDroid mkNixos;
     in
     {
@@ -109,24 +104,19 @@
         (mkNixos "aarch64-linux" "xenon")
       ];
 
-      apps = forEachSystem (system: (
-        listToAttrs [
-          (mkApp system "ci-build" {
-            file = ./files/apps/ci-build.sh;
-            path = pkgs: with pkgs; [ nix nix-build-uncached ];
-            envs = { inherit rootPath; };
-          })
-          (mkApp system "setup" {
-            file = ./files/apps/setup.sh;
-            path = pkgs: with pkgs; [ cachix coreutils curl git gnugrep hostname jq nix openssh ];
-            envs._doNotClearPath = true;
-          })
-        ]
-      ) // (
-        mapAttrs'
-          (name: nameValuePair ("nixinate-" + name))
-          (nixinate.nixinate.${system} self).nixinate
-      ));
+      apps = forEachSystem (system: listToAttrs [
+        (mkApp system "ci-build" {
+          file = ./files/apps/ci-build.sh;
+          path = pkgs: with pkgs; [ nix nix-build-uncached ];
+          envs = { inherit rootPath; };
+        })
+
+        (mkApp system "setup" {
+          file = ./files/apps/setup.sh;
+          path = pkgs: with pkgs; [ cachix coreutils curl git gnugrep hostname jq nix openssh ];
+          envs._doNotClearPath = true;
+        })
+      ]);
 
       checks = forEachSystem (system: {
         nix-formatter-pack-check = nix-formatter-pack.lib.mkCheck formatterPackArgsFor.${system};

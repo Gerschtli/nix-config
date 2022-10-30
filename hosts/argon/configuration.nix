@@ -8,8 +8,6 @@
 
     cachix-agent.enable = true;
 
-    nixinate.enable = true;
-
     services = {
       backup.enable = true;
 
