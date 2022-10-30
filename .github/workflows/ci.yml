@@ -77,6 +77,7 @@ jobs:
         uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: |
+            keep-going = true
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup cachix
@@ -105,6 +106,7 @@ jobs:
             echo "trusted-users = root" >> /etc/nix/nix.conf
             echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
             echo "build-users-group =" >> /etc/nix/nix.conf
+            echo "keep-going = true" >> /etc/nix/nix.conf
             echo "access-tokens = github.com=$GITHUB_TOKEN" >> /etc/nix/nix.conf
             export USER=root
 
@@ -128,7 +130,6 @@ jobs:
 
             nix \
               --print-build-logs \
-              --option keep-going true \
               --show-trace \
               ${{ matrix.nix-command }} \
               2>&1 | cat # this is needed to fake non-tty for stderr for pretty build logs
@@ -139,7 +140,6 @@ jobs:
           _system: ${{ matrix.system }}-linux
         run: |
           nix \
-            --option keep-going true \
             --show-trace \
             ${{ matrix.nix-command }}
 
