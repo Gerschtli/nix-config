@@ -166,6 +166,8 @@ jobs:
             echo "::group::Deploy spec"
             cachix push gerschtli "$spec"
             cachix deploy activate "$spec"
+            ' || '
+            echo "::group::Skip spec deploy"
             ' }}
 
       - name: Build command (x86_64)
