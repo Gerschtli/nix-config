@@ -26,7 +26,7 @@ jobs:
 
       - name: Set branch name output
         id: branch
-        run: echo "::set-output name=branch::ci/automatic-update-$(date +%Y-%m-%d)"
+        run: echo "branch=ci/automatic-update-$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
 
       - name: Create branch locally
         run: git switch -c ${{ steps.branch.outputs.branch }}
@@ -37,15 +37,19 @@ jobs:
           git config --global user.name "Tobias Happ"
 
       - name: Update inputs
-        run: "nix --option commit-lockfile-summary 'flake.inputs: automatic update' flake update --commit-lock-file"
+        run: |
+          nix \
+            --option commit-lockfile-summary 'flake.inputs: automatic update' \
+            flake update \
+            --commit-lock-file
 
       - name: Check for changes
         id: changes
         run: |
           if git diff --exit-code origin/master...; then
-            echo "::set-output name=update_available::false"
+            echo "update_available=false" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=update_available::true"
+            echo "update_available=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Push changes
