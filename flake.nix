@@ -62,12 +62,12 @@
     };
   };
 
-  outputs = { self, nixpkgs, cachix-deploy-flake, nix-formatter-pack, ... } @ inputs:
+  outputs = { self, nixpkgs, cachix-deploy-flake, nix-formatter-pack, ... } @ inputsOriginal:
     let
       rootPath = toString ./.;
       forEachSystem = nixpkgs.lib.genAttrs [ "aarch64-linux" "x86_64-linux" ];
       flakeLib = import ./flake {
-        inherit inputs rootPath forEachSystem;
+        inherit inputsOriginal rootPath forEachSystem;
       };
 
       cachixDeployLibFor = forEachSystem (system: cachix-deploy-flake.lib nixpkgs.legacyPackages.${system});

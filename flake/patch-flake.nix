@@ -1,4 +1,6 @@
-{ nixpkgs, system, name, flake, patches, narHash }:
+{ nixpkgs, system }:
+
+{ name, flake, patches, narHash }:
 
 let
   pkgs = nixpkgs.legacyPackages.${system};
