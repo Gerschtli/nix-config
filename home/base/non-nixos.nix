@@ -50,7 +50,6 @@ in
       trusted-users = root tobias
       experimental-features = nix-command flakes
       log-lines = 30
-      show-trace = true
     '';
 
   };

@@ -67,7 +67,9 @@ jobs:
 
   merge:
     runs-on: ubuntu-latest
-    needs: build
+    needs:
+      - update
+      - build
 
     steps:
       - name: Checkout repository
