@@ -159,12 +159,8 @@ volume of the bootstrap instance can be reused at any time.
 As I am currently transitioning to a flake setup, there is still some stuff to do :)
 
 * [ ] NixOS setup script: `/home/tobias/.age` is missing
-* [ ] Add functionality to apply patches to individual inputs (EDIT: non-trivial because `builtins.getFlake` does not
-  accept paths to `/nix/store`..)
 * [ ] Provide ISO-images for NixOS configurations
 * [ ] Set up nixos-shell and similar for an ubuntu image to easily test setup script
-* [ ] [systemd-boot-builder.py][systemd-boot-builder.py] does not clean up boot loader entries of specialisations, try
-  to improve this script
 
 [age]: https://age-encryption.org/
 [agenix]: https://github.com/ryantm/agenix
@@ -179,6 +175,5 @@ As I am currently transitioning to a flake setup, there is still some stuff to d
 [nixpkgs-fmt]: https://github.com/nix-community/nixpkgs-fmt
 [shellcheck]: https://github.com/koalaman/shellcheck
 [statix]: https://github.com/nerdypepper/statix
-[systemd-boot-builder.py]: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/system/boot/loader/systemd-boot/systemd-boot-builder.py
 
 <!-- vim: set sw=2: -->
