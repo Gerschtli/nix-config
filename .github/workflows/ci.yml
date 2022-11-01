@@ -23,7 +23,7 @@ jobs:
           - x86_64
         nix-command:
           - run .#ci-build -- packages.$_system.rpi-firmware
-          #- flake check # temporarily disabled because of failing nixGL evaluation on aarch64
+          #- flake check # FIXME: temporarily disabled because of failing nixGL evaluation on aarch64
           - fmt
           - eval .#apps.$_system.ci-build.program
           - eval .#apps.$_system.setup.program
@@ -93,6 +93,8 @@ jobs:
 
       - name: Build command (aarch64)
         if: matrix.system == 'aarch64'
+        # FIXME: use upstream once --tty is removed
+        #uses: uraimo/run-on-arch-action@v2
         uses: Gerschtli/run-on-arch-action@tty
         with:
           arch: aarch64
@@ -139,7 +141,7 @@ jobs:
             rm install
             . ${HOME}/.nix-profile/etc/profile.d/nix.sh
 
-            # setting build-hook is needed because default hook `nix __build-remote` is not available
+            # FIXME: setting build-hook is needed because default hook `nix __build-remote` is not available
             function build_hook() {
               local nix_path="$(which nix)"
               echo "${nix_path/bin\/nix/libexec/nix/build-remote}"
