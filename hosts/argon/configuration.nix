@@ -42,15 +42,19 @@
 
   systemd.services.minecraft-server.serviceConfig.UMask = lib.mkForce "0007"; # change 0077 to 0007 to make group-writeable
 
-  users.users.steini = {
-    # FIXME: move mkIf to ids module
-    uid = lib.mkIf config.custom.ids.enable config.custom.ids.uids.steini;
-    extraGroups = [ "minecraft" ];
-    isNormalUser = true;
-    shell = pkgs.zsh;
-    openssh.authorizedKeys.keyFiles = [
-      "${rootPath}/files/keys/id_rsa.steini.pub"
-    ];
+  users.users = {
+    minecraft.homeMode = "0770";
+
+    steini = {
+      # FIXME: move mkIf to ids module
+      uid = lib.mkIf config.custom.ids.enable config.custom.ids.uids.steini;
+      extraGroups = [ "minecraft" ];
+      isNormalUser = true;
+      shell = pkgs.zsh;
+      openssh.authorizedKeys.keyFiles = [
+        "${rootPath}/files/keys/id_rsa.steini.pub"
+      ];
+    };
   };
 
   zramSwap.enable = true;
