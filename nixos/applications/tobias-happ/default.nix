@@ -5,7 +5,10 @@ with lib;
 let
   cfg = config.custom.applications.tobias-happ;
 
-  path = "nginx/tobias-happ.de";
+  website = pkgs.runCommand "tobias-happ.de" { } ''
+    install -D -m 0400 ${./index.html} ${placeholder "out"}/index.html
+    install -D -m 0400 ${./robots.txt} ${placeholder "out"}/robots.txt
+  '';
 in
 
 {
@@ -25,21 +28,10 @@ in
 
     custom.services.nginx.enable = true;
 
-    # FIXME: use symlinkJoin instead of /etc files
-    environment.etc = listToAttrs
-      (map
-        (file:
-          nameValuePair
-            "${path}/${file}"
-            { source = ./. + "/${file}"; }
-        )
-        [ "index.html" "robots.txt" ]
-      );
-
     services.nginx.virtualHosts = {
       "tobias-happ.de" = {
         default = true;
-        root = "/etc/${path}";
+        root = website;
         enableACME = true;
         forceSSL = true;
         locations."/".tryFiles = "$uri /index.html";
