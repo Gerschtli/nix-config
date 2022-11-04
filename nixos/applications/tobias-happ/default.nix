@@ -34,12 +34,14 @@ in
         root = website;
         enableACME = true;
         forceSSL = true;
-        locations."/".tryFiles = "$uri /index.html";
+        extraConfig = "error_page 404 @notfound;";
+        locations = {
+          "/".index = "index.html";
+          "@notfound".extraConfig = "return 302 /;";
+        };
       };
 
-      "*.tobias-happ.de" = {
-        extraConfig = "return 302 https://tobias-happ.de/;";
-      };
+      "*.tobias-happ.de".extraConfig = "return 302 https://tobias-happ.de/;";
     };
 
   };
