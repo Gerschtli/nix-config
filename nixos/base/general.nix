@@ -90,8 +90,7 @@ in
       root.shell = pkgs.zsh;
 
       tobias = {
-        # FIXME: move mkIf to ids module
-        uid = mkIf config.custom.ids.enable config.custom.ids.uids.tobias;
+        uid = config.custom.ids.uids.tobias;
         extraGroups = [ "wheel" ];
         isNormalUser = true;
         shell = pkgs.zsh;

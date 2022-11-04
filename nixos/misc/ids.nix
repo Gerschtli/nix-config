@@ -2,6 +2,12 @@
 
 with lib;
 
+let
+  cfg = config.custom.ids;
+
+  mapIds = mapAttrs (_name: id: if cfg.enable then id else null);
+in
+
 {
 
   ###### interface
@@ -36,7 +42,7 @@ with lib;
   config = {
 
     custom.ids = {
-      uids = {
+      uids = mapIds {
         backup = 500;
         storage = 501;
         # ip-watcher = 502;
@@ -46,7 +52,7 @@ with lib;
         steini = 1001;
       };
 
-      gids = {
+      gids = mapIds {
         backup = 500;
         storage = 501;
         # ip-watcher = 502;

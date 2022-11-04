@@ -46,8 +46,7 @@
     minecraft.homeMode = "0770";
 
     steini = {
-      # FIXME: move mkIf to ids module
-      uid = lib.mkIf config.custom.ids.enable config.custom.ids.uids.steini;
+      uid = config.custom.ids.uids.steini;
       extraGroups = [ "minecraft" ];
       isNormalUser = true;
       shell = pkgs.zsh;
