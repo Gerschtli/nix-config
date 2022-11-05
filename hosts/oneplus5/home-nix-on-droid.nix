@@ -25,8 +25,6 @@
         controlMaster = "no";
         modules = [ "private" ];
       };
-
-      tmux.enable = lib.mkForce false;
     };
   };
 
