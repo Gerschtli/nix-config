@@ -35,7 +35,11 @@ in
 
     console.keyMap = "de";
 
-    custom.system.firewall.enable = true;
+    custom = {
+      cachix-agent.enable = true;
+
+      system.firewall.enable = true;
+    };
 
     environment = {
       defaultPackages = [ ];

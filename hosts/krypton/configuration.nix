@@ -13,8 +13,6 @@
       ipv6Address = "2a01:4f8:1c0c:7161::2";
     };
 
-    cachix-agent.enable = true;
-
     ids.enable = false;
 
     services = {

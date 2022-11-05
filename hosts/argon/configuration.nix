@@ -6,8 +6,6 @@
 
     base.server.enable = true;
 
-    cachix-agent.enable = true;
-
     services = {
       backup.enable = true;
 
