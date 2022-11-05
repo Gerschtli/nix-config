@@ -1,4 +1,4 @@
-{ config, lib, pkgs, rootPath, ... }:
+{ config, lib, pkgs, inputs, rootPath, ... }:
 
 with lib;
 
@@ -15,6 +15,9 @@ let
 in
 
 {
+
+  imports = [ inputs.agenix.nixosModules.age ];
+
 
   ###### interface
 

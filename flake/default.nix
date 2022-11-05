@@ -14,7 +14,6 @@ let
         _file = ./default.nix;
         lib.custom = customLibFor.${system};
       }
-      inputs.homeage.homeManagerModules.homeage
     ]
     ++ customLibFor.${system}.listNixFilesRecursive "${rootPath}/home"
   );

@@ -12,9 +12,6 @@ inputs.nixpkgs.lib.nixosSystem {
     "${rootPath}/hosts/${name}/configuration.nix"
     "${rootPath}/hosts/${name}/hardware-configuration.nix"
 
-    inputs.agenix.nixosModules.age
-    inputs.home-manager.nixosModules.home-manager
-
     {
       _file = ./mkNixos.nix;
 
