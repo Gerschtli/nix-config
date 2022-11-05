@@ -24,18 +24,20 @@ in
     fi
   '';
 
-  environment.etcBackupExtension = ".nod-bak";
+  environment = {
+    etcBackupExtension = ".nod-bak";
 
-  environment.packages = with pkgs; [
-    gnutar
-    gzip
-    (writeScriptBin "sshd-start" ''
-      #!${runtimeShell}
+    packages = with pkgs; [
+      gnutar
+      gzip
+      (writeScriptBin "sshd-start" ''
+        #!${runtimeShell}
 
-      echo "Starting sshd in non-daemonized way on port 8022"
-      ${openssh}/bin/sshd -f "${sshdDirectory}/sshd_config" -D
-    '')
-  ];
+        echo "Starting sshd in non-daemonized way on port 8022"
+        ${openssh}/bin/sshd -f "${sshdDirectory}/sshd_config" -D
+      '')
+    ];
+  };
 
   home-manager = {
     backupFileExtension = "hm-bak";
