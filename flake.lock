@@ -252,6 +252,21 @@
         "type": "github"
       }
     },
+    "nix-index-database": {
+      "locked": {
+        "lastModified": 1667104866,
+        "narHash": "sha256-n8O2V1WcM9OdcFXmNt4NPFqvgzD/jCuOD2G1ws/eMQQ=",
+        "owner": "Mic92",
+        "repo": "nix-index-database",
+        "rev": "ea486da730d4c2feff9269124f8ff0d0757e8a39",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "nix-index-database",
+        "type": "github"
+      }
+    },
     "nix-on-droid": {
       "inputs": {
         "home-manager": [
@@ -402,6 +417,7 @@
         "home-manager": "home-manager",
         "homeage": "homeage",
         "nix-formatter-pack": "nix-formatter-pack",
+        "nix-index-database": "nix-index-database",
         "nix-on-droid": "nix-on-droid",
         "nixGL": "nixGL",
         "nixpkgs": "nixpkgs_2",

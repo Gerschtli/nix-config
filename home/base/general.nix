@@ -113,6 +113,7 @@ in
 
         programs = {
           git.enable = true;
+          nix-index.enable = true;
           nnn.enable = true;
           rsync.enable = true;
           ssh = {

@@ -60,6 +60,8 @@
       url = "github:guibou/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-index-database.url = "github:Mic92/nix-index-database";
   };
 
   outputs = { self, nixpkgs, cachix-deploy-flake, nix-formatter-pack, ... } @ inputs:
