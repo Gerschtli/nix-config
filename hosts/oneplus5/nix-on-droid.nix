@@ -1,4 +1,4 @@
-{ config, lib, pkgs, homeModules, rootPath, ... }:
+{ config, lib, pkgs, homeModules, inputs, rootPath, ... }:
 
 let
   sshdTmpDirectory = "${config.user.home}/sshd-tmp";
@@ -40,7 +40,7 @@ in
   home-manager = {
     backupFileExtension = "hm-bak";
     config = "${rootPath}/hosts/oneplus5/home-nix-on-droid.nix";
-    extraSpecialArgs = { inherit rootPath; };
+    extraSpecialArgs = { inherit inputs rootPath; };
     sharedModules = homeModules;
     useGlobalPkgs = true;
     useUserPackages = true;
