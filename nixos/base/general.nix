@@ -70,6 +70,8 @@ in
       ];
       trustedUsers = [ "root" "tobias" ];
 
+      nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+
       extraOptions = ''
         experimental-features = nix-command flakes
         log-lines = 30

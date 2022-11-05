@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 with lib;
 
@@ -36,7 +36,10 @@ in
 
   config = mkIf cfg.enable {
 
-    home.packages = mkIf cfg.installNix [ pkgs.nix ];
+    home = {
+      packages = mkIf cfg.installNix [ pkgs.nix ];
+      sessionVariables.NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
+    };
 
     programs.zsh.envExtra = mkAfter ''
       hash -f
