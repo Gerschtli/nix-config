@@ -28,8 +28,16 @@ in
     etcBackupExtension = ".nod-bak";
 
     packages = with pkgs; [
+      diffutils
+      findutils
+      gawk
+      gnugrep
+      gnused
       gnutar
-      gzip
+      hostname
+      man
+      ncurses
+
       (writeScriptBin "sshd-start" ''
         #!${runtimeShell}
 
