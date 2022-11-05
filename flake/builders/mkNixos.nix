@@ -20,13 +20,6 @@ inputs.nixpkgs.lib.nixosSystem {
       lib.custom = customLibFor.${system};
 
       nixpkgs.pkgs = pkgsFor.${system};
-
-      nix.registry = {
-        nixpkgs.flake = inputs.nixpkgs;
-        nix-config.flake = inputs.self;
-      };
-
-      system.configurationRevision = inputs.self.rev or "dirty";
     }
   ]
   ++ customLibFor.${system}.listNixFilesRecursive "${rootPath}/nixos";

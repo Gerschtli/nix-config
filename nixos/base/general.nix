@@ -73,6 +73,10 @@ in
       ];
       trustedUsers = [ "root" "tobias" ];
 
+      registry = {
+        nixpkgs.flake = inputs.nixpkgs;
+        nix-config.flake = inputs.self;
+      };
       nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
       extraOptions = ''
@@ -87,7 +91,10 @@ in
       promptInit = "";
     };
 
-    system.stateVersion = "22.05";
+    system = {
+      configurationRevision = inputs.self.rev or "dirty";
+      stateVersion = "22.05";
+    };
 
     time.timeZone = "Europe/Berlin";
 

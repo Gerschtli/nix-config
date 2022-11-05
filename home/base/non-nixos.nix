@@ -41,6 +41,11 @@ in
       sessionVariables.NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
     };
 
+    nix.registry = {
+      nixpkgs.flake = inputs.nixpkgs;
+      nix-config.flake = inputs.self;
+    };
+
     programs.zsh.envExtra = mkAfter ''
       hash -f
     '';

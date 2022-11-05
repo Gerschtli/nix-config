@@ -16,15 +16,7 @@ inputs.home-manager.lib.homeManagerConfiguration {
   homeDirectory = "/home/${username}";
   stateVersion = "22.05";
 
-  extraModules = homeModulesFor.${system} ++ [
-    {
-      _file = ./mkHome.nix;
-      nix.registry = {
-        nixpkgs.flake = inputs.nixpkgs;
-        nix-config.flake = inputs.self;
-      };
-    }
-  ];
+  extraModules = homeModulesFor.${system};
 
   extraSpecialArgs = {
     inherit inputs rootPath;
