@@ -16,9 +16,6 @@ inputs.home-manager.lib.homeManagerConfiguration {
   homeDirectory = "/home/${username}";
   stateVersion = "22.05";
 
+  extraSpecialArgs = { inherit inputs rootPath; };
   extraModules = homeModulesFor.${system};
-
-  extraSpecialArgs = {
-    inherit inputs rootPath;
-  };
 }
