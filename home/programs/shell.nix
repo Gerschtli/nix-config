@@ -73,6 +73,8 @@ let
     [[ -e "$HOME/.zcompdump" ]]           && rm -f "$HOME/.zcompdump"*
 
     ${pkgs.ncurses}/bin/clear
+
+    ${cfg.logoutExtra}
   '';
 
   profileExtra = ''
@@ -171,6 +173,14 @@ in
         type = types.lines;
         description = ''
           Extra commands that should be executed when starting an interactive shell.
+        '';
+      };
+
+      logoutExtra = mkOption {
+        default = "";
+        type = types.lines;
+        description = ''
+          Extra commands that should be run when exiting a login shell.
         '';
       };
 
