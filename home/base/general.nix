@@ -7,33 +7,6 @@ let
 
   localeGerman = "de_DE.UTF-8";
   localeEnglish = "en_US.UTF-8";
-
-  sessionVariables = {
-    LC_CTYPE = localeEnglish;
-    LC_NUMERIC = localeEnglish;
-    LC_TIME = localeGerman;
-    LC_COLLATE = localeEnglish;
-    LC_MONETARY = localeEnglish;
-    LC_MESSAGES = localeEnglish;
-    LC_PAPER = localeGerman;
-    LC_NAME = localeEnglish;
-    LC_ADDRESS = localeEnglish;
-    LC_TELEPHONE = localeEnglish;
-    LC_MEASUREMENT = localeGerman;
-    LC_IDENTIFICATION = localeEnglish;
-    LC_ALL = "";
-
-    LANG = localeEnglish;
-    LANGUAGE = localeEnglish;
-
-    LESS = concatStringsSep " " [
-      "--RAW-CONTROL-CHARS"
-      "--no-init"
-      "--quit-if-one-screen"
-      "--tabs=4"
-    ];
-    PAGER = "${pkgs.less}/bin/less";
-  };
 in
 
 {
@@ -71,7 +44,20 @@ in
       };
 
       home = {
-        inherit sessionVariables;
+        language = {
+          base = localeEnglish;
+          address = localeEnglish;
+          collate = localeEnglish;
+          ctype = localeEnglish;
+          measurement = localeGerman;
+          messages = localeEnglish;
+          monetary = localeEnglish;
+          name = localeEnglish;
+          numeric = localeEnglish;
+          paper = localeGerman;
+          telephone = localeEnglish;
+          time = localeGerman;
+        };
 
         packages = with pkgs; [
           bc
@@ -99,6 +85,16 @@ in
           psmisc # killall
           whois
         ];
+
+        sessionVariables = {
+          LESS = concatStringsSep " " [
+            "--RAW-CONTROL-CHARS"
+            "--no-init"
+            "--quit-if-one-screen"
+            "--tabs=4"
+          ];
+          PAGER = "${pkgs.less}/bin/less";
+        };
 
         stateVersion = "22.05";
       };
