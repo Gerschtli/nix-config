@@ -36,10 +36,6 @@ private = [
 ]
 
 [[paths]]
-glob = "secrets/ssh/nixinate/*"
-identities = [ "neon-root" ]
-
-[[paths]]
 glob = "secrets/ssh/private/*"
 groups = [ "private" ]
 
