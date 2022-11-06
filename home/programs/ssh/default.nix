@@ -18,6 +18,14 @@ in
 
       enable = mkEnableOption "ssh config";
 
+      cleanKeysOnShellStartup = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          Whether to clean all keys in keychain on top level shell startup.
+        '';
+      };
+
       controlMaster = mkOption {
         type = types.enum [ "yes" "no" "ask" "auto" "autoask" ];
         default = "auto";
@@ -69,7 +77,7 @@ in
           }
         '';
 
-        loginExtra = ''
+        loginExtra = mkIf cfg.cleanKeysOnShellStartup ''
           # remove existing keys
           if [[ $SHLVL == 1 ]]; then
             keychain --clear --quiet

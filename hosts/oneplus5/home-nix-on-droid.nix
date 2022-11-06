@@ -13,6 +13,10 @@
 
     development.nix.nix-on-droid.enable = true;
 
-    programs.ssh.modules = [ "private" ];
+    programs.ssh = {
+      cleanKeysOnShellStartup = false;
+      controlMaster = "no";
+      modules = [ "private" ];
+    };
   };
 }
