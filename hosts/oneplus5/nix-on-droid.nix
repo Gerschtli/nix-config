@@ -42,6 +42,8 @@ in
       hostname
       man
       ncurses
+      procps
+      psmisc
 
       (writeScriptBin "sshd-start" ''
         #!${runtimeShell}
