@@ -45,17 +45,8 @@ _show_result_diff() {
 
 
 # add key
-if _available keychain; then
-    _log "keychain" "add key"
-    keychain "${HOME}/.ssh/keys/id_rsa.vcs"
-else
-    _log "ssh-agent" "add key"
-
-    key="${HOME}/.ssh/keys/id_rsa.vcs"
-    if ! ssh-add -l | grep " ${key} " > /dev/null 2>&1; then
-        ssh-add "${key}"
-    fi
-fi
+_log "keychain" "add key"
+keychain "${HOME}/.ssh/keys/id_rsa.vcs"
 
 
 # update ubuntu

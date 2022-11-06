@@ -18,8 +18,6 @@ in
 
       enable = mkEnableOption "ssh config";
 
-      enableKeychain = mkEnableOption "keychain setup" // { default = true; };
-
       controlMaster = mkOption {
         type = types.enum [ "yes" "no" "ask" "auto" "autoask" ];
         default = "auto";
@@ -62,17 +60,7 @@ in
             if [[ ! -r "$key" ]]; then
               echo "ssh key not found: $key"
             else
-              ${
-                if cfg.enableKeychain
-                then ''
-                  keychain "$key"
-                ''
-                else ''
-                  if ! ssh-add -l | grep " $key " > /dev/null 2>&1; then
-                    ssh-add "$key"
-                  fi
-                ''
-              }
+              keychain "$key"
             fi
 
             if [[ $# > 1 ]]; then
@@ -81,7 +69,7 @@ in
           }
         '';
 
-        loginExtra = mkIf cfg.enableKeychain ''
+        loginExtra = ''
           # remove existing keys
           if [[ $SHLVL == 1 ]]; then
             keychain --clear --quiet
@@ -102,7 +90,7 @@ in
 
     programs = {
       keychain = {
-        enable = cfg.enableKeychain;
+        enable = true;
         agents = [ "ssh" ];
         keys = [ ];
       };
