@@ -2,6 +2,8 @@
 
 {
   custom = {
+    agenix.secrets = [ "wireless-config" ];
+
     base.server.enable = true;
 
     services.storage = {
@@ -31,10 +33,10 @@
 
   # hardware.bluetooth.enable = true;
 
-  # Need to run: wpa_passphrase ESSID PSK > /etc/wpa_supplicant.conf
-  # TODO: use networking.wireless.environmentFile
   networking.wireless = {
     enable = true;
+    environmentFile = config.age.secrets.wireless-config.path;
+    networks."Fritzens WLAN".psk = "@PSK@";
   };
 
   # needed because wpa_supplicant fails on startup

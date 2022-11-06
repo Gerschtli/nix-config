@@ -33,6 +33,7 @@ in
         "id-rsa-backup"
         "mysql-backup-password"
         "teamspeak-serverquery-password"
+        "wireless-config"
       ]);
       default = [ ];
       description = ''
@@ -100,6 +101,12 @@ in
           name = "teamspeak-serverquery-password";
           host = "krypton";
           user = "teamspeak-update-notifier";
+        })
+
+        (buildConfig {
+          name = "wireless-config";
+          host = "xenon";
+          user = "root";
         })
 
       ];

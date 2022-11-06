@@ -43,7 +43,6 @@ $ nix run github:Gerschtli/nix-config#setup
 
 **Note:**
 * NixOS-managed systems should be set up like written in the [NixOS manual][nixos-manual].
-* For the Raspberry Pi use the provided script in [misc/sd-image.nix](misc/sd-image.nix) to create the sd-card image.
 
 ### Manual instructions for some systems
 
@@ -62,11 +61,7 @@ nix-shell -p nix --run "nix run github:Gerschtli/nix-config#setup"
    nix build ".#rpi-image"
    ```
 1. Copy (`dd`) `result/sd-image/*.img` to sd-card
-1. Mount sd-card and run
-   ```sh
-   wpa_passphrase ESSID PSK > /mnt/etc/wpa_supplicant.conf
-   ```
-1. Unmount, inject sd-card in raspberry and boot
+1. Inject sd-card in raspberry and boot
 
 ##### Update firmware
 
