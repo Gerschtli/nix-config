@@ -6,6 +6,11 @@ let
 in
 
 {
+  # FIXME: Remove when https://github.com/jordanisaacs/homeage/issues/36 is merged
+  build.activationBefore.homeageWorkaroundForJq = ''
+    export PATH="$PATH:${pkgs.jq}/bin"
+  '';
+
   # FIXME: Move sshd config to nix-on-droid
   build.activation.sshd = ''
     $DRY_RUN_CMD mkdir $VERBOSE_ARG --parents "${config.user.home}/.ssh"
