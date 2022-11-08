@@ -33,6 +33,7 @@ in
 
     services.nginx = {
       enable = true;
+      enableReload = true;
       recommendedOptimisation = true;
       recommendedTlsSettings = true;
       recommendedGzipSettings = true;
