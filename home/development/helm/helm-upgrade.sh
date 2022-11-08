@@ -1,10 +1,19 @@
 if [[ $# -lt 2 ]]; then
-    >&2 echo "USAGE: $0 <RELEASE NAME> <APP VERSION>"
+    >&2 echo "USAGE: $0 <RELEASE NAME> <APP VERSION> [--atomic|--wait]"
     exit 2
 fi
 
 release_name="${1}"
 app_version="${2}"
+
+atomic=
+wait_=
+if [[ "${3:-}" == "--atomic" ]]; then
+    atomic=1
+elif [[ "${3:-}" == "--wait" ]]; then
+    wait_=1
+fi
+
 separate_namespace=
 env=integration
 
@@ -31,6 +40,13 @@ if [[ -n ${separate_namespace} ]]; then
     helm_extra_options+=(--values "${chart_directory}/values.env.autotest.yaml")
 fi
 
+if [[ -n ${atomic} ]]; then
+    helm_extra_options+=(--atomic --timeout 600s)
+fi
+
+if [[ -n ${wait_} ]]; then
+    helm_extra_options+=(--wait --timeout 600s)
+fi
 
 set -x
 

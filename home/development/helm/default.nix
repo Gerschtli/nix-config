@@ -34,6 +34,12 @@ in
         (with pkgs; [ kubernetes-helm ])
         { }
       )
+
+      (config.lib.custom.mkZshCompletion
+        "helm-upgrade"
+        ./helm-upgrade-completion.zsh
+        { }
+      )
     ];
 
   };
