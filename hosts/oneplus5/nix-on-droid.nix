@@ -31,6 +31,7 @@ in
 
   environment = {
     etcBackupExtension = ".nod-bak";
+    motd = null;
 
     packages = with pkgs; [
       diffutils
