@@ -19,6 +19,10 @@ import inputs.nixpkgs {
           inherit config system;
         };
 
+        nixpkgs-for-linux-5-19 = import inputs.nixpkgs-for-linux-5-19 {
+          inherit config system;
+        };
+
         gerschtliOverlays = [
           inputs.dmenu.overlays.default
           inputs.dwm.overlays.default
@@ -43,6 +47,13 @@ import inputs.nixpkgs {
         git_gte_2_38 = unstable.git;
 
         gerschtli = prev.lib.composeManyExtensions gerschtliOverlays final prev;
+
+        # FIXME: remove after 22.11
+        linuxKernel = prev.linuxKernel // {
+          packages = prev.linuxKernel.packages // {
+            inherit (nixpkgs-for-linux-5-19.linuxKernel.packages) linux_5_19;
+          };
+        };
 
         # the only alias that I need, this allows me to set allowAliases=false
         inherit system;

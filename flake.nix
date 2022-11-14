@@ -9,6 +9,9 @@
     # https://github.com/NixOS/nixpkgs/commit/9dde9d8b9ee4b7a4dfbb0ab1204d9f6f4a188360
     nixpkgs-for-jdk15.url = "github:NixOS/nixpkgs/df175b7f61d852dc599fe248b1a8666c312457bd";
 
+    # FIXME: remove after 22.11
+    nixpkgs-for-linux-5-19.url = "github:NixOS/nixpkgs/f09ad462c5a121d0239fde645aacb2221553a217";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-22.05";
       inputs.nixpkgs.follows = "nixpkgs";
