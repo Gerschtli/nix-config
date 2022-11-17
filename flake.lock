@@ -366,22 +366,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-for-jdk15": {
-      "locked": {
-        "lastModified": 1618520132,
-        "narHash": "sha256-34efLXUJTptdBNFs6HIwy9uXy/piYscFDMETSvXzXqw=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "df175b7f61d852dc599fe248b1a8666c312457bd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "df175b7f61d852dc599fe248b1a8666c312457bd",
-        "type": "github"
-      }
-    },
     "nixpkgs-for-linux-5-19": {
       "locked": {
         "lastModified": 1667653703,
@@ -493,7 +477,6 @@
         "nix-on-droid": "nix-on-droid",
         "nixGL": "nixGL",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-for-jdk15": "nixpkgs-for-jdk15",
         "nixpkgs-for-linux-5-19": "nixpkgs-for-linux-5-19",
         "teamspeak-update-notifier": "teamspeak-update-notifier",
         "unstable": "unstable"

@@ -32,7 +32,6 @@ import inputs.nixpkgs {
       in
       {
         inherit (inputs.agenix-cli.packages.${system}) agenix-cli;
-        inherit (inputs.nixpkgs-for-jdk15.legacyPackages.${system}) jdk15;
 
         inherit (unstable)
           # need bleeding edge version

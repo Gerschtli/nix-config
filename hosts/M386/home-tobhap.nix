@@ -23,7 +23,7 @@
       sdks = {
         enable = true;
         links = {
-          inherit (pkgs) jdk8 jdk11 jdk15 jdk17;
+          inherit (pkgs) jdk8 jdk11 jdk17;
         };
       };
 

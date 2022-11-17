@@ -5,10 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
     unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    # commit before jdk15 drop
-    # https://github.com/NixOS/nixpkgs/commit/9dde9d8b9ee4b7a4dfbb0ab1204d9f6f4a188360
-    nixpkgs-for-jdk15.url = "github:NixOS/nixpkgs/df175b7f61d852dc599fe248b1a8666c312457bd";
-
     # FIXME: remove after 22.11
     nixpkgs-for-linux-5-19.url = "github:NixOS/nixpkgs/f09ad462c5a121d0239fde645aacb2221553a217";
 
@@ -135,7 +131,6 @@
       devShells = forEachSystem (system: listToAttrs [
         (mkDevShellJdk system "jdk8" { jdk = pkgs: pkgs.jdk8; })
         (mkDevShellJdk system "jdk11" { jdk = pkgs: pkgs.jdk11; })
-        (mkDevShellJdk system "jdk15" { jdk = pkgs: pkgs.jdk15; })
         (mkDevShellJdk system "jdk17" { jdk = pkgs: pkgs.jdk17; })
 
         (mkDevShellPhp system "php74" { phpVersion = "74"; })

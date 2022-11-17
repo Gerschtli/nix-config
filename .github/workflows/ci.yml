@@ -37,8 +37,6 @@ jobs:
             system: x86_64
           - nix-command: develop .#jdk11 --profile profile
             system: x86_64
-          - nix-command: develop .#jdk15 --profile profile
-            system: x86_64
           - nix-command: develop .#jdk17 --profile profile
             system: x86_64
           - nix-command: develop .#php74 --profile profile
