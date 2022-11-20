@@ -152,7 +152,8 @@ let
     let g:autoformat_autoindent = 0
     let g:autoformat_retab = 0
 
-    au BufWrite * :Autoformat
+    noremap <F3> :Autoformat<CR>
+    "au BufWrite * :Autoformat
   '';
 
   plugins = with pkgs.vimPlugins; [
