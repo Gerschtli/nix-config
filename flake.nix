@@ -87,7 +87,7 @@
         };
       });
 
-      inherit (nixpkgs.lib) listToAttrs mapAttrs' nameValuePair;
+      inherit (nixpkgs.lib) listToAttrs;
       inherit (flakeLib) mkApp mkDevShellJdk mkDevShellPhp mkHome mkNixOnDroid mkNixos;
     in
     {
@@ -140,19 +140,28 @@
 
       formatter = forEachSystem (system: nix-formatter-pack.lib.mkFormatter formatterPackArgsFor.${system});
 
-      packages = forEachSystem (system:
-        {
-          rpi-firmware = import ./files/nix/rpi-firmware.nix { inherit nixpkgs; };
-          rpi-image = import ./files/nix/rpi-image.nix { inherit nixpkgs rootPath; };
-        } // (
-          mapAttrs'
-            (name: value: nameValuePair "cachix-deploy-spec-${name}" (
-              cachixDeployLibFor.${system}.spec {
-                agents.${name} = value.config.system.build.toplevel;
-              }
-            ))
-            self.nixosConfigurations
-        )
-      );
+      packages =
+        nixpkgs.lib.foldl
+          nixpkgs.lib.recursiveUpdate
+          {
+            aarch64-linux = {
+              rpi-firmware = import ./files/nix/rpi-firmware.nix { inherit nixpkgs; };
+              rpi-image = import ./files/nix/rpi-image.nix { inherit nixpkgs rootPath; };
+            };
+          }
+          (
+            nixpkgs.lib.mapAttrsToList
+              (name: value:
+                let
+                  inherit (value.config.nixpkgs) system;
+                in
+                {
+                  ${system}."cachix-deploy-spec-${name}" = cachixDeployLibFor.${system}.spec {
+                    agents.${name} = value.config.system.build.toplevel;
+                  };
+                }
+              )
+              self.nixosConfigurations
+          );
     };
 }

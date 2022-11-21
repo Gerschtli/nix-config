@@ -23,7 +23,6 @@ jobs:
           - aarch64
           - x86_64
         nix-command:
-          - run .#ci-build -- packages.$_system.rpi-firmware
           #- flake check # FIXME: temporarily disabled because of failing nixGL evaluation on aarch64
           - fmt
           - eval .#apps.$_system.ci-build.program
@@ -67,6 +66,8 @@ jobs:
             system: aarch64
             deploy-spec: .#cachix-deploy-spec-xenon
 
+          - nix-command: run .#ci-build -- packages.$_system.rpi-firmware
+            system: aarch64
           - nix-command: run .#ci-build -- packages.$_system.rpi-image
             system: aarch64
 
