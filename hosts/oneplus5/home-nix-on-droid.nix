@@ -8,6 +8,9 @@
       non-nixos = {
         enable = true;
         installNix = false;
+        builders = [
+          "ssh://private.argon aarch64-linux - 4"
+        ];
       };
     };
 

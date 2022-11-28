@@ -27,6 +27,12 @@ in
       enable = mkEnableOption "config for non NixOS systems";
 
       installNix = mkEnableOption "nix installation" // { default = true; };
+
+      builders = mkOption {
+        type = types.listOf types.string;
+        default = [ ];
+        description = "Nix remote builders.";
+      };
     };
 
   };
@@ -58,6 +64,10 @@ in
       trusted-users = root tobias
       experimental-features = nix-command flakes
       log-lines = 30
+      builders = ${concatStringsSep ";" cfg.builders}
+      ${optionalString (cfg.builders != []) ''
+        builders-use-substitutes = true
+      ''}
     '';
 
   };
