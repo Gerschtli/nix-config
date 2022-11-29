@@ -96,6 +96,7 @@ in
             ++ (optional (elem "ssh-sedo" cfg.secrets) [
               (buildSshConfig "sedo")
               (buildSshKey "sedo" "sedo")
+              (buildSshKey "sedo" "sedo-integration")
             ])
             ++ (optional (elem "ssh-vcs" cfg.secrets) [
               (buildSshConfig "vcs")
