@@ -262,6 +262,7 @@ in
 
         fetch = {
           prune = true;
+          pruneTags = true;
           recurseSubmodules = true;
         };
 
