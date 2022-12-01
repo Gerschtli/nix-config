@@ -23,7 +23,7 @@
       sdks = {
         enable = true;
         links = {
-          inherit (pkgs) jdk8 jdk11 jdk17;
+          inherit (pkgs) jdk8 jdk11 jdk17 go;
         };
       };
 
@@ -35,6 +35,8 @@
     };
 
     programs = {
+      go.enable = true;
+
       idea-ultimate.enable = lib.mkForce false;
 
       maven.enable = true;
