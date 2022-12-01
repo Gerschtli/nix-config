@@ -49,12 +49,13 @@ in
       gitea = {
         enable = true;
         database.passwordFile = config.age.secrets.gitea-dbpassword.path;
-
         rootUrl = "https://${domain}/";
-        cookieSecure = true;
-        disableRegistration = true;
 
-        settings.service.REQUIRE_SIGNIN_VIEW = true;
+        settings.service = {
+          COOKIE_SECURE = true;
+          DISABLE_REGISTRATION = true;
+          REQUIRE_SIGNIN_VIEW = true;
+        };
       };
 
       nginx.virtualHosts.${domain} = {
