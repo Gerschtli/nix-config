@@ -38,9 +38,6 @@ import inputs.nixpkgs {
           teamspeak_server
           ;
 
-        # FIXME: remove this once git 2.38.0 is in stable
-        git_gte_2_38 = unstable.git;
-
         gerschtli = prev.lib.composeManyExtensions gerschtliOverlays final prev;
 
         # the only alias that I need, this allows me to set allowAliases=false

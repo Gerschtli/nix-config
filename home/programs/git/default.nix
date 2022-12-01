@@ -102,7 +102,6 @@ in
 
     programs.git = {
       enable = true;
-      package = pkgs.git_gte_2_38;
 
       userName = "Tobias Happ";
       userEmail = "tobias.happ@gmx.de";
