@@ -5,9 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    # FIXME: remove after 22.11
-    nixpkgs-for-linux-5-19.url = "github:NixOS/nixpkgs/f09ad462c5a121d0239fde645aacb2221553a217";
-
     home-manager = {
       url = "github:nix-community/home-manager/release-22.11";
       inputs.nixpkgs.follows = "nixpkgs";
