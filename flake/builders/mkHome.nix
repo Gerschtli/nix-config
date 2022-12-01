@@ -9,13 +9,9 @@ let
 in
 
 inputs.home-manager.lib.homeManagerConfiguration {
-  inherit username system;
-
   pkgs = pkgsFor.${system};
-  configuration = "${rootPath}/hosts/${hostname}/home-${username}.nix";
-  homeDirectory = "/home/${username}";
-  stateVersion = "22.05";
-
   extraSpecialArgs = { inherit inputs rootPath; };
-  extraModules = homeModulesFor.${system};
+
+  modules = [ "${rootPath}/hosts/${hostname}/home-${username}.nix" ]
+    ++ homeModulesFor.${system};
 }

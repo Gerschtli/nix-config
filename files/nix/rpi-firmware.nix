@@ -18,7 +18,7 @@ let
           cp -r firmware/* ${placeholder "out"}
         '';
 
-        stateVersion = "22.05";
+        stateVersion = "22.11";
       };
     };
 

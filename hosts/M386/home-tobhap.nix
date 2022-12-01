@@ -52,6 +52,9 @@
   };
 
   home = {
+    homeDirectory = "/home/tobhap";
+    username = "tobhap";
+
     packages = with pkgs; [
       dbeaver
       gitflow

@@ -96,7 +96,7 @@ in
           PAGER = "${pkgs.less}/bin/less";
         };
 
-        stateVersion = "22.05";
+        stateVersion = "22.11";
       };
 
       # FIXME: set to sd-switch once it works for krypton

@@ -8,4 +8,9 @@
 
     programs.ssh.modules = [ "private" ];
   };
+
+  home = {
+    homeDirectory = "/home/tobias";
+    username = "tobias";
+  };
 }
