@@ -19,6 +19,10 @@ import inputs.nixpkgs {
           inherit config system;
         };
 
+        nixpkgs-22-05 = import inputs.nixpkgs-22-05 {
+          inherit config system;
+        };
+
         gerschtliOverlays = [
           inputs.dmenu.overlays.default
           inputs.dwm.overlays.default
@@ -36,6 +40,14 @@ import inputs.nixpkgs {
           minecraftServers
           portfolio
           teamspeak_server
+          ;
+
+        # pin 22.05 release for removed packages
+        inherit (nixpkgs-22-05)
+          mysql57
+          php74
+          php74Extensions
+          php74Packages
           ;
 
         gerschtli = prev.lib.composeManyExtensions gerschtliOverlays final prev;

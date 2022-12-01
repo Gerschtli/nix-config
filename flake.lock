@@ -352,6 +352,22 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-22-05": {
+      "locked": {
+        "lastModified": 1669418739,
+        "narHash": "sha256-T86oFvcUIRwHWBWUt7WjaP4BP/3lDGbv5AppQSI1FkI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "695b3515251873e0a7e2021add4bba643c56cde3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "695b3515251873e0a7e2021add4bba643c56cde3",
+        "type": "github"
+      }
+    },
     "nixpkgs-for-bootstrap": {
       "locked": {
         "lastModified": 1656265786,
@@ -479,6 +495,7 @@
         "nix-on-droid": "nix-on-droid",
         "nixGL": "nixGL",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-22-05": "nixpkgs-22-05",
         "teamspeak-update-notifier": "teamspeak-update-notifier",
         "unstable": "unstable"
       }

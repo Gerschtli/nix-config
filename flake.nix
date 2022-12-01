@@ -5,6 +5,9 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
+    # some commit containing mysql57 and php74
+    nixpkgs-22-05.url = "github:NixOS/nixpkgs/695b3515251873e0a7e2021add4bba643c56cde3";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-22.11";
       inputs.nixpkgs.follows = "nixpkgs";

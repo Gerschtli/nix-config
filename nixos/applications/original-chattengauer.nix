@@ -33,8 +33,10 @@ in
       };
 
       config =
-        { pkgs, ... }:
+        _:
         {
+          nixpkgs = { inherit pkgs; };
+
           services.httpd = {
             enable = true;
             adminAddr = "tobias.happ@gmx.de";
