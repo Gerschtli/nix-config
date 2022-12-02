@@ -84,11 +84,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1667814230,
-        "narHash": "sha256-zuks+jv6nhaJRDtmru9f124ByRlmDCKl+hcd4mrjsVE=",
+        "lastModified": 1669935246,
+        "narHash": "sha256-6hNfb7oS1hHGujQ2yj+mVgSd41RSnrfGf9xWu00W+J8=",
         "owner": "Gerschtli",
         "repo": "dmenu",
-        "rev": "8930b5bbd81aa2e170f0f066402204a9b7dd0ec3",
+        "rev": "b3ad84c7fb68ac5ecec01485921b784d190d6dac",
         "type": "github"
       },
       "original": {
@@ -104,11 +104,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1667205077,
-        "narHash": "sha256-uVBMpXYUZbov7ylOgU8+eQ+AzZxvz9AJWyQJ6b779VA=",
+        "lastModified": 1669935256,
+        "narHash": "sha256-sRCdYR9e5JXT57lkwDnvxRyPFKBn4s0oAbDSIYn0Gms=",
         "owner": "Gerschtli",
         "repo": "dwm",
-        "rev": "2f96729085e81482f24a93987408b4f833c64bcb",
+        "rev": "5325b91ed07ae7adac20562ba10552f2c48d3748",
         "type": "github"
       },
       "original": {
@@ -125,11 +125,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1669329908,
-        "narHash": "sha256-aIT2ED5531wq56X1AM0LnaEk7PiakUr3WewXf8etb2s=",
+        "lastModified": 1669935273,
+        "narHash": "sha256-lTDGnFBNkzzbp4f+m4zXt4MFZNxfBz1iu2ujMWQuwoU=",
         "owner": "Gerschtli",
         "repo": "dwm-status",
-        "rev": "0b37e2a90edb9d8f5dfbd6fd5eb75d356eba019b",
+        "rev": "351b82e34fceebf252f8bde302f3961566def384",
         "type": "github"
       },
       "original": {
@@ -176,11 +176,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1669724862,
-        "narHash": "sha256-GwLonjmyhnTGQRNfKcUCgMSKYj49ZehjjJulaM/yH18=",
+        "lastModified": 1670002189,
+        "narHash": "sha256-6FMV/Gb3gki7Wj0JnFJEPKrrRskm/iDrZ/DTeA+eB2k=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "e891b060e7d11bb8f7dedb86a41d804891a6f5a9",
+        "rev": "6d3912c6dbe153e0826cf271a5403455d1b47f49",
         "type": "github"
       },
       "original": {
@@ -240,11 +240,11 @@
         "nmt": "nmt"
       },
       "locked": {
-        "lastModified": 1666782100,
-        "narHash": "sha256-j7A9QDOgB0XSj0k6uO2gKd9XRv9t7jeFXXVj8jqoLYw=",
+        "lastModified": 1669935516,
+        "narHash": "sha256-ojcstfUDxQHYUzho8aMiKGBk5O5w3+JaPrm4+d0dkDo=",
         "owner": "Gerschtli",
         "repo": "nix-formatter-pack",
-        "rev": "d63aa3421d2c7301d228a9fe91e031bb0bb8f879",
+        "rev": "c77a934457b7df7b0f03545a036e25ce4d4e9aa6",
         "type": "github"
       },
       "original": {
@@ -507,11 +507,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1669670359,
-        "narHash": "sha256-Wn4mufyig/lVT0xB24304opBhXdOjfuNgSNhhd/rW2A=",
+        "lastModified": 1669936391,
+        "narHash": "sha256-KjsRHh7QSeMingJJ+nAm9s2demBrWc6+Zxu4x/4rq1A=",
         "owner": "Gerschtli",
         "repo": "teamspeak-update-notifier",
-        "rev": "04b8a2c3f320c01424c74b21b71ef05e7e406cf4",
+        "rev": "cf307b24bca2fe0b2a3199bc944e1050fa62d9b3",
         "type": "github"
       },
       "original": {
@@ -522,11 +522,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1669900182,
-        "narHash": "sha256-EKxjHxRJnP1w+2nnm8pq4Uqkqa5McnfPXcO8cG8Mxzc=",
+        "lastModified": 1669927173,
+        "narHash": "sha256-Z7rSKzC5OuWv5Q7RRNQPZb0jVJRJk0BJB6/fGZzaAIU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "bcb6dbbe30ce7631e5a0865dff1ab9b63d92977d",
+        "rev": "9063accddd2e68dcc71032459a58399e977374c9",
         "type": "github"
       },
       "original": {
