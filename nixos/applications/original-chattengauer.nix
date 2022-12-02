@@ -33,9 +33,12 @@ in
       };
 
       config =
-        _:
+        let
+          pkgs' = pkgs;
+        in
+        { pkgs, ... }:
         {
-          nixpkgs = { inherit pkgs; };
+          nixpkgs.pkgs = pkgs';
 
           services.httpd = {
             enable = true;
