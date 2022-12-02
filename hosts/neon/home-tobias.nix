@@ -49,6 +49,6 @@
   services.blueman-applet.enable = true;
 
   xsession.initExtra = ''
-    xinput set-prop "UNIW0001:00 093A:0255 Touchpad" "Coordinate Transformation Matrix" 5 0 0 0 5 0 0 0 1
+    xinput set-prop "UNIW0001:00 093A:0255 Touchpad" "Coordinate Transformation Matrix" 3 0 0 0 3 0 0 0 1
   '';
 }
