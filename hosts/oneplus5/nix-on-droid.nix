@@ -61,6 +61,15 @@ in
 
   system.stateVersion = "22.11";
 
+  terminal.font =
+    let
+      fontPackage = pkgs.nerdfonts.override {
+        fonts = [ "UbuntuMono" ];
+      };
+      fontPath = "/share/fonts/truetype/NerdFonts/Ubuntu Mono Nerd Font Complete Mono.ttf";
+    in
+    fontPackage + fontPath;
+
   time.timeZone = "Europe/Berlin";
 
   user.shell = "${pkgs.zsh}/bin/zsh";
