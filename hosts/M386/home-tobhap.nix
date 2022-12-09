@@ -58,6 +58,7 @@
     packages = with pkgs; [
       dbeaver
       gitflow
+      k9s
       kubectl
       mariadb.client
       minikube
