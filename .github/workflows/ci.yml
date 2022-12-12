@@ -101,72 +101,75 @@ jobs:
           distro: alpine_latest
           githubToken: ${{ github.token }}
           dockerRunArgs: --volume /nix:/nix
-          install: apk --no-cache add curl git xz
+          install: |
+            apk --no-cache add curl git xz
+            adduser --disabled-password ci
           env: |
             _system: ${{ matrix.system }}-linux
             CACHIX_ACTIVATE_TOKEN: ${{ secrets.CACHIX_ACTIVATE_TOKEN || 'no-value' }}
             CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
             DEPLOY_SPEC: ${{ matrix.deploy-spec || 'no-value' }}
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            USER: root
           run: |
             set -euo pipefail
 
-            mkdir -p /etc/nix
+            mkdir -p /home/ci/.config/nix
 
-            cat <<EOF >> /etc/nix/nix.conf
-            max-jobs = auto
-            trusted-users = root
+            cat <<EOF > /home/ci/.config/nix/nix.conf
             experimental-features = nix-command flakes
-            build-users-group =
             keep-going = true
             show-trace = true
             access-tokens = github.com=$GITHUB_TOKEN
             EOF
 
+            chown --recursive ci /nix /home/ci "$(pwd)"
+
             echo "::group::Install nix"
-            INSTALL_FILE="install"
+
             curl \
               --silent \
               --show-error \
-              --output "$INSTALL_FILE" \
+              --output /tmp/install \
               --retry 5 \
               --retry-all-errors \
               --fail \
               --location \
               "https://nixos.org/nix/install"
 
-            sh "$INSTALL_FILE" --no-channel-add
-            rm "$INSTALL_FILE"
-            . ${HOME}/.nix-profile/etc/profile.d/nix.sh
+            su ci -c "sh /tmp/install --no-channel-add --no-daemon"
+            rm /tmp/install
+
+            function run() {
+              su ci -c ". /home/ci/.nix-profile/etc/profile.d/nix.sh; $*"
+            }
 
             # FIXME: setting build-hook is needed because default hook `nix __build-remote` is not available
             function build_hook() {
-              local nix_path="$(which nix)"
+              local nix_path="$(run which nix)"
               echo "${nix_path/bin\/nix/libexec/nix/build-remote}"
             }
-            echo "build-hook = $(build_hook)" >> /etc/nix/nix.conf
+            run echo "build-hook = $(build_hook)" >> /home/ci/.config/nix/nix.conf
 
 
             echo "::group::Setup cachix"
-            nix profile install nixpkgs#cachix
-            cachix use gerschtli
-            cachix use nix-on-droid
+            run nix profile install nixpkgs#cachix
+            run cachix use gerschtli
+            run cachix use nix-on-droid
 
 
             echo "::group::Build command"
-            git config --global --add safe.directory "$(pwd)"
+            run git config --global --add safe.directory "$(pwd)"
 
-            nix ${{ matrix.nix-command }}
+            run nix ${{ matrix.nix-command }}
 
 
             ${{ github.ref == 'refs/heads/master' && inputs.branch == '' && matrix.deploy-spec && '
             echo "::group::Build spec"
-            spec="$(nix build --print-out-paths "$DEPLOY_SPEC")"
+            spec="$(run nix build --print-out-paths "$DEPLOY_SPEC")"
 
             echo "::group::Deploy spec"
-            cachix push gerschtli "$spec"
-            cachix deploy activate "$spec"
+            run cachix push gerschtli "$spec"
+            run cachix deploy activate "$spec"
             ' || '
             echo "::group::Skip spec deploy"
             ' }}
