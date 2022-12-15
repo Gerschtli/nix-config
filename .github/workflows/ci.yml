@@ -122,7 +122,9 @@ jobs:
             access-tokens = github.com=$GITHUB_TOKEN
             EOF
 
-            chown --recursive ci /nix /home/ci "$(pwd)"
+            chown --recursive ci:ci /nix /home/ci
+            chgrp --recursive ci "$(pwd)"
+            chmod -R g+w "$(pwd)"
 
             echo "::group::Install nix"
 
