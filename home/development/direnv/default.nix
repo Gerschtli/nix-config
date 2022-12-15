@@ -23,21 +23,6 @@ in
   config = mkIf cfg.enable {
 
     home.packages = [
-      /* Disable direnv-init for now because lorri-init is still preferred and should not be confused
-        (config.lib.custom.mkScript
-        "direnv-init"
-        ./direnv-init.sh
-        [ pkgs.direnv ]
-        { }
-        )
-
-        (config.lib.custom.mkZshCompletion
-        "direnv-init"
-        ./direnv-init-completion.zsh
-        { inherit devShells; }
-        )
-      */
-
       (config.lib.custom.mkScript
         "lorri-init"
         ./lorri-init.sh
