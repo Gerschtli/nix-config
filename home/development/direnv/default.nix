@@ -26,7 +26,6 @@ in
       (config.lib.custom.mkScript
         "lorri-init"
         ./lorri-init.sh
-        # FIXME: change lorri to not need any further runtime dependencies
         (with pkgs; [ direnv gnutar gzip lorri nix ])
         { }
       )
