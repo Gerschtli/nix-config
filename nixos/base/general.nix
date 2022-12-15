@@ -72,7 +72,7 @@ in
 
     nix = {
       settings = {
-        trusted-substituters = [
+        substituters = [
           "https://cache.nixos.org"
           "https://gerschtli.cachix.org"
           "https://nix-on-droid.cachix.org"
