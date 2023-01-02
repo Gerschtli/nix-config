@@ -49,6 +49,7 @@ jobs:
             system: x86_64
           - nix-command: run .#ci-build -- 'homeConfigurations."tobhap@M386".activationPackage'
             system: x86_64
+            deploy-spec: .#cachix-deploy-spec-M386
 
           - nix-command: run .#ci-build -- nixOnDroidConfigurations.oneplus5.activationPackage
             system: aarch64

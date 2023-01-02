@@ -141,6 +141,20 @@
       formatter = forEachSystem (system: nix-formatter-pack.lib.mkFormatter formatterPackArgsFor.${system});
 
       packages =
+        let
+          cachixDeployOutput = builder: name: module:
+            let
+              inherit (module.pkgs) system;
+            in
+            {
+              ${system}."cachix-deploy-spec-${name}" = cachixDeployLibFor.${system}.spec {
+                agents.${name} = builder module;
+              };
+            };
+
+          cachixDeployOutputHomeManager = cachixDeployOutput (module: module.activationPackage);
+          cachixDeployOutputNixos = cachixDeployOutput (module: module.config.system.build.toplevel);
+        in
         nixpkgs.lib.foldl
           nixpkgs.lib.recursiveUpdate
           {
@@ -149,19 +163,7 @@
               rpi-image = import ./files/nix/rpi-image.nix { inherit nixpkgs rootPath; };
             };
           }
-          (
-            nixpkgs.lib.mapAttrsToList
-              (name: value:
-                let
-                  inherit (value.config.nixpkgs) system;
-                in
-                {
-                  ${system}."cachix-deploy-spec-${name}" = cachixDeployLibFor.${system}.spec {
-                    agents.${name} = value.config.system.build.toplevel;
-                  };
-                }
-              )
-              self.nixosConfigurations
-          );
+          (nixpkgs.lib.mapAttrsToList cachixDeployOutputNixos self.nixosConfigurations
+            ++ [ (cachixDeployOutputHomeManager "M386" self.homeConfigurations."tobhap@M386") ]);
     };
 }

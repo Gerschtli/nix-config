@@ -11,6 +11,11 @@
       non-nixos.enable = true;
     };
 
+    cachix-agent = {
+      enable = true;
+      hostName = "M386";
+    };
+
     development = {
       helm.enable = true;
 
