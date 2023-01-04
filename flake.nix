@@ -65,7 +65,7 @@
 
   outputs = { self, nixpkgs, cachix-deploy-flake, nix-formatter-pack, ... } @ inputs:
     let
-      rootPath = toString ./.;
+      rootPath = self;
       forEachSystem = nixpkgs.lib.genAttrs [ "aarch64-linux" "x86_64-linux" ];
       flakeLib = import ./flake {
         inherit inputs rootPath forEachSystem;
@@ -75,7 +75,7 @@
 
       formatterPackArgsFor = forEachSystem (system: {
         inherit nixpkgs system;
-        checkFiles = [ ./. ];
+        checkFiles = [ self ];
 
         config.tools = {
           deadnix = {
