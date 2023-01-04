@@ -93,7 +93,12 @@ if _is_nixos && _is_root; then
     hostname=$(_read_enum "Enter hostname" argon krypton neon xenon)
 
     _log "Run nixos-rebuild switch..."
-    nixos-rebuild switch --keep-going --flake "${nix_config}#${hostname}" || :
+    nixos-rebuild \
+      switch \
+      --option extra-substituters "https://gerschtli.cachix.org" \
+      --option extra-trusted-public-keys "gerschtli.cachix.org-1:dWJ/WiIA3W2tTornS/2agax+OI0yQF8ZA2SFjU56vZ0=" \
+      --keep-going \
+      --flake "${nix_config}#${hostname}" || :
 
     _log "Set password for root..."
     passwd root

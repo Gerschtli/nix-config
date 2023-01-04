@@ -38,21 +38,16 @@ See [flake.nix](flake.nix) for more information like `system`.
 If any of these systems need to be reinstalled, you can run:
 
 ```sh
-$ nix run github:Gerschtli/nix-config#setup
+nix run \
+  --option extra-substituters "https://gerschtli.cachix.org" \
+  --option extra-trusted-public-keys "gerschtli.cachix.org-1:dWJ/WiIA3W2tTornS/2agax+OI0yQF8ZA2SFjU56vZ0=" \
+  github:Gerschtli/nix-config#setup
 ```
 
 **Note:**
 * NixOS-managed systems should be set up like written in the [NixOS manual][nixos-manual].
 
 ### Manual instructions for some systems
-
-#### nix-on-droid
-
-```sh
-mkdir -p ~/.config/nix
-echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
-nix-shell -p nix --run "nix run github:Gerschtli/nix-config#setup"
-```
 
 #### Raspberry Pi
 
@@ -85,11 +80,13 @@ sudo apt upgrade
 sudo apt install zsh
 
 # install nix setup
-mkdir -p ~/.config/nix
-echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
 sh <(curl -L https://nixos.org/nix/install) --no-channel-add --no-modify-profile
 . ~/.nix-profile/etc/profile.d/nix.sh
-nix run github:Gerschtli/nix-config#setup
+nix run \
+  --extra-experimental-features "nix-command flakes" \
+  --option extra-substituters "https://gerschtli.cachix.org" \
+  --option extra-trusted-public-keys "gerschtli.cachix.org-1:dWJ/WiIA3W2tTornS/2agax+OI0yQF8ZA2SFjU56vZ0=" \
+  github:Gerschtli/nix-config#setup
 
 # download and install UbuntuMono from nerdfonts.com
 
@@ -147,7 +144,11 @@ sudo ln -snf bash /bin/sh
    1. ssh into instance with `root` user and password
    1. Run setup script like
       ```sh
-      nix run --extra-experimental-features "nix-command flakes" github:Gerschtli/nix-config#setup
+      nix run \
+        --extra-experimental-features "nix-command flakes" \
+        --option extra-substituters "https://gerschtli.cachix.org" \
+        --option extra-trusted-public-keys "gerschtli.cachix.org-1:dWJ/WiIA3W2tTornS/2agax+OI0yQF8ZA2SFjU56vZ0=" \
+        github:Gerschtli/nix-config#setup
       ```
 
 **Note:** This is all needed to be able to partition the volume to have more than 100MB available in `/boot`. The boot
