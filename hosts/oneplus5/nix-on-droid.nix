@@ -59,6 +59,8 @@ in
     useUserPackages = true;
   };
 
+  nix.package = pkgs.nixVersions.nix_2_12;
+
   system.stateVersion = "22.11";
 
   terminal.font =
