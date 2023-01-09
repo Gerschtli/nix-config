@@ -21,7 +21,7 @@
     cachix-deploy-flake.url = "github:cachix/cachix-deploy-flake";
     # remove once 1.2 hits unstable
     cachix = {
-      url = "github:cachix/cachix/v1.2";
+      url = "github:cachix/cachix/d2d4acc81cde51534e5a4a408d0a3efdfc57215d";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
