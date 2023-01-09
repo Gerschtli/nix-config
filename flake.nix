@@ -19,6 +19,11 @@
     };
 
     cachix-deploy-flake.url = "github:cachix/cachix-deploy-flake";
+    # remove once 1.2 hits unstable
+    cachix = {
+      url = "github:cachix/cachix/v1.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     agenix = {
       url = "github:ryantm/agenix";

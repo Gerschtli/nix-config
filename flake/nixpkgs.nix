@@ -33,6 +33,9 @@ import inputs.nixpkgs {
       {
         inherit (inputs.agenix-cli.packages.${system}) agenix-cli;
 
+        # remove once 1.2 hits unstable
+        inherit (inputs.cachix.packages.${system}) cachix;
+
         inherit (unstable)
           # need bleeding edge version
           jetbrains
