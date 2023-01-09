@@ -30,7 +30,7 @@ jobs:
 
         include:
           - system: x86_64
-            nix-command: flake check
+            nix-command: flake check --system $_system
 
           - nix-command: develop .#jdk8 --profile profile
             system: x86_64
