@@ -50,6 +50,7 @@ jobs:
           - nix-command: run .#ci-build -- 'homeConfigurations."tobhap@M386".activationPackage'
             system: x86_64
             deploy-agent: M386
+            deploy-args: --async
 
           - nix-command: run .#ci-build -- nixOnDroidConfigurations.oneplus5.activationPackage
             system: aarch64
@@ -63,6 +64,7 @@ jobs:
           - nix-command: run .#ci-build -- nixosConfigurations.neon.config.system.build.toplevel
             system: x86_64
             deploy-agent: neon
+            deploy-args: --async
           - nix-command: run .#ci-build -- nixosConfigurations.xenon.config.system.build.toplevel
             system: aarch64
             deploy-agent: xenon
@@ -109,7 +111,6 @@ jobs:
             _system: ${{ matrix.system }}-linux
             CACHIX_ACTIVATE_TOKEN: ${{ secrets.CACHIX_ACTIVATE_TOKEN || 'no-value' }}
             CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
-            DEPLOY_AGENT: ${{ matrix.deploy-agent || 'no-value' }}
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           run: |
             set -euo pipefail
@@ -166,18 +167,23 @@ jobs:
             run nix ${{ matrix.nix-command }}
 
 
-            ${{ github.ref == 'refs/heads/master' && inputs.branch == '' && matrix.deploy-agent && '
-            echo "::group::Build spec"
-            spec="$(run nix build --print-out-paths ".#cachix-deploy-spec-$DEPLOY_AGENT")"
+            ${{ github.ref == 'refs/heads/master' && inputs.branch == '' && matrix.deploy-agent &&
+              format(
+                '
+                  echo "::group::Build spec"
+                  spec="$(run nix build --print-out-paths ".#cachix-deploy-spec-{0}")"
 
-            echo "::group::Upload spec"
-            run cachix push gerschtli "$spec"
+                  echo "::group::Upload spec"
+                  run cachix push gerschtli "$spec"
 
-            echo "::group::Activate deployment"
-            run cachix deploy activate --agent "$DEPLOY_AGENT" "$spec"
-            ' || '
-            echo "::group::Skip spec deploy"
-            ' }}
+                  echo "::group::Activate deployment"
+                  run cachix deploy activate --agent "{0}" {1} "$spec"
+                ',
+                matrix.deploy-agent,
+                matrix.deploy-args
+              )
+              || 'echo "::group::Skip spec deploy"'
+            }}
 
       - name: Build command (x86_64)
         if: matrix.system == 'x86_64'
@@ -197,6 +203,6 @@ jobs:
           cachix push gerschtli "$spec"
 
           echo "::group::Activate deployment"
-          cachix deploy activate --agent "${{ matrix.deploy-agent }}" "$spec"
+          cachix deploy activate --agent "${{ matrix.deploy-agent }}" ${{ matrix.deploy-args }} "$spec"
 
 # vim: set sw=2:
