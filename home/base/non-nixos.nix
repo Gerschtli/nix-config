@@ -61,13 +61,14 @@ in
     xdg.configFile."nix/nix.conf".text = ''
       substituters = ${concatStringsSep " " substituters}
       trusted-public-keys = ${concatStringsSep " " trustedPublicKeys}
-      trusted-users = root ${config.home.username}
+      trusted-users = ${config.home.username}
       experimental-features = nix-command flakes
       log-lines = 30
       builders = ${concatStringsSep ";" cfg.builders}
       ${optionalString (cfg.builders != []) ''
         builders-use-substitutes = true
       ''}
+      flake-registry = ${builtins.toFile "stub-registry.json" "{}"}
     '';
 
   };

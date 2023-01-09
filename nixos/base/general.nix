@@ -83,6 +83,9 @@ in
           "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU="
         ];
         trusted-users = [ "root" "tobias" ];
+        experimental-features = [ "nix-command" "flakes" ];
+        log-lines = 30;
+        flake-registry = builtins.toFile "stub-registry.json" "{}";
       };
 
       registry = {
@@ -90,11 +93,6 @@ in
         nix-config.flake = inputs.self;
       };
       nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-
-      extraOptions = ''
-        experimental-features = nix-command flakes
-        log-lines = 30
-      '';
     };
 
     programs.zsh = {
