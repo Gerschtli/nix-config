@@ -45,7 +45,7 @@ in
 
     {
       custom.programs.shell.shellAliases = {
-        nrepl = "nix repl ${replFile}";
+        nrepl = "nix repl --file ${replFile}";
       };
     }
 
