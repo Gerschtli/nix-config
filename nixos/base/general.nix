@@ -85,7 +85,8 @@ in
         trusted-users = [ "root" "tobias" ];
         experimental-features = [ "nix-command" "flakes" ];
         log-lines = 30;
-        flake-registry = builtins.toFile "stub-registry.json" "{}";
+        flake-registry = builtins.toFile "stub-registry.json"
+         (builtins.toJSON { flakes = []; version = 2; });
       };
 
       registry = {
