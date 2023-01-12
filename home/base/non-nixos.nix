@@ -68,7 +68,8 @@ in
       ${optionalString (cfg.builders != []) ''
         builders-use-substitutes = true
       ''}
-      flake-registry = ${builtins.toFile "stub-registry.json" "{}"}
+      flake-registry = ${builtins.toFile "stub-registry.json"
+        (builtins.toJSON { flakes = []; version = 2; })}
     '';
 
   };
