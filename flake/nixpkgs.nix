@@ -42,6 +42,9 @@ import inputs.nixpkgs {
           minecraft-server
           minecraftServers
           teamspeak_server
+
+          # need >= 0.1.4
+          nix-index
           ;
 
         # pin 22.05 release for removed packages
