@@ -59,7 +59,7 @@ in
     useUserPackages = true;
   };
 
-  nix.package = pkgs.nixVersions.nix_2_12;
+  nix.package = pkgs.nixVersions.nix_2_13;
 
   system.stateVersion = "22.11";
 

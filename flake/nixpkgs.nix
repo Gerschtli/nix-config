@@ -57,6 +57,10 @@ import inputs.nixpkgs {
 
         gerschtli = prev.lib.composeManyExtensions gerschtliOverlays final prev;
 
+        nixVersions = prev.nixVersions // {
+          inherit (unstable.nixVersions) nix_2_13;
+        };
+
         # the only alias that I need, this allows me to set allowAliases=false
         inherit system;
         inherit (prev.nixVersions) nix_2_4; # for nix-on-droid

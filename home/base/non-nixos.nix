@@ -43,13 +43,16 @@ in
   config = mkIf cfg.enable {
 
     home = {
-      packages = mkIf cfg.installNix [ pkgs.nix ];
+      packages = mkIf cfg.installNix [ config.nix.package ];
       sessionVariables.NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
     };
 
-    nix.registry = {
-      nixpkgs.flake = inputs.nixpkgs;
-      nix-config.flake = inputs.self;
+    nix = {
+      package = pkgs.nixVersions.nix_2_13;
+      registry = {
+        nixpkgs.flake = inputs.nixpkgs;
+        nix-config.flake = inputs.self;
+      };
     };
 
     programs.zsh.envExtra = mkAfter ''
@@ -68,8 +71,7 @@ in
       ${optionalString (cfg.builders != []) ''
         builders-use-substitutes = true
       ''}
-      flake-registry = ${builtins.toFile "stub-registry.json"
-        (builtins.toJSON { flakes = []; version = 2; })}
+      flake-registry = ""
     '';
 
   };

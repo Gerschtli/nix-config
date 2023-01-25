@@ -85,10 +85,10 @@ in
         trusted-users = [ "root" "tobias" ];
         experimental-features = [ "nix-command" "flakes" ];
         log-lines = 30;
-        flake-registry = builtins.toFile "stub-registry.json"
-         (builtins.toJSON { flakes = []; version = 2; });
+        flake-registry = "";
       };
 
+      package = pkgs.nixVersions.nix_2_13;
       registry = {
         nixpkgs.flake = inputs.nixpkgs;
         nix-config.flake = inputs.self;
