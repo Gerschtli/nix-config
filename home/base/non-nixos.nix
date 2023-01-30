@@ -71,7 +71,7 @@ in
       ${optionalString (cfg.builders != []) ''
         builders-use-substitutes = true
       ''}
-      flake-registry = ""
+      flake-registry =
     '';
 
   };
