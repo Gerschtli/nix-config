@@ -170,6 +170,8 @@
               rpi-firmware = import ./files/nix/rpi-firmware.nix { inherit nixpkgs; };
               rpi-image = import ./files/nix/rpi-image.nix { inherit nixpkgs rootPath; };
             };
+
+            x86_64-linux.installer-image = import ./files/nix/installer-image.nix { inherit nixpkgs; };
           }
           (nixpkgs.lib.mapAttrsToList cachixDeployOutputNixos self.nixosConfigurations
             ++ [ (cachixDeployOutputHomeManager "M386" self.homeConfigurations."tobhap@M386") ]);

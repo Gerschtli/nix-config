@@ -46,6 +46,8 @@ nix run \
 
 **Note:**
 * NixOS-managed systems should be set up like written in the [NixOS manual][nixos-manual].
+  `nix build ".#installer-image"` can be used for latest kernel, helpful default config and some pre-installed
+  utilities.
 
 ### Manual instructions for some systems
 
@@ -157,7 +159,6 @@ volume of the bootstrap instance can be reused at any time.
 ## TODOs
 
 * [ ] NixOS setup script: `/home/tobias/.age` is missing
-* [ ] Provide ISO-images for NixOS configurations
 * [ ] Set up nixos-shell and similar for an ubuntu image to easily test setup script
 
 [age]: https://age-encryption.org/
