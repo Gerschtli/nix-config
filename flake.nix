@@ -69,6 +69,8 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    impermanence.url = "github:nix-community/impermanence";
   };
 
   outputs = { self, nixpkgs, cachix-deploy-flake, nix-formatter-pack, ... } @ inputs:
