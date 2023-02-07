@@ -1,13 +1,14 @@
 mode="${1}"
 
 _usage() {
-    echo "$0 <debug|dev|build|test|switch>"
+    echo "$0 <debug|dev|boot|build|test|switch>"
 }
 
 args=(--flake /root/.nix-config)
 case "${mode}" in
     debug) args+=(test --fast --show-trace) ;;
     dev) args+=(test --fast) ;;
+    boot) args+=(boot) ;;
     build)
         "@buildCmd@"
         exit
