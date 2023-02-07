@@ -55,8 +55,12 @@
 
     users.tobias = {
       directories = [
+        ".PortfolioPerformance"
         ".config/Code"
         ".config/google-chrome"
+        ".config/pulse"
+        ".config/spotify"
+        ".eclipse" # for portfolio-performance
         ".files"
         ".local/share/direnv"
         ".local/share/nix"
@@ -72,8 +76,8 @@
       ];
       files = [
         ".bash_history"
+        ".config/gtk-3.0/bookmarks"
         ".config/zsh/.zsh_history"
-        ".xsession-errors"
         { file = ".age/key.txt"; parentDirectory = { mode = "0700"; }; }
         { file = ".ssh/known_hosts"; parentDirectory = { mode = "0700"; }; }
       ];
