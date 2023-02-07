@@ -12,7 +12,7 @@ let
 
       # taken from installation-cd-minimal-new-kernel-no-zfs.nix
       nixpkgs.overlays = [
-        (final: super: {
+        (_final: super: {
           zfs = super.zfs.overrideAttrs (_: {
             meta.platforms = [ ];
           });
