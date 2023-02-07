@@ -90,6 +90,8 @@ in
           bluetooth = {
             enable = true;
             disabledPlugins = [ "sap" ];
+            # fix error logs on boot
+            settings.General.Experimental = true;
           };
 
           # for bluetooth support
