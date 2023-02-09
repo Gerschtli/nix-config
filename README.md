@@ -9,6 +9,7 @@ This is my humble flakes-only collection of all and everything needed to set up 
 * Secret management in [NixOS][nixos] ([agenix][agenix]) and [home-manager][home-manager] ([homeage][homeage]) with
   [age][age]
 * [nix-on-droid][nix-on-droid]-managed android phone with [home-manager][home-manager]
+* One system (`neon`) set up with ephemeral root and home directories using [impermanence][impermanence] and btrfs
 * Generated shell scripts are always linted with [shellcheck][shellcheck]
 * Checks source code with [deadnix][deadnix], [statix][statix] and [nixpkgs-fmt][nixpkgs-fmt] (using
   [nix-formatter-pack][nix-formatter-pack])
@@ -169,6 +170,7 @@ volume of the bootstrap instance can be reused at any time.
 [deadnix]: https://github.com/astro/deadnix
 [home-manager]: https://github.com/nix-community/home-manager
 [homeage]: https://github.com/jordanisaacs/homeage
+[impermanence]: https://github.com/nix-community/impermanence
 [nix-formatter-pack]: https://github.com/Gerschtli/nix-formatter-pack
 [nix-on-droid]: https://github.com/t184256/nix-on-droid
 [nixos-infect]: https://github.com/elitak/nixos-infect
