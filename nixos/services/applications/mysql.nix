@@ -22,7 +22,7 @@ in
       enable = mkEnableOption "mysql (MariaDB)";
 
       backups = mkOption {
-        type = with types; listOf str;
+        type = types.listOf types.str;
         default = [ ];
         description = ''
           List of databases to backup.

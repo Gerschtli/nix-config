@@ -125,7 +125,7 @@ in
       };
 
       services = mkOption {
-        type = with types; attrsOf (submodule serviceOpts);
+        type = types.attrsOf (types.submodule serviceOpts);
         default = { };
         description = ''
           Service configurations for backups with key as service name.

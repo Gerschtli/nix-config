@@ -21,7 +21,7 @@ in
       enable = mkEnableOption "basic server config";
 
       ipv6Address = mkOption {
-        type = with types; nullOr str;
+        type = types.nullOr types.str;
         default = null;
         description = "IPv6 address.";
       };
