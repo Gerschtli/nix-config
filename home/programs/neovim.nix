@@ -209,7 +209,7 @@ in
 
     custom.programs.neovim = { inherit (config.programs.neovim) finalPackage; };
 
-    home.sessionVariables.EDITOR = "${cfg.finalPackage}/bin/nvim";
+    home.sessionVariables.EDITOR = "nvim";
 
     programs.neovim = {
       inherit extraConfig plugins;
