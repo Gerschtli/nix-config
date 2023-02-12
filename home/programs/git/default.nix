@@ -368,7 +368,7 @@ in
 
             core.excludesfile =
               let
-                ignoreListWork = ignoreList ++ [ ".envrc" "shell.nix" "**/MyEmbeddedMariaDbConfig.java" ];
+                ignoreListWork = ignoreList ++ [ ".envrc" "shell.nix" ];
                 content = concatStringsSep "\n" ignoreListWork + "\n";
               in
               writeFile "gitignore" content;
