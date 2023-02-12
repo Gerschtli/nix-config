@@ -24,7 +24,7 @@ jobs:
           - aarch64
           - x86_64
         nix-command:
-          - fmt
+          - fmt -- --check
           - eval .#apps.$_system.ci-build.program
           - eval .#apps.$_system.setup.program
 
