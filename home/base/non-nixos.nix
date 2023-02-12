@@ -1,8 +1,16 @@
 { config, lib, pkgs, inputs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    concatStringsSep
+    mkAfter
+    mkEnableOption
+    mkIf
+    mkOption
+    optionalString
+    types
+    ;
+
   cfg = config.custom.base.non-nixos;
 
   substituters = [

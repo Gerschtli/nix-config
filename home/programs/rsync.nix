@@ -1,8 +1,12 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    concatStringsSep
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.custom.programs.rsync;
 in
 
@@ -49,7 +53,7 @@ in
           "--size-only"
         ];
 
-        mkOptions = lib.concatStringsSep " ";
+        mkOptions = concatStringsSep " ";
       in
       {
         rsync = "rsync ${mkOptions options}";

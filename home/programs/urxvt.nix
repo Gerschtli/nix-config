@@ -1,8 +1,12 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    concatStringsSep
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.custom.programs.urxvt;
 
   colorBlue = "#6d68ff";

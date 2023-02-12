@@ -1,8 +1,12 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkForce
+    mkIf
+    ;
+
   cfg = config.custom.applications.original-chattengauer;
 
   location = "/var/lib/original-chattengauer/app";

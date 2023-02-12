@@ -1,8 +1,11 @@
 { config, lib, pkgs, rootPath, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.custom.cachix-agent;
 
   inherit (config.networking) hostName;

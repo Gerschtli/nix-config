@@ -1,8 +1,11 @@
 { config, lib, pkgs, inputs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.custom.programs.nix-index;
 in
 

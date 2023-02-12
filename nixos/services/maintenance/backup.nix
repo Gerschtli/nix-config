@@ -1,8 +1,23 @@
 { config, lib, pkgs, rootPath, ... }:
 
-with lib;
-
 let
+  inherit (builtins)
+    fromTOML
+    ;
+  inherit (lib)
+    attrValues
+    flip
+    listToAttrs
+    mkDefault
+    mkEnableOption
+    mkIf
+    mkMerge
+    mkOption
+    nameValuePair
+    readFile
+    types
+    ;
+
   cfg = config.custom.services.backup;
 
   user = "backup";
@@ -131,7 +146,7 @@ in
         let
           location = "${cfg.location}/${service.name}";
 
-          agenixToml = builtins.fromTOML (readFile "${rootPath}/.agenix.toml");
+          agenixToml = fromTOML (readFile "${rootPath}/.agenix.toml");
           ageKey = agenixToml.identities.bak;
         in
 

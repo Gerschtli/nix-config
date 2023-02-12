@@ -1,8 +1,14 @@
 { config, lib, pkgs, inputs, rootPath, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    elem
+    mkIf
+    mkMerge
+    mkOption
+    types
+    ;
+
   cfg = config.custom.agenix;
 
   buildConfig = { name, host, user, fileName ? name }: mkIf (elem name cfg.secrets) {

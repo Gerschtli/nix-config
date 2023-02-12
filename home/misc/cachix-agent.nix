@@ -1,8 +1,13 @@
 { config, lib, pkgs, rootPath, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
+
   cfg = config.custom.cachix-agent;
 in
 

@@ -1,8 +1,10 @@
 { lib, pkgs }:
 
-with lib;
-
 let
+  inherit (lib)
+    makeBinPath
+    optionalString;
+
   builder =
     { destPath
     , envs

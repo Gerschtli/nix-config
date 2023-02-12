@@ -1,8 +1,12 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkBefore
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.custom.programs.bash;
 in
 

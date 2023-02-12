@@ -1,8 +1,13 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    concatStringsSep
+    mkEnableOption
+    mkIf
+    mkMerge
+    ;
+
   cfg = config.custom.base.general;
 
   localeGerman = "de_DE.UTF-8";

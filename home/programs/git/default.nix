@@ -1,8 +1,20 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (builtins)
+    readDir
+    ;
+  inherit (lib)
+    attrNames
+    concatStringsSep
+    filesystem
+    mkEnableOption
+    mkIf
+    optionals
+    readFile
+    removeSuffix
+    ;
+
   cfg = config.custom.programs.git;
 
   externGitAlias = alias: "!${alias}";
@@ -54,7 +66,7 @@ let
         hooksPathPackages
         { hooksLib = ./lib.hooks.sh; }
     )
-    (attrNames (builtins.readDir ./includes));
+    (attrNames (readDir ./includes));
 
   hooksPath = pkgs.linkFarm "git-hooks" (
     map

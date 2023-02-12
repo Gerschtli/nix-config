@@ -1,8 +1,16 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    attrValues
+    flip
+    mkDefault
+    mkIf
+    mkMerge
+    mkOption
+    types
+    ;
+
   cfg = config.custom.utils;
 
   opts = { name, config, ... }: {

@@ -1,8 +1,12 @@
 { config, lib, pkgs, rootPath, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    optionals
+    ;
+
   cfg = config.custom.programs.tmux;
 
   extraConfig = ''

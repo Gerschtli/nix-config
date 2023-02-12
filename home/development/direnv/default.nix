@@ -1,8 +1,12 @@
 { config, lib, pkgs, inputs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    attrNames
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.custom.development.direnv;
 
   devShells = attrNames inputs.self.devShells.${pkgs.system};

@@ -1,7 +1,12 @@
 { config, lib, pkgs, ... }:
-with lib;
 
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    optionals
+    ;
+
   cfg = config.custom.base.desktop;
 
   # to fix scaling issues on 1440p monitors

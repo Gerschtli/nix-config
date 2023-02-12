@@ -1,8 +1,13 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    concatStringsSep
+    mapAttrsToList
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.custom.programs.prompts.liquidprompt;
 
   liquidpromptConfig = {

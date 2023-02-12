@@ -1,8 +1,19 @@
 { config, lib, pkgs, inputs, rootPath, ... }:
 
-with lib;
-
 let
+  inherit (builtins)
+    removeAttrs
+    ;
+  inherit (lib)
+    elem
+    flatten
+    listToAttrs
+    mkOption
+    nameValuePair
+    optional
+    types
+    ;
+
   cfg = config.custom.misc.homeage;
 
   buildSshConfig = name: {
@@ -74,7 +85,7 @@ in
 
       file = listToAttrs (
         map
-          (entry: nameValuePair entry.name (builtins.removeAttrs entry [ "name" ]))
+          (entry: nameValuePair entry.name (removeAttrs entry [ "name" ]))
           (flatten (
             (optional (elem "cachix-agent-token-M386" cfg.secrets) [
               {

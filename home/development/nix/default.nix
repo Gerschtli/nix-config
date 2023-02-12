@@ -1,8 +1,12 @@
 { config, lib, pkgs, rootPath, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkMerge
+    ;
+
   cfg = config.custom.development.nix;
 
   buildWithDiff = name: command: activeLinkPath:

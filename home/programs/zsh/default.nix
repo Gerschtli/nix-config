@@ -1,8 +1,13 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    optionalString
+    readFile
+    ;
+
   cfg = config.custom.programs.zsh;
 
   dotDir = ".config/zsh";

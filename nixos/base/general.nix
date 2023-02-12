@@ -1,8 +1,14 @@
 { config, lib, pkgs, homeModules, inputs, rootPath, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkForce
+    mkIf
+    mkOption
+    types
+    ;
+
   cfg = config.custom.base.general;
 in
 

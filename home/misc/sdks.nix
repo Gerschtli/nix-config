@@ -1,8 +1,15 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mapAttrs'
+    mkEnableOption
+    mkIf
+    mkOption
+    nameValuePair
+    types
+    ;
+
   cfg = config.custom.misc.sdks;
 
   sdksDirectory = "${config.home.homeDirectory}/.sdks";

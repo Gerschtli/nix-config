@@ -1,8 +1,14 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkForce
+    mkIf
+    mkOption
+    types
+    ;
+
   cfg = config.custom.system.nvidia-optimus;
 in
 
@@ -66,7 +72,7 @@ in
     services.xserver.videoDrivers = [ "nvidia" ];
 
     specialisation.external-display.configuration = {
-      hardware.nvidia.prime.offload.enable = lib.mkForce false;
+      hardware.nvidia.prime.offload.enable = mkForce false;
 
       system.nixos.tags = [ "external-display" ];
     };

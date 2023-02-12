@@ -1,8 +1,13 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOptionDefault
+    optionalString
+    ;
+
   cfg = config.custom.wm.sway;
 
   dmenuFont = "Ubuntu Mono Nerd Font:size=10";

@@ -1,8 +1,19 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    concatStringsSep
+    escapeShellArg
+    mapAttrsToList
+    mkBefore
+    mkEnableOption
+    mkIf
+    mkMerge
+    mkOption
+    optionalAttrs
+    types
+    ;
+
   cfg = config.custom.programs.shell;
 
   dynamicShellInitModule = types.submodule (_: {

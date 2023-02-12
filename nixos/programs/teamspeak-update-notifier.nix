@@ -1,8 +1,11 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.custom.programs.teamspeak-update-notifier;
 
   configFile = pkgs.writeText "config.ini" ''

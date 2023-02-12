@@ -1,8 +1,14 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    concatMapStringsSep
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
+
   cfg = config.custom.services.storage;
 
   location = "/storage";

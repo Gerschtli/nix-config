@@ -1,8 +1,13 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mapAttrs
+    mkEnableOption
+    mkOption
+    types
+    ;
+
   cfg = config.custom.ids;
 
   mapIds = mapAttrs (_name: id: if cfg.enable then id else null);
