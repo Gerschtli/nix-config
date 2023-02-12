@@ -100,6 +100,7 @@ in
               PermissionsStartOnly = true;
             };
             unitConfig.RequiresMountsFor = mkIf useMount location;
+            # FIXME replace with systemd tmpfiles
             preStart = ''
               mkdir -p ${backupDir}
               chown ${user}:${user} ${backupDir}
@@ -138,6 +139,7 @@ in
       };
     };
 
+    # FIXME replace with systemd tmpfiles
     system.activationScripts.backup = mkIf (! useMount) ''
       mkdir -p ${location}
     '';

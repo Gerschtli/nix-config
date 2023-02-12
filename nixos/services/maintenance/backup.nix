@@ -160,6 +160,7 @@ in
                 Group = user;
                 User = service.user;
               };
+              # FIXME replace with systemd tmpfiles
               preStart = ''
                 mkdir -p ${location}
                 chmod 0750 ${location}
@@ -190,6 +191,7 @@ in
       };
     };
 
+    # FIXME replace with systemd tmpfiles
     system.activationScripts.backup = ''
       mkdir -p ${cfg.location}
       chown ${user}:${user} ${cfg.location}

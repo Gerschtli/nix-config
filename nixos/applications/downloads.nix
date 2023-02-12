@@ -53,6 +53,7 @@ in
       };
     };
 
+    # FIXME use systemd tmpfiles
     system.activationScripts.downloads = ''
       mkdir -p ${location}
     '';
