@@ -99,7 +99,7 @@ in
         nixpkgs.flake = inputs.nixpkgs;
         nix-config.flake = inputs.self;
       };
-      nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+      nixPath = [ "nixpkgs=flake:nixpkgs" ];
     };
 
     programs.zsh = {

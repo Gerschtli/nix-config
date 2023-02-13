@@ -52,7 +52,7 @@ in
 
     home = {
       packages = mkIf cfg.installNix [ config.nix.package ];
-      sessionVariables.NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
+      sessionVariables.NIX_PATH = "nixpkgs=flake:nixpkgs";
     };
 
     nix = {
