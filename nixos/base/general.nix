@@ -1,7 +1,8 @@
-{ config, lib, pkgs, homeModules, inputs, rootPath, ... }:
+{ config, lib, pkgs, homeModules, inputs, rootPath, ... }@configArgs:
 
 let
   inherit (lib)
+    mapAttrs
     mkEnableOption
     mkForce
     mkIf
@@ -10,6 +11,8 @@ let
     ;
 
   cfg = config.custom.base.general;
+
+  commonConfig = config.lib.custom.commonConfig configArgs;
 in
 
 {
@@ -53,16 +56,15 @@ in
     };
 
     home-manager = {
-      backupFileExtension = "hm-bak";
-      useGlobalPkgs = true;
-      useUserPackages = true;
-      extraSpecialArgs = { inherit inputs rootPath; };
-      sharedModules = homeModules;
+      inherit (commonConfig.homeManager.baseConfig)
+        backupFileExtension
+        extraSpecialArgs
+        sharedModules
+        useGlobalPkgs
+        useUserPackages
+        ;
 
-      users = {
-        root = import "${rootPath}/hosts/${cfg.hostname}/home-root.nix";
-        tobias = import "${rootPath}/hosts/${cfg.hostname}/home-tobias.nix";
-      };
+      users = mapAttrs (commonConfig.homeManager.userConfig cfg.hostname) [ "root" "tobias" ];
     };
 
     i18n.supportedLocales = [

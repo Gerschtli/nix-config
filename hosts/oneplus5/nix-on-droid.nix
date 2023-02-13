@@ -1,8 +1,10 @@
-{ config, lib, pkgs, homeModules, inputs, rootPath, ... }:
+{ config, lib, pkgs, homeModules, inputs, rootPath, ... }@configArgs:
 
 let
   sshdTmpDirectory = "${config.user.home}/sshd-tmp";
   sshdDirectory = "${config.user.home}/sshd";
+
+  commonConfig = config.lib.custom.commonConfig configArgs;
 in
 
 {
@@ -51,12 +53,15 @@ in
   };
 
   home-manager = {
-    backupFileExtension = "hm-bak";
-    config = "${rootPath}/hosts/oneplus5/home-nix-on-droid.nix";
-    extraSpecialArgs = { inherit inputs rootPath; };
-    sharedModules = homeModules;
-    useGlobalPkgs = true;
-    useUserPackages = true;
+    inherit (commonConfig.homeManager.baseConfig)
+      backupFileExtension
+      extraSpecialArgs
+      sharedModules
+      useGlobalPkgs
+      useUserPackages
+      ;
+
+    config = commonConfig.homeManager.userConfig "oneplus5" "nix-on-droid";
   };
 
   nix.package = pkgs.nixVersions.nix_2_13;
