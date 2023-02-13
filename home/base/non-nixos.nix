@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }@configArgs:
 
 let
   inherit (lib)
@@ -7,22 +7,12 @@ let
     mkEnableOption
     mkIf
     mkOption
-    optionalString
     types
     ;
 
   cfg = config.custom.base.non-nixos;
 
-  substituters = [
-    "https://cache.nixos.org"
-    "https://gerschtli.cachix.org"
-    "https://nix-on-droid.cachix.org"
-  ];
-  trustedPublicKeys = [
-    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-    "gerschtli.cachix.org-1:dWJ/WiIA3W2tTornS/2agax+OI0yQF8ZA2SFjU56vZ0="
-    "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU="
-  ];
+  commonConfig = config.lib.custom.commonConfig configArgs;
 in
 
 {
@@ -52,15 +42,28 @@ in
 
     home = {
       packages = mkIf cfg.installNix [ config.nix.package ];
-      sessionVariables.NIX_PATH = "nixpkgs=flake:nixpkgs";
+      sessionVariables.NIX_PATH = concatStringsSep ":" commonConfig.nix.nixPath;
     };
 
     nix = {
-      package = pkgs.nixVersions.nix_2_13;
-      registry = {
-        nixpkgs.flake = inputs.nixpkgs;
-        nix-config.flake = inputs.self;
+      settings = {
+        inherit (commonConfig.nix.settings)
+          experimental-features
+          flake-registry
+          log-lines
+          substituters
+          trusted-public-keys
+          ;
+
+        builders = concatStringsSep ";" cfg.builders;
+        builders-use-substitutes = mkIf (cfg.builders != [ ]) true;
+        trusted-users = [ config.home.username ];
       };
+
+      inherit (commonConfig.nix)
+        package
+        registry
+        ;
     };
 
     programs.zsh.envExtra = mkAfter ''
@@ -68,19 +71,6 @@ in
     '';
 
     targets.genericLinux.enable = true;
-
-    xdg.configFile."nix/nix.conf".text = ''
-      substituters = ${concatStringsSep " " substituters}
-      trusted-public-keys = ${concatStringsSep " " trustedPublicKeys}
-      trusted-users = ${config.home.username}
-      experimental-features = nix-command flakes
-      log-lines = 30
-      builders = ${concatStringsSep ";" cfg.builders}
-      ${optionalString (cfg.builders != []) ''
-        builders-use-substitutes = true
-      ''}
-      flake-registry =
-    '';
 
   };
 

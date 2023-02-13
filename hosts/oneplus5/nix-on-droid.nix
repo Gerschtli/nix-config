@@ -64,7 +64,7 @@ in
     config = commonConfig.homeManager.userConfig "oneplus5" "nix-on-droid";
   };
 
-  nix.package = pkgs.nixVersions.nix_2_13;
+  nix = { inherit (commonConfig.nix) package; };
 
   system.stateVersion = "22.11";
 
