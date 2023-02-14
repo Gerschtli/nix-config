@@ -57,9 +57,12 @@
       directories = [
         ".PortfolioPerformance"
         ".config/Code"
+        ".config/QtProject.conf"
+        ".config/audacity"
         ".config/google-chrome"
         ".config/pulse"
         ".config/spotify"
+        ".config/vlc"
         ".eclipse" # for portfolio-performance
         ".files"
         ".local/share/direnv"
