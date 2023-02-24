@@ -34,6 +34,16 @@ in
 
         directoryToBackup = config.services.teamspeak3.dataDir;
       };
+
+      # to prevent accidental restarts, do weekly scheduled restarts
+      utils.systemd.timers.teamspeak-restart = {
+        description = "teamspeak server restart";
+        interval = "Tue *-*-* 07:00:00";
+
+        serviceConfig.script = ''
+          ${config.systemd.package}/bin/systemctl try-restart teamspeak3-server.service
+        '';
+      };
     };
 
     networking.firewall = {
@@ -49,6 +59,8 @@ in
     };
 
     services.teamspeak3.enable = true;
+
+    systemd.services.teamspeak3-server.restartIfChanged = false;
 
   };
 
