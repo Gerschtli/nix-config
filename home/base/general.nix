@@ -40,6 +40,7 @@ in
         bash.enable = true;
         htop.enable = true;
         neovim.enable = true;
+        nix-index.enable = true;
         prompts = {
           liquidprompt.enable = mkIf (!cfg.lightWeight) true;
           pure.enable = mkIf cfg.lightWeight true;
@@ -104,6 +105,8 @@ in
         stateVersion = "22.11";
       };
 
+      programs.fzf.enable = true;
+
       # FIXME: set to sd-switch once it works for krypton
       systemd.user.startServices = "legacy";
     }
@@ -114,7 +117,6 @@ in
 
         programs = {
           git.enable = true;
-          nix-index.enable = true;
           nnn.enable = true;
           rsync.enable = true;
           ssh = {
@@ -124,10 +126,7 @@ in
         };
       };
 
-      programs = {
-        fzf.enable = true;
-        home-manager.enable = true;
-      };
+      programs.home-manager.enable = true;
     })
 
   ]);
