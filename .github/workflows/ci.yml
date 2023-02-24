@@ -25,7 +25,6 @@ jobs:
           - x86_64
         nix-command:
           - fmt -- --check
-          - eval .#apps.$_system.ci-build.program
           - eval .#apps.$_system.setup.program
 
         include:
@@ -42,35 +41,35 @@ jobs:
           - nix-command: develop .#php81 --profile profile
             system: x86_64
 
-          - nix-command: run .#ci-build -- 'homeConfigurations."tobias@gamer".activationPackage'
+          - nix-command: build .#homeConfigurations."tobias@gamer".activationPackage
             system: x86_64
-          - nix-command: run .#ci-build -- 'homeConfigurations."tobhap@M386".activationPackage'
+          - nix-command: build .#homeConfigurations."tobhap@M386".activationPackage
             system: x86_64
             deploy-agent: M386
             deploy-args: --async
 
-          - nix-command: run .#ci-build -- nixOnDroidConfigurations.oneplus5.activationPackage
+          - nix-command: build .#nixOnDroidConfigurations.oneplus5.activationPackage --impure
             system: aarch64
 
-          - nix-command: run .#ci-build -- nixosConfigurations.argon.config.system.build.toplevel
+          - nix-command: build .#nixosConfigurations.argon.config.system.build.toplevel
             system: aarch64
             deploy-agent: argon
-          - nix-command: run .#ci-build -- nixosConfigurations.krypton.config.system.build.toplevel
+          - nix-command: build .#nixosConfigurations.krypton.config.system.build.toplevel
             system: x86_64
             deploy-agent: krypton
-          - nix-command: run .#ci-build -- nixosConfigurations.neon.config.system.build.toplevel
+          - nix-command: build .#nixosConfigurations.neon.config.system.build.toplevel
             system: x86_64
             deploy-agent: neon
             deploy-args: --async
-          - nix-command: run .#ci-build -- nixosConfigurations.xenon.config.system.build.toplevel
+          - nix-command: build .#nixosConfigurations.xenon.config.system.build.toplevel
             system: aarch64
             deploy-agent: xenon
 
-          - nix-command: run .#ci-build -- packages.$_system.rpi-firmware
+          - nix-command: build .#packages.$_system.rpi-firmware
             system: aarch64
-          - nix-command: run .#ci-build -- packages.$_system.rpi-image
+          - nix-command: build .#packages.$_system.rpi-image
             system: aarch64
-          - nix-command: run .#ci-build -- packages.$_system.installer-image
+          - nix-command: build .#packages.$_system.installer-image
             system: x86_64
 
     steps:

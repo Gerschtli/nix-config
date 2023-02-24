@@ -118,12 +118,6 @@
       ];
 
       apps = forEachSystem (system: listToAttrs [
-        (mkApp system "ci-build" {
-          file = ./files/apps/ci-build.sh;
-          path = pkgs: with pkgs; [ nix nix-build-uncached ];
-          envs = { inherit rootPath; };
-        })
-
         (mkApp system "setup" {
           file = ./files/apps/setup.sh;
           path = pkgs: with pkgs; [ cachix coreutils curl git gnugrep hostname jq nix openssh ];
