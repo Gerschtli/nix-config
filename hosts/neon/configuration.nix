@@ -57,7 +57,6 @@
       directories = [
         ".PortfolioPerformance"
         ".config/Code"
-        ".config/QtProject.conf"
         ".config/audacity"
         ".config/google-chrome"
         ".config/pulse"
@@ -79,6 +78,7 @@
       ];
       files = [
         ".bash_history"
+        ".config/QtProject.conf"
         ".config/gtk-3.0/bookmarks"
         ".config/zsh/.zsh_history"
         { file = ".age/key.txt"; parentDirectory = { mode = "0700"; }; }
