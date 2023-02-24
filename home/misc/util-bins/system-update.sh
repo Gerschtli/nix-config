@@ -2,12 +2,6 @@ source @bashLib@
 
 nix_config="${HOME}/.nix-config"
 
-_get_sudo_prefix() {
-    if ! _is_root; then
-        echo "sudo"
-    fi
-}
-
 _has_unit_enabled() {
     [[ "$(systemctl is-enabled "${1}" 2> /dev/null)" == "enabled" ]]
 }
@@ -44,6 +38,12 @@ _show_result_diff() {
 }
 
 
+if _is_root; then
+    _log "Please don't run this script with root!"
+    exit 1
+fi
+
+
 # add key
 _log "keychain" "add key"
 keychain "${HOME}/.ssh/keys/id_rsa.vcs"
@@ -52,13 +52,13 @@ keychain "${HOME}/.ssh/keys/id_rsa.vcs"
 # update ubuntu
 if _available apt; then
     _log "apt" "update"
-    "$(_get_sudo_prefix)" apt update
+    sudo apt update
     _log "apt" "upgrade"
-    "$(_get_sudo_prefix)" apt upgrade -y
+    sudo apt upgrade -y
     _log "apt" "autoclean"
-    "$(_get_sudo_prefix)" apt autoclean -y
+    sudo apt autoclean -y
     _log "apt" "autoremove"
-    "$(_get_sudo_prefix)" apt autoremove -y
+    sudo apt autoremove -y
 fi
 
 
@@ -71,13 +71,13 @@ _pull_changes "pass"        "${HOME}/.password-store"
 
 # nix updates
 # TODO: use scripts defined in home/development/nix
-if _is_nixos && _is_root; then
+if _is_nixos; then
     _log "nix" "build nixos configuration"
-    nixos-rebuild build --flake "${nix_config}"
+    sudo nixos-rebuild build --flake "${nix_config}"
     _show_result_diff "/nix/var/nix/profiles/system"
 
     _log "nix" "switch nixos configuration"
-    nixos-rebuild switch --flake "${nix_config}"
+    sudo nixos-rebuild switch --flake "${nix_config}"
 fi
 
 if [[ "${USER}" == "nix-on-droid" ]] && _available nix-on-droid; then
@@ -89,7 +89,7 @@ if [[ "${USER}" == "nix-on-droid" ]] && _available nix-on-droid; then
     nix-on-droid switch --flake "${nix_config}#oneplus5"
 fi
 
-if ! _is_nixos && ! _is_root && _available home-manager; then
+if ! _is_nixos && _available home-manager; then
     _log "nix" "build home-manager configuration"
     home-manager build --flake "${nix_config}"
     _show_result_diff "/nix/var/nix/profiles/per-user/${USER}/home-manager"
@@ -117,8 +117,6 @@ _migration_remove "${HOME}/.ssh/id_rsa"
 _migration_remove "${HOME}/.ssh/id_rsa.pub"
 _migration_remove "${HOME}/.ssh/known_hosts.old"
 _migration_remove "${HOME}/.gnupg-setup" 1
-_migration_remove "/etc/nixos/configuration.nix" 1
-_migration_remove "/etc/nixos/hardware-configuration.nix" 1
 
 mapfile -t to_be_removed_pkgs < <(nix-env -q --json | jq -r ".[].pname" | grep -Ev '^(home-manager|nix-on-droid)-path$')
 if [[ "${#to_be_removed_pkgs[@]}" -ne 0 ]]; then
@@ -126,20 +124,19 @@ if [[ "${#to_be_removed_pkgs[@]}" -ne 0 ]]; then
     nix-env --uninstall "${to_be_removed_pkgs[@]}"
 fi
 
-_log "migration" "remove channel setup"
-rm -vr "/nix/var/nix/profiles/per-user/${USER}/channels"* 2> /dev/null || :
-
 
 # nix cleanup
-# no cleanup for non root users on NixOS
-if ! _is_nixos || _is_root; then
-    if ! _has_unit_enabled "nix-gc.timer"; then
-        _log "nix" "nix-collect-garbage"
-        nix-collect-garbage --delete-older-than 14d 2> /dev/null
-    fi
+sudo_for_cleanup=
+if _is_nixos; then
+    sudo_for_cleanup=sudo
+fi
 
-    if ! _has_unit_enabled "nix-optimise.timer" && [[ "${USER}" != "nix-on-droid" ]]; then
-        _log "nix" "nix-store --optimise"
-        nix-store --optimise
-    fi
+if ! _has_unit_enabled "nix-gc.timer"; then
+    _log "nix" "nix-collect-garbage"
+    "${sudo_for_cleanup}" nix-collect-garbage --delete-older-than 14d 2> /dev/null
+fi
+
+if ! _has_unit_enabled "nix-optimise.timer" && [[ "${USER}" != "nix-on-droid" ]]; then
+    _log "nix" "nix-store --optimise"
+    "${sudo_for_cleanup}" nix-store --optimise
 fi

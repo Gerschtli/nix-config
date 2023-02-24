@@ -21,6 +21,10 @@ _clone() {
     git clone "${url}" "${directory}"
 }
 
+if _is_root; then
+    _log "Please don't run this script with root!"
+    exit 1
+fi
 
 # generate ssh key and show
 echo
@@ -38,30 +42,26 @@ echo
 
 
 # clone repos
-if ! _is_nixos || _is_root; then
-    _clone "nix-config" git@github.com:Gerschtli/nix-config.git "${nix_config}"
+_clone "nix-config" git@github.com:Gerschtli/nix-config.git "${nix_config}"
+
+if _read_boolean "Install atom-config repo?"; then
+    if [[ -e "${HOME}/.atom" ]]; then
+        mv -v "${HOME}/.atom" "${HOME}/.atom.bak"
+    fi
+
+    _clone "atom-config" git@github.com:Gerschtli/atom-config.git "${HOME}/.atom"
 fi
 
-if ! _is_root; then
-    if _read_boolean "Install atom-config repo?"; then
-        if [[ -e "${HOME}/.atom" ]]; then
-            mv -v "${HOME}/.atom" "${HOME}/.atom.bak"
-        fi
+if _read_boolean "Install gnupg-setup repo?"; then
+    _clone "gnupg repo" gitea@git.tobias-happ.de:Gerschtli/gnupg-setup.git "${HOME}/.gnupg-setup"
 
-        _clone "atom-config" git@github.com:Gerschtli/atom-config.git "${HOME}/.atom"
+    if _read_boolean "Install password-store?"; then
+        _clone "password store" gitea@git.tobias-happ.de:Gerschtli/pass.git "${HOME}/.password-store"
     fi
+fi
 
-    if _read_boolean "Install gnupg-setup repo?"; then
-        _clone "gnupg repo" gitea@git.tobias-happ.de:Gerschtli/gnupg-setup.git "${HOME}/.gnupg-setup"
-
-        if _read_boolean "Install password-store?"; then
-            _clone "password store" gitea@git.tobias-happ.de:Gerschtli/pass.git "${HOME}/.password-store"
-        fi
-    fi
-
-    if _read_boolean "Install files?"; then
-        _clone "files" git@github.com:Gerschtli/files.git "${HOME}/.files"
-    fi
+if _read_boolean "Install files?"; then
+    _clone "files" git@github.com:Gerschtli/files.git "${HOME}/.files"
 fi
 
 _clone "age-bak" gitea@git.tobias-happ.de:Gerschtli/age-bak.git "${HOME}/.age-bak"
@@ -82,33 +82,31 @@ if nix-env -q --json | jq ".[].pname" | grep '"nix"' > /dev/null; then
 fi
 
 # set up cachix (skip nixos for now)
-if ! _is_nixos && ! _is_root; then
+if ! _is_nixos; then
     _log "Set up cachix..."
     cachix use gerschtli
     cachix use nix-on-droid
 fi
 
 # installation
-if _is_nixos && _is_root; then
+if _is_nixos; then
     hostname=$(_read_enum "Enter hostname" argon krypton neon xenon)
 
-    _log "Run nixos-rebuild switch..."
-    nixos-rebuild \
+    _log "Run sudo nixos-rebuild switch..."
+    sudo nixos-rebuild \
       switch \
       --option extra-substituters "https://gerschtli.cachix.org" \
       --option extra-trusted-public-keys "gerschtli.cachix.org-1:dWJ/WiIA3W2tTornS/2agax+OI0yQF8ZA2SFjU56vZ0=" \
       --keep-going \
       --flake "${nix_config}#${hostname}" || :
 
-    _log "Set password for root..."
-    passwd root
-
-    _log "Set password for tobias..."
-    passwd tobias
+    _log "Don't forget to set passwd for tobias and root!"
+    _log "It may be required to set up an age key for root:"
+    _log "  age-keygen -o ~/.age/key.txt"
 elif [[ "${USER}" == "nix-on-droid" ]]; then
     _log "Run nix-on-droid switch..."
     nix-on-droid switch --flake "${nix_config}#oneplus5"
-elif ! _is_nixos && ! _is_root; then
+elif ! _is_nixos; then
     _log "Build home-manager activationPackage..."
     nix build "${nix_config}#homeConfigurations.${USER}@$(hostname).activationPackage"
 

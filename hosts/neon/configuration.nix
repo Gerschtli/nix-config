@@ -39,7 +39,6 @@
     directories = [
       "/etc/NetworkManager/system-connections"
       "/root/.local/share/nix"
-      "/root/.nix-config"
       "/var/lib/docker"
       "/var/lib/fail2ban"
       "/var/lib/systemd/coredump"
@@ -50,7 +49,6 @@
       "/root/.bash_history"
       "/root/.config/zsh/.zsh_history"
       { file = "/root/.age/key.txt"; parentDirectory = { mode = "0700"; }; }
-      { file = "/root/.ssh/known_hosts"; parentDirectory = { mode = "0700"; }; }
     ];
 
     users.tobias = {
@@ -67,6 +65,7 @@
         ".local/share/direnv"
         ".local/share/nix"
         ".local/state/pnpm"
+        ".nix-config"
         ".password-store"
         ".rustup"
         ".thunderbird"

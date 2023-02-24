@@ -1,5 +1,9 @@
 { config, lib, pkgs, ... }:
 
 {
-  custom.base.general.lightWeight = true;
+  custom = {
+    base.general.lightWeight = true;
+
+    development.nix.nixos.enable = true;
+  };
 }

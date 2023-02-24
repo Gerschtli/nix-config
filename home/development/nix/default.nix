@@ -9,6 +9,8 @@ let
 
   cfg = config.custom.development.nix;
 
+  nixConfigDir = "${config.home.homeDirectory}/.nix-config";
+
   buildWithDiff = name: command: activeLinkPath:
     config.lib.custom.mkScript
       name
@@ -55,13 +57,13 @@ in
 
     (mkIf cfg.home-manager.enable {
       custom.programs.shell.shellAliases = {
-        hm-switch = "home-manager switch -b hm-bak --flake '${config.home.homeDirectory}/.nix-config'";
+        hm-switch = "home-manager switch -b hm-bak --flake '${nixConfigDir}'";
       };
 
       home.packages = [
         (buildWithDiff
           "hm-build"
-          "home-manager build --flake '${config.home.homeDirectory}/.nix-config'"
+          "home-manager build --flake '${nixConfigDir}'"
           "/nix/var/nix/profiles/per-user/${config.home.username}/home-manager"
         )
       ];
@@ -69,13 +71,13 @@ in
 
     (mkIf cfg.nix-on-droid.enable {
       custom.programs.shell.shellAliases = {
-        nod-switch = "nix-on-droid switch --flake '${config.home.homeDirectory}/.nix-config#oneplus5'";
+        nod-switch = "nix-on-droid switch --flake '${nixConfigDir}#oneplus5'";
       };
 
       home.packages = [
         (buildWithDiff
           "nod-build"
-          "nix-on-droid build --flake '${config.home.homeDirectory}/.nix-config#oneplus5'"
+          "nix-on-droid build --flake '${nixConfigDir}#oneplus5'"
           "/nix/var/nix/profiles/nix-on-droid"
         )
       ];
@@ -88,9 +90,10 @@ in
           ./n-rebuild.sh
           [ pkgs.ccze ]
           {
+            inherit nixConfigDir;
             buildCmd = "${buildWithDiff
               "n-rebuild-build"
-              "nixos-rebuild build --flake /root/.nix-config"
+              "sudo nixos-rebuild build --flake '${nixConfigDir}'"
               "/nix/var/nix/profiles/system"
             }/bin/n-rebuild-build";
             _doNotClearPath = true;

@@ -4,7 +4,7 @@ _usage() {
     echo "$0 <debug|dev|boot|build|test|switch>"
 }
 
-args=(--flake /root/.nix-config)
+args=(--flake "@nixConfigDir@")
 case "${mode}" in
     debug) args+=(test --fast --show-trace) ;;
     dev) args+=(test --fast) ;;
@@ -23,7 +23,7 @@ esac
 
 before_date=$(date +"%Y-%m-%d %H:%M:%S")
 
-nixos-rebuild "${args[@]}"; result=$?
+sudo nixos-rebuild "${args[@]}"; result=$?
 
 for user in root tobias; do
     echo

@@ -8,6 +8,8 @@
       private = true;
     };
 
+    development.nix.nixos.enable = true;
+
     misc = {
       backup = {
         enable = true;

@@ -1,9 +1,13 @@
 { config, lib, pkgs, ... }:
 
 {
-  custom.programs = {
-    gpg.curses = true;
+  custom = {
+    development.nix.nixos.enable = true;
 
-    pass.enable = true;
+    programs = {
+      gpg.curses = true;
+
+      pass.enable = true;
+    };
   };
 }
