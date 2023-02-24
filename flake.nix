@@ -19,9 +19,9 @@
     };
 
     cachix-deploy-flake.url = "github:cachix/cachix-deploy-flake";
-    # remove once 1.2 hits unstable
+    # FIXME: remove once 1.3 hits unstable
     cachix = {
-      url = "github:cachix/cachix/d2d4acc81cde51534e5a4a408d0a3efdfc57215d";
+      url = "github:cachix/cachix/54b615a796db8b5fbf3d98deb7843b91dd2783d6";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
