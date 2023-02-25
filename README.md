@@ -40,8 +40,7 @@ If any of these systems need to be reinstalled, you can run:
 
 ```sh
 nix run \
-  --option extra-substituters "https://gerschtli.cachix.org" \
-  --option extra-trusted-public-keys "gerschtli.cachix.org-1:dWJ/WiIA3W2tTornS/2agax+OI0yQF8ZA2SFjU56vZ0=" \
+  --extra-experimental-features "nix-command flakes" \
   github:Gerschtli/nix-config#setup
 ```
 
@@ -88,8 +87,6 @@ sh <(curl -L https://nixos.org/nix/install) --no-channel-add --no-modify-profile
 . ~/.nix-profile/etc/profile.d/nix.sh
 nix run \
   --extra-experimental-features "nix-command flakes" \
-  --option extra-substituters "https://gerschtli.cachix.org" \
-  --option extra-trusted-public-keys "gerschtli.cachix.org-1:dWJ/WiIA3W2tTornS/2agax+OI0yQF8ZA2SFjU56vZ0=" \
   github:Gerschtli/nix-config#setup
 
 # download and install UbuntuMono from nerdfonts.com
@@ -156,8 +153,6 @@ sudo ln -snf bash /bin/sh
       ```sh
       nix run \
         --extra-experimental-features "nix-command flakes" \
-        --option extra-substituters "https://gerschtli.cachix.org" \
-        --option extra-trusted-public-keys "gerschtli.cachix.org-1:dWJ/WiIA3W2tTornS/2agax+OI0yQF8ZA2SFjU56vZ0=" \
         github:Gerschtli/nix-config#setup
       ```
 
