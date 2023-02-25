@@ -19,8 +19,6 @@ let
         })
       ];
 
-      console.keyMap = "de";
-
       environment.systemPackages = with pkgs; [
         git
         tmux
