@@ -37,7 +37,7 @@ in
       autocd = true;
       defaultKeymap = "viins";
       enableAutosuggestions = true;
-      history.path = "${config.xdg.configHome}/zsh/.zsh_history";
+      history.path = "${config.home.homeDirectory}/${dotDir}/.zsh_history";
 
       initExtra = ''
         available sudo && alias sudo='nocorrect sudo '
