@@ -3,10 +3,10 @@ set -euo pipefail
 
 IGNORES_FILE="$1"
 
-OLD_TRANSID=$(sudo btrfs subvolume find-new /root/btrfs/root-blank 9999999)
+OLD_TRANSID=$(sudo btrfs subvolume find-new /btrfs/root-blank 9999999)
 OLD_TRANSID=${OLD_TRANSID#transid marker was }
 
-btrfs subvolume find-new "/root/btrfs/root" "$OLD_TRANSID" \
+btrfs subvolume find-new "/btrfs/root" "$OLD_TRANSID" \
     | sed '$d' \
     | cut -f17- -d' ' \
     | sort --unique \

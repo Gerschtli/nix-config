@@ -50,7 +50,7 @@
       fsType = "vfat";
     };
 
-  fileSystems."/root/btrfs" =
+  fileSystems."/btrfs" =
     {
       device = "/dev/disk/by-uuid/6cc6eddf-9d97-4151-95b1-24ed0bea3816";
       fsType = "btrfs";
