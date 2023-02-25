@@ -23,11 +23,11 @@ import inputs.nixpkgs {
           inherit config system;
         };
 
-        gerschtliOverlays = [
-          inputs.dmenu.overlays.default
-          inputs.dwm.overlays.default
-          inputs.dwm-status.overlays.default
-          inputs.teamspeak-update-notifier.overlays.default
+        gerschtliOverlays = map (x: x.overlays.default) [
+          inputs.dmenu
+          inputs.dwm
+          inputs.dwm-status
+          inputs.teamspeak-update-notifier
         ];
       in
       {
