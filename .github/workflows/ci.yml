@@ -6,7 +6,7 @@ on:
     inputs:
       branch:
         description: Branch name to build on
-        default: ''
+        default: ""
         required: false
         type: string
     secrets:
@@ -25,6 +25,7 @@ jobs:
           - x86_64
         nix-command:
           - fmt -- --check
+          - eval .#apps.$_system.nixos-shell.program
           - eval .#apps.$_system.setup.program
 
         include:

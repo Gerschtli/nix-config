@@ -159,10 +159,6 @@ sudo ln -snf bash /bin/sh
 **Note:** This is all needed to be able to partition the volume to have more than 100MB available in `/boot`. The boot
 volume of the bootstrap instance can be reused at any time.
 
-## TODOs
-
-- [ ] Set up nixos-shell and similar for an ubuntu image to easily test setup script
-
 [age]: https://age-encryption.org/
 [agenix]: https://github.com/ryantm/agenix
 [cachix-deploy]: https://docs.cachix.org/deploy/

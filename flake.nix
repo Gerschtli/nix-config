@@ -118,6 +118,11 @@
       ];
 
       apps = forEachSystem (system: listToAttrs [
+        (mkApp system "nixos-shell" {
+          file = ./files/apps/nixos-shell.sh;
+          path = pkgs: with pkgs; [ nixos-shell gawk jq git ];
+        })
+
         (mkApp system "setup" {
           file = ./files/apps/setup.sh;
           path = pkgs: with pkgs; [ coreutils curl git gnugrep hostname jq nix openssh ];
@@ -143,6 +148,8 @@
       ]);
 
       formatter = forEachSystem (system: nix-formatter-pack.lib.mkFormatter formatterPackArgsFor.${system});
+
+      nixosModules.nixos-shell-vm = import ./files/nix/nixos-shell-vm.nix rootPath;
 
       packages =
         let

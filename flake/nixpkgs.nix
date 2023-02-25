@@ -45,6 +45,9 @@ import inputs.nixpkgs {
 
           # need >= 0.1.4
           nix-index
+
+          # fails with version in stable
+          nixos-shell
           ;
 
         # pin 22.05 release for removed packages
