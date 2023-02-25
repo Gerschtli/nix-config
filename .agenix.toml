@@ -12,36 +12,28 @@ oneplus5-nix-on-droid = "age18wg8fscl8kvn3avr2dgpwujdsy8xksc4v58mnuwmwpjp0ddud42
 xenon-root = "age1glu7paaertha2q28whxehvgn7euj52z5pka0edlrp6pnhqypvcmqm2lg64"
 xenon-tobias = "age1dxhjmnugds3263vsh02zrxagxal5x25ycs3xpueja7yfvcx8lves8p5rkv"
 
-[groups]
-all = [
-    "argon-root",
-    "argon-tobias",
-    "bak",
-    "gamer-tobias",
-    "krypton-root",
-    "krypton-tobias",
-    "M386-tobhap",
-    "neon-root",
-    "neon-tobias",
-    "oneplus5-nix-on-droid",
-    "xenon-root",
-    "xenon-tobias",
-]
-private = [
-    "bak",
-    "gamer-tobias",
-    "M386-tobhap",
-    "neon-tobias",
-    "oneplus5-nix-on-droid",
-]
-
 [[paths]]
 glob = "secrets/ssh/private/*"
-groups = [ "private" ]
+identities = [
+    "bak",
+    "gamer-tobias",
+    "M386-tobhap",
+    "neon-tobias",
+    "oneplus5-nix-on-droid",
+]
 
 [[paths]]
 glob = "secrets/ssh/vcs/*"
-groups = [ "all" ]
+identities = [
+    "argon-tobias",
+    "bak",
+    "gamer-tobias",
+    "krypton-tobias",
+    "M386-tobhap",
+    "neon-tobias",
+    "oneplus5-nix-on-droid",
+    "xenon-tobias",
+]
 
 [[paths]]
 glob = "secrets/ssh/sedo/*"
