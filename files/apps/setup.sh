@@ -71,9 +71,21 @@ chmod -v 0700 "${HOME}/.age-bak"
 
 if [[ ! -e "${HOME}/.age" ]]; then
     _log "Link ~/.age to ~/.age-bak..."
-    ln -snv  "${HOME}/.age-bak" "${HOME}/.age"
+    ln -snv .age-bak "${HOME}/.age"
 fi
 
+if _is_nixos && _read_boolean "Set up age keys for root?"; then
+    _log "Copy ~/.age-bak/key.txt to /root..."
+    sudo mkdir -vp "/root/.age-bak"
+    sudo chmod -v 0700 "/root/.age-bak"
+    sudo cp -v "${HOME}/.age-bak/key.txt" "/root/.age-bak/key.txt"
+    sudo chown root:root "/root/.age-bak/key.txt"
+
+    if ! sudo test -e "/root/.age"; then
+        _log "Link /root/.age to /root/.age-bak..."
+        sudo ln -snv .age-bak "/root/.age"
+    fi
+fi
 
 # preparation for non nixos systems
 if nix-env -q --json | jq ".[].pname" | grep '"nix"' > /dev/null; then

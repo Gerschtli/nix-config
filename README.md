@@ -166,7 +166,6 @@ volume of the bootstrap instance can be reused at any time.
 
 ## TODOs
 
-- [ ] NixOS setup script: `/home/tobias/.age` is missing
 - [ ] Set up nixos-shell and similar for an ubuntu image to easily test setup script
 
 [age]: https://age-encryption.org/
