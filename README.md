@@ -44,13 +44,23 @@ nix run \
   github:Gerschtli/nix-config#setup
 ```
 
-**Note:**
-
-- NixOS-managed systems should be set up like written in the [NixOS manual][nixos-manual].
-  `nix build ".#installer-image"` can be used for latest kernel, helpful default config and some pre-installed
-  utilities.
-
 ### Manual instructions for some systems
+
+#### NixOS
+
+1. Set up like written in the [NixOS manual][nixos-manual] with image from `nix build ".#installer-image"`
+1. Add the following to `configuration.nix`:
+   ```nix
+   {
+     users.users.root.password = "nixos";
+     users.users.tobias = {
+       password = "nixos";
+       isNormalUser = true;
+       extraGroups = [ "wheel" ];
+     };
+   }
+   ```
+1. When booted in the new NixOS system, login as tobias and run setup script
 
 #### Raspberry Pi
 
@@ -60,6 +70,7 @@ nix run \
    ```
 1. Copy (`dd`) `result/sd-image/*.img` to sd-card
 1. Inject sd-card in raspberry and boot
+1. When booted in the new NixOS system, login as tobias and run setup script
 
 ##### Update firmware
 
@@ -134,12 +145,20 @@ sudo ln -snf bash /bin/sh
       ```
    1. Activate with `nixos-rebuild switch`
    1. Copy and run ISCSI mount commands from Oracle Cloud WebUI
+   1. Partion mounted boot volume
    1. Install NixOS like described in [NixOS manual][nixos-manual] with following options:
 
       ```nix
       {
         services.openssh.enable = true;
         services.openssh.permitRootLogin = "yes";
+
+        users.users.root.password = "nixos";
+        users.users.tobias = {
+          password = "nixos";
+          isNormalUser = true;
+          extraGroups = [ "wheel" ];
+        };
       }
       ```
 
@@ -148,13 +167,8 @@ sudo ln -snf bash /bin/sh
 
 1. Create final instance
    1. Create instance of previously created boot volume
-   1. ssh into instance with `root` user and password
-   1. Run setup script like
-      ```sh
-      nix run \
-        --extra-experimental-features "nix-command flakes" \
-        github:Gerschtli/nix-config#setup
-      ```
+   1. ssh into instance with `tobias` user and password
+   1. Run setup script
 
 **Note:** This is all needed to be able to partition the volume to have more than 100MB available in `/boot`. The boot
 volume of the bootstrap instance can be reused at any time.
