@@ -93,12 +93,6 @@ if nix-env -q --json | jq ".[].pname" | grep '"nix"' > /dev/null; then
     nix-env --set-flag priority 1000 nix
 fi
 
-# set up cachix (skip nixos for now)
-if ! _is_nixos; then
-    _log "Set up cachix..."
-    cachix use gerschtli
-    cachix use nix-on-droid
-fi
 
 # installation
 if _is_nixos; then
@@ -117,10 +111,18 @@ if _is_nixos; then
     _log "  age-keygen -o ~/.age/key.txt"
 elif [[ "${USER}" == "nix-on-droid" ]]; then
     _log "Run nix-on-droid switch..."
-    nix-on-droid switch --flake "${nix_config}#oneplus5"
-elif ! _is_nixos; then
+    nix-on-droid switch \
+      --option extra-substituters "https://gerschtli.cachix.org" \
+      --option extra-trusted-public-keys "gerschtli.cachix.org-1:dWJ/WiIA3W2tTornS/2agax+OI0yQF8ZA2SFjU56vZ0=" \
+      --option extra-substituters "https://nix-on-droid.cachix.org" \
+      --option extra-trusted-public-keys "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU=" \
+      --flake "${nix_config}#oneplus5"
+else
     _log "Build home-manager activationPackage..."
-    nix build "${nix_config}#homeConfigurations.${USER}@$(hostname).activationPackage"
+    nix build \
+      --option extra-substituters "https://gerschtli.cachix.org" \
+      --option extra-trusted-public-keys "gerschtli.cachix.org-1:dWJ/WiIA3W2tTornS/2agax+OI0yQF8ZA2SFjU56vZ0=" \
+      "${nix_config}#homeConfigurations.${USER}@$(hostname).activationPackage"
 
     _log "Run activate script..."
     HOME_MANAGER_BACKUP_EXT=hm-bak ./result/activate

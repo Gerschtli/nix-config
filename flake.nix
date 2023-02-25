@@ -120,7 +120,7 @@
       apps = forEachSystem (system: listToAttrs [
         (mkApp system "setup" {
           file = ./files/apps/setup.sh;
-          path = pkgs: with pkgs; [ cachix coreutils curl git gnugrep hostname jq nix openssh ];
+          path = pkgs: with pkgs; [ coreutils curl git gnugrep hostname jq nix openssh ];
           envs._doNotClearPath = true;
         })
       ]);
