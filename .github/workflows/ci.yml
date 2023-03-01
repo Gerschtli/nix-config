@@ -80,7 +80,7 @@ jobs:
           ref: ${{ inputs.branch }}
 
       - name: Install nix
-        uses: cachix/install-nix-action@v19
+        uses: cachix/install-nix-action@v20
         with:
           install_url: https://releases.nixos.org/nix/nix-2.13.3/install
           extra_nix_config: |
