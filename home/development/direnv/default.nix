@@ -30,8 +30,8 @@ in
       (config.lib.custom.mkScript
         "lorri-init"
         ./lorri-init.sh
-        (with pkgs; [ direnv gnutar gzip lorri nix ])
-        { }
+        [ ]
+        { _doNotClearPath = true; }
       )
 
       (config.lib.custom.mkZshCompletion
