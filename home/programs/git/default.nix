@@ -101,7 +101,10 @@ in
 
   config = mkIf cfg.enable {
 
-    home.packages = [ pkgs.tig ];
+    home.packages = [
+      pkgs.git-absorb
+      pkgs.tig
+    ];
 
     programs.git = {
       enable = true;
