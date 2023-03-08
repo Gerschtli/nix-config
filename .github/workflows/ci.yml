@@ -11,7 +11,7 @@ on:
         type: string
     secrets:
       CACHIX_ACTIVATE_TOKEN:
-      CACHIX_SIGNING_KEY:
+      CACHIX_AUTH_TOKEN:
         required: true
 
 jobs:
@@ -90,7 +90,7 @@ jobs:
         uses: cachix/cachix-action@v12
         with:
           name: gerschtli
-          signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
       - name: Build command (aarch64)
         if: matrix.system == 'aarch64'
@@ -108,7 +108,7 @@ jobs:
           env: |
             _system: ${{ matrix.system }}-linux
             CACHIX_ACTIVATE_TOKEN: ${{ secrets.CACHIX_ACTIVATE_TOKEN || 'no-value' }}
-            CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+            CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           run: |
             set -euo pipefail

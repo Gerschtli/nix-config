@@ -60,7 +60,7 @@ jobs:
     with:
       branch: ${{ needs.update.outputs.branch }}
     secrets:
-      CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+      CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
   merge:
     runs-on: ubuntu-latest
@@ -92,4 +92,4 @@ jobs:
     needs: merge
     secrets:
       CACHIX_ACTIVATE_TOKEN: ${{ secrets.CACHIX_ACTIVATE_TOKEN }}
-      CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+      CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
