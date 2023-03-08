@@ -33,15 +33,15 @@ import inputs.nixpkgs {
       {
         inherit (inputs.agenix-cli.packages.${system}) agenix-cli;
 
-        # FIXME: remove once 1.3 hits unstable
-        inherit (inputs.cachix.packages.${system}) cachix;
-
         inherit (unstable)
           # need bleeding edge version
           jetbrains
           minecraft-server
           minecraftServers
           teamspeak_server
+
+          # need >= 1.3
+          cachix
 
           # need >= 0.1.4
           nix-index
