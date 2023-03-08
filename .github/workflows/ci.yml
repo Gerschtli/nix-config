@@ -154,7 +154,8 @@ jobs:
 
 
             echo "::group::Setup cachix"
-            run nix profile install nixpkgs#cachix
+            run nix-env --quiet -j8 -iA cachix -f https://cachix.org/api/v1/install
+            run cachix --version
             run cachix use gerschtli
             run cachix use nix-on-droid
 
