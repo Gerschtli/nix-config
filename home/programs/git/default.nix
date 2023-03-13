@@ -104,6 +104,13 @@ in
     home.packages = [
       pkgs.git-absorb
       pkgs.tig
+      (
+        config.lib.custom.mkScript
+          "git-initial-commit"
+          ./git-initial-commit.sh
+          [ pkgs.coreutils pkgs.git ]
+          { }
+      )
     ];
 
     programs.git = {
@@ -178,8 +185,6 @@ in
         total-clean = externGitAlias "git co -f && git clean -dfx && git clean -dfX";
 
         disable-upstream-push = "remote set-url upstream --push DISABLED";
-        initial-commit = externGitAlias "git init && ${pkgs.coreutils}/bin/touch .gitignore && git add .gitignore && \
-          git commit -m 'Initial commit'";
         set-upstream = externGitAlias "git branch --set-upstream-to=origin/$(git branch-name) $(git branch-name)";
       };
 
