@@ -138,6 +138,7 @@
         (mkDevShellJdk system "jdk17" { jdk = pkgs: pkgs.jdk17; })
 
         (mkDevShellPhp system "php74" { phpVersion = "74"; })
+        (mkDevShellPhp system "php74-composer1" { phpVersion = "74"; composer1 = true; })
         (mkDevShellPhp system "php80" { phpVersion = "80"; })
         (mkDevShellPhp system "php81" { phpVersion = "81"; })
       ]);

@@ -37,6 +37,8 @@ jobs:
             system: x86_64
           - nix-command: develop .#php74 --profile profile
             system: x86_64
+          - nix-command: develop .#php74-composer1 --profile profile
+            system: x86_64
           - nix-command: develop .#php80 --profile profile
             system: x86_64
           - nix-command: develop .#php81 --profile profile
