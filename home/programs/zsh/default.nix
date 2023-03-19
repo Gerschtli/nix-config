@@ -45,7 +45,7 @@ in
         alias -g C="| ${pkgs.xclip}/bin/xclip -selection clipboard"
         alias -g G="| grep"
         alias -g P="| $PAGER"
-        alias -g IX="| curl -F 'f:1=<-' ix.io"
+        alias -g IX="| ${pkgs.curl}/bin/curl -F 'f:1=<-' ix.io"
 
         ${readFile ./completion.zsh}
         ${optionalString config.custom.misc.work.enable ''
