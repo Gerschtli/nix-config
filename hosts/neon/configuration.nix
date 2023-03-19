@@ -64,6 +64,7 @@
         ".files"
         ".local/share/direnv"
         ".local/share/nix"
+        ".local/share/webkitgtk/storage"
         ".local/state/pnpm"
         ".nix-config"
         ".password-store"
