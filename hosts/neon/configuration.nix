@@ -54,6 +54,7 @@
     users.tobias = {
       directories = [
         ".PortfolioPerformance"
+        ".cargo"
         ".config/Code"
         ".config/audacity"
         ".config/google-chrome"
