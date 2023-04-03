@@ -56,6 +56,7 @@
         ".PortfolioPerformance"
         ".cargo"
         ".config/Code"
+        ".config/Postman"
         ".config/audacity"
         ".config/google-chrome"
         ".config/pulse"

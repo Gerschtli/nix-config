@@ -24,7 +24,7 @@ btrfs subvolume find-new "/btrfs/root" "$OLD_TRANSID" \
             fi
         elif [ -d "$path" ]; then
             : # The path is a directory, ignore
-        elif ! [[ "$path" =~ ^(/home/tobias|/root)/.(compose-)?cache/ ]]; then
+        elif ! [[ "$path" =~ ^(/home/tobias|/root)/.((compose-)?cache|npm)/ ]]; then
             echo "$path"
         fi
     done
