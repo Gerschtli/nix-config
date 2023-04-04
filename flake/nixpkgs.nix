@@ -39,6 +39,7 @@ import inputs.nixpkgs {
           minecraft-server
           minecraftServers
           teamspeak_server
+          vscode
 
           # need >= 1.3
           cachix
