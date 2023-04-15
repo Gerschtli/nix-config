@@ -40,9 +40,11 @@
     directories = [
       "/etc/NetworkManager/system-connections"
       "/root/.local/share/nix"
+      "/var/lib/bluetooth"
       "/var/lib/docker"
       "/var/lib/fail2ban"
       "/var/lib/systemd/coredump"
+      "/var/lib/upower"
     ];
     files = [
       "/etc/adjtime"
