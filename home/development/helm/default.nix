@@ -7,12 +7,6 @@ let
     ;
 
   cfg = config.custom.development.helm;
-
-  helm-upgrade = config.lib.custom.mkScript
-    "helm-upgrade"
-    ./helm-upgrade.sh
-    (with pkgs; [ kubernetes-helm ])
-    { };
 in
 
 {
@@ -38,27 +32,6 @@ in
 
     home.packages = [
       pkgs.kubernetes-helm
-
-      helm-upgrade
-
-      (config.lib.custom.mkZshCompletion
-        "helm-upgrade"
-        ./helm-upgrade-completion.zsh
-        { }
-      )
-
-      (config.lib.custom.mkScript
-        "helm-upgrade-this"
-        ./helm-upgrade-this.sh
-        (with pkgs; [ git gnused helm-upgrade kubernetes-helm ])
-        { }
-      )
-
-      (config.lib.custom.mkZshCompletion
-        "helm-upgrade-this"
-        ./helm-upgrade-this-completion.zsh
-        { }
-      )
     ];
 
   };
