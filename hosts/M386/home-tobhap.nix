@@ -90,4 +90,8 @@
       ];
     };
   };
+
+  programs.zsh.initExtraBeforeCompInit = ''
+    fpath+=("${config.home.homeDirectory}/projects/sedo/devops-scripts/completion/zsh")
+  '';
 }
