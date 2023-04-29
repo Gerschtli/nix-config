@@ -60,6 +60,7 @@
         ".cargo"
         ".config/Code"
         ".config/Postman"
+        ".config/Signal"
         ".config/audacity"
         ".config/google-chrome"
         ".config/pulse"

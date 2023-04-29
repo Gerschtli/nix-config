@@ -75,6 +75,7 @@ in
     ] ++ (optionals cfg.private [
       audacity
       musescore
+      signal-desktop
       thunderbird
     ]);
 
