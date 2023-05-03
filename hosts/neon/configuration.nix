@@ -62,6 +62,7 @@
         ".config/Postman"
         ".config/Signal"
         ".config/audacity"
+        ".config/cef_user_data" # for zoom
         ".config/google-chrome"
         ".config/pulse"
         ".config/spotify"
@@ -77,6 +78,7 @@
         ".rustup"
         ".thunderbird"
         ".vscode"
+        ".zoom"
         "Documents"
         "Downloads"
         "projects"
@@ -86,7 +88,10 @@
         ".bash_history"
         ".config/QtProject.conf"
         ".config/gtk-3.0/bookmarks"
+        ".config/zoom.conf"
+        ".config/zoomus.conf"
         ".config/zsh/.zsh_history"
+        ".netrc"
         { file = ".age/key.txt"; parentDirectory = { mode = "0700"; }; }
         { file = ".ssh/known_hosts"; parentDirectory = { mode = "0700"; }; }
       ];
