@@ -27,7 +27,7 @@ in
     custom.programs.shell.shellAliases = {
       helm-int = "helm --kube-context integration --namespace integration";
       helm-stage = "helm --kube-context stage --namespace stage";
-      helm-int-tobhap-cleanup = "helm-int uninstall $(helm-int list --filter '^tobhap-' --short')";
+      helm-int-tobhap-cleanup = "helm-int uninstall $(helm-int list --filter '^tobhap-' --short)";
     };
 
     home.packages = [
