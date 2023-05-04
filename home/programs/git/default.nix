@@ -181,7 +181,7 @@ in
         bclean = externGitAlias ''git for-each-ref --format "%(refname:short)" refs/heads |
           ${pkgs.gnugrep}/bin/grep -Ev "master|$(git branch-name)" | ${pkgs.findutils}/bin/xargs git bd'';
 
-        branch-name = externGitAlias ''git for-each-ref --format="%(refname:short)" $(git symbolic-ref HEAD)'';
+        branch-name = "branch --show-current";
         total-clean = externGitAlias "git co -f && git clean -dfx && git clean -dfX";
 
         disable-upstream-push = "remote set-url upstream --push DISABLED";
