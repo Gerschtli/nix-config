@@ -65,6 +65,19 @@ import inputs.nixpkgs {
           inherit (unstable.nixVersions) nix_2_13;
         };
 
+        jdk17-0-7 = unstable.jdk17.overrideAttrs (old: rec {
+          version = "17.0.7+7";
+
+          src = prev.fetchFromGitHub {
+            owner = "openjdk";
+            repo = "jdk17u";
+            rev = "jdk-17.0.7+7";
+            sha256 = "sha256-S6QOB4Tbi+K1yjvvywTfvwFI2eX8AiqIx5c3zfxcskc=";
+          };
+
+          configureFlags = old.configureFlags ++ [ "--with-version-build=7" ];
+        });
+
         # the only alias that I need, this allows me to set allowAliases=false
         inherit system;
       }
