@@ -34,14 +34,14 @@ in
     services.nginx.virtualHosts = {
       "tobias-happ.de" = {
         default = true;
-        root = website;
+        root = "/var/empty";
         enableACME = true;
         forceSSL = true;
-        extraConfig = "error_page 404 @notfound;";
-        locations = {
-          "/".index = "index.html";
-          "@notfound".extraConfig = "return 302 /;";
-        };
+        #extraConfig = "error_page 404 @notfound;";
+        #locations = {
+        #  "/".index = "index.html";
+        #  "@notfound".extraConfig = "return 302 /;";
+        #};
       };
 
       "*.tobias-happ.de".extraConfig = "return 302 https://tobias-happ.de/;";
