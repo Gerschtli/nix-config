@@ -59,6 +59,7 @@
         ".PortfolioPerformance"
         ".cargo"
         ".config/Code"
+        ".config/GIMP"
         ".config/Postman"
         ".config/Signal"
         ".config/audacity"
