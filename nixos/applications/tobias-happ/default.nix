@@ -8,10 +8,10 @@ let
 
   cfg = config.custom.applications.tobias-happ;
 
-  website = pkgs.runCommand "tobias-happ.de" { } ''
-    install -D -m 0400 ${./index.html} ${placeholder "out"}/index.html
-    install -D -m 0400 ${./robots.txt} ${placeholder "out"}/robots.txt
-  '';
+  #website = pkgs.runCommand "tobias-happ.de" { } ''
+  #  install -D -m 0400 ${./index.html} ${placeholder "out"}/index.html
+  #  install -D -m 0400 ${./robots.txt} ${placeholder "out"}/robots.txt
+  #'';
 in
 
 {
