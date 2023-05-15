@@ -16,17 +16,26 @@
       url = "github:t184256/nix-on-droid";
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nix-formatter-pack.follows = "nix-formatter-pack";
+      inputs.nmd.follows = "nix-formatter-pack/nmd";
     };
 
-    cachix-deploy-flake.url = "github:cachix/cachix-deploy-flake";
+    cachix-deploy-flake = {
+      url = "github:cachix/cachix-deploy-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
 
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+      inputs.darwin.follows = "cachix-deploy-flake/darwin";
     };
     agenix-cli = {
       url = "github:cole-h/agenix-cli";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "home-manager/utils";
     };
     homeage = {
       url = "github:jordanisaacs/homeage";
@@ -58,6 +67,7 @@
     nixGL = {
       url = "github:guibou/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "home-manager/utils";
     };
 
     nix-index-database = {
