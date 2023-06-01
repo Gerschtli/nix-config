@@ -40,7 +40,7 @@ in
 
   config = mkIf cfg.enable {
 
-    boot.cleanTmpDir = true;
+    boot.tmp.cleanOnBoot = true;
 
     console.keyMap = "de";
 

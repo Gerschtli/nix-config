@@ -151,7 +151,7 @@ sudo ln -snf bash /bin/sh
       ```nix
       {
         services.openssh.enable = true;
-        services.openssh.permitRootLogin = "yes";
+        services.openssh.settings.PermitRootLogin = "yes";
 
         users.users.root.password = "nixos";
         users.users.tobias = {

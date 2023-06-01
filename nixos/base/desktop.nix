@@ -37,7 +37,7 @@ in
         # the value below is used by default on several other distros.
         kernel.sysctl."fs.inotify.max_user_watches" = 524288;
 
-        tmpOnTmpfs = true;
+        tmp.useTmpfs = true;
       };
 
       custom.system.boot.mode = "efi";

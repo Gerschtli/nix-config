@@ -31,12 +31,15 @@ in
   config = mkIf cfg.enable {
 
     services.openssh = {
-      inherit (cfg) forwardX11;
       enable = true;
       openFirewall = true;
-      permitRootLogin = mkIf (!cfg.rootLogin) "no";
-      passwordAuthentication = false;
-      extraConfig = "MaxAuthTries 3";
+
+      settings = {
+        MaxAuthTries = 3;
+        PasswordAuthentication = false;
+        PermitRootLogin = mkIf (!cfg.rootLogin) "no";
+        X11Forwarding = cfg.forwardX11;
+      };
     };
 
     users.users = {

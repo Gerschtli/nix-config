@@ -52,9 +52,9 @@ in
       gitea = {
         enable = true;
         database.passwordFile = config.age.secrets.gitea-dbpassword.path;
-        rootUrl = "https://${domain}/";
 
         settings.service = {
+          ROOT_URL = "https://${domain}/";
           COOKIE_SECURE = true;
           DISABLE_REGISTRATION = true;
           REQUIRE_SIGNIN_VIEW = true;
@@ -64,7 +64,7 @@ in
       nginx.virtualHosts.${domain} = {
         enableACME = true;
         forceSSL = true;
-        locations."/".proxyPass = "http://localhost:${toString giteaCfg.httpPort}/";
+        locations."/".proxyPass = "http://localhost:${toString giteaCfg.settings.server.HTTP_PORT}/";
       };
     };
 
