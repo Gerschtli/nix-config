@@ -29,8 +29,7 @@
   # agenix needs to wait for impermanence
   system.activationScripts.agenixNewGeneration.deps = [ "persist-files" ];
 
-  # FIXME: use latest kernel when https://github.com/NixOS/nixpkgs/issues/221035 is resolved
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
+  boot.kernelPackages = pkgs.linuxKernel.packageAliases.linux_latest;
   boot.supportedFilesystems = [ "btrfs" ];
   hardware.enableAllFirmware = true;
   nixpkgs.config.allowUnfree = true;

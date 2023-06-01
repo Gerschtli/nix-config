@@ -39,7 +39,7 @@ in
       misc.sdks = {
         enable = true;
         links = mkMerge [
-          { inherit (pkgs) jdk11 python37; }
+          { inherit (pkgs) jdk11 python3; }
 
           (mkIf config.custom.programs.go.enable {
             go-1-15 = pkgs.go;

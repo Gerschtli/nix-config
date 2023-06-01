@@ -40,15 +40,6 @@ import inputs.nixpkgs {
           minecraftServers
           teamspeak_server
           vscode
-
-          # need >= 1.3
-          cachix
-
-          # need >= 0.1.4
-          nix-index
-
-          # fails with version in stable
-          nixos-shell
           ;
 
         # pin 22.05 release for removed packages
@@ -57,13 +48,12 @@ import inputs.nixpkgs {
           php74
           php74Extensions
           php74Packages
+          php80
+          php80Extensions
+          php80Packages
           ;
 
         gerschtli = prev.lib.composeManyExtensions gerschtliOverlays final prev;
-
-        nixVersions = prev.nixVersions // {
-          inherit (unstable.nixVersions) nix_2_13;
-        };
 
         jdk17-0-7 = unstable.jdk17.overrideAttrs (old: rec {
           version = "17.0.7+7";
