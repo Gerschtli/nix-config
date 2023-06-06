@@ -8,7 +8,7 @@ krypton-tobias = "age1r2maar050kkskxpaestrd738dpphptp886mdt4kta2p3mup3mc9s4r4020
 M386-tobhap = "age1lsr8ynsnxd86zhxfl624dy229gx0zlc72wmuqs8e7wlpgcwfauhsp7nu9h"
 neon-root = "age16xxy8wcp8as2uc7v04fncsa7x257luygse94khp7c5mglh4wnggs8t4sk5"
 neon-tobias = "age1m0cyz2y5vyztmx04x0xheyhhy8uwf53yem6dafmce3hsugwhfp4q0lg267"
-oneplus5-nix-on-droid = "age18wg8fscl8kvn3avr2dgpwujdsy8xksc4v58mnuwmwpjp0ddud42sjfl08q"
+pixel7a-nix-on-droid = "age18f5h39n0pcr82knus3tem305kclj75rf3yy3jahtda80ym53rsmqmpc6uh"
 xenon-root = "age1glu7paaertha2q28whxehvgn7euj52z5pka0edlrp6pnhqypvcmqm2lg64"
 xenon-tobias = "age1dxhjmnugds3263vsh02zrxagxal5x25ycs3xpueja7yfvcx8lves8p5rkv"
 
@@ -19,7 +19,7 @@ identities = [
     "gamer-tobias",
     "M386-tobhap",
     "neon-tobias",
-    "oneplus5-nix-on-droid",
+    "pixel7a-nix-on-droid",
 ]
 
 [[paths]]
@@ -31,7 +31,7 @@ identities = [
     "krypton-tobias",
     "M386-tobhap",
     "neon-tobias",
-    "oneplus5-nix-on-droid",
+    "pixel7a-nix-on-droid",
     "xenon-tobias",
 ]
 
