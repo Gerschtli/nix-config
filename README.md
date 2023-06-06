@@ -9,7 +9,7 @@ This is my humble flakes-only collection of all and everything needed to set up 
 - Secret management in [NixOS][nixos] ([agenix][agenix]) and [home-manager][home-manager] ([homeage][homeage]) with
   [age][age]
 - [nix-on-droid][nix-on-droid]-managed android phone with [home-manager][home-manager]
-- One system (`neon`) set up with ephemeral root and home directories using [impermanence][impermanence] and btrfs
+- One system (`neon`) set up with ephemeral root directory using [impermanence][impermanence] and btrfs
 - Generated shell scripts are always linted with [shellcheck][shellcheck]
 - Checks source code with [deadnix][deadnix], [statix][statix] and [nixpkgs-fmt][nixpkgs-fmt] (using
   [nix-formatter-pack][nix-formatter-pack])
