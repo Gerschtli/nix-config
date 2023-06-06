@@ -9,7 +9,7 @@ let
   cfg = config.custom.programs.pass;
 
   # see dmenucmd in dwm config
-  dmenuCmd = ''dmenu -fn "Ubuntu Mono Nerd Font:size=9" -nb "#222222" -nf "#bbbbbb" -sb "#540303" -sf "#eeeeee"'';
+  dmenuCmd = ''dmenu -fn "UbuntuMono Nerd Font:size=9" -nb "#222222" -nf "#bbbbbb" -sb "#540303" -sf "#eeeeee"'';
 
   package = pkgs.pass.overrideAttrs (_old: {
     postBuild = ''

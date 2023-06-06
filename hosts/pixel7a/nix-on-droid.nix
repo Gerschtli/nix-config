@@ -74,7 +74,7 @@ in
       fontPackage = pkgs.nerdfonts.override {
         fonts = [ "UbuntuMono" ];
       };
-      fontPath = "/share/fonts/truetype/NerdFonts/Ubuntu Mono Nerd Font Complete Mono.ttf";
+      fontPath = "/share/fonts/truetype/NerdFonts/UbuntuMonoNerdFont-Regular.ttf";
     in
     fontPackage + fontPath;
 
