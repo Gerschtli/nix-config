@@ -6,6 +6,8 @@
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   custom = {
+    agenix.secrets = [ "passwd-root-neon" "passwd-tobias-neon" ];
+
     base.desktop = {
       enable = true;
       laptop = true;
@@ -39,14 +41,12 @@
       "/var/lib/bluetooth"
       "/var/lib/docker"
       "/var/lib/fail2ban"
-      "/var/lib/nixos"
       "/var/lib/systemd/coredump"
       "/var/lib/upower"
     ];
     files = [
       "/etc/adjtime"
       "/etc/machine-id"
-      "/etc/shadow"
       { file = "/root/.age/key.txt"; parentDirectory = { mode = "0700"; }; }
     ];
   };
@@ -82,4 +82,13 @@
 
     umount /mnt
   '';
+
+  users = {
+    mutableUsers = false;
+
+    users = {
+      root.passwordFile = config.age.secrets.passwd-root-neon.path;
+      tobias.passwordFile = config.age.secrets.passwd-tobias-neon.path;
+    };
+  };
 }
