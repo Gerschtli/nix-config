@@ -36,7 +36,6 @@
     hideMounts = true;
     directories = [
       "/etc/NetworkManager/system-connections"
-      "/root/.local/share/nix"
       "/var/lib/bluetooth"
       "/var/lib/docker"
       "/var/lib/fail2ban"
@@ -48,54 +47,8 @@
       "/etc/adjtime"
       "/etc/machine-id"
       "/etc/shadow"
-      "/root/.bash_history"
-      "/root/.config/zsh/.zsh_history"
       { file = "/root/.age/key.txt"; parentDirectory = { mode = "0700"; }; }
     ];
-
-    users.tobias = {
-      directories = [
-        ".PortfolioPerformance"
-        ".cargo"
-        ".config/Code"
-        ".config/GIMP"
-        ".config/Postman"
-        ".config/Signal"
-        ".config/audacity"
-        ".config/cef_user_data" # for zoom
-        ".config/google-chrome"
-        ".config/pulse"
-        ".config/spotify"
-        ".config/vlc"
-        ".eclipse" # for portfolio-performance
-        ".files"
-        ".local/share/direnv"
-        ".local/share/nix"
-        ".local/share/webkitgtk/storage"
-        ".local/state/pnpm"
-        ".nix-config"
-        ".password-store"
-        ".rustup"
-        ".thunderbird"
-        ".vscode"
-        ".zoom"
-        "Documents"
-        "Downloads"
-        "projects"
-        { directory = ".gnupg"; mode = "0700"; }
-      ];
-      files = [
-        ".bash_history"
-        ".config/QtProject.conf"
-        ".config/gtk-3.0/bookmarks"
-        ".config/zoom.conf"
-        ".config/zoomus.conf"
-        ".config/zsh/.zsh_history"
-        ".netrc"
-        { file = ".age/key.txt"; parentDirectory = { mode = "0700"; }; }
-        { file = ".ssh/known_hosts"; parentDirectory = { mode = "0700"; }; }
-      ];
-    };
   };
 
   security.sudo.extraConfig = ''
