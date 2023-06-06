@@ -82,11 +82,11 @@ fi
 
 if [[ "${USER}" == "nix-on-droid" ]] && _available nix-on-droid; then
     _log "nix" "build nix-on-droid configuration"
-    nix-on-droid build --flake "${nix_config}#oneplus5"
+    nix-on-droid build --flake "${nix_config}#pixel7a"
     _show_result_diff "/nix/var/nix/profiles/nix-on-droid"
 
     _log "nix" "switch nix-on-droid configuration"
-    nix-on-droid switch --flake "${nix_config}#oneplus5"
+    nix-on-droid switch --flake "${nix_config}#pixel7a"
 fi
 
 if ! _is_nixos && _available home-manager; then

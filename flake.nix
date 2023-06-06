@@ -111,7 +111,7 @@
       ];
 
       nixOnDroidConfigurations = listToAttrs [
-        (mkNixOnDroid "aarch64-linux" "oneplus5")
+        (mkNixOnDroid "aarch64-linux" "pixel7a")
       ];
 
       nixosConfigurations = listToAttrs [

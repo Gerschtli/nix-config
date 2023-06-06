@@ -30,7 +30,7 @@ This is my humble flakes-only collection of all and everything needed to set up 
   - `M386` with Ubuntu 20.04 (work laptop)
   - `gamer` on WSL2 with Ubuntu 20.04 (windows dual boot for games and stuff)
 - [nix-on-droid][nix-on-droid]-managed
-  - `oneplus5`
+  - `pixel7a`
 
 See [flake.nix](flake.nix) for more information like `system`.
 

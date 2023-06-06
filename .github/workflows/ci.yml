@@ -51,7 +51,7 @@ jobs:
             deploy-agent: M386
             deploy-args: --async
 
-          - nix-command: build .#nixOnDroidConfigurations.oneplus5.activationPackage --impure
+          - nix-command: build .#nixOnDroidConfigurations.pixel7a.activationPackage --impure
             system: aarch64
 
           - nix-command: build .#nixosConfigurations.argon.config.system.build.toplevel
