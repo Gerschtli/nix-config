@@ -38,8 +38,6 @@ in
         "gitea-dbpassword"
         "id-rsa-backup"
         "mysql-backup-password"
-        "passwd-root-neon"
-        "passwd-tobias-neon"
         "teamspeak-serverquery-password"
         "wireless-config"
       ]);
@@ -103,20 +101,6 @@ in
           name = "mysql-backup-password";
           host = "argon";
           user = "backup";
-        })
-
-        (buildConfig {
-          name = "passwd-root-neon";
-          fileName = "passwd-root";
-          host = "neon";
-          user = "root";
-        })
-
-        (buildConfig {
-          name = "passwd-tobias-neon";
-          fileName = "passwd-tobias";
-          host = "neon";
-          user = "root";
         })
 
         (buildConfig {
