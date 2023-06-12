@@ -64,7 +64,7 @@ in
         (buildWithDiff
           "hm-build"
           "home-manager build --flake '${nixConfigDir}'"
-          "/nix/var/nix/profiles/per-user/${config.home.username}/home-manager"
+          "/home/${config.home.username}/.local/state/nix/profiles/home-manager"
         )
       ];
     })
