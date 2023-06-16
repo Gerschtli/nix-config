@@ -82,7 +82,7 @@ jobs:
           ref: ${{ inputs.branch }}
 
       - name: Install nix
-        uses: cachix/install-nix-action@v21
+        uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: |
             keep-going = true
