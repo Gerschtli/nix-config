@@ -75,5 +75,10 @@ import inputs.nixpkgs {
 
     inputs.nixGL.overlays.default
   ]
-  ++ inputs.nixpkgs.lib.optional nixOnDroid inputs.nix-on-droid.overlays.default;
+  ++ inputs.nixpkgs.lib.optionals nixOnDroid [
+    inputs.nix-on-droid.overlays.default
+
+    # prevent uploads to remote builder
+    (final: prev: prev.prefer-remote-fetch final prev)
+  ];
 }
