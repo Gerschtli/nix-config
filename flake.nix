@@ -20,17 +20,10 @@
       inputs.nmd.follows = "nix-formatter-pack/nmd";
     };
 
-    cachix-deploy-flake = {
-      url = "github:cachix/cachix-deploy-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
-      inputs.darwin.follows = "cachix-deploy-flake/darwin";
     };
     agenix-cli = {
       url = "github:cole-h/agenix-cli";
@@ -77,15 +70,13 @@
     impermanence.url = "github:nix-community/impermanence";
   };
 
-  outputs = { self, nixpkgs, cachix-deploy-flake, nix-formatter-pack, ... } @ inputs:
+  outputs = { self, nixpkgs, nix-formatter-pack, ... } @ inputs:
     let
       rootPath = self;
       forEachSystem = nixpkgs.lib.genAttrs [ "aarch64-linux" "x86_64-linux" ];
       flakeLib = import ./flake {
         inherit inputs rootPath forEachSystem;
       };
-
-      cachixDeployLibFor = forEachSystem (system: cachix-deploy-flake.lib nixpkgs.legacyPackages.${system});
 
       formatterPackArgsFor = forEachSystem (system: {
         inherit nixpkgs system;
@@ -158,15 +149,13 @@
 
       packages =
         let
-          cachixDeployOutput = builder: name: module:
-            let
-              inherit (module.pkgs) system;
-            in
-            {
-              ${system}."cachix-deploy-spec-${name}" = cachixDeployLibFor.${system}.spec {
-                agents.${name} = builder module;
-              };
+          cachixSpecBuilder = pkgs: spec: pkgs.writeText "cachix-deploy.json" (builtins.toJSON spec);
+
+          cachixDeployOutput = builder: name: module: {
+            ${module.pkgs.system}."cachix-deploy-spec-${name}" = cachixSpecBuilder module.pkgs {
+              agents.${name} = builder module;
             };
+          };
 
           cachixDeployOutputHomeManager = cachixDeployOutput (module: module.activationPackage);
           cachixDeployOutputNixos = cachixDeployOutput (module: module.config.system.build.toplevel);
