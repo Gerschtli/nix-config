@@ -18,9 +18,9 @@
 
     programs = {
       shell.logoutExtra = ''
-        count="$(${pkgs.procps}/bin/pgrep proot-static | ${pkgs.coreutils}/bin/wc -l)"
+        count="$(ps -e | grep proot-static | wc -l)"
         if [[ -z "$SSH_TTY" && "$SHLVL" == 1 && "$count" == 1 ]]; then
-          ${pkgs.procps}/bin/pkill "^ssh(d|-agent)$"
+          ps -e | grep -E " ssh(d|-agent)$" | awk '{print $1}' | xargs -I % kill %
         fi
       '';
 
