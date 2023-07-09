@@ -38,14 +38,19 @@ in
       pkgs.nixpkgs-fmt
     ];
 
-    home.packages = [
-      (config.lib.custom.wrapProgram {
-        inherit (cfg) packages;
-        name = "code";
-        source = pkgs.vscode;
-        path = "/bin/code";
-      })
-    ];
+    home = {
+      packages = [
+        (config.lib.custom.wrapProgram {
+          inherit (cfg) packages;
+          name = "code";
+          source = pkgs.vscode;
+          path = "/bin/code";
+        })
+      ];
+
+      # used by svelte inspector via https://github.com/yyx990803/launch-editor
+      sessionVariables.LAUNCH_EDITOR = "code";
+    };
 
   };
 
