@@ -13,7 +13,7 @@
 
     cachix-agent = {
       enable = true;
-      hostName = "M386";
+      hostName = "M299";
     };
 
     development = {

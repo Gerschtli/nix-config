@@ -5,7 +5,7 @@ bak = "age1kttfv4zpvv0cshe8q7lvakycytn34pja9pcy4ylq94kw90k3yfwsxja79j"
 gamer-tobias = "age1xmwue6azg27l7kwsjr7a84gax5ed7tzdzfw4c3vz3aejr539tpdswmlpt8"
 krypton-root = "age1vheh9hvezl0k2fe7wpfjnfp6ajcezz78jlhxj6wvzxdvkte4lfys03ktuq"
 krypton-tobias = "age1r2maar050kkskxpaestrd738dpphptp886mdt4kta2p3mup3mc9s4r4020"
-M386-tobhap = "age1lsr8ynsnxd86zhxfl624dy229gx0zlc72wmuqs8e7wlpgcwfauhsp7nu9h"
+M299-tobhap = "age1g4a9w7l0sup8n30wya33qstfkggktq55mjmpfuv4vqnkn2wvndqssyyevs"
 neon-root = "age16xxy8wcp8as2uc7v04fncsa7x257luygse94khp7c5mglh4wnggs8t4sk5"
 neon-tobias = "age1m0cyz2y5vyztmx04x0xheyhhy8uwf53yem6dafmce3hsugwhfp4q0lg267"
 pixel7a-nix-on-droid = "age18f5h39n0pcr82knus3tem305kclj75rf3yy3jahtda80ym53rsmqmpc6uh"
@@ -17,7 +17,7 @@ glob = "secrets/ssh/private/*"
 identities = [
     "bak",
     "gamer-tobias",
-    "M386-tobhap",
+    "M299-tobhap",
     "neon-tobias",
     "pixel7a-nix-on-droid",
 ]
@@ -29,7 +29,7 @@ identities = [
     "bak",
     "gamer-tobias",
     "krypton-tobias",
-    "M386-tobhap",
+    "M299-tobhap",
     "neon-tobias",
     "pixel7a-nix-on-droid",
     "xenon-tobias",
@@ -37,7 +37,7 @@ identities = [
 
 [[paths]]
 glob = "secrets/ssh/sedo/*"
-identities = [ "bak", "M386-tobhap" ]
+identities = [ "bak", "M299-tobhap" ]
 
 [[paths]]
 glob = "secrets/argon/*"
@@ -48,8 +48,8 @@ glob = "secrets/krypton/*"
 identities = [ "bak", "krypton-root" ]
 
 [[paths]]
-glob = "secrets/M386/*"
-identities = [ "bak", "M386-tobhap" ]
+glob = "secrets/M299/*"
+identities = [ "bak", "M299-tobhap" ]
 
 [[paths]]
 glob = "secrets/neon/*"

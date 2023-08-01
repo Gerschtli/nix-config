@@ -47,7 +47,7 @@ in
 
     custom.misc.homeage = {
       secrets = mkOption {
-        type = types.listOf (types.enum [ "cachix-agent-token-M386" "sedo" "ssh-private" "ssh-sedo" "ssh-vcs" ]);
+        type = types.listOf (types.enum [ "cachix-agent-token-M299" "sedo" "ssh-private" "ssh-sedo" "ssh-vcs" ]);
         default = [ ];
         description = ''
           Secrets to install.
@@ -87,21 +87,21 @@ in
         map
           (entry: nameValuePair entry.name (removeAttrs entry [ "name" ]))
           (flatten (
-            (optional (elem "cachix-agent-token-M386" cfg.secrets) [
+            (optional (elem "cachix-agent-token-M299" cfg.secrets) [
               {
-                name = "cachix-agent-token-M386";
-                source = "${rootPath}/secrets/M386/cachix-agent-token.age";
+                name = "cachix-agent-token-M299";
+                source = "${rootPath}/secrets/M299/cachix-agent-token.age";
               }
             ])
             ++ (optional (elem "sedo" cfg.secrets) [
               {
                 name = "sedo-aliases";
-                source = "${rootPath}/secrets/M386/aliases.sh.age";
+                source = "${rootPath}/secrets/M299/aliases.sh.age";
                 copies = [ "${config.home.homeDirectory}/.aliases.sh" ];
               }
               {
                 name = "sedo-settings";
-                source = "${rootPath}/secrets/M386/settings.xml.age";
+                source = "${rootPath}/secrets/M299/settings.xml.age";
                 copies = [ "${config.home.homeDirectory}/.m2/settings.xml" ];
               }
             ])

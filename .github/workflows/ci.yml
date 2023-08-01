@@ -46,9 +46,9 @@ jobs:
 
           - nix-command: build .#homeConfigurations."tobias@gamer".activationPackage
             system: x86_64
-          - nix-command: build .#homeConfigurations."tobhap@M386".activationPackage
+          - nix-command: build .#homeConfigurations."tobhap@M299".activationPackage
             system: x86_64
-            deploy-agent: M386
+            deploy-agent: M299
             deploy-args: --async
 
           - nix-command: build .#nixOnDroidConfigurations.pixel7a.activationPackage --impure
