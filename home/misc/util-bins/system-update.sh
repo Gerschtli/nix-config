@@ -133,10 +133,10 @@ fi
 
 if ! _has_unit_enabled "nix-gc.timer"; then
     _log "nix" "nix-collect-garbage"
-    "${sudo_for_cleanup}" nix-collect-garbage --delete-older-than 14d 2> /dev/null
+    ${sudo_for_cleanup} nix-collect-garbage --delete-older-than 14d 2> /dev/null
 fi
 
 if ! _has_unit_enabled "nix-optimise.timer" && [[ "${USER}" != "nix-on-droid" ]]; then
-    _log "nix" "nix-store --optimise"
-    "${sudo_for_cleanup}" nix-store --optimise
+    _log "nix" "nix store optimise"
+    ${sudo_for_cleanup} nix store optimise
 fi
