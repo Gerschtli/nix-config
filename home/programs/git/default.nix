@@ -55,7 +55,7 @@ let
         "hooks-include-${extractName file}"
         file
         hooksPathPackages
-        { hooksLib = ./lib.hooks.sh; _doNotClearPath = true; }
+        { hooksLib = ./lib.hooks.sh; }
     )
     (attrNames (readDir ./includes));
 
@@ -69,7 +69,7 @@ let
             "hooks-${name}"
             file
             hooksPathPackages
-            { hooksLib = ./lib.hooks.sh; includes = hooksIncludes; _doNotClearPath = true; };
+            { hooksLib = ./lib.hooks.sh; includes = hooksIncludes; };
         })
       ([
         ./post-checkout.sh
