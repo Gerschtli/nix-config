@@ -52,6 +52,8 @@
 
       ssh.modules = [ "sedo" ];
 
+      vscode.enable = true;
+
       watson.enable = true;
     };
   };
@@ -62,6 +64,7 @@
 
     packages = with pkgs; [
       dbeaver
+      docker-compose
       gitflow
       k9s
       kubectl
