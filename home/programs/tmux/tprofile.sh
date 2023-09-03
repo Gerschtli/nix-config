@@ -1,6 +1,9 @@
+set -x
 CONF_NAME="${1}"
-CONF="@tmuxProfiles@/${CONF_NAME}.sh"
+PATH_TO_CONF_DIR="@tmuxProfiles@"
+CONF="${PATH_TO_CONF_DIR}/${CONF_NAME}.sh"
 ONLY_FETCH=
+PRESET=
 
 [[ "${2:-}" = "--only-fetch" ]] && ONLY_FETCH=1
 

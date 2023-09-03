@@ -194,6 +194,7 @@ in
           {
             inherit tmuxProfiles;
             workDirectory = config.custom.misc.work.directory;
+            _doNotClearPath = true;
           }
         )
 
