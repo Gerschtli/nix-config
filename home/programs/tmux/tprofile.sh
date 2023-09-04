@@ -1,4 +1,3 @@
-set -x
 CONF_NAME="${1}"
 PATH_TO_CONF_DIR="@tmuxProfiles@"
 CONF="${PATH_TO_CONF_DIR}/${CONF_NAME}.sh"
