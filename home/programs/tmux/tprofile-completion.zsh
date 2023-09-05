@@ -1,5 +1,7 @@
 source @completionLib@
 
+PATH_TO_CONF_DIR="@tmuxProfiles@"
+
 _directory_writable() {
     unset ROOT
     # shellcheck disable=SC1090
@@ -7,7 +9,7 @@ _directory_writable() {
     [[ -z "${ROOT}" || -w "${ROOT}" ]]
 }
 
-prefix="@tmuxProfiles@/"
+prefix="${PATH_TO_CONF_DIR}/"
 suffix=".sh"
 
 for file in "${prefix}"*"${suffix}"; do
