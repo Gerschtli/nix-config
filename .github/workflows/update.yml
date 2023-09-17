@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install nix
-        uses: cachix/install-nix-action@v22
+        uses: cachix/install-nix-action@v23
 
       - name: Set branch name output
         id: branch

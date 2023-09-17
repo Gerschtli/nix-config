@@ -88,11 +88,10 @@ jobs:
           tool-cache: true
 
       - name: Install nix
-        uses: cachix/install-nix-action@v22
+        uses: cachix/install-nix-action@v23
         with:
           extra_nix_config: |
             keep-going = true
-            show-trace = true
 
       - name: Setup cachix
         uses: cachix/cachix-action@v12
