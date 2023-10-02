@@ -141,6 +141,7 @@
         (mkDevShellPhp system "php74-composer1" { phpVersion = "74"; composer1 = true; })
         (mkDevShellPhp system "php80" { phpVersion = "80"; })
         (mkDevShellPhp system "php81" { phpVersion = "81"; })
+        (mkDevShellPhp system "php82" { phpVersion = "82"; })
       ]);
 
       formatter = forEachSystem (system: nix-formatter-pack.lib.mkFormatter formatterPackArgsFor.${system});
