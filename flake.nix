@@ -98,7 +98,6 @@
     {
       homeConfigurations = listToAttrs [
         (mkHome "x86_64-linux" "tobias@gamer")
-        (mkHome "x86_64-linux" "tobhap@M299")
       ];
 
       nixOnDroidConfigurations = listToAttrs [
@@ -158,7 +157,6 @@
             };
           };
 
-          cachixDeployOutputHomeManager = cachixDeployOutput (module: module.activationPackage);
           cachixDeployOutputNixos = cachixDeployOutput (module: module.config.system.build.toplevel);
         in
         nixpkgs.lib.foldl
@@ -171,7 +169,6 @@
 
             x86_64-linux.installer-image = import ./files/nix/installer-image.nix { inherit nixpkgs; };
           }
-          (nixpkgs.lib.mapAttrsToList cachixDeployOutputNixos self.nixosConfigurations
-            ++ [ (cachixDeployOutputHomeManager "M299" self.homeConfigurations."tobhap@M299") ]);
+          (nixpkgs.lib.mapAttrsToList cachixDeployOutputNixos self.nixosConfigurations);
     };
 }

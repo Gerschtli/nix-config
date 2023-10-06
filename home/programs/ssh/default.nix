@@ -40,7 +40,7 @@ in
       };
 
       modules = mkOption {
-        type = types.listOf (types.enum [ "private" "sedo" "vcs" ]);
+        type = types.listOf (types.enum [ "private" "vcs" ]);
         default = [ ];
         description = "SSH modules to enable.";
       };
