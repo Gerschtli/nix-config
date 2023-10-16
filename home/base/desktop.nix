@@ -68,10 +68,8 @@ in
       libreoffice
       nomacs
       pdftk
-      postman
       qpdfview
       spotify
-      sshfs
     ] ++ (optionals cfg.private [
       audacity
       musescore
