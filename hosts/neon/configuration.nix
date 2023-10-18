@@ -15,11 +15,6 @@
 
     programs.docker.enable = true;
 
-    services.dynv6 = {
-      enable = true;
-      device = "wlan0";
-    };
-
     system = {
       boot.mode = "efi";
 

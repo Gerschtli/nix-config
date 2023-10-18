@@ -35,8 +35,6 @@ in
         "cachix-agent-token-krypton"
         "cachix-agent-token-neon"
         "cachix-agent-token-xenon"
-        "dynv6-token-neon"
-        "dynv6-token-xenon"
         "gitea-dbpassword"
         "id-rsa-backup"
         "mysql-backup-password"
@@ -85,20 +83,6 @@ in
         (buildConfig {
           name = "cachix-agent-token-xenon";
           fileName = "cachix-agent-token";
-          host = "xenon";
-          user = "root";
-        })
-
-        (buildConfig {
-          name = "dynv6-token-neon";
-          fileName = "dynv6-token";
-          host = "neon";
-          user = "root";
-        })
-
-        (buildConfig {
-          name = "dynv6-token-xenon";
-          fileName = "dynv6-token";
           host = "xenon";
           user = "root";
         })

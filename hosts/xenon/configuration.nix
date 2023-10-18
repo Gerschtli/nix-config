@@ -6,28 +6,21 @@
 
     base.server.enable = true;
 
-    services = {
-      dynv6 = {
-        enable = true;
-        device = "wlan0";
-      };
-
-      storage = {
-        enable = true;
-        mountDevice = "/dev/disk/by-uuid/e3cda2ab-9b36-4d60-9a9c-dfba6f00ab32";
-        interval = "Wed *-*-* 04:00:00";
-        expiresAfter = 90;
-        server = [
-          {
-            name = "argon";
-            ip = "141.147.62.247";
-          }
-          {
-            name = "krypton";
-            ip = "195.201.88.53";
-          }
-        ];
-      };
+    services.storage = {
+      enable = true;
+      mountDevice = "/dev/disk/by-uuid/e3cda2ab-9b36-4d60-9a9c-dfba6f00ab32";
+      interval = "Wed *-*-* 04:00:00";
+      expiresAfter = 90;
+      server = [
+        {
+          name = "argon";
+          ip = "141.147.62.247";
+        }
+        {
+          name = "krypton";
+          ip = "195.201.88.53";
+        }
+      ];
     };
 
     system.boot.mode = "raspberry";
