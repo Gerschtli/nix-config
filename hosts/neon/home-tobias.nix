@@ -8,7 +8,14 @@
       private = true;
     };
 
-    development.nix.nixos.enable = true;
+    development = {
+      jbang = {
+        enable = true;
+        trustedSources = [ "https://repo1.maven.org/maven2/io/quarkus/quarkus-cli/" ];
+      };
+
+      nix.nixos.enable = true;
+    };
 
     misc = {
       backup = {
@@ -22,7 +29,7 @@
       sdks = {
         enable = true;
         links = {
-          inherit (pkgs) python310;
+          inherit (pkgs) jdk17 python310;
         };
       };
     };
