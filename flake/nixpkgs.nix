@@ -40,6 +40,8 @@ import inputs.nixpkgs {
           minecraftServers
           teamspeak_server
           vscode
+
+          jdk21
           ;
 
         # pin 22.05 release for removed packages
