@@ -8,6 +8,7 @@ krypton-tobias = "age1r2maar050kkskxpaestrd738dpphptp886mdt4kta2p3mup3mc9s4r4020
 neon-root = "age16xxy8wcp8as2uc7v04fncsa7x257luygse94khp7c5mglh4wnggs8t4sk5"
 neon-tobias = "age1m0cyz2y5vyztmx04x0xheyhhy8uwf53yem6dafmce3hsugwhfp4q0lg267"
 pixel7a-nix-on-droid = "age18f5h39n0pcr82knus3tem305kclj75rf3yy3jahtda80ym53rsmqmpc6uh"
+R2026-tobiashapp = "age1jc36ddc7cfqskjs56nfy6q8vz5p9wsaqfe5f0hzds76grkzwdazsymhu8e"
 xenon-root = "age1glu7paaertha2q28whxehvgn7euj52z5pka0edlrp6pnhqypvcmqm2lg64"
 xenon-tobias = "age1dxhjmnugds3263vsh02zrxagxal5x25ycs3xpueja7yfvcx8lves8p5rkv"
 
@@ -18,6 +19,7 @@ identities = [
     "gamer-tobias",
     "neon-tobias",
     "pixel7a-nix-on-droid",
+    "R2026-tobiashapp",
 ]
 
 [[paths]]
@@ -29,6 +31,7 @@ identities = [
     "krypton-tobias",
     "neon-tobias",
     "pixel7a-nix-on-droid",
+    "R2026-tobiashapp",
     "xenon-tobias",
 ]
 
