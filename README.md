@@ -28,6 +28,8 @@ This is my humble flakes-only collection of all and everything needed to set up 
   - `xenon` (Raspberry Pi 3B+)
 - [home-manager][home-manager]-managed
   - `gamer` on WSL2 with Ubuntu 20.04 (windows dual boot for games and stuff)
+- [nix-darwin][nix-darwin]-managed
+  - `R2026`
 - [nix-on-droid][nix-on-droid]-managed
   - `pixel7a`
 
@@ -181,6 +183,7 @@ volume of the bootstrap instance can be reused at any time.
 [home-manager]: https://github.com/nix-community/home-manager
 [homeage]: https://github.com/jordanisaacs/homeage
 [impermanence]: https://github.com/nix-community/impermanence
+[nix-darwin]: https://github.com/LnL7/nix-darwin
 [nix-formatter-pack]: https://github.com/Gerschtli/nix-formatter-pack
 [nix-on-droid]: https://github.com/t184256/nix-on-droid
 [nixos-infect]: https://github.com/elitak/nixos-infect

@@ -12,6 +12,10 @@
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-on-droid = {
       url = "github:t184256/nix-on-droid";
       inputs.home-manager.follows = "home-manager";
@@ -73,7 +77,7 @@
   outputs = { self, nixpkgs, nix-formatter-pack, ... } @ inputs:
     let
       rootPath = self;
-      forEachSystem = nixpkgs.lib.genAttrs [ "aarch64-linux" "x86_64-linux" ];
+      forEachSystem = nixpkgs.lib.genAttrs [ "aarch64-darwin" "aarch64-linux" "x86_64-linux" ];
       flakeLib = import ./flake {
         inherit inputs rootPath forEachSystem;
       };
@@ -93,9 +97,13 @@
       });
 
       inherit (nixpkgs.lib) listToAttrs;
-      inherit (flakeLib) mkApp mkDevShellJdk mkDevShellPhp mkHome mkNixOnDroid mkNixos;
+      inherit (flakeLib) mkApp mkDarwin mkDevShellJdk mkDevShellPhp mkHome mkNixOnDroid mkNixos;
     in
     {
+      darwinConfigurations = listToAttrs [
+        (mkDarwin "aarch64-darwin" "R2026")
+      ];
+
       homeConfigurations = listToAttrs [
         (mkHome "x86_64-linux" "tobias@gamer")
       ];
