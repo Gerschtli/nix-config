@@ -38,6 +38,7 @@ in
 
     custom.development.nix = {
       home-manager.enable = mkEnableOption "home-manager aliases";
+      nix-darwin.enable = mkEnableOption "nix-darwin aliases";
       nix-on-droid.enable = mkEnableOption "nix-on-droid aliases";
       nixos.enable = mkEnableOption "nixos aliases";
     };
@@ -65,6 +66,20 @@ in
           "hm-build"
           "home-manager build --flake '${nixConfigDir}'"
           "/home/${config.home.username}/.local/state/nix/profiles/home-manager"
+        )
+      ];
+    })
+
+    (mkIf cfg.nix-darwin.enable {
+      custom.programs.shell.shellAliases = {
+        d-switch = "darwin-rebuild switch --flake '${nixConfigDir}'";
+      };
+
+      home.packages = [
+        (buildWithDiff
+          "d-build"
+          "darwin-rebuild build --flake '${nixConfigDir}'"
+          "/nix/var/nix/profiles/system"
         )
       ];
     })

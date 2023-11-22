@@ -14,7 +14,7 @@
         trustedSources = [ "https://repo1.maven.org/maven2/io/quarkus/quarkus-cli/" ];
       };
 
-      #nix.nixos.enable = true;
+      nix.nix-darwin.enable = true;
     };
 
     misc = {

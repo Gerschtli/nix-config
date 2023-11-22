@@ -98,6 +98,15 @@ if ! _is_nixos && _available home-manager; then
     home-manager switch --flake "${nix_config}" -b hm-bak
 fi
 
+if ! _is_nixos && _available darwin-rebuild; then
+    _log "nix" "build nix-darwin configuration"
+    darwin-rebuild build --flake "${nix_config}"
+    _show_result_diff "/nix/var/nix/profiles/system"
+
+    _log "nix" "switch nix-darwin configuration"
+    darwin-rebuild switch --flake "${nix_config}"
+fi
+
 
 # general migrations
 if [[ ! -f "${HOME}/.age/key.txt" || -L "${HOME}/.age" ]] && _read_boolean "Generate ~/.age/key.txt?"; then

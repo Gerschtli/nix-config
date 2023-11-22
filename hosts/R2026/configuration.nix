@@ -61,8 +61,6 @@ in
 
   # TODO
   # cachix-agent
-  # system-update for nix-darwin
-  # nix-darwin aliases
   # nix-darwin CI
   # yabai
   # lorri
