@@ -1,8 +1,8 @@
 { pkgs, lib, config, inputs, ... }@configArgs:
 let
-
   commonConfig = config.lib.custom.commonConfig configArgs;
 in
+
 {
   imports = [ inputs.home-manager.darwinModules.home-manager ];
 
@@ -83,5 +83,6 @@ in
   # manually
   # install chrome, intellij, iterm2, docker, vscode
   # iterm2 set UbuntuMono font, size 13, h 85, v 115, solarized dark, window size
+  # disable keyboard shortcuts for "Input Sources" in system settings
 
 }

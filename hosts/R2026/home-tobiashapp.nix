@@ -6,7 +6,6 @@
       enable = true;
       laptop = true;
     };
-    #    base.non-nixos.enable = true;
 
     development = {
       jbang = {
@@ -21,7 +20,7 @@
       sdks = {
         enable = true;
         links = {
-          inherit (pkgs) jdk17 python310;
+          inherit (pkgs) jdk17;
         };
       };
 
@@ -30,12 +29,6 @@
         directory = "randstad";
         mailAddress = "tobias.happ@randstaddigital.com";
       };
-    };
-
-    programs = {
-      #go.enable = true;
-
-      #vscode.enable = true;
     };
   };
 
