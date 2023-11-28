@@ -84,7 +84,7 @@ jobs:
           tool-cache: true
 
       - name: Install nix
-        uses: cachix/install-nix-action@v23
+        uses: cachix/install-nix-action@v24
         with:
           extra_nix_config: |
             keep-going = true
