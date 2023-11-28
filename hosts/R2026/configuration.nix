@@ -55,6 +55,8 @@ in
   services = {
     nix-daemon.enable = true;
 
+    karabiner-elements.enable = true;
+
     yabai = {
       enable = true;
       config = {
@@ -63,7 +65,7 @@ in
         window_placement = "second_child";
 
         # modifier for clicking and dragging with mouse
-        mouse_modifier = "alt";
+        mouse_modifier = "ctrl";
         # set modifier + left-click drag to move window
         mouse_action1 = "move";
         # set modifier + right-click drag to resize window
@@ -95,15 +97,6 @@ in
 
         # -- Modifying the Layout --
 
-        # rotate layout clockwise
-        ctrl + shift - r : yabai -m space --rotate 270
-
-        # flip along y-axis
-        ctrl + shift - y : yabai -m space --mirror y-axis
-
-        # flip along x-axis
-        ctrl + shift - x : yabai -m space --mirror x-axis
-
         # toggle window float
         ctrl + shift - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
 
@@ -124,36 +117,29 @@ in
         ctrl + shift - h : yabai -m window --swap west
         ctrl + shift - l : yabai -m window --swap east
 
-        # move window and split
-        ctrl + alt - j : yabai -m window --warp south
-        ctrl + alt - k : yabai -m window --warp north
-        ctrl + alt - h : yabai -m window --warp west
-        ctrl + alt - l : yabai -m window --warp east
-
         # move window to display left and right
-        ctrl + shift - s : yabai -m window --display west; yabai -m display --focus west;
-        ctrl + shift - g : yabai -m window --display east; yabai -m display --focus east;
-
+        ctrl + shift - s : yabai -m window --display west; yabai -m display --focus west
+        ctrl + shift - g : yabai -m window --display east; yabai -m display --focus east
 
         # move window to prev and next space
-        ctrl + shift - p : yabai -m window --space prev;
-        ctrl + shift - n : yabai -m window --space next;
+        ctrl + shift - left : yabai -m window --space prev
+        ctrl + shift - right : yabai -m window --space next
 
         # move window to space #
-        ctrl + shift - 1 : yabai -m window --space 1;
-        ctrl + shift - 2 : yabai -m window --space 2;
-        ctrl + shift - 3 : yabai -m window --space 3;
-        ctrl + shift - 4 : yabai -m window --space 4;
-        ctrl + shift - 5 : yabai -m window --space 5;
-        ctrl + shift - 6 : yabai -m window --space 6;
-        ctrl + shift - 7 : yabai -m window --space 7;
+        ctrl + shift - 1 : yabai -m window --space 1
+        ctrl + shift - 2 : yabai -m window --space 2
+        ctrl + shift - 3 : yabai -m window --space 3
+        ctrl + shift - 4 : yabai -m window --space 4
+        ctrl + shift - 5 : yabai -m window --space 5
+        ctrl + shift - 6 : yabai -m window --space 6
+        ctrl + shift - 7 : yabai -m window --space 7
 
         # -- Starting/Stopping/Restarting Yabai --
 
-        # stop/start/restart yabai
-        ctrl + alt - q : launchctl stop org.nixos.yabai
-        ctrl + alt - s : launchctl start org.nixos.yabai
-        ctrl + alt - r : launchctl stop org.nixos.yabai; launchctl start org.nixos.yabai
+        # stop/start/restart yabai + skhd
+        ctrl + alt - q : launchctl stop org.nixos.yabai; launchctl stop org.nixos.skhd
+        ctrl + alt - s : launchctl start org.nixos.yabai; launchctl start org.nixos.skhd
+        ctrl + alt - r : launchctl stop org.nixos.yabai; launchctl stop org.nixos.skhd; launchctl start org.nixos.yabai; launchctl start org.nixos.skhd
       '';
     };
   };
@@ -204,5 +190,6 @@ in
   # enable keyboard shortcuts for Mission Control to switch to desktops
   # (A11y > Desktop > Enable Reduce Motion)
   # Desktop & Dock > Mission Control > Disable "Automatically rearrange Spaces based on most recent use
+  # add key mapping in karabiner: flip left_control and fn for laptop internal keyboard
 
 }
