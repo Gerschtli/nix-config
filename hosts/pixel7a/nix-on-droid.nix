@@ -66,8 +66,7 @@ in
 
   nix = { inherit (commonConfig.nix) package; };
 
-  # FIXME: update when released
-  system.stateVersion = "22.11";
+  system.stateVersion = "23.11";
 
   terminal.font =
     let

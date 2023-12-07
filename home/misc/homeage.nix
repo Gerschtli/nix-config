@@ -55,7 +55,7 @@ in
       };
 
       directory = mkOption {
-        type = types.nullOr types.string;
+        type = types.nullOr types.str;
         default = "${config.xdg.dataHome}/secrets";
         description = ''
           Directory to save secrets in. See <literal>homeage.mount</literal>.

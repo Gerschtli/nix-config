@@ -106,7 +106,7 @@ in
 
     system = {
       configurationRevision = inputs.self.rev or "dirty";
-      stateVersion = "23.05";
+      stateVersion = "23.11";
     };
 
     time.timeZone = "Europe/Berlin";

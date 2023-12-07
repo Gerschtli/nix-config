@@ -2,14 +2,14 @@
   description = "A collection of my system configs and dotfiles.";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # some commit containing mysql57 and php74
     nixpkgs-22-05.url = "github:NixOS/nixpkgs/695b3515251873e0a7e2021add4bba643c56cde3";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-darwin = {
@@ -92,7 +92,10 @@
             noLambdaPatternNames = true;
           };
           nixpkgs-fmt.enable = true;
-          statix.enable = true;
+          statix = {
+            enable = true;
+            disabledLints = [ "repeated_keys" ];
+          };
         };
       });
 

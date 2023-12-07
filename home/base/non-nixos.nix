@@ -27,7 +27,7 @@ in
       installNix = mkEnableOption "nix installation" // { default = true; };
 
       builders = mkOption {
-        type = types.listOf types.string;
+        type = types.listOf types.str;
         default = [ ];
         description = "Nix remote builders.";
       };

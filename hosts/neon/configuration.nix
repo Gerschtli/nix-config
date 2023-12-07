@@ -93,8 +93,8 @@
     mutableUsers = false;
 
     users = {
-      root.passwordFile = config.age.secrets.passwd-root-neon.path;
-      tobias.passwordFile = config.age.secrets.passwd-tobias-neon.path;
+      root.hashedPasswordFile = config.age.secrets.passwd-root-neon.path;
+      tobias.hashedPasswordFile = config.age.secrets.passwd-tobias-neon.path;
     };
   };
 }

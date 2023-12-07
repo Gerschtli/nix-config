@@ -50,11 +50,11 @@ in
       ];
 
       fonts = {
-        enableDefaultFonts = true;
+        enableDefaultPackages = true;
         enableGhostscriptFonts = true;
         fontDir.enable = true;
 
-        fonts = with pkgs; [
+        packages = with pkgs; [
           (nerdfonts.override { fonts = [ "UbuntuMono" ]; })
           source-code-pro
           ubuntu_font_family
