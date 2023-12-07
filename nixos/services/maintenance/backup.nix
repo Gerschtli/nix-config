@@ -50,9 +50,7 @@ let
       interval = mkOption {
         type = types.str;
         description = ''
-          Systemd calendar expression when to create the backup. See
-          <citerefentry><refentrytitle>systemd.time</refentrytitle>
-          <manvolnum>7</manvolnum></citerefentry>.
+          Systemd calendar expression when to create the backup. See {manpage}`systemd.time(7)`.
         '';
       };
 
@@ -69,7 +67,7 @@ let
         type = types.nullOr types.str;
         default = null;
         description = ''
-          Directory to backup.  Overwrites value in <config>script</config>.
+          Directory to backup. Overwrites value in `script`.
         '';
       };
 

@@ -38,9 +38,7 @@ in
       interval = mkOption {
         type = types.str;
         description = ''
-          Systemd calendar expression when to sync the backups. See
-          <citerefentry><refentrytitle>systemd.time</refentrytitle>
-          <manvolnum>7</manvolnum></citerefentry>.
+          Systemd calendar expression when to sync the backups. See {manpage}`systemd.time(7)`.
         '';
       };
 

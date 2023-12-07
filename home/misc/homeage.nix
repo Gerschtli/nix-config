@@ -58,7 +58,7 @@ in
         type = types.nullOr types.str;
         default = "${config.xdg.dataHome}/secrets";
         description = ''
-          Directory to save secrets in. See <literal>homeage.mount</literal>.
+          Directory to save secrets in. See `homeage.mount`.
         '';
       };
     };

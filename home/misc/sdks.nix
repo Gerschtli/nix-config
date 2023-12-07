@@ -29,7 +29,7 @@ in
         default = { };
         example = { "link-name" = pkgs.python3; };
         description = ''
-          Links to generate in <literal>~/.sdks</literal> directory.
+          Links to generate in `~/.sdks` directory.
         '';
       };
     };

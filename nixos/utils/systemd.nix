@@ -31,9 +31,7 @@ let
       interval = mkOption {
         type = types.str;
         description = ''
-          Systemd calendar expression when to run service. See
-          <citerefentry><refentrytitle>systemd.time</refentrytitle>
-          <manvolnum>7</manvolnum></citerefentry>.
+          Systemd calendar expression when to run service. See {manpage}`systemd.time(7)`.
         '';
       };
 

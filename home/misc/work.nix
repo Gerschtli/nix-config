@@ -24,7 +24,7 @@ in
         type = types.nullOr types.str;
         default = null;
         description = ''
-          Directory in <literal>~/projects</literal> where git projects are saved.
+          Directory in `~/projects` where git projects are saved.
         '';
       };
 

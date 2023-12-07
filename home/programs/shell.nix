@@ -24,8 +24,7 @@ let
         example = "available cargo";
         description = ''
           Condition to be matched before the provided aliases and config are set.
-          The value has to be a bash/zsh expression to be placed into an
-          <code>if</code>.
+          The value has to be a bash/zsh expression to be placed into an `if`.
         '';
       };
 
@@ -33,9 +32,8 @@ let
         default = "";
         type = types.lines;
         description = ''
-          Extra commands that should be run when <varname>condition</varname> is
-          met. Commands need to be idempotent as they are potentially executed
-          mulitple times.
+          Extra commands that should be run when `condition` is met. Commands need
+          to be idempotent as they are potentially executed mulitple times.
         '';
       };
 
@@ -234,8 +232,6 @@ in
         ];
         description = ''
           Specify dynamic shell init which has to be reloaded after environment change.
-
-          </para><para>
 
           Note: This only adds config and is not intended to cleanup after context switch
           when to defined conditions are no more true.
