@@ -38,7 +38,6 @@
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_5;
   boot.supportedFilesystems = [ "btrfs" ];
   hardware.enableAllFirmware = true;
-  nixpkgs.config.allowUnfree = true;
 
   environment.persistence."/persist" = {
     hideMounts = true;

@@ -48,7 +48,6 @@ in
       development.direnv.enable = true;
 
       programs = {
-        atom.enable = !config.custom.base.general.darwin;
         idea-ultimate.enable = !config.custom.base.general.darwin;
 
         pass = mkIf cfg.private {

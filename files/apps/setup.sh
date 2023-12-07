@@ -44,14 +44,6 @@ echo
 # clone repos
 _clone "nix-config" git@github.com:Gerschtli/nix-config.git "${nix_config}"
 
-if _read_boolean "Install atom-config repo?"; then
-    if [[ -e "${HOME}/.atom" ]]; then
-        mv -v "${HOME}/.atom" "${HOME}/.atom.bak"
-    fi
-
-    _clone "atom-config" git@github.com:Gerschtli/atom-config.git "${HOME}/.atom"
-fi
-
 if _read_boolean "Install gnupg-setup repo?"; then
     _clone "gnupg repo" gitea@git.tobias-happ.de:Gerschtli/gnupg-setup.git "${HOME}/.gnupg-setup"
 
