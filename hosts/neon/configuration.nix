@@ -26,6 +26,10 @@
     };
   };
 
+  services.xserver.deviceSection = ''
+    Option "TearFree" "true"
+  '';
+
   # agenix needs to wait for impermanence
   system.activationScripts.agenixNewGeneration.deps = [ "persist-files" ];
 
