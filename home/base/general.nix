@@ -89,12 +89,12 @@ in
 
           bind # dig
           netcat
-          whois
         ]
         ++ optionals (!cfg.darwin) [
           iotop
           nload # network traffic monitor
           psmisc # killall
+          whois
         ];
 
         sessionVariables = {
