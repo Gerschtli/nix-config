@@ -53,11 +53,12 @@ in
         enable = true;
         database.passwordFile = config.age.secrets.gitea-dbpassword.path;
 
-        settings.service = {
-          ROOT_URL = "https://${domain}/";
-          COOKIE_SECURE = true;
-          DISABLE_REGISTRATION = true;
-          REQUIRE_SIGNIN_VIEW = true;
+        settings = {
+          server.ROOT_URL = "https://${domain}/";
+          service = {
+            DISABLE_REGISTRATION = true;
+            REQUIRE_SIGNIN_VIEW = true;
+          };
         };
       };
 
