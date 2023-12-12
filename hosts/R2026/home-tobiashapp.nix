@@ -32,5 +32,10 @@
     };
   };
 
-  home.packages = with pkgs; [ nixpkgs-fmt nodejs ];
+  home.packages = with pkgs; [
+    awscli2
+    coreutils
+    nixpkgs-fmt
+    nodejs
+  ];
 }
