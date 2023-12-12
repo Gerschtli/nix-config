@@ -23,6 +23,10 @@ import inputs.nixpkgs {
           inherit config system;
         };
 
+        nixpkgs-jq-1-6 = import inputs.nixpkgs-jq-1-6 {
+          inherit config system;
+        };
+
         gerschtliOverlays = map (x: x.overlays.default) [
           inputs.dmenu
           inputs.dwm
@@ -52,6 +56,9 @@ import inputs.nixpkgs {
           php80Extensions
           php80Packages
           ;
+
+        # FIXME: use jq 1.6 for homeage
+        inherit (nixpkgs-jq-1-6) jq;
 
         gerschtli = prev.lib.composeManyExtensions gerschtliOverlays final prev;
 

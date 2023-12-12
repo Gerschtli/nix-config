@@ -385,6 +385,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-jq-1-6": {
+      "locked": {
+        "lastModified": 1693206413,
+        "narHash": "sha256-VMcQCZ/IYOvaQ0F1LBszswFshfX2VDHlvAUCEPMqIQA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b17d6431b00f4e002a0599e3f780bcfc525ebc3e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b17d6431b00f4e002a0599e3f780bcfc525ebc3e",
+        "type": "github"
+      }
+    },
     "nmd": {
       "flake": false,
       "locked": {
@@ -434,6 +450,7 @@
         "nixGL": "nixGL",
         "nixpkgs": "nixpkgs",
         "nixpkgs-22-05": "nixpkgs-22-05",
+        "nixpkgs-jq-1-6": "nixpkgs-jq-1-6",
         "teamspeak-update-notifier": "teamspeak-update-notifier",
         "unstable": "unstable"
       }

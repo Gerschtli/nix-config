@@ -8,6 +8,9 @@
     # some commit containing mysql57 and php74
     nixpkgs-22-05.url = "github:NixOS/nixpkgs/695b3515251873e0a7e2021add4bba643c56cde3";
 
+    # one commit before jq 1.7 update
+    nixpkgs-jq-1-6.url = "github:NixOS/nixpkgs/b17d6431b00f4e002a0599e3f780bcfc525ebc3e";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
