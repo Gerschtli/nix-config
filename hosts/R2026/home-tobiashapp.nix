@@ -2,9 +2,13 @@
 
 {
   custom = {
-    base.desktop = {
-      enable = true;
-      laptop = true;
+    base = {
+      general.darwin = true;
+
+      desktop = {
+        enable = true;
+        laptop = true;
+      };
     };
 
     development = {

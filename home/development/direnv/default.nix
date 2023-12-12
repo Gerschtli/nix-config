@@ -80,7 +80,7 @@ in
       '';
     };
 
-    services.lorri.enable = true;
+    services.lorri.enable = !config.custom.base.general.darwin;
 
   };
 

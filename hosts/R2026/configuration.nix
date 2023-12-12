@@ -53,6 +53,8 @@ in
   security.pam.enableSudoTouchIdAuth = true;
 
   services = {
+    lorri.enable = true;
+
     nix-daemon.enable = true;
 
     karabiner-elements.enable = true;
@@ -179,7 +181,6 @@ in
   # TODO
   # cachix-agent
   # nix-darwin CI
-  # lorri
   # Hidden bar
   # Alttab
 

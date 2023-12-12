@@ -48,8 +48,8 @@ in
       development.direnv.enable = true;
 
       programs = {
-        atom.enable = true;
-        idea-ultimate.enable = true;
+        atom.enable = !config.custom.base.general.darwin;
+        idea-ultimate.enable = !config.custom.base.general.darwin;
 
         pass = mkIf cfg.private {
           enable = true;
@@ -57,25 +57,27 @@ in
         };
 
         ssh.modules = [ "private" ];
-        tmux.urlview = true;
+        tmux.urlview = !config.custom.base.general.darwin;
       };
     };
 
-    home.packages = with pkgs; [
-      chrome
-      gh
-      gimp
-      libreoffice
-      nomacs
-      pdftk
-      qpdfview
-      spotify
-    ] ++ (optionals cfg.private [
-      audacity
-      musescore
-      signal-desktop
-      thunderbird
-    ]);
+    home.packages = with pkgs;
+      optionals (!config.custom.base.general.darwin) [
+        chrome
+        gh
+        gimp
+        libreoffice
+        nomacs
+        pdftk
+        qpdfview
+        spotify
+      ]
+      ++ optionals cfg.private [
+        audacity
+        musescore
+        signal-desktop
+        thunderbird
+      ];
 
   };
 

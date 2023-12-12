@@ -6,6 +6,7 @@ let
     mkEnableOption
     mkIf
     mkMerge
+    optionals
     ;
 
   cfg = config.custom.base.general;
@@ -26,6 +27,8 @@ in
       lightWeight = mkEnableOption "light weight config for low performance hosts";
 
       minimal = mkEnableOption "minimal config";
+
+      darwin = mkEnableOption "darwin specific config";
     };
 
   };
@@ -69,12 +72,10 @@ in
           bc
           file
           httpie
-          iotop
           jq
           mmv-go
           nmap
           ncdu
-          nload # network traffic monitor
           pwgen
           ripgrep
           tree
@@ -88,8 +89,12 @@ in
 
           bind # dig
           netcat
-          psmisc # killall
           whois
+        ]
+        ++ optionals (!cfg.darwin) [
+          iotop
+          nload # network traffic monitor
+          psmisc # killall
         ];
 
         sessionVariables = {

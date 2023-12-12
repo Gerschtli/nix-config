@@ -11,6 +11,7 @@ let
     mkMerge
     mkOption
     optionalAttrs
+    optionalString
     types
     ;
 
@@ -62,7 +63,9 @@ let
         [[ -n "''${BASH_VERSION-}" ]]
       }
 
-      eval "$(dircolors -b)"
+      ${optionalString (!config.custom.base.general.darwin) ''
+        eval "$(dircolors -b)"
+      ''}
     '')
 
     ''
