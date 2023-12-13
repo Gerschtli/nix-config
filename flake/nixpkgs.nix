@@ -39,9 +39,11 @@ import inputs.nixpkgs {
 
         inherit (unstable)
           # need bleeding edge version
+          cachix
           jetbrains
           minecraft-server
           minecraftServers
+          nixVersions
           teamspeak_server
           vscode
           ;
