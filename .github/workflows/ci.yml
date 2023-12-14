@@ -177,6 +177,9 @@ jobs:
 
                   echo "::group::Upload spec"
                   run cachix push gerschtli "$spec"
+
+                  echo "::group::Activate deployment"
+                  run cachix deploy activate --agent "{0}" {1} "$spec"
                 ',
                 matrix.deploy-agent,
                 matrix.deploy-args
@@ -200,5 +203,8 @@ jobs:
 
           echo "::group::Upload spec"
           cachix push gerschtli "$spec"
+
+          echo "::group::Activate deployment"
+          cachix deploy activate --agent "${{ matrix.deploy-agent }}" ${{ matrix.deploy-args }} "$spec"
 
 # vim: set sw=2:
