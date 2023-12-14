@@ -42,4 +42,8 @@
     nixpkgs-fmt
     nodejs
   ];
+
+  programs.zsh.initExtra = lib.mkAfter ''
+    complete -C '${pkgs.awscli2}/bin/aws_completer' aws
+  '';
 }
