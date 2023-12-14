@@ -3,6 +3,7 @@
 let
   inherit (lib)
     mkEnableOption
+    mkForce
     mkIf
     mkMerge
     ;
@@ -102,7 +103,10 @@ in
           pulseaudio.package = pkgs.pulseaudioFull;
         };
 
-        networking.networkmanager.enable = true;
+        networking.networkmanager = {
+          enable = true;
+          plugins = mkForce [ ]; # FIXME: disabled because openconnect is not substitutable currently
+        };
 
         programs.light.enable = true;
 
