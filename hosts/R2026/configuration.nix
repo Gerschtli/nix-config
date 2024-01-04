@@ -192,5 +192,9 @@ in
   # (A11y > Desktop > Enable Reduce Motion)
   # Desktop & Dock > Mission Control > Disable "Automatically rearrange Spaces based on most recent use
   # add key mapping in karabiner: flip left_control and fn for laptop internal keyboard
+  # karabiner mapping:
+  #  - left_control -> left_command
+  #  - left_option -> left_control
+  #  - left_command -> left_option
 
 }
