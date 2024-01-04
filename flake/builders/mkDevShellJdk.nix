@@ -8,5 +8,5 @@ in
 pkgs.mkShell {
   inherit name;
   buildInputs = [ jdk pkgs.maven ];
-  JAVA_HOME = "${jdk}/lib/openjdk";
+  JAVA_HOME = jdk;
 }
