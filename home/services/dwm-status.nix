@@ -69,9 +69,9 @@ in
 
         (mkIf cfg.audio {
           audio = {
-            mute = "ﱝ";
+            mute = "󰖁";
             template = "{ICO} {VOL}%";
-            icons = [ "奄" "奔" "墳" ];
+            icons = [ "󰕿" "󰖀" "󰕾" ];
           };
         })
 
@@ -79,14 +79,14 @@ in
           backlight = {
             fallback = mkIf (cfg.backlightDevice != null) cfg.backlightDevice;
             template = "{ICO} {BL}%";
-            icons = [ "" "" "" ];
+            icons = [ "󰃞>" "󰃟" "󰃠" ];
           };
 
           battery = {
             charging = "";
             discharging = "";
             no_battery = "";
-            icons = [ "" "" "" "" "" "" "" "" "" "" "" ];
+            icons = [ "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
           };
         })
       ];
