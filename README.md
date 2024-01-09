@@ -48,6 +48,19 @@ nix run \
 
 ### Manual instructions for some systems
 
+#### Darwin
+
+```sh
+# Install nix via Determinate Nix Installer https://determinate.systems/posts/determinate-nix-installer
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+
+sudo echo "trusted-users = $USER" >> /etc/nix/nix.conf
+sudo launchctl stop org.nixos.nix-daemon
+sudo launchctl start org.nixos.nix-daemon
+
+nix run github:Gerschtli/nix-config#setup
+```
+
 #### NixOS
 
 1. Set up like written in the [NixOS manual][nixos-manual] with image from `nix build ".#installer-image"`

@@ -12,6 +12,10 @@ _available() {
     hash "${1}" > /dev/null 2>&1
 }
 
+_is_darwin() {
+    [[ "${OSTYPE}" == "darwin"* ]]
+}
+
 _is_nixos() {
     [[ -f "/etc/NIXOS" ]]
 }

@@ -50,7 +50,7 @@ keychain "${HOME}/.ssh/keys/id_rsa.vcs"
 
 
 # update ubuntu
-if _available apt && [[ "${OSTYPE}" != "darwin"* ]]; then
+if _available apt && ! _is_darwin; then
     _log "apt" "update"
     sudo apt update
     _log "apt" "upgrade"
