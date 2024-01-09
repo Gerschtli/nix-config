@@ -30,6 +30,7 @@ This is my humble flakes-only collection of all and everything needed to set up 
   - `gamer` on WSL2 with Ubuntu 20.04 (windows dual boot for games and stuff)
 - [nix-darwin][nix-darwin]-managed
   - `R2026`
+  - `work01`
 - [nix-on-droid][nix-on-droid]-managed
   - `pixel7a`
 

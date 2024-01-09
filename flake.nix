@@ -108,6 +108,7 @@
     {
       darwinConfigurations = listToAttrs [
         (mkDarwin "aarch64-darwin" "R2026")
+        (mkDarwin "aarch64-darwin" "work01")
       ];
 
       homeConfigurations = listToAttrs [
