@@ -14,18 +14,14 @@ inputs.nix-darwin.lib.darwinSystem {
     {
       _file = ./mkDarwin.nix;
 
-      lib.custom = customLibFor.${system};
+      custom.base.general.hostname = name;
 
-      networking = {
-        computerName = name;
-        hostName = name;
-        localHostName = name;
-      };
+      lib.custom = customLibFor.${system};
 
       nixpkgs = {
         hostPlatform = system;
         pkgs = pkgsFor.${system};
       };
     }
-  ]; # ++ customLibFor.${system}.listNixFilesRecursive "${rootPath}/darwin";
+  ] ++ customLibFor.${system}.listNixFilesRecursive "${rootPath}/darwin";
 }
