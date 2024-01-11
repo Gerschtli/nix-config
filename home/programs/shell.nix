@@ -126,8 +126,6 @@ let
 
     rg = "rg --ignore-case --sort=path";
 
-    open = "xdg-open";
-
     pwgen = "pwgen -cns";
     pgen = "pwgen 30 1";
 
@@ -137,6 +135,9 @@ let
     treea = "tree -a";
     treei = "treea -I '.git|.idea'";
   }
+  // (optionalAttrs (!config.custom.base.general.darwin) {
+    open = "xdg-open";
+  })
   // cfg.shellAliases
   // (optionalAttrs (dynamicShellInit != "") {
     refresh-shell = "source ${pkgs.writeText "refresh-shell" dynamicShellInit}";

@@ -227,10 +227,14 @@ in
         [
           {
             plugin = fingers;
-            extraConfig = ''
-              set -g @fingers-compact-hints 0
-              set -g @fingers-ctrl-action '${pkgs.findutils}/bin/xargs ${pkgs.xdg-utils}/bin/xdg-open > /dev/null 2>&1'
-            '';
+            extraConfig =
+              let
+                open = if config.custom.base.general.darwin then "open" else "${pkgs.xdg-utils}/bin/xdg-open";
+              in
+              ''
+                set -g @fingers-compact-hints 0
+                set -g @fingers-ctrl-action '${pkgs.findutils}/bin/xargs ${open} > /dev/null 2>&1'
+              '';
           }
         ] ++ optionals cfg.urlview [ urlview ]
       );
