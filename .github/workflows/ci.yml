@@ -90,7 +90,7 @@ jobs:
             keep-going = true
 
       - name: Setup cachix
-        uses: cachix/cachix-action@v13
+        uses: cachix/cachix-action@v14
         with:
           name: gerschtli
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
