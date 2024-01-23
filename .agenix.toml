@@ -2,6 +2,7 @@
 argon-root = "age19c2lj8tp448qz2nmj2fhjhz3ss2w0zuhpudhx8k6e4e3pjkknemqunutd3"
 argon-tobias = "age1gh8taacs5kv8qet0vyrash9xx9rcvgemwuhevg6q0eqczp73545qd3eaf3"
 bak = "age1kttfv4zpvv0cshe8q7lvakycytn34pja9pcy4ylq94kw90k3yfwsxja79j"
+bwpm-FP2CYXKY2V-tobiashapp = "age1myzyfx9x07s8657sn7529qw8nfa93vt8g6f457zksgnfxftgtf5qc5l6ls"
 gamer-tobias = "age1xmwue6azg27l7kwsjr7a84gax5ed7tzdzfw4c3vz3aejr539tpdswmlpt8"
 krypton-root = "age1vheh9hvezl0k2fe7wpfjnfp6ajcezz78jlhxj6wvzxdvkte4lfys03ktuq"
 krypton-tobias = "age1r2maar050kkskxpaestrd738dpphptp886mdt4kta2p3mup3mc9s4r4020"
@@ -16,6 +17,7 @@ xenon-tobias = "age1dxhjmnugds3263vsh02zrxagxal5x25ycs3xpueja7yfvcx8lves8p5rkv"
 glob = "secrets/ssh/private/*"
 identities = [
     "bak",
+    "bwpm-FP2CYXKY2V-tobiashapp",
     "gamer-tobias",
     "neon-tobias",
     "pixel7a-nix-on-droid",
@@ -27,6 +29,7 @@ glob = "secrets/ssh/vcs/*"
 identities = [
     "argon-tobias",
     "bak",
+    "bwpm-FP2CYXKY2V-tobiashapp",
     "gamer-tobias",
     "krypton-tobias",
     "neon-tobias",
