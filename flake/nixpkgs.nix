@@ -63,6 +63,11 @@ import inputs.nixpkgs {
 
         gerschtli = prev.lib.composeManyExtensions gerschtliOverlays final prev;
 
+        # FIXME: stable nix_2_18 fails on aarch
+        nixVersions = prev.nixVersions // {
+          inherit (unstable.nixVersions) nix_2_18;
+        };
+
         # the only alias that I need, this allows me to set allowAliases=false
         inherit system;
       }
