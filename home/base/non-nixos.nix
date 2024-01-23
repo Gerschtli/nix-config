@@ -6,6 +6,7 @@ let
     mkAfter
     mkEnableOption
     mkIf
+    mkMerge
     mkOption
     types
     ;
@@ -66,11 +67,17 @@ in
         ;
     };
 
-    programs.zsh.envExtra = mkAfter ''
-      hash -f
-    '';
+    programs.zsh.envExtra = mkMerge [
+      (mkAfter ''
+        hash -f
+      '')
 
-    targets.genericLinux.enable = true;
+      (mkIf config.custom.base.general.darwin ''
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+      '')
+    ];
+
+    targets.genericLinux.enable = !config.custom.base.general.darwin;
 
   };
 
