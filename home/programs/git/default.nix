@@ -169,23 +169,24 @@ in
         sd = "switch --detach";
         tl = "tag --list -n";
 
-        mma = "merge origin/master";
-        rde = "rebase origin/develop";
-        rma = "rebase origin/master";
-        rup = "rebase upstream/master";
+        mma = externGitAlias "git merge origin/$(git default-branch)";
+        rde = externGitAlias "git rebase origin/develop";
+        rma = externGitAlias "git rebase origin/$(git default-branch)";
+        rup = externGitAlias "git rebase upstream/$(git default-branch)";
         sde = externGitAlias "git switch develop && git rebase origin/develop";
-        sma = externGitAlias "git switch master && git rebase origin/master";
+        sma = externGitAlias "git switch $(git default-branch) && git rebase origin/$(git default-branch)";
 
         aliases = ''config --get-regexp "^alias"'';
 
         bclean = externGitAlias ''git for-each-ref --format "%(refname:short)" refs/heads |
-          ${pkgs.gnugrep}/bin/grep -Ev "master|$(git branch-name)" | ${pkgs.findutils}/bin/xargs git bd'';
+          ${pkgs.gnugrep}/bin/grep -Ev "$(git default-branch)|$(git branch-name)" | ${pkgs.findutils}/bin/xargs git bd'';
 
         branch-name = "branch --show-current";
         total-clean = externGitAlias "git co -f && git clean -dfx && git clean -dfX";
 
         disable-upstream-push = "remote set-url upstream --push DISABLED";
         set-upstream = externGitAlias "git branch --set-upstream-to=origin/$(git branch-name) $(git branch-name)";
+        default-branch = externGitAlias "git symbolic-ref refs/remotes/origin/HEAD | ${pkgs.gnused}/bin/sed 's@^refs/remotes/origin/@@'";
       };
 
       extraConfig = {
@@ -284,7 +285,7 @@ in
 
         i18n.logOutputEncoding = "utf8";
 
-        init.defaultBranch = "master";
+        init.defaultBranch = "main";
 
         interactive.singlekey = false;
 
