@@ -9,6 +9,8 @@
         enable = true;
         laptop = true;
       };
+
+      non-nixos.enable = true;
     };
 
     development = {
