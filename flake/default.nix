@@ -29,7 +29,6 @@ let
 in
 
 {
-  mkDarwin = simpleWrapper ./builders/mkDarwin.nix;
   mkHome = simpleWrapper ./builders/mkHome.nix;
   mkNixOnDroid = simpleWrapper ./builders/mkNixOnDroid.nix;
   mkNixos = simpleWrapper ./builders/mkNixos.nix;

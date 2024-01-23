@@ -15,10 +15,6 @@
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-on-droid = {
       url = "github:t184256/nix-on-droid";
       inputs.home-manager.follows = "home-manager";
@@ -103,13 +99,9 @@
       });
 
       inherit (nixpkgs.lib) listToAttrs;
-      inherit (flakeLib) mkApp mkDarwin mkDevShellJdk mkDevShellPhp mkHome mkNixOnDroid mkNixos;
+      inherit (flakeLib) mkApp mkDevShellJdk mkDevShellPhp mkHome mkNixOnDroid mkNixos;
     in
     {
-      darwinConfigurations = listToAttrs [
-        (mkDarwin "aarch64-darwin" "R2026")
-      ];
-
       homeConfigurations = listToAttrs [
         (mkHome "x86_64-linux" "tobias@gamer")
       ];

@@ -101,14 +101,6 @@ if _is_nixos; then
     _log "Don't forget to set passwd for tobias and root!"
     _log "It may be required to set up an age key for root:"
     _log "  age-keygen -o ~/.age/key.txt"
-elif _is_darwin; then
-    hostname=$(_read_enum "Enter hostname" R2026 work01)
-
-    _log "Run darwin-rebuild switch..."
-    nix \
-      --option extra-substituters "https://gerschtli.cachix.org" \
-      --option extra-trusted-public-keys "gerschtli.cachix.org-1:dWJ/WiIA3W2tTornS/2agax+OI0yQF8ZA2SFjU56vZ0=" \
-      run nix-darwin -- switch --flake "${nix_config}#${hostname}"
 elif [[ "${USER}" == "nix-on-droid" ]]; then
     _log "Run nix-on-droid switch..."
     nix-on-droid switch \
