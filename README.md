@@ -53,9 +53,11 @@ nix run \
 # Install nix via Determinate Nix Installer https://determinate.systems/posts/determinate-nix-installer
 curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 
-sudo echo "trusted-users = $USER" >> /etc/nix/nix.conf
+echo "trusted-users = $USER" | sudo tee -a /etc/nix/nix.conf
 sudo launchctl stop org.nixos.nix-daemon
 sudo launchctl start org.nixos.nix-daemon
+
+# see and execute files/scripts/darwin-setup.sh
 
 nix run github:Gerschtli/nix-config#setup
 ```
