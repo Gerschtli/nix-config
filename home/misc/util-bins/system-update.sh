@@ -91,7 +91,7 @@ fi
 if ! _is_nixos && _available home-manager; then
     _log "nix" "build home-manager configuration"
     home-manager build --flake "${nix_config}"
-    _show_result_diff "/home/${USER}/.local/state/nix/profiles/home-manager"
+    _show_result_diff "${HOME}/.local/state/nix/profiles/home-manager"
 
     _log "nix" "switch home-manager configuration"
     home-manager switch --flake "${nix_config}" -b hm-bak
