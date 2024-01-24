@@ -61,6 +61,14 @@ if _available apt && ! _is_darwin; then
     sudo apt autoremove -y
 fi
 
+# update brew
+if _available brew && _is_darwin; then
+    _log "brew" "update"
+    brew update
+    _log "brew" "upgrade"
+    brew upgrade
+fi
+
 
 # update projects
 _pull_changes "nix-config"  "${nix_config}"
