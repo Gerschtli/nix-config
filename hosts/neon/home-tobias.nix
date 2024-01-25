@@ -47,7 +47,7 @@
 
   home.packages = with pkgs; [
     openshot-qt
-    #portfolio # FIXME: disabled because it is not substitutable currently
+    portfolio
     skypeforlinux
     vlc
     zoom-us

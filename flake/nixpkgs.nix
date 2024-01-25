@@ -43,6 +43,7 @@ import inputs.nixpkgs {
           jetbrains
           minecraft-server
           minecraftServers
+          portfolio
           teamspeak_server
           vscode
           ;
