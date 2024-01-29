@@ -41,6 +41,8 @@ in
 
   config = mkIf cfg.enable {
 
+    custom.misc.darwin-keyboard-layout.enable = config.custom.base.general.darwin;
+
     home = {
       packages = mkIf cfg.installNix [ config.nix.package ];
       sessionVariables.NIX_PATH = concatStringsSep ":" commonConfig.nix.nixPath;

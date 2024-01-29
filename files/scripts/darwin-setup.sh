@@ -8,6 +8,8 @@ set -euo pipefail
 # - iterm2 set UbuntuMono font, size 13, h 85, v 115, tango dark
 # - disable keyboard shortcuts for "Input Sources" in system settings
 # - enable keyboard shortcuts for Mission Control to switch to desktops
+# - enable keyboard layout "German No Deadkeys" (might require logout"
+# - Keyboard > Input Sources: Disable "Show Input menu in menu bar"
 # - Trackpad: Enable Tap to Click
 # - karabiner mapping:
 #   - left_control -> left_command
