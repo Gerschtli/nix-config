@@ -8,6 +8,7 @@ let
     mkIf
     mkMerge
     mkOption
+    optionals
     types
     ;
 
@@ -44,7 +45,9 @@ in
     custom.misc.darwin-keyboard-layout.enable = config.custom.base.general.darwin;
 
     home = {
-      packages = mkIf cfg.installNix [ config.nix.package ];
+      packages = optionals cfg.installNix [ config.nix.package ]
+        ++ optionals config.custom.base.general.darwin [ pkgs.coreutils pkgs.procps ];
+
       sessionVariables.NIX_PATH = concatStringsSep ":" commonConfig.nix.nixPath;
     };
 

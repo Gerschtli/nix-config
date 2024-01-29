@@ -46,7 +46,6 @@
 
     packages = with pkgs; [
       awscli2
-      coreutils
       nixpkgs-fmt
       nodejs
     ];

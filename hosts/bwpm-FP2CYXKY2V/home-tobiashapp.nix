@@ -46,7 +46,6 @@
 
     packages = with pkgs; [
       asciidoctor
-      coreutils
       nixpkgs-fmt
       nodejs
     ];
