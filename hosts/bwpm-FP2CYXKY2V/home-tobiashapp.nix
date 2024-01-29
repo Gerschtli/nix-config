@@ -47,6 +47,7 @@
     packages = with pkgs; [
       asciidoctor
       nixpkgs-fmt
+      natscli
       nodejs
     ];
   };
