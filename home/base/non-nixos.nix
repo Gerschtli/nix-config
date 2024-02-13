@@ -46,7 +46,7 @@ in
 
     home = {
       packages = optionals cfg.installNix [ config.nix.package ]
-        ++ optionals config.custom.base.general.darwin [ pkgs.coreutils pkgs.procps ];
+        ++ optionals config.custom.base.general.darwin [ pkgs.bashInteractive pkgs.coreutils pkgs.procps ];
 
       sessionVariables.NIX_PATH = concatStringsSep ":" commonConfig.nix.nixPath;
     };
