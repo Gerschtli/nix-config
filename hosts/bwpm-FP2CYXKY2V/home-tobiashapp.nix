@@ -40,9 +40,13 @@
     homeDirectory = "/Users/tobiashapp";
     username = "tobiashapp";
 
+    sessionVariables.KUBECONFIG = "${config.home.homeDirectory}/.kube/ardks-iat-nzfcw.kubeconfig";
+
     packages = with pkgs; [
       asciidoctor
       kubectl
+      kubelogin-oidc
+      k9s
       nixpkgs-fmt
       natscli
       nodejs
