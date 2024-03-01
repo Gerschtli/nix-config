@@ -5,4 +5,4 @@ fi
 
 ARGS="${*}"
 
-git bc "feature/CTMSDKS-${ARGS// /-}"
+git bc "feature/CTMSATOC-${ARGS// /-}"
