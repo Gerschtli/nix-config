@@ -1,6 +1,9 @@
 { config, lib, pkgs, ... }:
 
 {
+  # run manually:
+  # $ brew install graphviz
+
   custom = {
     base = {
       general.darwin = true;
