@@ -36,6 +36,7 @@ in
         "cachix-agent-token-neon"
         "cachix-agent-token-xenon"
         "gitea-dbpassword"
+        "github-runner-token"
         "id-rsa-backup"
         "mysql-backup-password"
         "passwd-root-neon"
@@ -91,6 +92,12 @@ in
           name = "gitea-dbpassword";
           host = "krypton";
           user = "gitea";
+        })
+
+        (buildConfig {
+          name = "github-runner-token";
+          host = "argon";
+          user = "root";
         })
 
         (buildConfig {
