@@ -3,6 +3,7 @@
 let
   inherit (lib)
     mkEnableOption
+    mkForce
     mkIf
     ;
 
@@ -32,6 +33,10 @@ in
       enable = true;
       credentialsFile = config.age.secrets."cachix-agent-token-${hostName}".path;
     };
+
+    # upstream sets this to process which means that subprocesses are not killed and stopping the service does not stop
+    # the nix deployment process. control-group is the default value.
+    systemd.services.cachix-agent.serviceConfig.KillMode = mkForce "control-group";
 
   };
 
