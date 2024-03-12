@@ -11,13 +11,15 @@ _set-hashes() {
             hash -d "p-$(basename ${i})"="${i}"
         done
 
-        if [[ -n "${WORK_DIRECTORY}" && -d "${projects}/${WORK_DIRECTORY}"
-            && -z "$(find "${projects}/${WORK_DIRECTORY}" -prune -empty)" ]]; then
-            local j
-            for j in "${projects}/${WORK_DIRECTORY}"/*(/); do
-                hash -d "w-$(basename ${j})"="${j}"
-            done
-        fi
+        local workDirectory
+        local j
+        for workDirectory in "${WORK_DIRECTORY[@]}"; do
+            if [[ -d "${projects}/${workDirectory}" && -z "$(find "${projects}/${workDirectory}" -prune -empty)" ]]; then
+                for j in "${projects}/${workDirectory}"/*(/); do
+                    hash -d "w-$(basename ${j})"="${j}"
+                done
+            fi
+        done
     fi
 }
 

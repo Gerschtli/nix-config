@@ -2,13 +2,33 @@
 
 let
   inherit (lib)
-    mkEnableOption
-    mkIf
+    mkDefault
     mkOption
     types
     ;
 
-  cfg = config.custom.misc.work;
+  workOpts = { name, config, ... }: {
+    options = {
+      name = mkOption {
+        type = types.str;
+        description = ''
+          The name of the client. If undefined, the name of the attribute set
+          will be used.
+        '';
+      };
+
+      directory = mkOption {
+        type = types.str;
+        description = ''
+          Directory in `~/projects` where git projects are saved.
+        '';
+      };
+    };
+
+    config = {
+      name = mkDefault name;
+    };
+  };
 in
 
 {
@@ -17,24 +37,12 @@ in
 
   options = {
 
-    custom.misc.work = {
-      enable = mkEnableOption "work related config";
-
-      directory = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = ''
-          Directory in `~/projects` where git projects are saved.
-        '';
-      };
-
-      mailAddress = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = ''
-          Work related mail address (used for git config).
-        '';
-      };
+    custom.misc.work = mkOption {
+      type = types.attrsOf (types.submodule workOpts);
+      default = { };
+      description = ''
+        Client configurations.
+      '';
     };
 
   };
@@ -42,17 +50,6 @@ in
 
   ###### implementation
 
-  config = {
-
-    assertions = [
-      {
-        assertion = cfg.enable -> cfg.directory != null && cfg.mailAddress != null;
-        message = "You need to set directory and mailAddress when work module is enabled.";
-      }
-    ];
-
-    custom.misc.work.enable = mkIf (cfg.directory != null || cfg.mailAddress != null) true;
-
-  };
+  config = { };
 
 }

@@ -2,15 +2,17 @@
 
 let
   inherit (builtins)
+    attrValues
     readDir
     ;
   inherit (lib)
     attrNames
     concatStringsSep
     filesystem
+    flip
     mkEnableOption
     mkIf
-    optionals
+    mkMerge
     readFile
     removeSuffix
     ;
@@ -71,16 +73,15 @@ let
             hooksPathPackages
             { hooksLib = ./lib.hooks.sh; includes = hooksIncludes; };
         })
-      ([
+      [
         ./post-checkout.sh
         ./post-commit.sh
         ./post-merge.sh
         ./post-rewrite.sh
         ./pre-commit.sh
         ./pre-push.sh
-      ] ++ optionals config.custom.misc.work.enable [
         ./prepare-commit-msg.sh
-      ])
+      ]
   );
 
   writeFile = name: content: toString (pkgs.writeText name content);
@@ -360,11 +361,26 @@ in
         };
       };
 
-      includes = mkIf config.custom.misc.work.enable [
-        {
-          condition = "gitdir:~/projects/${config.custom.misc.work.directory}/";
+      includes = flip map (attrValues config.custom.misc.work) (work: {
 
-          contents = {
+        condition = "gitdir:~/projects/${work.directory}/";
+
+        contents = mkMerge [
+
+          {
+            core.excludesfile =
+              let
+                ignoreListWork = ignoreList ++ [ ".envrc" "shell.nix" ];
+                content = concatStringsSep "\n" ignoreListWork + "\n";
+              in
+              writeFile "gitignore" content;
+          }
+
+          (mkIf (work.name == "randstad") {
+            user.email = "tobias.happ@randstaddigital.com";
+          })
+
+          (mkIf (work.name == "db") {
             alias.bcf = externGitAlias (
               config.lib.custom.mkScriptPlain
                 "git-alias-bcf"
@@ -373,21 +389,21 @@ in
                 { }
             );
 
-            commit.template = writeFile "commit.msg" (commitMsgTemplate "PREFIX");
+            commit.template = writeFile "commit.msg" (commitMsgTemplate "DB_PREFIX");
 
-            core.excludesfile =
-              let
-                ignoreListWork = ignoreList ++ [ ".envrc" "shell.nix" ];
-                content = concatStringsSep "\n" ignoreListWork + "\n";
-              in
-              writeFile "gitignore" content;
+            user.email = "tobias.happ-extern@deutschebahn.com";
 
-            user.email = config.custom.misc.work.mailAddress;
-          };
-        }
-      ];
+            # signing
+            commit.gpgsign = true;
+            gpg.format = "ssh";
+            user.signingKey = "${config.home.homeDirectory}/.ssh/keys/id_ed25519.db.pub";
+
+          })
+
+        ];
+
+      });
     };
-
   };
 
 }

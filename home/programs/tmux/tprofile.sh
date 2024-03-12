@@ -1,5 +1,6 @@
 CONF_NAME="${1}"
 PATH_TO_CONF_DIR="@tmuxProfiles@"
+WORK_DIRECTORIES=(@workDirectories@)
 CONF="${PATH_TO_CONF_DIR}/${CONF_NAME}.sh"
 ONLY_FETCH=
 PRESET=
@@ -16,9 +17,14 @@ _check_requirements() {
     elif [[ -d "${HOME}/projects/${CONF_NAME}" ]]; then
         ROOT="${HOME}/projects/${CONF_NAME}"
         PRESET="git-single"
-    elif [[ -n "@workDirectory@" && -d "${HOME}/projects/@workDirectory@/${CONF_NAME}" ]]; then
-        ROOT="${HOME}/projects/@workDirectory@/${CONF_NAME}"
-        PRESET="git-single"
+    elif [[ "${#WORK_DIRECTORIES}" -gt 0 ]]; then
+        for work_dir in "${WORK_DIRECTORIES[@]}"; do
+            if [[ -d "${HOME}/projects/${work_dir}/${CONF_NAME}" ]]; then
+                ROOT="${HOME}/projects/${work_dir}/${CONF_NAME}"
+                PRESET="git-single"
+                break
+            fi
+        done
     else
         echo "neither ${CONF} nor projects named ${CONF_NAME} do not exist"
         exit 2

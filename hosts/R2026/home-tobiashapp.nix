@@ -30,11 +30,7 @@
         };
       };
 
-      work = {
-        enable = true;
-        directory = "randstad";
-        mailAddress = "tobias.happ@randstaddigital.com";
-      };
+      work.randstad.directory = "randstad";
     };
 
     wm.yabai.enable = true;

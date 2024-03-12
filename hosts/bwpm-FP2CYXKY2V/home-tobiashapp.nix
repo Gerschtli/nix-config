@@ -27,9 +27,8 @@
       };
 
       work = {
-        enable = true;
-        directory = "randstad/db";
-        mailAddress = "tobias.happ@deutschebahn.com";
+        randstad.directory = "randstad";
+        db.directory = "randstad/db";
       };
     };
 

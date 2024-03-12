@@ -1,6 +1,9 @@
 { config, lib, pkgs, rootPath, ... }:
 
 let
+  inherit (builtins)
+    attrValues
+    ;
   inherit (lib)
     mkEnableOption
     mkIf
@@ -156,6 +159,7 @@ let
   '';
 
   tmuxProfiles = "${rootPath}/files/tmux/profiles";
+  workDirectories = map (w: w.directory) (attrValues config.custom.misc.work);
 in
 
 {
@@ -192,8 +196,7 @@ in
           ./tprofile.sh
           [ pkgs.tmux ]
           {
-            inherit tmuxProfiles;
-            workDirectory = config.custom.misc.work.directory;
+            inherit tmuxProfiles workDirectories;
             _doNotClearPath = true;
           }
         )
@@ -202,8 +205,7 @@ in
           "tprofile"
           ./tprofile-completion.zsh
           {
-            inherit tmuxProfiles;
-            workDirectory = config.custom.misc.work.directory;
+            inherit tmuxProfiles workDirectories;
           }
         )
       ];

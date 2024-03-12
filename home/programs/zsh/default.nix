@@ -1,10 +1,13 @@
 { config, lib, pkgs, ... }:
 
 let
+  inherit (builtins)
+    attrValues
+    ;
   inherit (lib)
+    concatMapStringsSep
     mkEnableOption
     mkIf
-    optionalString
     readFile
     ;
 
@@ -48,11 +51,11 @@ in
         alias -g IX="| ${pkgs.curl}/bin/curl -F 'f:1=<-' ix.io"
 
         ${readFile ./completion.zsh}
-        ${optionalString config.custom.misc.work.enable ''
-          WORK_DIRECTORY="${config.custom.misc.work.directory}"
-        ''}
+
+        WORK_DIRECTORY=(${concatMapStringsSep " " (w: ''"${w.directory}"'') (attrValues config.custom.misc.work)})
         ${readFile ./directory-hash.zsh}
         unset WORK_DIRECTORY
+
         ${readFile ./keybindings.zsh}
       '';
 

@@ -19,10 +19,10 @@ for file in "${prefix}"*"${suffix}"; do
 done
 
 project_directories=("${HOME}/projects/"*)
-# shellcheck disable=SC2157
-if [[ -n "@workDirectory@" ]]; then
-    project_directories+=("${HOME}/projects/@workDirectory@/"*)
-fi
+work_directories=(@workDirectories@)
+for work_dir in "${work_directories[@]}"; do
+    project_directories+=("${HOME}/projects/${work_dir}/"*)
+done
 
 for dir in "${project_directories[@]}"; do
     list+=("$(basename "${dir}")")
