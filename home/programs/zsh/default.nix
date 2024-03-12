@@ -45,7 +45,7 @@ in
       initExtra = ''
         available sudo && alias sudo='nocorrect sudo '
 
-        alias -g C="| ${pkgs.xclip}/bin/xclip -selection clipboard"
+        alias -g C="| ${if config.custom.base.general.darwin then "pbcopy" else "${pkgs.xclip}/bin/xclip -selection clipboard"}"
         alias -g G="| grep"
         alias -g P="| $PAGER"
         alias -g IX="| ${pkgs.curl}/bin/curl -F 'f:1=<-' ix.io"
