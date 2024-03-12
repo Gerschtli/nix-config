@@ -75,7 +75,6 @@ in
           jq
           mmv-go
           nmap
-          ncdu
           pwgen
           ripgrep
           tree
@@ -92,6 +91,7 @@ in
         ]
         ++ optionals (!cfg.darwin) [
           iotop
+          ncdu
           nload # network traffic monitor
           psmisc # killall
           whois
