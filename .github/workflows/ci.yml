@@ -30,19 +30,19 @@ jobs:
           - eval .#apps.$_system.setup.program
 
         include:
-          - nix-command: develop .#jdk8 --profile profile
+          - nix-command: develop .#jdk8 --profile result
             system: x86_64
-          - nix-command: develop .#jdk11 --profile profile
+          - nix-command: develop .#jdk11 --profile result
             system: x86_64
-          - nix-command: develop .#jdk17 --profile profile
+          - nix-command: develop .#jdk17 --profile result
             system: x86_64
-          - nix-command: develop .#php74 --profile profile
+          - nix-command: develop .#php74 --profile result
             system: x86_64
-          - nix-command: develop .#php74-composer1 --profile profile
+          - nix-command: develop .#php74-composer1 --profile result
             system: x86_64
-          - nix-command: develop .#php80 --profile profile
+          - nix-command: develop .#php80 --profile result
             system: x86_64
-          - nix-command: develop .#php81 --profile profile
+          - nix-command: develop .#php81 --profile result
             system: x86_64
 
           - nix-command: build .#homeConfigurations."tobias@gamer".activationPackage
@@ -107,9 +107,11 @@ jobs:
       - name: Build command
         env:
           _system: ${{ matrix.system }}-linux
-        run: |
-          nix ${{ matrix.nix-command }}
-          rm result || :
+        run: nix ${{ matrix.nix-command }}
+
+      - name: Remove result symlink
+        if: always()
+        run: rm --force result
 
       - name: Deploy cachix-agent spec
         if: github.ref == 'refs/heads/master' && inputs.branch == '' && matrix.deploy-agent
