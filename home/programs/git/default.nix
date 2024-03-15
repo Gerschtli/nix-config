@@ -385,7 +385,7 @@ in
             user.email = "tobias.happ@randstaddigital.com";
           })
 
-          (mkIf (work.name == "db") {
+          (mkIf (work.name == "randstad-db") {
             alias.bcf = externGitAlias (
               config.lib.custom.mkScriptPlain
                 "git-alias-bcf"

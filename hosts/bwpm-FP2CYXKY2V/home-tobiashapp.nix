@@ -28,7 +28,7 @@
 
       work = {
         randstad.directory = "randstad";
-        db.directory = "randstad/db";
+        randstad-db.directory = "randstad/db";
       };
     };
 
