@@ -25,8 +25,8 @@ let
     readFile
     (filesystem.listFilesRecursive ./gitignores);
 
-  commitMsgTemplate = prefix: ''
-    ${prefix}
+  commitMsgTemplate = footer: ''
+
     # (If applied, this commit will...) <subject> (Max 50 char)
     # |<----  Using a Maximum Of 50 Characters  ---->|
 
@@ -37,7 +37,7 @@ let
 
     # Provide links or keys to any relevant tickets, articles or other resources
     # Example: Github issue #23
-
+    ${footer}
   '';
 
   extractName = path: removeSuffix ".sh" (baseNameOf path);
@@ -389,7 +389,7 @@ in
                 { }
             );
 
-            commit.template = writeFile "commit.msg" (commitMsgTemplate "DB_PREFIX");
+            commit.template = writeFile "commit.msg" (commitMsgTemplate "DB_FOOTER");
 
             user.email = "tobias.happ-extern@deutschebahn.com";
 
