@@ -53,7 +53,7 @@ in
     nix = {
       gc = {
         automatic = true;
-        dates = "Mon *-*-* 00:00:00";
+        dates = "*-*-* 00:00:00";
         options = "--delete-older-than 14d";
       };
 
