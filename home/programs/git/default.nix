@@ -343,6 +343,9 @@ in
           tab-size = 4;
           vertical-split = false;
 
+          # hide prefetch refs
+          reference-format = "hide:other";
+
           # View settings
           main-view = "line-number:yes,interval=5 id:no date:default author:full,width=15 commit-title:yes,graph=yes,refs=yes,overflow=no";
           blame-view = "line-number:yes,interval=5 date:default author:full,width=15 file-name:auto id:yes,color text";
