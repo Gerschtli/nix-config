@@ -191,6 +191,8 @@ in
       };
 
       extraConfig = {
+        absorb.oneFixupPerCommit = true;
+
         add.ignore-errors = true;
 
         advice = {
