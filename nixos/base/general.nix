@@ -98,6 +98,12 @@ in
         ;
     };
 
+    # disabled because manually set via commonConfig.nix
+    nixpkgs.flake = {
+      setNixPath = false;
+      setFlakeRegistry = false;
+    };
+
     programs.zsh = {
       enable = true;
       enableGlobalCompInit = false;
@@ -106,7 +112,7 @@ in
 
     system = {
       configurationRevision = inputs.self.rev or "dirty";
-      stateVersion = "23.11";
+      stateVersion = "24.05";
     };
 
     time.timeZone = "Europe/Berlin";

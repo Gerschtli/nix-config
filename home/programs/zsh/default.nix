@@ -39,7 +39,7 @@ in
       enable = true;
       autocd = true;
       defaultKeymap = "viins";
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       history.path = "${config.home.homeDirectory}/${dotDir}/.zsh_history";
 
       initExtra = ''

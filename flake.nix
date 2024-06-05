@@ -2,7 +2,7 @@
   description = "A collection of my system configs and dotfiles.";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # some commit containing mysql57 and php74
@@ -12,7 +12,7 @@
     nixpkgs-jq-1-6.url = "github:NixOS/nixpkgs/b17d6431b00f4e002a0599e3f780bcfc525ebc3e";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-on-droid = {

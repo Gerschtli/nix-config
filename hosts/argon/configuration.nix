@@ -43,7 +43,7 @@
 
   custom.agenix.secrets = [ "github-runner-token" ];
   nix.settings.trusted-users = [ "github-runner-argon" ];
-  services.github-runner = {
+  services.github-runners.argon = {
     enable = true;
     replace = true;
     tokenFile = config.age.secrets.github-runner-token.path;

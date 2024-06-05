@@ -22,7 +22,7 @@ let
 
       services.openssh.enable = true;
 
-      system.stateVersion = "23.11";
+      system.stateVersion = "24.05";
 
       # needed because wpa_supplicant fails on startup
       # see https://github.com/NixOS/nixpkgs/issues/82462

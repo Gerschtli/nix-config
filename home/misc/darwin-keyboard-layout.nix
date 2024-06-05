@@ -40,14 +40,14 @@ in
             echo "Skipping installation of darwin keyboard layout because it is already installed at ${installDir}"
           else
             echo "Installing darwin keyboard layout into ${installDir}..."
-            $DRY_RUN_CMD mkdir --parents $VERBOSE_ARG "${installDir}"
-            $DRY_RUN_CMD cp --recursive $VERBOSE_ARG "${bundle}/German No Deadkeys.bundle"/* "${installDir}"
+            run mkdir --parents $VERBOSE_ARG "${installDir}"
+            run cp --recursive $VERBOSE_ARG "${bundle}/German No Deadkeys.bundle"/* "${installDir}"
           fi
         '' else ''
           if [[ -d "${installDir}" ]]; then
             echo "Uninstalling darwin keyboard layout at ${installDir}..."
-            $DRY_RUN_CMD ${pkgs.coreutils}/bin/chmod --recursive +w $VERBOSE_ARG "${installDir}"
-            $DRY_RUN_CMD rm --recursive $VERBOSE_ARG "${installDir}"
+            run ${pkgs.coreutils}/bin/chmod --recursive +w $VERBOSE_ARG "${installDir}"
+            run rm --recursive $VERBOSE_ARG "${installDir}"
           fi
         ''
       );

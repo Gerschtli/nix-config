@@ -32,7 +32,7 @@ _:
       flake-registry = null;
     };
 
-    package = pkgs.nixVersions.unstable;
+    package = pkgs.nixVersions.latest;
     registry = {
       nixpkgs.flake = inputs.nixpkgs;
       nix-config.flake = inputs.self;
