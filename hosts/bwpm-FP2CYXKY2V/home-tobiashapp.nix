@@ -41,11 +41,17 @@
 
     sessionVariables.KUBECONFIG = "${config.home.homeDirectory}/.kube/ardks-iat-nzfcw.kubeconfig";
 
+    file.".mob".text = ''
+      MOB_TIMER_USER="Tobias"
+      MOB_DONE_SQUASH="squash-wip"
+    '';
+
     packages = with pkgs; [
       asciidoctor
       kubectl
       kubelogin-oidc
       k9s
+      mob
       nixpkgs-fmt
       natscli
       nodejs
