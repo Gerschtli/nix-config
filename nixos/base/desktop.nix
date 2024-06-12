@@ -113,15 +113,7 @@ in
         services = {
           blueman.enable = true;
 
-          logind.extraConfig = ''
-            HandlePowerKey=ignore
-          '';
-
-          tlp.enable = true;
-
-          upower.enable = true;
-
-          xserver.libinput = mkIf cfg.enableXserver {
+          libinput = mkIf cfg.enableXserver {
             enable = true;
             touchpad = {
               accelProfile = "flat";
@@ -130,6 +122,14 @@ in
               '';
             };
           };
+
+          logind.extraConfig = ''
+            HandlePowerKey=ignore
+          '';
+
+          tlp.enable = true;
+
+          upower.enable = true;
         };
 
         users.users.tobias.extraGroups = [ "networkmanager" "video" ];
