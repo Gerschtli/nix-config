@@ -33,9 +33,8 @@
   # agenix needs to wait for impermanence
   system.activationScripts.agenixNewGeneration.deps = [ "persist-files" ];
 
-  # TODO: use latest kernel when nvidia is updated
-  #boot.kernelPackages = pkgs.linuxKernel.packageAliases.linux_latest;
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_5;
+  boot.kernelPackages = pkgs.linuxKernel.packageAliases.linux_latest;
+  #boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_5;
   boot.supportedFilesystems = [ "btrfs" ];
   hardware.enableAllFirmware = true;
 
