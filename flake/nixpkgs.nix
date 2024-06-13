@@ -19,6 +19,10 @@ import inputs.nixpkgs {
           inherit config system;
         };
 
+        nixpkgs-23-11 = import inputs.nixpkgs-23-11 {
+          inherit config system;
+        };
+
         nixpkgs-22-05 = import inputs.nixpkgs-22-05 {
           inherit config system;
         };
@@ -40,12 +44,21 @@ import inputs.nixpkgs {
         inherit (unstable)
           # need bleeding edge version
           cachix
-          jetbrains
+          #jetbrains
           minecraft-server
           minecraftServers
           portfolio
           teamspeak_server
           vscode
+          ;
+
+        # FIXME: pin 23.11 release for broken packages
+        inherit (nixpkgs-23-11)
+          audacity
+          jetbrains
+          libreoffice
+          openshot-qt
+          thunderbird
           ;
 
         # pin 22.05 release for removed packages
