@@ -59,6 +59,9 @@ import inputs.nixpkgs {
           libreoffice
           openshot-qt
           thunderbird
+
+          # needed for interop with php74
+          apacheHttpd
           ;
 
         # pin 22.05 release for removed packages
