@@ -30,20 +30,20 @@ jobs:
           - eval .#apps.$_system.setup.program
 
         include:
-          - nix-command: develop .#jdk8 --profile result
-            system: x86_64
-          - nix-command: develop .#jdk11 --profile result
-            system: x86_64
-          - nix-command: develop .#jdk17 --profile result
-            system: x86_64
-          - nix-command: develop .#php74 --profile result
-            system: x86_64
-          - nix-command: develop .#php74-composer1 --profile result
-            system: x86_64
-          - nix-command: develop .#php80 --profile result
-            system: x86_64
-          - nix-command: develop .#php81 --profile result
-            system: x86_64
+          # - nix-command: develop .#jdk8 --profile result
+          #   system: x86_64
+          # - nix-command: develop .#jdk11 --profile result
+          #   system: x86_64
+          # - nix-command: develop .#jdk17 --profile result
+          #   system: x86_64
+          # - nix-command: develop .#php74 --profile result
+          #   system: x86_64
+          # - nix-command: develop .#php74-composer1 --profile result
+          #   system: x86_64
+          # - nix-command: develop .#php80 --profile result
+          #   system: x86_64
+          # - nix-command: develop .#php81 --profile result
+          #   system: x86_64
 
           - nix-command: build .#homeConfigurations."tobias@gamer".activationPackage
             system: x86_64
@@ -65,12 +65,12 @@ jobs:
             system: aarch64
             deploy-agent: xenon
 
-          - nix-command: build .#packages.$_system.rpi-firmware
-            system: aarch64
-          - nix-command: build .#packages.$_system.rpi-image
-            system: aarch64
-          - nix-command: build .#packages.$_system.installer-image
-            system: x86_64
+          # - nix-command: build .#packages.$_system.rpi-firmware
+          #   system: aarch64
+          # - nix-command: build .#packages.$_system.rpi-image
+          #   system: aarch64
+          # - nix-command: build .#packages.$_system.installer-image
+          #   system: x86_64
 
     steps:
       - name: Checkout repository
