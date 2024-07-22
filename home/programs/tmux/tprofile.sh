@@ -37,6 +37,7 @@ _process_profile() {
     [[ ! -r "${ROOT}" ]] && echo "directory is not readable" && exit 1
 
     CMD_PRIMARY="${CMD_PRIMARY:-}"
+    CMD_SECONDARY=""
     SIDE_CMDS=("${SIDE_CMDS[@]}")
 
     if [[ -n "${ONLY_FETCH}" ]]; then
@@ -45,7 +46,6 @@ _process_profile() {
 
     if [[ "${PRESET}" = "git-single" ]]; then
         CMD_PRIMARY="git fm"
-        CMD_SECONDARY=""
         SIDE_CMDS=()
     fi
 
