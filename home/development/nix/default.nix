@@ -15,7 +15,7 @@ let
     config.lib.custom.mkScript
       name
       ./build-with-diff.sh
-      [ pkgs.nvd ]
+      [ pkgs.nix-output-monitor pkgs.nvd ]
       {
         inherit (config.home) homeDirectory;
         inherit activeLinkPath command;
@@ -63,7 +63,7 @@ in
       home.packages = [
         (buildWithDiff
           "hm-build"
-          "home-manager build --flake '${nixConfigDir}'"
+          "nix build --log-format internal-json --verbose \"${nixConfigDir}#homeConfigurations.\\\"$(whoami)@$(hostname)\\\".activationPackage\" |& nom --json"
           "${config.home.homeDirectory}/.local/state/nix/profiles/home-manager"
         )
       ];
@@ -77,7 +77,7 @@ in
       home.packages = [
         (buildWithDiff
           "nod-build"
-          "nix-on-droid build --flake '${nixConfigDir}#pixel7a'"
+          "nix build --log-format internal-json --verbose \"${nixConfigDir}#nixOnDroidConfigurations.pixel7a.activationPackage\" --impure |& nom --json"
           "/nix/var/nix/profiles/nix-on-droid"
         )
       ];
@@ -88,12 +88,12 @@ in
         (config.lib.custom.mkScript
           "n-rebuild"
           ./n-rebuild.sh
-          [ pkgs.ccze ]
+          [ pkgs.ccze pkgs.nix-output-monitor ]
           {
             inherit nixConfigDir;
             buildCmd = "${buildWithDiff
               "n-rebuild-build"
-              "sudo nixos-rebuild build --flake '${nixConfigDir}'"
+              "sudo nix build --log-format internal-json --verbose \"${nixConfigDir}#nixosConfigurations.$(hostname).config.system.build.toplevel\" |& nom --json"
               "/nix/var/nix/profiles/system"
             }/bin/n-rebuild-build";
             _doNotClearPath = true;

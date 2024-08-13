@@ -80,7 +80,7 @@ _pull_changes "pass"        "${HOME}/.password-store"
 # TODO: use scripts defined in home/development/nix
 if _is_nixos; then
     _log "nix" "build nixos configuration"
-    sudo nixos-rebuild build --flake "${nix_config}"
+    sudo nix build --log-format internal-json --verbose "${nix_config}#nixosConfigurations.$(hostname).config.system.build.toplevel" |& nom --json
     _show_result_diff "/nix/var/nix/profiles/system"
 
     _log "nix" "switch nixos configuration"
@@ -89,7 +89,7 @@ fi
 
 if [[ "${USER}" == "nix-on-droid" ]] && _available nix-on-droid; then
     _log "nix" "build nix-on-droid configuration"
-    nix-on-droid build --flake "${nix_config}#pixel7a"
+    nix build --log-format internal-json --verbose "${nix_config}#nixOnDroidConfigurations.pixel7a.activationPackage" --impure |& nom --json
     _show_result_diff "/nix/var/nix/profiles/nix-on-droid"
 
     _log "nix" "switch nix-on-droid configuration"
@@ -98,7 +98,7 @@ fi
 
 if ! _is_nixos && _available home-manager; then
     _log "nix" "build home-manager configuration"
-    home-manager build --flake "${nix_config}"
+    nix build --log-format internal-json --verbose "${nix_config}#homeConfigurations.\"$(whoami)@$(hostname)\".activationPackage" |& nom --json
     _show_result_diff "${HOME}/.local/state/nix/profiles/home-manager"
 
     _log "nix" "switch home-manager configuration"

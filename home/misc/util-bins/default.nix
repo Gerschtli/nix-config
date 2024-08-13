@@ -46,7 +46,7 @@ in
       (config.lib.custom.mkScript
         "system-update"
         ./system-update.sh
-        (with pkgs; [ age git gnugrep gnused nvd ])
+        (with pkgs; [ age git gnugrep gnused nix-output-monitor nvd ])
         { _doNotClearPath = true; }
       )
     ];
