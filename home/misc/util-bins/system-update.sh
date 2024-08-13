@@ -130,20 +130,3 @@ if [[ "${#to_be_removed_pkgs[@]}" -ne 0 ]]; then
     _log "migration" "remove manual installed packages via nix-env"
     nix-env --uninstall "${to_be_removed_pkgs[@]}"
 fi
-
-
-# nix cleanup
-sudo_for_cleanup=
-if _is_nixos; then
-    sudo_for_cleanup=sudo
-fi
-
-if ! _has_unit_enabled "nix-gc.timer"; then
-    _log "nix" "nix-collect-garbage"
-    ${sudo_for_cleanup} nix-collect-garbage --delete-older-than 14d 2> /dev/null
-fi
-
-if ! _has_unit_enabled "nix-optimise.timer" && [[ "${USER}" != "nix-on-droid" ]]; then
-    _log "nix" "nix store optimise"
-    ${sudo_for_cleanup} nix store optimise
-fi
