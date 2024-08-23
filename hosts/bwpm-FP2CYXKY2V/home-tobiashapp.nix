@@ -55,6 +55,8 @@
       nixpkgs-fmt
       natscli
       nodejs
+      nodejs.pkgs.pnpm
+      python3
     ];
   };
 
