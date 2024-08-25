@@ -80,11 +80,11 @@ _pull_changes "pass"        "${HOME}/.password-store"
 # TODO: use scripts defined in home/development/nix
 if _is_nixos; then
     _log "nix" "build nixos configuration"
-    sudo nix build --log-format internal-json --verbose "${nix_config}#nixosConfigurations.$(hostname).config.system.build.toplevel" |& nom --json
+    nix build --log-format internal-json --verbose "${nix_config}#nixosConfigurations.$(hostname).config.system.build.toplevel" |& nom --json
     _show_result_diff "/nix/var/nix/profiles/system"
 
     _log "nix" "switch nixos configuration"
-    sudo nixos-rebuild switch --flake "${nix_config}"
+    nixos-rebuild switch --use-remote-sudo --flake "${nix_config}"
 fi
 
 if [[ "${USER}" == "nix-on-droid" ]] && _available nix-on-droid; then

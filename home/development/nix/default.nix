@@ -93,7 +93,7 @@ in
             inherit nixConfigDir;
             buildCmd = "${buildWithDiff
               "n-rebuild-build"
-              "sudo nix build --log-format internal-json --verbose \"${nixConfigDir}#nixosConfigurations.$(hostname).config.system.build.toplevel\" |& nom --json"
+              "nix build --log-format internal-json --verbose \"${nixConfigDir}#nixosConfigurations.$(hostname).config.system.build.toplevel\" |& nom --json"
               "/nix/var/nix/profiles/system"
             }/bin/n-rebuild-build";
             _doNotClearPath = true;
