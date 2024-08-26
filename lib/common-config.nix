@@ -32,7 +32,7 @@ _:
       flake-registry = null;
     };
 
-    package = pkgs.nixVersions.latest;
+    package = pkgs.nixVersions.nix_2_22; # TODO: after next release, set to stable
     registry = {
       nixpkgs.flake = inputs.nixpkgs;
       nix-config.flake = inputs.self;
