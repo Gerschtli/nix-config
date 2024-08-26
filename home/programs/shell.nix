@@ -124,7 +124,7 @@ let
     df = "df --human-readable --local --print-type";
     du = "du --human-readable --one-file-system --time --time-style=+'%Y-%m-%d' --total";
 
-    rg = "rg --ignore-case --sort=path";
+    rg = "rg --hidden --glob '!.git' --ignore-case --sort=path";
 
     pwgen = "pwgen -cns";
     pgen = "pwgen 30 1";
