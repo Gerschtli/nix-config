@@ -44,6 +44,7 @@ let
   hooksPathPackages = with pkgs; [
     findutils
     git
+    gitleaks
     gnugrep
     gnused
     nix
