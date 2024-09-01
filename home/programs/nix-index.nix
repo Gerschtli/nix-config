@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }@configArgs:
 
 let
   inherit (lib)
@@ -7,6 +7,8 @@ let
     ;
 
   cfg = config.custom.programs.nix-index;
+
+  commonConfig = config.lib.custom.commonConfig configArgs;
 in
 
 {
@@ -27,7 +29,13 @@ in
     home.file.".cache/nix-index/files".source =
       inputs.nix-index-database.packages.${pkgs.system}.nix-index-database;
 
-    programs.nix-index.enable = true;
+    programs.nix-index = {
+      enable = true;
+
+      package = pkgs.nix-index.override {
+        nix = commonConfig.nix.package;
+      };
+    };
 
   };
 
