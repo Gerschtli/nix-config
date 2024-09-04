@@ -53,10 +53,6 @@
 
   systemd.services.minecraft-server.serviceConfig.UMask = lib.mkForce "0007"; # change 0077 to 0007 to make group-writeable
 
-  # disable minecraft-server
-  systemd.services.minecraft-server.wantedBy = lib.mkForce [ ];
-  services.minecraft-server.openFirewall = lib.mkForce false;
-
   users.users = {
     minecraft.homeMode = "0770";
 
