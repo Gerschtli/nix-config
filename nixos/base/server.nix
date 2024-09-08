@@ -42,7 +42,11 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.services.openssh.enable = true;
+    custom = {
+      cachix-agent.enable = true;
+
+      services.openssh.enable = true;
+    };
 
     networking = mkIf (cfg.ipv6Address != null) {
       defaultGateway6 = {
