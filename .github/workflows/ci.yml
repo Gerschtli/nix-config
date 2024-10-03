@@ -86,7 +86,7 @@ jobs:
           tool-cache: true
 
       - name: Install nix
-        uses: cachix/install-nix-action@v29
+        uses: cachix/install-nix-action@v30
         if: matrix.system == 'x86_64'
         with:
           extra_nix_config: |
