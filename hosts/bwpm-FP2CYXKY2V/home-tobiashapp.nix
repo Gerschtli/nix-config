@@ -47,12 +47,14 @@
 
     packages = with pkgs; [
       asciidoctor
+      earthly
+      go-task
+      k9s
       kubectl
       kubelogin-oidc
-      k9s
       mob
-      nixpkgs-fmt
       natscli
+      nixpkgs-fmt
       nodejs
       nodejs.pkgs.pnpm
       python3
