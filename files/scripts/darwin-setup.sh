@@ -29,3 +29,5 @@ brew install --cask spaceid
 
 brew tap hivemq/mqtt-cli
 brew install mqtt-cli
+
+brew install graphviz
