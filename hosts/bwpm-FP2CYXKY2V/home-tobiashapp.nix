@@ -29,6 +29,8 @@
       };
     };
 
+    programs.gradle.enable = true;
+
     wm.yabai.enable = true;
   };
 
