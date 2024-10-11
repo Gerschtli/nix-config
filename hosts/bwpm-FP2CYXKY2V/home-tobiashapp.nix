@@ -29,7 +29,11 @@
       };
     };
 
-    programs.gradle.enable = true;
+    programs = {
+      go.enable = true;
+
+      gradle.enable = true;
+    };
 
     wm.yabai.enable = true;
   };
