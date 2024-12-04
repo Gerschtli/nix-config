@@ -107,7 +107,7 @@ in
           PAGER = "${pkgs.less}/bin/less";
         };
 
-        stateVersion = "24.05";
+        stateVersion = "24.11";
       };
 
       programs.fzf.enable = true;
