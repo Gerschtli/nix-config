@@ -112,8 +112,7 @@ in
 
       programs.fzf.enable = true;
 
-      # FIXME: set to sd-switch once it works for krypton
-      systemd.user.startServices = "legacy";
+      systemd.user.startServices = true;
     }
 
     (mkIf (!cfg.minimal) {

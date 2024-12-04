@@ -52,14 +52,7 @@ import inputs.nixpkgs {
           vscode
           ;
 
-        # FIXME: pin 23.11 release for broken packages
         inherit (nixpkgs-23-11)
-          audacity
-          jetbrains
-          libreoffice
-          openshot-qt
-          thunderbird
-
           # needed for interop with php74
           apacheHttpd
           ;

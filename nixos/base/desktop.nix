@@ -58,27 +58,28 @@ in
         packages = with pkgs; [
           (nerdfonts.override { fonts = [ "UbuntuMono" ]; })
           source-code-pro
-          ubuntu_font_family
         ];
       };
 
       hardware = {
-        opengl.enable = true;
+        graphics.enable = true;
         pulseaudio.enable = true;
       };
 
       programs.ssh.askPassword = "";
 
-      services.xserver = mkIf cfg.enableXserver {
-        enable = true;
+      services = {
+        pipewire.enable = false;
 
-        displayManager.lightdm.enable = true;
+        xserver = mkIf cfg.enableXserver {
+          enable = true;
 
-        # FIXME: why is this line needed? ~/.xsession is executed anyway..
-        windowManager.dwm.enable = true;
+          displayManager.lightdm.enable = true;
+
+          # FIXME: why is this line needed? ~/.xsession is executed anyway..
+          windowManager.dwm.enable = true;
+        };
       };
-
-      sound.enable = true;
 
       xdg = {
         autostart.enable = true;

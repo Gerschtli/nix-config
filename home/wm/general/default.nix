@@ -77,7 +77,7 @@ in
           config.lib.custom.mkScript
             (item.name or item.command)
             ./wm-script.sh
-            [ pkgs.gnome.zenity ]
+            [ pkgs.zenity ]
             {
               inherit (item) command message;
 
