@@ -172,15 +172,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1669234151,
-        "narHash": "sha256-TwT87E3m2TZLgwYJESlype14HxUOrRGojPM5C2akrMg=",
-        "owner": "jordanisaacs",
+        "lastModified": 1733614913,
+        "narHash": "sha256-4ZRMn6vQCTh8Y6Dv1k7EADbLo5Wtv5AkqtYRquZeHW4=",
+        "owner": "Gerschtli",
         "repo": "homeage",
-        "rev": "02bfe4ca06962d222e522fff0240c93946b20278",
+        "rev": "961797e67d28f184ee12dd6f11c620d21ef5eb3b",
         "type": "github"
       },
       "original": {
-        "owner": "jordanisaacs",
+        "owner": "Gerschtli",
         "repo": "homeage",
         "type": "github"
       }
@@ -399,22 +399,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-jq-1-6": {
-      "locked": {
-        "lastModified": 1693206413,
-        "narHash": "sha256-VMcQCZ/IYOvaQ0F1LBszswFshfX2VDHlvAUCEPMqIQA=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "b17d6431b00f4e002a0599e3f780bcfc525ebc3e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "b17d6431b00f4e002a0599e3f780bcfc525ebc3e",
-        "type": "github"
-      }
-    },
     "nmd": {
       "flake": false,
       "locked": {
@@ -464,7 +448,6 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-22-05": "nixpkgs-22-05",
         "nixpkgs-23-11": "nixpkgs-23-11",
-        "nixpkgs-jq-1-6": "nixpkgs-jq-1-6",
         "teamspeak-update-notifier": "teamspeak-update-notifier",
         "unstable": "unstable"
       }
