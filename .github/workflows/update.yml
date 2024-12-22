@@ -17,6 +17,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: true
 
       - name: Install nix
         uses: cachix/install-nix-action@v30
@@ -26,7 +27,9 @@ jobs:
         run: echo "branch=ci/automatic-update-$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
 
       - name: Create branch locally
-        run: git switch -c ${{ steps.branch.outputs.branch }}
+        env:
+          BRANCH_NAME: ${{ steps.branch.outputs.branch }}
+        run: git switch -c "$BRANCH_NAME"
 
       - name: Setup git
         run: |
@@ -51,7 +54,9 @@ jobs:
 
       - name: Push changes
         if: steps.changes.outputs.update_available == 'true'
-        run: git push --force origin ${{ steps.branch.outputs.branch }}
+        env:
+          BRANCH_NAME: ${{ steps.branch.outputs.branch }}
+        run: git push --force origin "$BRANCH_NAME"
 
   build:
     uses: ./.github/workflows/ci.yml
@@ -73,18 +78,25 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: true
 
       - name: Check if update branch is behind master
-        run: git diff origin/${{ needs.update.outputs.branch }}...origin/master --exit-code
+        env:
+          BRANCH_NAME: ${{ needs.update.outputs.branch }}
+        run: git diff "origin/$BRANCH_NAME...origin/master" --exit-code
 
       - name: Merge update into master
-        run: git merge origin/${{ needs.update.outputs.branch }}
+        env:
+          BRANCH_NAME: ${{ needs.update.outputs.branch }}
+        run: git merge "origin/$BRANCH_NAME"
 
       - name: Push master
         run: git push origin master
 
       - name: Delete update branch
-        run: git push --delete origin ${{ needs.update.outputs.branch }}
+        env:
+          BRANCH_NAME: ${{ needs.update.outputs.branch }}
+        run: git push --delete origin "$BRANCH_NAME"
 
   # needed for cachix agent deployments
   final-build:
