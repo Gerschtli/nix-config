@@ -16,61 +16,76 @@ on:
 
 jobs:
   nix:
-    runs-on: "${{ matrix.system == 'aarch64' && 'self-hosted' || 'ubuntu-latest' }}"
+    runs-on: "${{ matrix.runs-on }}"
 
     strategy:
       fail-fast: false
       matrix:
-        system:
-          - aarch64
-          - x86_64
-        nix-command:
-          - fmt -- --check
-          - eval .#apps.$_system.nixos-shell.program
-          - eval .#apps.$_system.setup.program
-
         include:
           # - nix-command: develop .#jdk8 --profile result
-          #   system: x86_64
+          #   runs-on: ubuntu-latest
           # - nix-command: develop .#jdk11 --profile result
-          #   system: x86_64
+          #   runs-on: ubuntu-latest
           # - nix-command: develop .#jdk17 --profile result
-          #   system: x86_64
+          #   runs-on: ubuntu-latest
           # - nix-command: develop .#php74 --profile result
-          #   system: x86_64
+          #   runs-on: ubuntu-latest
           # - nix-command: develop .#php74-composer1 --profile result
-          #   system: x86_64
+          #   runs-on: ubuntu-latest
           # - nix-command: develop .#php80 --profile result
-          #   system: x86_64
+          #   runs-on: ubuntu-latest
           # - nix-command: develop .#php81 --profile result
-          #   system: x86_64
+          #   runs-on: ubuntu-latest
 
+          - nix-command: fmt -- --check
+            runs-on: macos-15
+          - nix-command: fmt -- --check
+            runs-on: ubuntu-24.04-arm
+          - nix-command: fmt -- --check
+            runs-on: ubuntu-latest
+
+          - nix-command: eval .#apps.aarch64-darwin.nixos-shell.program
+            runs-on: macos-15
+          - nix-command: eval .#apps.aarch64-linux.nixos-shell.program
+            runs-on: ubuntu-24.04-arm
+          - nix-command: eval .#apps.x86_64-linux.nixos-shell.program
+            runs-on: ubuntu-latest
+
+          - nix-command: eval .#apps.aarch64-darwin.setup.program
+            runs-on: macos-15
+          - nix-command: eval .#apps.aarch64-linux.setup.program
+            runs-on: ubuntu-24.04-arm
+          - nix-command: eval .#apps.x86_64-linux.setup.program
+            runs-on: ubuntu-latest
+
+          - nix-command: build .#homeConfigurations."tobiashapp@bwpm-FP2CYXKY2V".activationPackage
+            runs-on: macos-15
+          - nix-command: build .#homeConfigurations."tobiashapp@R2026".activationPackage
+            runs-on: macos-15
           - nix-command: build .#homeConfigurations."tobias@gamer".activationPackage
-            system: x86_64
+            runs-on: ubuntu-latest
 
           - nix-command: build .#nixOnDroidConfigurations.pixel7a.activationPackage --impure
-            system: aarch64
+            runs-on: ubuntu-24.04-arm
 
           - nix-command: build .#nixosConfigurations.argon.config.system.build.toplevel
-            system: aarch64
+            runs-on: ubuntu-24.04-arm
             deploy-agent: argon
           - nix-command: build .#nixosConfigurations.krypton.config.system.build.toplevel
-            system: x86_64
+            runs-on: ubuntu-latest
             deploy-agent: krypton
           - nix-command: build .#nixosConfigurations.neon.config.system.build.toplevel
-            system: x86_64
-            deploy-agent: neon
-            deploy-args: --async
+            runs-on: ubuntu-latest
           - nix-command: build .#nixosConfigurations.xenon.config.system.build.toplevel
-            system: aarch64
+            runs-on: ubuntu-24.04-arm
             deploy-agent: xenon
 
-          # - nix-command: build .#packages.$_system.rpi-firmware
-          #   system: aarch64
-          # - nix-command: build .#packages.$_system.rpi-image
-          #   system: aarch64
-          # - nix-command: build .#packages.$_system.installer-image
-          #   system: x86_64
+          - nix-command: build .#packages.aarch64-linux.rpi-firmware
+            runs-on: ubuntu-24.04-arm
+          - nix-command: build .#packages.aarch64-linux.rpi-image
+            runs-on: ubuntu-24.04-arm
+          - nix-command: build .#packages.x86_64-linux.installer-image
+            runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -82,13 +97,11 @@ jobs:
       - name: Free Disk Space (Ubuntu)
         uses: jlumbroso/free-disk-space@main
         continue-on-error: true
-        if: matrix.system == 'x86_64'
         with:
           tool-cache: true
 
       - name: Install nix
         uses: cachix/install-nix-action@v30
-        if: matrix.system == 'x86_64'
         with:
           extra_nix_config: |
             keep-going = true
@@ -106,13 +119,7 @@ jobs:
           useDaemon: false
 
       - name: Build command
-        env:
-          _system: ${{ matrix.system }}-linux
         run: nix ${{ matrix.nix-command }}
-
-      - name: Remove result symlink
-        if: always()
-        run: rm --force result
 
       - name: Deploy cachix-agent spec
         if: github.ref == 'refs/heads/master' && inputs.branch == '' && matrix.deploy-agent
