@@ -41,20 +41,6 @@
     }
   ];
 
-  custom.agenix.secrets = [ "github-runner-token" ];
-  nix.settings.trusted-users = [ "github-runner-argon" ];
-  services.github-runners.argon = {
-    enable = true;
-    replace = true;
-    tokenFile = config.age.secrets.github-runner-token.path;
-    url = "https://github.com/Gerschtli/nix-config";
-    extraPackages = [ pkgs.cachix ];
-    serviceOverrides = {
-      Restart = lib.mkForce "on-failure";
-      RestartSec = 5;
-    };
-  };
-
   systemd.services.minecraft-server.serviceConfig.UMask = lib.mkForce "0007"; # change 0077 to 0007 to make group-writeable
 
   users.users = {
