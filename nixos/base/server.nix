@@ -20,14 +20,6 @@ in
     custom.base.server = {
       enable = mkEnableOption "basic server config";
 
-      gc.interval = mkOption {
-        type = types.str;
-        default = "*-*-* 00:00:00";
-        description = ''
-          Systemd calendar expression when to run service. See {manpage}`systemd.time(7)`.
-        '';
-      };
-
       ipv6Address = mkOption {
         type = types.nullOr types.str;
         default = null;
@@ -65,7 +57,7 @@ in
     nix = {
       gc = {
         automatic = true;
-        dates = cfg.gc.interval;
+        dates = "*-*-* 00:00:00";
         options = "--delete-older-than 14d";
       };
 

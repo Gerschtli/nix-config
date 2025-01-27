@@ -4,10 +4,7 @@
   custom = {
     applications.original-chattengauer.enable = true;
 
-    base.server = {
-      enable = true;
-      gc.interval = "hourly";
-    };
+    base.server.enable = true;
 
     services = {
       backup.enable = true;
