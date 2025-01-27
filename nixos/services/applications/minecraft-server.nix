@@ -29,7 +29,7 @@ in
       description = "Minecraft server";
       user = "minecraft";
       interval = "Tue *-*-* 05:10:00";
-      expiresAfter = 8;
+      expiresAfter = 4;
 
       directoryToBackup = config.services.minecraft-server.dataDir;
 
