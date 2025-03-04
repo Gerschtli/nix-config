@@ -35,6 +35,8 @@
       go.enable = true;
 
       gradle.enable = true;
+
+      ssh.cleanKeysOnShellStartup = false;
     };
 
     wm.yabai.enable = true;

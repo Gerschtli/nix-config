@@ -8,11 +8,17 @@ let
     mkEnableOption
     mkIf
     optionals
+    optionalString
     ;
 
   cfg = config.custom.programs.tmux;
 
   extraConfig = ''
+    ${optionalString config.custom.programs.zsh.enable ''
+      # workaround needed for osx
+      set -g default-command zsh
+    ''}
+
     set-option -g allow-rename off
     set-option -g renumber-windows on
 

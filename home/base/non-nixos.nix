@@ -79,6 +79,7 @@ in
 
       (mkIf config.custom.base.general.darwin ''
         eval "$(/opt/homebrew/bin/brew shellenv)"
+        export PATH="/opt/homebrew/bin:$PATH"
       '')
     ];
 
