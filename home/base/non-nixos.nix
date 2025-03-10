@@ -72,16 +72,24 @@ in
         ;
     };
 
-    programs.zsh.envExtra = mkMerge [
-      (mkAfter ''
-        hash -f
-      '')
+    programs.zsh = {
+      envExtra = mkMerge [
+        (mkAfter ''
+          hash -f
+        '')
 
-      (mkIf config.custom.base.general.darwin ''
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-        export PATH="/opt/homebrew/bin:$PATH"
-      '')
-    ];
+        (mkIf config.custom.base.general.darwin ''
+          eval "$(/opt/homebrew/bin/brew shellenv)"
+        '')
+      ];
+
+      initExtra =
+        mkIf config.custom.base.general.darwin (
+          mkAfter ''
+            export PATH="/opt/homebrew/bin:$PATH"
+          ''
+        );
+    };
 
     targets.genericLinux.enable = !config.custom.base.general.darwin;
 
