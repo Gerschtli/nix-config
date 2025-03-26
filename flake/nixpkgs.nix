@@ -41,6 +41,7 @@ import inputs.nixpkgs {
           # need bleeding edge version
           cachix
           #jetbrains
+          k9s
           minecraft-server
           minecraftServers
           portfolio
