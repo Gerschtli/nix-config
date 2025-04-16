@@ -46,7 +46,7 @@
     homeDirectory = "/Users/tobiashapp";
     username = "tobiashapp";
 
-    sessionVariables.KUBECONFIG = "${config.home.homeDirectory}/.kube/ardks-iat-nzfcw.kubeconfig";
+    sessionVariables.KUBECONFIG = "${config.home.homeDirectory}/.kube/ardks-iat-nzfcw.kubeconfig:${config.home.homeDirectory}/.kube/ardks-iat-vtso-a-ff278.kubeconfig";
 
     file.".mob".text = ''
       MOB_TIMER_USER="Tobias"
