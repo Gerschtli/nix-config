@@ -43,7 +43,7 @@
     packages = with pkgs; [
       awscli2
       nixpkgs-fmt
-      nodejs
+      nodejs_22
     ];
   };
 

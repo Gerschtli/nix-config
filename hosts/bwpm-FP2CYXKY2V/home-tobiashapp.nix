@@ -19,9 +19,9 @@
       sdks = {
         enable = true;
         links = {
-          inherit (pkgs) jdk17 jdk21;
+          inherit (pkgs) jdk17 jdk21 python3;
 
-          python3 = pkgs.python3.withPackages (ps: with ps; with pkgs.python3Packages; [ jupyter ipython notebook ]);
+          # python3 = pkgs.python3.withPackages (ps: with ps; with pkgs.python3Packages; [ jupyter ipython notebook ]);
         };
       };
 
@@ -63,8 +63,8 @@
       mob
       natscli
       nixpkgs-fmt
-      nodejs
-      pnpm
+      nodejs_22
+      #nodejs_22.pkgs.pnpm
       python3
     ];
   };
