@@ -26,6 +26,7 @@ yabai --start-service
 brew install koekeishiya/formulae/skhd
 skhd --start-service
 brew install --cask spaceid
+brew install --cask alt-tab
 
 brew tap hivemq/mqtt-cli
 brew install mqtt-cli
