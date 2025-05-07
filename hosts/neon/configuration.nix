@@ -43,6 +43,7 @@
       "/var/lib/bluetooth"
       "/var/lib/docker"
       "/var/lib/fail2ban"
+      "/var/lib/nixos"
       "/var/lib/systemd/coredump"
       "/var/lib/upower"
     ];

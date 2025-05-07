@@ -37,7 +37,14 @@
     programs = {
       go.enable = true;
 
-      vscode.enable = true;
+      vscode = {
+        enable = true;
+        packages = [
+          # for plantuml
+          pkgs.graphviz
+          pkgs.openjdk
+        ];
+      };
     };
 
     services.dwm-status.backlightDevice = "amdgpu_bl*";
