@@ -55,7 +55,6 @@
   home.packages = with pkgs; [
     openshot-qt
     portfolio
-    skypeforlinux
     vlc
     zoom-us
   ];
