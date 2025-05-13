@@ -55,16 +55,22 @@
 
     packages = with pkgs; [
       asciidoctor
+      bat
       earthly
+      fd
       go-task
+      just
       k9s
       kubectl
       kubelogin-oidc
+      kubernetes-helm
+      kustomize
       mob
       natscli
       nixpkgs-fmt
       nodejs_22
-      #nodejs_22.pkgs.pnpm
+      pnpm
+      postgresql_15
       python3
     ];
   };

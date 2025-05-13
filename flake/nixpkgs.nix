@@ -38,6 +38,9 @@ import inputs.nixpkgs {
         inherit (inputs.agenix-cli.packages.${system}) agenix-cli;
 
         inherit (unstable)
+          # FIXME: stable fails on darwin
+          pnpm
+
           # need bleeding edge version
           cachix
           #jetbrains
