@@ -56,20 +56,19 @@ in
         fontDir.enable = true;
 
         packages = with pkgs; [
-          (nerdfonts.override { fonts = [ "UbuntuMono" ]; })
+          nerd-fonts.ubuntu-mono
           source-code-pro
         ];
       };
 
-      hardware = {
-        graphics.enable = true;
-        pulseaudio.enable = true;
-      };
+      hardware.graphics.enable = true;
 
       programs.ssh.askPassword = "";
 
       services = {
         pipewire.enable = false;
+
+        pulseaudio.enable = true;
 
         xserver = mkIf cfg.enableXserver {
           enable = true;
@@ -92,16 +91,11 @@ in
 
     (mkIf cfg.laptop
       {
-        hardware = {
-          bluetooth = {
-            enable = true;
-            disabledPlugins = [ "sap" ];
-            # fix error logs on boot
-            settings.General.Experimental = true;
-          };
-
-          # for bluetooth support
-          pulseaudio.package = pkgs.pulseaudioFull;
+        hardware.bluetooth = {
+          enable = true;
+          disabledPlugins = [ "sap" ];
+          # fix error logs on boot
+          settings.General.Experimental = true;
         };
 
         networking.networkmanager = {
@@ -127,6 +121,9 @@ in
           logind.extraConfig = ''
             HandlePowerKey=ignore
           '';
+
+          # for bluetooth support
+          pulseaudio.package = pkgs.pulseaudioFull;
 
           tlp.enable = true;
 

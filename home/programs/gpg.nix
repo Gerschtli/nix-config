@@ -41,7 +41,7 @@ in
       enable = true;
       defaultCacheTtl = 300;
 
-      pinentryPackage = if cfg.curses then pkgs.pinentry-curses else pkgs.pinentry-gtk2;
+      pinentry.package = if cfg.curses then pkgs.pinentry-curses else pkgs.pinentry-gtk2;
     };
 
   };

@@ -26,6 +26,8 @@
     };
   };
 
+  security.pam.services.i3lock.enable = true;
+
   services.xserver.deviceSection = ''
     Option "TearFree" "true"
   '';

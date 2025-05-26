@@ -70,10 +70,8 @@ in
 
   terminal.font =
     let
-      fontPackage = pkgs.nerdfonts.override {
-        fonts = [ "UbuntuMono" ];
-      };
-      fontPath = "/share/fonts/truetype/NerdFonts/UbuntuMonoNerdFont-Regular.ttf";
+      fontPackage = pkgs.nerd-fonts.ubuntu-mono;
+      fontPath = "/share/fonts/truetype/NerdFonts/UbuntuMono/UbuntuMonoNerdFont-Regular.ttf";
     in
     fontPackage + fontPath;
 
