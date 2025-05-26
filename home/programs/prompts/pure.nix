@@ -27,7 +27,7 @@ in
     home.sessionVariables.PURE_GIT_PULL = 0;
 
     programs.zsh = {
-      initExtra = ''
+      initContent = ''
         autoload -U promptinit; promptinit
         prompt pure
       '';

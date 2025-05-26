@@ -75,7 +75,7 @@
     ];
   };
 
-  programs.zsh.initExtra = lib.mkAfter ''
+  programs.zsh.initContent = lib.mkAfter ''
     source <(kubectl completion zsh)
   '';
 }

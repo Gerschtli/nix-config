@@ -257,7 +257,8 @@ in
 
       zsh = {
         inherit (cfg) envExtra loginExtra;
-        inherit initExtra logoutExtra profileExtra shellAliases;
+        inherit logoutExtra profileExtra shellAliases;
+        initContent = initExtra;
       };
     };
 

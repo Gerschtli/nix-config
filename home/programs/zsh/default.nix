@@ -42,7 +42,7 @@ in
       autosuggestion.enable = true;
       history.path = "${config.home.homeDirectory}/${dotDir}/.zsh_history";
 
-      initExtra = ''
+      initContent = ''
         available sudo && alias sudo='nocorrect sudo '
 
         alias -g C="| ${if config.custom.base.general.darwin then "pbcopy" else "${pkgs.xclip}/bin/xclip -selection clipboard"}"

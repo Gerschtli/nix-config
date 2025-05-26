@@ -83,7 +83,7 @@ in
         '')
       ];
 
-      initExtra =
+      initContent =
         mkIf config.custom.base.general.darwin (
           mkAfter ''
             export PATH="/opt/homebrew/bin:$PATH"

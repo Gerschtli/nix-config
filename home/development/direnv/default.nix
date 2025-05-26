@@ -5,6 +5,7 @@ let
     attrNames
     mkEnableOption
     mkIf
+    mkOrder
     ;
 
   cfg = config.custom.development.direnv;
@@ -60,7 +61,7 @@ in
         '';
       };
 
-      zsh.initExtraBeforeCompInit = ''
+      zsh.initContent = mkOrder 550 ''
         # is set in nix-shell
         if [[ ! -z "$buildInputs" ]]; then
           for buildInput in "''${(ps: :)buildInputs}"; do
