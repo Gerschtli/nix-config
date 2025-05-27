@@ -147,7 +147,7 @@ let
     nmap <leader>l :ls<CR>
 
     " Disables formatting in paste mode
-    set pastetoggle=<F3>
+    "set pastetoggle=<F3>
 
 
     "" Auto formatter
