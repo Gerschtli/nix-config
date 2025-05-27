@@ -13,14 +13,7 @@
       non-nixos.enable = true;
     };
 
-    development = {
-      jbang = {
-        enable = true;
-        trustedSources = [ "https://repo1.maven.org/maven2/io/quarkus/quarkus-cli/" ];
-      };
-
-      nix.home-manager.enable = true;
-    };
+    development.nix.home-manager.enable = true;
 
     misc = {
       sdks = {
