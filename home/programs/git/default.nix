@@ -117,6 +117,7 @@ in
 
     programs.git = {
       enable = true;
+      lfs.enable = true;
 
       userName = "Tobias Happ";
       userEmail = "tobias.happ@gmx.de";
