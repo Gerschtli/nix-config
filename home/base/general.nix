@@ -112,6 +112,12 @@ in
 
       programs.fzf.enable = true;
 
+      services.home-manager.autoExpire = {
+        enable = true;
+        timestamp = "-14 days";
+        frequency = "daily";
+      };
+
       systemd.user.startServices = true;
     }
 
