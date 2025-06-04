@@ -3,6 +3,8 @@
 {
   custom = {
     applications = {
+      actual.enable = true;
+
       downloads.enable = true;
 
       tobias-happ.enable = true;
