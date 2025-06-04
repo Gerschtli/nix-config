@@ -20,8 +20,6 @@
 
       gitea.enable = true;
 
-      openssh.rootLogin = true;
-
       teamspeak.enable = true;
     };
 
