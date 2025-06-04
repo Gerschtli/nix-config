@@ -94,6 +94,7 @@ in
       nginx.virtualHosts.${domain} = {
         enableACME = true;
         forceSSL = true;
+        serverAliases = [ "www.${domain}" ];
         locations."/".proxyPass = "http://127.0.0.1:${toString httpdPort}/";
       };
     };
