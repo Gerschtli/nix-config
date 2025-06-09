@@ -35,6 +35,7 @@ in
   config = mkIf cfg.enable {
 
     custom.programs.vscode.packages = [
+      pkgs.nixd
       pkgs.nixpkgs-fmt
     ];
 
