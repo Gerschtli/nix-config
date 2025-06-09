@@ -53,10 +53,6 @@ let
     # mkBefore is needed because these commands need to be executed early in
     # the config
     (mkBefore ''
-      available() {
-        hash "$1" > /dev/null 2>&1
-      }
-
       is_bash() {
         [[ -n "''${BASH_VERSION-}" ]]
       }
@@ -258,7 +254,15 @@ in
       zsh = {
         inherit (cfg) envExtra loginExtra;
         inherit logoutExtra profileExtra shellAliases;
-        initContent = initExtra;
+        initContent = mkMerge [
+          (mkBefore ''
+            available() {
+              hash "$1" > /dev/null 2>&1
+            }
+          '')
+
+          initExtra
+        ];
       };
     };
 
