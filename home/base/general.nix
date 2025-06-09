@@ -113,7 +113,7 @@ in
       programs.fzf.enable = true;
 
       services.home-manager.autoExpire = {
-        enable = true;
+        enable = !cfg.darwin;
         timestamp = "-14 days";
         frequency = "daily";
       };
