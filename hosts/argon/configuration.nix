@@ -10,6 +10,8 @@
 
     base.server.enable = true;
 
+    programs.docker.enable = true;
+
     services = {
       backup.enable = true;
 
@@ -19,6 +21,14 @@
     };
 
     system.boot.mode = "efi";
+  };
+
+  users.users.docker = {
+    isSystemUser = true;
+    group = "docker";
+    openssh.authorizedKeys.keyFiles = [
+      "${rootPath}/files/keys/id_rsa.docker.pub"
+    ];
   };
 
   zramSwap.enable = true;
