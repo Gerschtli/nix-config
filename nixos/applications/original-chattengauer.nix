@@ -26,7 +26,7 @@ in
 
   config = mkIf cfg.enable {
 
-    custom.nginx.enable = true;
+    custom.services.nginx.enable = true;
 
     security.acme.certs.${domain}.extraDomainNames = [ "www.${domain}" ];
 
