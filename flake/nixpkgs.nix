@@ -19,14 +19,6 @@ import inputs.nixpkgs {
           inherit config system;
         };
 
-        nixpkgs-23-11 = import inputs.nixpkgs-23-11 {
-          inherit config system;
-        };
-
-        nixpkgs-22-05 = import inputs.nixpkgs-22-05 {
-          inherit config system;
-        };
-
         gerschtliOverlays = map (x: x.overlays.default) [
           inputs.dmenu
           inputs.dwm
@@ -50,22 +42,6 @@ import inputs.nixpkgs {
           portfolio
           teamspeak_server
           vscode
-          ;
-
-        inherit (nixpkgs-23-11)
-          # needed for interop with php74
-          apacheHttpd
-          ;
-
-        # pin 22.05 release for removed packages
-        inherit (nixpkgs-22-05)
-          mysql57
-          php74
-          php74Extensions
-          php74Packages
-          php80
-          php80Extensions
-          php80Packages
           ;
 
         gerschtli = prev.lib.composeManyExtensions gerschtliOverlays final prev;

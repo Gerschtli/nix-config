@@ -5,11 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    nixpkgs-23-11.url = "github:NixOS/nixpkgs/nixos-23.11";
-
-    # some commit containing mysql57 and php74
-    nixpkgs-22-05.url = "github:NixOS/nixpkgs/695b3515251873e0a7e2021add4bba643c56cde3";
-
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -144,10 +139,6 @@
         (mkDevShellJdk system "jdk17" { jdk = pkgs: pkgs.jdk17; })
         (mkDevShellJdk system "jdk21" { jdk = pkgs: pkgs.jdk21; })
 
-        (mkDevShellPhp system "php74" { phpVersion = "74"; })
-        (mkDevShellPhp system "php74-composer1" { phpVersion = "74"; composer1 = true; })
-        (mkDevShellPhp system "php80" { phpVersion = "80"; })
-        (mkDevShellPhp system "php81" { phpVersion = "81"; })
         (mkDevShellPhp system "php82" { phpVersion = "82"; })
       ]);
 
