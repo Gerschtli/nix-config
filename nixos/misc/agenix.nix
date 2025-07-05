@@ -37,7 +37,6 @@ in
         "cachix-agent-token-xenon"
         "gitea-dbpassword"
         "id-rsa-backup"
-        "mysql-backup-password"
         "passwd-root-neon"
         "passwd-tobias-neon"
         "teamspeak-serverquery-password"
@@ -97,12 +96,6 @@ in
           name = "id-rsa-backup";
           host = "xenon";
           user = "storage";
-        })
-
-        (buildConfig {
-          name = "mysql-backup-password";
-          host = "argon";
-          user = "backup";
         })
 
         (buildConfig {
