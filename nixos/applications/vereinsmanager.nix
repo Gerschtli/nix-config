@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, rootPath, ... }:
 
 let
   inherit (lib)
@@ -34,10 +34,12 @@ in
       locations."/".proxyPass = "http://127.0.0.1:8090/";
     };
 
-    users.users.docker = {
-      isSystemUser = true;
+    users.users.vereinsmanager = {
+      isNormalUser = true;
       group = "docker";
-      openssh.authorizedKeys.keyFiles = [ ];
+      openssh.authorizedKeys.keyFiles = [
+        "${rootPath}/files/keys/id_rsa.vereinsmanager.pub"
+      ];
     };
 
   };
