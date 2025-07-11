@@ -7,7 +7,7 @@
 
       downloads.enable = true;
 
-      tobias-happ.enable = true;
+      #tobias-happ.enable = true;
     };
 
     base.server = {

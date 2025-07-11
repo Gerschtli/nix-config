@@ -41,6 +41,12 @@ in
       recommendedTlsSettings = true;
       recommendedGzipSettings = true;
       recommendedProxySettings = true;
+
+      virtualHosts._ = {
+        default = true;
+        root = "/var/empty";
+      };
+
     };
 
   };
