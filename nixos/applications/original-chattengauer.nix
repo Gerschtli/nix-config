@@ -34,7 +34,7 @@ in
       enableACME = true;
       forceSSL = true;
       serverAliases = [ "www.${domain}" ];
-      locations."/".extraConfig = "rewrite ^/.*$ https://www.chattengauer-gudensberg.de/ redirect;";
+      locations."/".extraConfig = "rewrite ^/.*$ https://www.chattengauer-gudensberg.de/ permanent;";
     };
 
   };
