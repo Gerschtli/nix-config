@@ -1,8 +1,5 @@
 {
   "extends": [
     "config:recommended"
-  ],
-  "nix": {
-    "enabled": true
-  }
+  ]
 }
