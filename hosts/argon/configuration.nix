@@ -14,7 +14,11 @@
 
     base.server.enable = true;
 
-    programs.docker.enable = true;
+    programs.docker = {
+      enable = true;
+
+      autoPrune.enable = true;
+    };
 
     services = {
       backup.enable = true;
