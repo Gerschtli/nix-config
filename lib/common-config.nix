@@ -36,6 +36,7 @@ _:
     registry = {
       nixpkgs.flake = inputs.nixpkgs;
       nix-config.flake = inputs.self;
+      unstable.flake = inputs.unstable;
     };
     nixPath = [ "nixpkgs=flake:nixpkgs" ];
   };
