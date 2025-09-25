@@ -31,7 +31,7 @@ This is my humble flakes-only collection of all and everything needed to set up 
   - `gamer` on WSL2 with Ubuntu 20.04 (windows dual boot for games and stuff)
   - `R2026`
 - [nix-on-droid][nix-on-droid]-managed
-  - `pixel7a`
+  - `pixel9`
 
 See [flake.nix](flake.nix) for more information like `system`.
 

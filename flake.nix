@@ -103,7 +103,7 @@
       ];
 
       nixOnDroidConfigurations = listToAttrs [
-        (mkNixOnDroid "aarch64-linux" "pixel7a")
+        (mkNixOnDroid "aarch64-linux" "pixel9")
       ];
 
       nixosConfigurations = listToAttrs [

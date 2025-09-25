@@ -61,7 +61,7 @@ in
       useUserPackages
       ;
 
-    config = commonConfig.homeManager.userConfig "pixel7a" "nix-on-droid";
+    config = commonConfig.homeManager.userConfig "pixel9" "nix-on-droid";
   };
 
   nix = { inherit (commonConfig.nix) package; };

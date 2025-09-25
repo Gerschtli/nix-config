@@ -65,7 +65,7 @@ jobs:
           - nix-command: build .#homeConfigurations."tobias@gamer".activationPackage
             runs-on: ubuntu-latest
 
-          - nix-command: build .#nixOnDroidConfigurations.pixel7a.activationPackage --impure
+          - nix-command: build .#nixOnDroidConfigurations.pixel9.activationPackage --impure
             runs-on: ubuntu-24.04-arm
 
           - nix-command: build .#nixosConfigurations.argon.config.system.build.toplevel

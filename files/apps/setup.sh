@@ -108,7 +108,7 @@ elif [[ "${USER}" == "nix-on-droid" ]]; then
       --option extra-trusted-public-keys "gerschtli.cachix.org-1:dWJ/WiIA3W2tTornS/2agax+OI0yQF8ZA2SFjU56vZ0=" \
       --option extra-substituters "https://nix-on-droid.cachix.org" \
       --option extra-trusted-public-keys "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU=" \
-      --flake "${nix_config}#pixel7a"
+      --flake "${nix_config}#pixel9"
 else
     _log "Build home-manager activationPackage..."
     nix build \

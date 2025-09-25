@@ -71,13 +71,13 @@ in
 
     (mkIf cfg.nix-on-droid.enable {
       custom.programs.shell.shellAliases = {
-        nod-switch = "nix-on-droid switch --flake '${nixConfigDir}#pixel7a'";
+        nod-switch = "nix-on-droid switch --flake '${nixConfigDir}#pixel9'";
       };
 
       home.packages = [
         (buildWithDiff
           "nod-build"
-          "nix build --log-format internal-json --verbose \"${nixConfigDir}#nixOnDroidConfigurations.pixel7a.activationPackage\" --impure |& nom --json"
+          "nix build --log-format internal-json --verbose \"${nixConfigDir}#nixOnDroidConfigurations.pixel9.activationPackage\" --impure |& nom --json"
           "/nix/var/nix/profiles/nix-on-droid"
         )
       ];
