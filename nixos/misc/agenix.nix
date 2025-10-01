@@ -40,6 +40,7 @@ in
         "passwd-root-neon"
         "passwd-tobias-neon"
         "teamspeak-serverquery-password"
+        "vaultwarden-config"
         "wireless-config"
       ]);
       default = [ ];
@@ -116,6 +117,12 @@ in
           name = "teamspeak-serverquery-password";
           host = "krypton";
           user = "teamspeak-update-notifier";
+        })
+
+        (buildConfig {
+          name = "vaultwarden-config";
+          host = "argon";
+          user = "vaultwarden";
         })
 
         (buildConfig {

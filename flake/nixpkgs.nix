@@ -41,6 +41,7 @@ import inputs.nixpkgs {
           minecraftServers
           portfolio
           teamspeak_server
+          vaultwarden
           vscode
           ;
 
