@@ -104,6 +104,7 @@ in
             "--quit-if-one-screen"
             "--tabs=4"
           ];
+          NPM_CONFIG_IGNORE_SCRIPTS = "true";
           PAGER = "${pkgs.less}/bin/less";
         };
 
