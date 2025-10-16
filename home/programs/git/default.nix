@@ -106,13 +106,6 @@ in
     home.packages = [
       pkgs.git-absorb
       pkgs.tig
-      (
-        config.lib.custom.mkScript
-          "git-initial-commit"
-          ./git-initial-commit.sh
-          [ pkgs.coreutils pkgs.git ]
-          { }
-      )
     ];
 
     programs.git = {
@@ -187,7 +180,9 @@ in
         branch-name = "branch --show-current";
         total-clean = externGitAlias "git co -f && git clean -dfx && git clean -dfX";
 
+        initial-commit = externGitAlias "git init && git commit --allow-empty --message 'chore: initial commit'";
         disable-upstream-push = "remote set-url upstream --push DISABLED";
+        set-head = "remote set-head origin --auto";
         set-upstream = externGitAlias "git branch --set-upstream-to=origin/$(git branch-name) $(git branch-name)";
         default-branch = externGitAlias "git symbolic-ref refs/remotes/origin/HEAD | ${pkgs.gnused}/bin/sed 's@^refs/remotes/origin/@@'";
       };
