@@ -76,6 +76,7 @@
   };
 
   programs.zsh.initContent = lib.mkAfter ''
+    source <(docker completion zsh)
     source <(kubectl completion zsh)
   '';
 }
