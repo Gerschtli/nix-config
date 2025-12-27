@@ -112,82 +112,9 @@ in
       enable = true;
       lfs.enable = true;
 
-      userName = "Tobias Happ";
-      userEmail = "tobias.happ@gmx.de";
-
       ignores = ignoreList;
 
-      aliases = {
-        ad = "add --all --ignore-errors --";
-        ba = "branch -a --verbose";
-        bc = "switch --create";
-        bd = "branch --verbose --delete";
-        bdd = "branch --verbose -D";
-        ca = "commit -q --branch --status --verbose --amend";
-        cl = externGitAlias "git clone --recursive --progress";
-        cm = "commit --branch --status --verbose";
-        cn = externGitAlias ''git reflog expire --all && git fsck --unreachable --full && git prune && \
-          git gc --aggressive --quiet && git repack -Adq && git prune-packed --quiet'';
-        df = "diff";
-        di = "diff --ignore-all-space";
-        ds = "diff --staged";
-        dsi = "diff --staged --ignore-all-space";
-        fe = "fetch --progress";
-        fm = externGitAlias "git fe --all && git fe --all --tags";
-        lg = "log --stat";
-        lp = "log -10 --patch-with-stat";
-        ma = "merge --abort";
-        me = "merge --stat --summary";
-        mm = externGitAlias "git me origin/$(git branch-name)";
-        pd = "push --no-verify --delete --progress origin";
-        pf = externGitAlias "git ph --force-with-lease origin $(git branch-name)";
-        pnf = externGitAlias "git pf --no-verify";
-        ph = "push --progress --tags --set-upstream";
-        pu = externGitAlias "for i in $(git remote); do git ph $i $(git branch-name); done";
-        pn = externGitAlias "for i in $(git remote); do git ph --no-verify $i $(git branch-name); done";
-        ra = "rebase --abort";
-        rc = "rebase --continue";
-        re = "reset";
-        rh = "reset --hard";
-        ri = "rebase --interactive";
-        rp = "rebase --skip";
-        rs = "reset --soft";
-        rt = "restore";
-        rv = "remote --verbose";
-        sa = "stash push";
-        sau = "stash push --include-untracked";
-        sc = "stash clear";
-        sl = "stash list";
-        so = "stash pop";
-        sp = "stash show --patch";
-        st = "status";
-        sw = "switch";
-        sd = "switch --detach";
-        tl = "tag --list -n";
-
-        mma = externGitAlias "git merge origin/$(git default-branch)";
-        rde = externGitAlias "git rebase origin/develop";
-        rma = externGitAlias "git rebase origin/$(git default-branch)";
-        rup = externGitAlias "git rebase upstream/$(git default-branch)";
-        sde = externGitAlias "git switch develop && git rebase origin/develop";
-        sma = externGitAlias "git switch $(git default-branch) && git rebase origin/$(git default-branch)";
-
-        aliases = ''config --get-regexp "^alias"'';
-
-        bclean = externGitAlias ''git for-each-ref --format "%(refname:short)" refs/heads |
-          ${pkgs.gnugrep}/bin/grep -Ev "$(git default-branch)|$(git branch-name)" | ${pkgs.findutils}/bin/xargs git bd'';
-
-        branch-name = "branch --show-current";
-        total-clean = externGitAlias "git co -f && git clean -dfx && git clean -dfX";
-
-        initial-commit = externGitAlias "git init && git commit --allow-empty --message 'chore: initial commit'";
-        disable-upstream-push = "remote set-url upstream --push DISABLED";
-        set-head = "remote set-head origin --auto";
-        set-upstream = externGitAlias "git branch --set-upstream-to=origin/$(git branch-name) $(git branch-name)";
-        default-branch = externGitAlias "git symbolic-ref refs/remotes/origin/HEAD | ${pkgs.gnused}/bin/sed 's@^refs/remotes/origin/@@'";
-      };
-
-      extraConfig = {
+      settings = {
         absorb.oneFixupPerCommit = true;
 
         add.ignore-errors = true;
@@ -198,6 +125,77 @@ in
           pushNonFastForward = false;
           statusHints = false;
         };
+
+        alias = {
+          ad = "add --all --ignore-errors --";
+          ba = "branch -a --verbose";
+          bc = "switch --create";
+          bd = "branch --verbose --delete";
+          bdd = "branch --verbose -D";
+          ca = "commit -q --branch --status --verbose --amend";
+          cl = externGitAlias "git clone --recursive --progress";
+          cm = "commit --branch --status --verbose";
+          cn = externGitAlias ''git reflog expire --all && git fsck --unreachable --full && git prune && \
+          git gc --aggressive --quiet && git repack -Adq && git prune-packed --quiet'';
+          df = "diff";
+          di = "diff --ignore-all-space";
+          ds = "diff --staged";
+          dsi = "diff --staged --ignore-all-space";
+          fe = "fetch --progress";
+          fm = externGitAlias "git fe --all && git fe --all --tags";
+          lg = "log --stat";
+          lp = "log -10 --patch-with-stat";
+          ma = "merge --abort";
+          me = "merge --stat --summary";
+          mm = externGitAlias "git me origin/$(git branch-name)";
+          pd = "push --no-verify --delete --progress origin";
+          pf = externGitAlias "git ph --force-with-lease origin $(git branch-name)";
+          pnf = externGitAlias "git pf --no-verify";
+          ph = "push --progress --tags --set-upstream";
+          pu = externGitAlias "for i in $(git remote); do git ph $i $(git branch-name); done";
+          pn = externGitAlias "for i in $(git remote); do git ph --no-verify $i $(git branch-name); done";
+          ra = "rebase --abort";
+          rc = "rebase --continue";
+          re = "reset";
+          rh = "reset --hard";
+          ri = "rebase --interactive";
+          rp = "rebase --skip";
+          rs = "reset --soft";
+          rt = "restore";
+          rv = "remote --verbose";
+          sa = "stash push";
+          sau = "stash push --include-untracked";
+          sc = "stash clear";
+          sl = "stash list";
+          so = "stash pop";
+          sp = "stash show --patch";
+          st = "status";
+          sw = "switch";
+          sd = "switch --detach";
+          tl = "tag --list -n";
+
+          mma = externGitAlias "git merge origin/$(git default-branch)";
+          rde = externGitAlias "git rebase origin/develop";
+          rma = externGitAlias "git rebase origin/$(git default-branch)";
+          rup = externGitAlias "git rebase upstream/$(git default-branch)";
+          sde = externGitAlias "git switch develop && git rebase origin/develop";
+          sma = externGitAlias "git switch $(git default-branch) && git rebase origin/$(git default-branch)";
+
+          aliases = ''config --get-regexp "^alias"'';
+
+          bclean = externGitAlias ''git for-each-ref --format "%(refname:short)" refs/heads |
+          ${pkgs.gnugrep}/bin/grep -Ev "$(git default-branch)|$(git branch-name)" | ${pkgs.findutils}/bin/xargs git bd'';
+
+          branch-name = "branch --show-current";
+          total-clean = externGitAlias "git co -f && git clean -dfx && git clean -dfX";
+
+          initial-commit = externGitAlias "git init && git commit --allow-empty --message 'chore: initial commit'";
+          disable-upstream-push = "remote set-url upstream --push DISABLED";
+          set-head = "remote set-head origin --auto";
+          set-upstream = externGitAlias "git branch --set-upstream-to=origin/$(git branch-name) $(git branch-name)";
+          default-branch = externGitAlias "git symbolic-ref refs/remotes/origin/HEAD | ${pkgs.gnused}/bin/sed 's@^refs/remotes/origin/@@'";
+        };
+
 
         apply = {
           ignorewhitespace = "change";
@@ -361,6 +359,11 @@ in
             title-blur = "blue default";
             title-focus = "blue default bold";
           };
+        };
+
+        user = {
+          name = "Tobias Happ";
+          email = "tobias.happ@gmx.de";
         };
       };
 

@@ -13,7 +13,7 @@ let
 
   cfg = config.custom.programs.zsh;
 
-  dotDir = ".config/zsh";
+  dotDir = "${config.xdg.configHome}/zsh";
 in
 
 {
@@ -40,7 +40,7 @@ in
       autocd = true;
       defaultKeymap = "viins";
       autosuggestion.enable = true;
-      history.path = "${config.home.homeDirectory}/${dotDir}/.zsh_history";
+      history.path = "${dotDir}/.zsh_history";
 
       initContent = ''
         available sudo && alias sudo='nocorrect sudo '

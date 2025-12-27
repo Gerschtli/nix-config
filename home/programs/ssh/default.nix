@@ -91,36 +91,22 @@ in
       };
     };
 
-    home.packages = [
-      pkgs.openssh
+    home = {
+      file.".ssh/config".text = ''
+        Include ~/.ssh/config.d/*
 
-      (config.lib.custom.mkZshCompletion
-        "kadd"
-        ./kadd-completion.zsh
-        { inherit keysDirectory; }
-      )
-    ];
+        Host *
+          ForwardAgent no
+          AddKeysToAgent no
+          Compression yes
+          ServerAliveInterval 30
+          ServerAliveCountMax 3
+          HashKnownHosts yes
+          UserKnownHostsFile ~/.ssh/known_hosts
+          ControlMaster ${cfg.controlMaster}
+          ControlPath ~/.ssh/socket-%r@%h-%p
+          ControlPersist 10m
 
-    programs = {
-      keychain = {
-        enable = true;
-        agents = [ "ssh" ];
-        keys = [ ];
-      };
-
-      ssh = {
-        inherit (cfg) controlMaster;
-
-        enable = true;
-
-        compression = true;
-        serverAliveInterval = 30;
-        hashKnownHosts = true;
-        controlPath = "~/.ssh/socket-%r@%h-%p";
-        controlPersist = "10m";
-
-        includes = [ "~/.ssh/config.d/*" ];
-        extraConfig = ''
           CheckHostIP yes
           ConnectTimeout 60
           EnableSSHKeysign yes
@@ -132,8 +118,22 @@ in
           PubKeyAuthentication yes
           SendEnv LANG LC_*
           ServerAliveCountMax 30
-        '';
-      };
+      '';
+
+      packages = [
+        pkgs.openssh
+
+        (config.lib.custom.mkZshCompletion
+          "kadd"
+          ./kadd-completion.zsh
+          { inherit keysDirectory; }
+        )
+      ];
+    };
+
+    programs.keychain = {
+      enable = true;
+      keys = [ ];
     };
 
   };

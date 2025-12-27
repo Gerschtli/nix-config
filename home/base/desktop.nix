@@ -48,8 +48,6 @@ in
       development.direnv.enable = true;
 
       programs = {
-        idea-ultimate.enable = !config.custom.base.general.darwin;
-
         pass = mkIf cfg.private {
           enable = true;
           browserpass = true;

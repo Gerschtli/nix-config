@@ -118,9 +118,7 @@ in
             };
           };
 
-          logind.extraConfig = ''
-            HandlePowerKey=ignore
-          '';
+          logind.settings.Login.HandlePowerKey = "ignore";
 
           # for bluetooth support
           pulseaudio.package = pkgs.pulseaudioFull;

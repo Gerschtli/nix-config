@@ -6,17 +6,7 @@ let
 
     {
       imports = [
-        (modulesPath + "/installer/cd-dvd/installation-cd-graphical-plasma5-new-kernel.nix")
-        (modulesPath + "/installer/cd-dvd/channel.nix")
-      ];
-
-      # taken from installation-cd-minimal-new-kernel-no-zfs.nix
-      nixpkgs.overlays = [
-        (_final: super: {
-          zfs = super.zfs.overrideAttrs (_: {
-            meta.platforms = [ ];
-          });
-        })
+        (modulesPath + "/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix")
       ];
 
       environment.systemPackages = with pkgs; [

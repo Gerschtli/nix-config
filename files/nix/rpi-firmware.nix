@@ -18,7 +18,7 @@ let
           cp -r firmware/* ${placeholder "out"}
         '';
 
-        stateVersion = "25.05";
+        stateVersion = "25.11";
       };
     };
 

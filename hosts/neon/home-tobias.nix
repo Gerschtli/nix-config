@@ -46,7 +46,7 @@
   };
 
   home.packages = with pkgs; [
-    openshot-qt
+    #openshot-qt
     portfolio
     vlc
     zoom-us

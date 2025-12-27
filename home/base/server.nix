@@ -20,7 +20,7 @@ in
     # needed because of https://github.com/NixOS/nix/issues/8508
     nix.gc = mkIf (config.home.username != "root") {
       automatic = true;
-      frequency = "*-*-* 00:30:00";
+      dates = "*-*-* 00:30:00";
       options = "--delete-older-than 14d";
     };
 
