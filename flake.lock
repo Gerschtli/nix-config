@@ -474,11 +474,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765628597,
-        "narHash": "sha256-gCZ/Wahc3kNaGiDhuHOx2RYEwtHefacIy3L0SA7/DoQ=",
+        "lastModified": 1766842124,
+        "narHash": "sha256-OYSP11XDst/UKvP4tMFfOKsoAvcrucJCVN6phoHiP2Y=",
         "owner": "Gerschtli",
         "repo": "teamspeak-update-notifier",
-        "rev": "10977eee830c72585f9c9ea88a721c804b3af0ef",
+        "rev": "f6ae282ddc66058f3799fd84146d743b908c57ac",
         "type": "github"
       },
       "original": {
