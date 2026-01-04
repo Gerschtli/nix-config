@@ -134,7 +134,7 @@
       # $ direnv-init jdk11
       # $ lorri-init jdk11
       devShells = forEachSystem (system: listToAttrs [
-        (mkDevShellJdk system "jdk21" { jdk = pkgs: pkgs.jdk21; })
+        (mkDevShellJdk system "jdk21" { jdk = pkgs: pkgs.javaPackages.compiler.openjdk21; })
 
         (mkDevShellPhp system "php82" { phpVersion = "82"; })
       ]);

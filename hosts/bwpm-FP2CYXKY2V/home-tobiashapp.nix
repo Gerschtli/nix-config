@@ -19,8 +19,10 @@
       sdks = {
         enable = true;
         links = {
-          inherit (pkgs) jdk21 python3;
+          inherit (pkgs) python3;
 
+          jdk21 = pkgs.javaPackages.compiler.openjdk21;
+          jdk25 = pkgs.javaPackages.compiler.openjdk25;
           # python3 = pkgs.python3.withPackages (ps: with ps; with pkgs.python3Packages; [ jupyter ipython notebook ]);
         };
       };

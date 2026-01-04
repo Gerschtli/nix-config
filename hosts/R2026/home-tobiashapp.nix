@@ -19,7 +19,7 @@
       sdks = {
         enable = true;
         links = {
-          inherit (pkgs) jdk21;
+          jdk21 = pkgs.javaPackages.compiler.openjdk21;
         };
       };
 

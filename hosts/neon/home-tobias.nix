@@ -22,7 +22,7 @@
       sdks = {
         enable = true;
         links = {
-          inherit (pkgs) jdk17 python310;
+          inherit (pkgs) python3;
         };
       };
     };
