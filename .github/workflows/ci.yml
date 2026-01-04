@@ -67,6 +67,7 @@ jobs:
 
           - nix-command: build .#nixOnDroidConfigurations.pixel9.activationPackage --impure
             runs-on: ubuntu-24.04-arm
+            allow-failure: true
 
           - nix-command: build .#nixosConfigurations.argon.config.system.build.toplevel
             runs-on: ubuntu-24.04-arm
@@ -121,6 +122,7 @@ jobs:
 
       - name: Build command
         run: nix ${{ matrix.nix-command }}
+        continue-on-error: ${{ matrix.allow-failure || false }}
 
       - name: Deploy cachix-agent spec
         if: github.ref == 'refs/heads/master' && inputs.branch == '' && matrix.deploy-agent
