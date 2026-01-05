@@ -84,7 +84,7 @@ if _is_nixos; then
     _show_result_diff "/nix/var/nix/profiles/system"
 
     _log "nix" "switch nixos configuration"
-    nixos-rebuild switch --use-remote-sudo --flake "${nix_config}"
+    nixos-rebuild switch --ask-sudo-password --flake "${nix_config}"
 fi
 
 if [[ "${USER}" == "nix-on-droid" ]] && _available nix-on-droid; then

@@ -4,7 +4,7 @@ _usage() {
     echo "$0 <debug|dev|boot|build|test|switch>"
 }
 
-args=(--use-remote-sudo --flake "@nixConfigDir@")
+args=(--ask-sudo-password --flake "@nixConfigDir@")
 case "${mode}" in
     debug) args+=(test --fast --show-trace) ;;
     dev) args+=(test --fast) ;;
