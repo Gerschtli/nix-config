@@ -53,6 +53,7 @@ let
 
     bind-key Escape copy-mode
 
+    bind-key C-a last-window
     bind-key A last-pane
 
     bind-key \; select-layout main-horizontal
