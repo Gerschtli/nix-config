@@ -19,7 +19,7 @@
       sdks = {
         enable = true;
         links = {
-          inherit (pkgs) python3;
+          inherit (pkgs) go python3;
 
           jdk21 = pkgs.javaPackages.compiler.openjdk21;
           jdk25 = pkgs.javaPackages.compiler.openjdk25;
@@ -48,7 +48,7 @@
     homeDirectory = "/Users/tobiashapp";
     username = "tobiashapp";
 
-    sessionVariables.KUBECONFIG = "${config.home.homeDirectory}/.kube/ardks-iat-nzfcw.kubeconfig:${config.home.homeDirectory}/.kube/ardks-iat-vtso-a-ff278.kubeconfig";
+    sessionVariables.KUBECONFIG = "${config.home.homeDirectory}/.kube/ardks-iat-nzfcw.kubeconfig:${config.home.homeDirectory}/.kube/ardks-iat-staging-zmft9.kubeconfig";
 
     file.".mob".text = ''
       MOB_TIMER_USER="Tobias"
