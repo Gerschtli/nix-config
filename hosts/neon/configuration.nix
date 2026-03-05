@@ -79,6 +79,12 @@
     echo "creating /root snapshot..."
     btrfs subvolume snapshot -r /mnt/root "/mnt/root-$(date +"%Y-%m-%d-%H-%M-%S")"
 
+    echo "deleting previous /root snapshots..."
+    # keep last 5 entries
+    ls -1dtr /mnt/root-20* \
+      | head -n -5 \
+      | xargs btrfs subvolume delete
+
     echo "deleting /root subvolume..."
     btrfs subvolume delete /mnt/root
 
