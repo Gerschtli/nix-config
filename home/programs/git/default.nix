@@ -49,6 +49,7 @@ let
     gnused
     nix
     openssh
+    uv
   ];
 
   hooksIncludes = map

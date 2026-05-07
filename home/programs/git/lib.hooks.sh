@@ -1,4 +1,6 @@
 HOOK_TYPE="${1:-}"
+# shellcheck disable=SC2034
+HOOK_ARGS=("${@:2}")
 RESULT=0
 
 # credits to
