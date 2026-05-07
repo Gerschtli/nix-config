@@ -8,9 +8,11 @@ set -euo pipefail
 # - iterm2 set UbuntuMono font, size 13, h 85, v 115, tango dark
 # - disable keyboard shortcuts for "Input Sources" in system settings
 # - enable keyboard shortcuts for Mission Control to switch to desktops
+# - enable keyboard shortcuts option "Use F1. F2, etc. keys as standard function keys" to prevent F6 to be mapped by the OS
 # - enable keyboard layout "German No Deadkeys" (might require logout"
 # - Keyboard > Input Sources: Disable "Show Input menu in menu bar"
 # - Trackpad: Enable Tap to Click
+# - disable apps in "Menu Bar" settings
 # - karabiner mapping:
 #   - left_control -> left_command
 #   - left_option -> left_control
@@ -32,3 +34,7 @@ brew tap hivemq/mqtt-cli
 brew install mqtt-cli
 
 brew install graphviz
+brew install trivy
+
+brew tap anchore/grype
+brew install grype

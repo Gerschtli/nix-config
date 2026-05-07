@@ -52,10 +52,6 @@ in
 
         ${readFile ./completion.zsh}
 
-        WORK_DIRECTORY=(${concatMapStringsSep " " (w: ''"${w.directory}"'') (attrValues config.custom.misc.work)})
-        ${readFile ./directory-hash.zsh}
-        unset WORK_DIRECTORY
-
         ${readFile ./keybindings.zsh}
       '';
 

@@ -60,6 +60,7 @@
       bat
       earthly
       fd
+      glab
       go-task
       just
       k9s
@@ -74,6 +75,7 @@
       pnpm
       postgresql_15
       python3
+      uv
     ];
   };
 
