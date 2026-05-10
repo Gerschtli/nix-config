@@ -26,7 +26,9 @@
       work.randstad.directory = "randstad";
     };
 
-    wm.yabai.enable = true;
+    programs.ssh.cleanKeysOnShellStartup = false;
+
+    #wm.yabai.enable = true;
   };
 
   home = {
@@ -34,14 +36,14 @@
     username = "tobiashapp";
 
     packages = with pkgs; [
-      awscli2
+      #awscli2
       nixpkgs-fmt
-      nodejs_22
+      #nodejs_22
     ];
   };
 
   programs.zsh.initContent = lib.mkAfter ''
-    complete -C '${pkgs.awscli2}/bin/aws_completer' aws
+    #complete -C '${pkgs.awscli2}/bin/aws_completer' aws
     source <(kubectl completion zsh)
   '';
 }
