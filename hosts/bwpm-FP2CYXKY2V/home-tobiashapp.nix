@@ -75,9 +75,18 @@
       pnpm
       postgresql_15
       python3
+      sem
       uv
     ];
   };
+
+  programs.git.settings.diff.external = toString (
+    config.lib.custom.mkScriptPlain
+      "sem-git-diff"
+      ./sem-git-diff.sh
+      [ pkgs.sem ]
+      { }
+  );
 
   programs.zsh.initContent = lib.mkAfter ''
     source <(docker completion zsh)

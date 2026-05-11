@@ -64,6 +64,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    sem = {
+      url = "github:Ataraxy-Labs/sem";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     impermanence.url = "github:nix-community/impermanence";
   };
 

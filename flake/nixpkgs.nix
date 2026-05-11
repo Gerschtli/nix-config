@@ -46,6 +46,7 @@ import inputs.nixpkgs {
           ;
 
         gerschtli = prev.lib.composeManyExtensions gerschtliOverlays final prev;
+        sem = inputs.sem.packages.${system}.default;
 
         # the only alias that I need, this allows me to set allowAliases=false
         inherit system;
