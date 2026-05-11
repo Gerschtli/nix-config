@@ -1,11 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (builtins)
-    attrValues
-    ;
   inherit (lib)
-    concatMapStringsSep
     mkEnableOption
     mkIf
     readFile
