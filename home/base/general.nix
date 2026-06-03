@@ -120,6 +120,8 @@ in
       };
 
       systemd.user.startServices = true;
+
+      xdg.enable = true;
     }
 
     (mkIf (!cfg.minimal) {

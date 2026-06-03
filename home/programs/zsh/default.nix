@@ -8,8 +8,6 @@ let
     ;
 
   cfg = config.custom.programs.zsh;
-
-  dotDir = "${config.xdg.configHome}/zsh";
 in
 
 {
@@ -30,13 +28,10 @@ in
     custom.programs.shell.enable = true;
 
     programs.zsh = {
-      inherit dotDir;
-
       enable = true;
       autocd = true;
       defaultKeymap = "viins";
       autosuggestion.enable = true;
-      history.path = "${dotDir}/.zsh_history";
 
       initContent = ''
         available sudo && alias sudo='nocorrect sudo '
