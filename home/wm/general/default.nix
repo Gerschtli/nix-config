@@ -14,7 +14,7 @@ let
     config.lib.custom.mkScript
       "lock-screen"
       ./lock-screen.sh
-      [ pkgs.xorg.xset ]
+      [ pkgs.xset ]
       {
         _doNotClearPath = cfg.useSlock;
 

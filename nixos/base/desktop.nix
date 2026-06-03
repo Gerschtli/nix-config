@@ -91,6 +91,10 @@ in
 
     (mkIf cfg.laptop
       {
+        environment.systemPackages = with pkgs; [
+          brightnessctl
+        ];
+
         hardware.bluetooth = {
           enable = true;
           disabledPlugins = [ "sap" ];
@@ -102,8 +106,6 @@ in
           enable = true;
           plugins = mkForce [ ]; # FIXME: disabled because openconnect is not substitutable currently
         };
-
-        programs.light.enable = true;
 
         services = {
           blueman.enable = true;

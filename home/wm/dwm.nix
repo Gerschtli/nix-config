@@ -51,7 +51,7 @@ in
         playerctl
         scrot
         xclip
-        xorg.xkill
+        xkill
       ];
 
       # Fix java applications
@@ -78,11 +78,11 @@ in
 
       initExtra = ''
         # Disable screen saver
-        ${pkgs.xorg.xset}/bin/xset s off
+        ${pkgs.xset}/bin/xset s off
         # Disable screen power saving settings
-        ${pkgs.xorg.xset}/bin/xset -dpms
+        ${pkgs.xset}/bin/xset -dpms
         # Increase key repeat speed
-        ${pkgs.xorg.xset}/bin/xset r rate 250 30
+        ${pkgs.xset}/bin/xset r rate 250 30
 
         # Fix java applications, dwm needs to be up and running before executing this command
         for i in 1 2 3; do

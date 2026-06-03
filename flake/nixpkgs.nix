@@ -53,7 +53,8 @@ import inputs.nixpkgs {
       }
     )
 
-    inputs.nixGL.overlays.default
+    # FIXME: nixGL overlay fails evaluation
+    #inputs.nixGL.overlays.default
   ]
   ++ inputs.nixpkgs.lib.optionals nixOnDroid [
     inputs.nix-on-droid.overlays.default

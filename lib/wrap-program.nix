@@ -2,7 +2,8 @@
 
 {
   wrapProgram = { name, desktopFileName ? name, source, path, packages ? [ ], flags ? [ ], fixGL ? false }:
-    if packages == [ ] && flags == [ ] && !fixGL
+    # FIXME: nixgl overlay fails evaluation
+    if (packages == [ ] && flags == [ ] && !fixGL) || !(builtins.hasAttr "nixgl" pkgs)
     then source
     else
       pkgs.symlinkJoin {
