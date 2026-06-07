@@ -3,7 +3,6 @@
 let
   inherit (lib)
     mkEnableOption
-    mkForce
     mkIf
     mkOption
     types
@@ -69,17 +68,20 @@ in
       prime = {
         inherit (cfg) amdgpuBusId nvidiaBusId;
 
-        offload.enable = true;
+        # FIXME: repair neon
+        offload.enable = false;
+        #offload.enable = true;
       };
     };
 
     services.xserver.videoDrivers = [ "nvidia" ];
 
-    specialisation.external-display.configuration = {
-      hardware.nvidia.prime.offload.enable = mkForce false;
-
-      system.nixos.tags = [ "external-display" ];
-    };
+    # FIXME: repair neon
+    #specialisation.external-display.configuration = {
+    #  hardware.nvidia.prime.offload.enable = mkForce false;
+    #
+    #  system.nixos.tags = [ "external-display" ];
+    #};
 
   };
 
