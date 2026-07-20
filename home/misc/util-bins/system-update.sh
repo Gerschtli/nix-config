@@ -66,7 +66,7 @@ if _available brew && _is_darwin; then
     _log "brew" "update"
     brew update
     _log "brew" "upgrade"
-    brew upgrade
+    brew upgrade --yes
 fi
 
 

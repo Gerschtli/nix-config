@@ -21,20 +21,26 @@ set -euo pipefail
 #     - fn -> left_command
 #     - left_control -> fn
 
-brew tap homebrew/cask-fonts
-brew install --cask homebrew/cask-fonts/font-ubuntu-mono-nerd-font
+brew install --cask font-ubuntu-mono-nerd-font
+
+brew trust --formula koekeishiya/formulae/yabai
 brew install koekeishiya/formulae/yabai
-yabai --start-service
+#yabai --start-service
+
+brew trust --formula koekeishiya/formulae/skhd
 brew install koekeishiya/formulae/skhd
-skhd --start-service
+#skhd --start-service
+
 brew install --cask spaceid
 brew install --cask alt-tab
 
 brew tap hivemq/mqtt-cli
+brew trust hivemq/mqtt-cli
 brew install mqtt-cli
 
 brew install graphviz
 brew install trivy
 
 brew tap anchore/grype
-brew install grype
+brew trust anchore/grype
+brew install --cask grype
