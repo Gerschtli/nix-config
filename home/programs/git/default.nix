@@ -377,7 +377,7 @@ in
           {
             core.excludesfile =
               let
-                ignoreListWork = ignoreList ++ [ ".envrc" "shell.nix" ];
+                ignoreListWork = ignoreList ++ [ ".envrc" "shell.nix" "**/jacoco.exec" ];
                 content = concatStringsSep "\n" ignoreListWork + "\n";
               in
               writeFile "gitignore" content;
