@@ -33,7 +33,6 @@ in
       type = types.listOf (types.enum [
         "cachix-agent-token-argon"
         "cachix-agent-token-krypton"
-        "cachix-agent-token-neon"
         "cachix-agent-token-xenon"
         "gitea-dbpassword"
         "id-rsa-backup"
@@ -70,13 +69,6 @@ in
           name = "cachix-agent-token-krypton";
           fileName = "cachix-agent-token";
           host = "krypton";
-          user = "root";
-        })
-
-        (buildConfig {
-          name = "cachix-agent-token-neon";
-          fileName = "cachix-agent-token";
-          host = "neon";
           user = "root";
         })
 
