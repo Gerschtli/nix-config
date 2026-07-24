@@ -19,6 +19,8 @@ set -euo pipefail
 #   - for internal keyboard:
 #     - fn -> left_command
 #     - left_control -> fn
+#     - grave_accent_and_tilde -> non_us_backslash
+#     - non_us_backslash -> grave_accent_and_tilde
 # - alt tab:
 #   - option+tab
 #   - show windows from Spaces: Visible Spaces
