@@ -9,6 +9,8 @@ let
         (modulesPath + "/installer/sd-card/sd-image-aarch64.nix")
       ];
 
+      boot.zfs.forceImportRoot = false;
+
       networking = {
         usePredictableInterfaceNames = false;
 
