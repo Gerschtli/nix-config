@@ -12,8 +12,8 @@ neon-root = "age16xxy8wcp8as2uc7v04fncsa7x257luygse94khp7c5mglh4wnggs8t4sk5"
 neon-tobias = "age1m0cyz2y5vyztmx04x0xheyhhy8uwf53yem6dafmce3hsugwhfp4q0lg267"
 pixel9-nix-on-droid = "age14qdwyalrg54mhda4r3xrlk279w02temg8rdwk9xvjfxznxhg6gvqv5fqyg"
 R2026-tobiashapp = "age1jc36ddc7cfqskjs56nfy6q8vz5p9wsaqfe5f0hzds76grkzwdazsymhu8e"
-xenon-root = "age1glu7paaertha2q28whxehvgn7euj52z5pka0edlrp6pnhqypvcmqm2lg64"
-xenon-tobias = "age1dxhjmnugds3263vsh02zrxagxal5x25ycs3xpueja7yfvcx8lves8p5rkv"
+xenon-root = "age1saal6gf09gfc7ymtuyatch2ulxshgvl2rtw369aqvdwuja4j330qtef7hj"
+xenon-tobias = "age1azunqsvmaa6wxpmzz5qm4nhrl5e2m3kz4xtp2qudxtefw9aw3a5spd7awh"
 
 [[paths]]
 glob = "secrets/ssh/private/*"
