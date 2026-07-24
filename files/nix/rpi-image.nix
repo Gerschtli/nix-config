@@ -15,6 +15,10 @@ let
         wireless = {
           enable = true;
           interfaces = [ "wlan0" ];
+
+          # file content is "psk=<PASSWORD>"
+          secretsFile = "/home/tobias/wlan-secret";
+          networks."Vodafone-12345".pskRaw = "ext:psk";
         };
       };
 
@@ -31,9 +35,16 @@ let
         RestartSec = 5;
       };
 
-      users.users.root = {
-        password = "nixos";
-        openssh.authorizedKeys.keyFiles = [ "${rootPath}/files/keys/id_rsa.tobias.pub" ];
+      users.users = {
+        root = {
+          password = "nixos";
+          openssh.authorizedKeys.keyFiles = [ "${rootPath}/files/keys/id_rsa.tobias.pub" ];
+        };
+        tobias = {
+          isNormalUser = true;
+          password = "nixos";
+          openssh.authorizedKeys.keyFiles = [ "${rootPath}/files/keys/id_rsa.tobias.pub" ];
+        };
       };
     };
 
