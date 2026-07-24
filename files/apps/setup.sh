@@ -32,8 +32,9 @@ ssh-keygen -f ~/.ssh/id_rsa -N "" -q || true
 _log "Copy link to ssh key or ssh key itself, add in github and gitea:"
 echo
 cat "${HOME}/.ssh/id_rsa.pub"
-echo
-curl --silent --form "file=@${HOME}/.ssh/id_rsa.pub" https://file.io | jq --raw-output .link
+# FIXME: replace with something else
+#echo
+#curl --silent --form "file=@${HOME}/.ssh/id_rsa.pub" https://file.io | jq --raw-output .link
 echo
 
 # pause script
