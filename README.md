@@ -27,6 +27,7 @@ This is my humble flakes-only collection of all and everything needed to set up 
   - `neon` (private laptop)
   - `xenon` (Raspberry Pi 3B+)
 - [home-manager][home-manager]-managed
+  - `bwpm-C9Q2TNJ6LQ`
   - `bwpm-FP2CYXKY2V`
   - `gamer` on WSL2 with Ubuntu 20.04 (windows dual boot for games and stuff)
   - `R2026`

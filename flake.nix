@@ -103,6 +103,7 @@
     {
       homeConfigurations = listToAttrs [
         (mkHome "x86_64-linux" "tobias@gamer")
+        (mkHome "aarch64-darwin" "tobiashapp@bwpm-C9Q2TNJ6LQ")
         (mkHome "aarch64-darwin" "tobiashapp@bwpm-FP2CYXKY2V")
         (mkHome "aarch64-darwin" "tobiashapp@R2026")
       ];

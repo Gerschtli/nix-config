@@ -58,6 +58,8 @@ jobs:
           - nix-command: eval .#apps.x86_64-linux.setup.program
             runs-on: ubuntu-latest
 
+          - nix-command: build .#homeConfigurations."tobiashapp@bwpm-C9Q2TNJ6LQ".activationPackage
+            runs-on: macos-15
           - nix-command: build .#homeConfigurations."tobiashapp@bwpm-FP2CYXKY2V".activationPackage
             runs-on: macos-15
           - nix-command: build .#homeConfigurations."tobiashapp@R2026".activationPackage
