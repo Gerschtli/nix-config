@@ -87,6 +87,7 @@ nix run github:Gerschtli/nix-config#setup
 1. Copy (`dd`) `result/sd-image/*.img` to sd-card
 1. Inject sd-card in raspberry and boot
 1. Login as tobias
+1. Create `/swapfile` (8GB)
 1. Setup wlan: Create `/wlan-secret` with content `psk=<PASSWORD>` (chown `wpa_supplicant` user)
 1. Run setup script
 
