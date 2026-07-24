@@ -128,7 +128,7 @@ in
         (buildConfig {
           name = "wireless-config";
           host = "xenon";
-          user = "root";
+          user = "wpa_supplicant";
         })
 
       ];
