@@ -16,8 +16,9 @@ let
           enable = true;
           interfaces = [ "wlan0" ];
 
+          # chown wpa_supplicant
           # file content is "psk=<PASSWORD>"
-          secretsFile = "/home/tobias/wlan-secret";
+          secretsFile = "/wlan-secret";
           networks."Vodafone-12345".pskRaw = "ext:psk";
         };
       };
@@ -43,6 +44,7 @@ let
         tobias = {
           isNormalUser = true;
           password = "nixos";
+          extraGroups = [ "wheel" ];
           openssh.authorizedKeys.keyFiles = [ "${rootPath}/files/keys/id_rsa.tobias.pub" ];
         };
       };
