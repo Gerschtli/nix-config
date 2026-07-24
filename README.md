@@ -52,9 +52,8 @@ nix run \
 
 ```sh
 # Install nix via Determinate Nix Installer https://determinate.systems/posts/determinate-nix-installer
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 
-echo "trusted-users = $USER" | sudo tee -a /etc/nix/nix.conf
+echo "trusted-users = root $USER" | sudo tee -a /etc/nix/nix.custom.conf
 sudo launchctl stop org.nixos.nix-daemon
 sudo launchctl start org.nixos.nix-daemon
 
