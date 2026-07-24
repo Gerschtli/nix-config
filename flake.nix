@@ -164,6 +164,11 @@
         nixpkgs.lib.foldl
           nixpkgs.lib.recursiveUpdate
           {
+            aarch64-darwin = {
+              rpi-firmware = import ./files/nix/rpi-firmware.nix { inherit nixpkgs; };
+              rpi-image = import ./files/nix/rpi-image.nix { inherit nixpkgs rootPath; };
+            };
+
             aarch64-linux = {
               rpi-firmware = import ./files/nix/rpi-firmware.nix { inherit nixpkgs; };
               rpi-image = import ./files/nix/rpi-image.nix { inherit nixpkgs rootPath; };
