@@ -60,8 +60,6 @@ jobs:
 
           - nix-command: build .#homeConfigurations."tobiashapp@bwpm-C9Q2TNJ6LQ".activationPackage
             runs-on: macos-15
-          - nix-command: build .#homeConfigurations."tobiashapp@bwpm-FP2CYXKY2V".activationPackage
-            runs-on: macos-15
           - nix-command: build .#homeConfigurations."tobiashapp@R2026".activationPackage
             runs-on: macos-15
           - nix-command: build .#homeConfigurations."tobias@gamer".activationPackage
