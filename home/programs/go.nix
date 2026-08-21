@@ -24,7 +24,11 @@ in
 
   config = mkIf cfg.enable {
 
-    home.sessionVariables.GOPATH = "${config.home.homeDirectory}/.go";
+    home = {
+      packages = [ pkgs.go ];
+
+      sessionVariables.GOPATH = "${config.home.homeDirectory}/.go";
+    };
 
   };
 
