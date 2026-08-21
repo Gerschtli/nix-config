@@ -83,6 +83,8 @@ in
         ${pkgs.xset}/bin/xset -dpms
         # Increase key repeat speed
         ${pkgs.xset}/bin/xset r rate 250 30
+        # Set brightness
+        ${pkgs.brightnessctl}/bin/brightnessctl set 50%
 
         # Fix java applications, dwm needs to be up and running before executing this command
         for i in 1 2 3; do
