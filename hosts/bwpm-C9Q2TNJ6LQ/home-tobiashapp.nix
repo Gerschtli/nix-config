@@ -88,6 +88,25 @@
   #    { }
   #);
 
+  programs.zsh.completionInit = ''
+    ZCOMPDUMP="$HOME/.config/zsh/.zcompdump"
+
+    autoload -Uz compinit
+    # Run full compinit if cache is older than 24 hours
+    if [[ -n ''${ZCOMPDUMP}(#qN.mh+24) ]]; then
+      compinit -d "$ZCOMPDUMP"
+      touch "$ZCOMPDUMP"
+    else
+      # Otherwise, load from cache skipping security checks
+      compinit -C -d "$ZCOMPDUMP"
+    fi
+
+    # Compile the cache file into binary (.zwc) in the background if needed
+    if [[ -s "$ZCOMPDUMP" && (! -s "''${ZCOMPDUMP}.zwc" || "$ZCOMPDUMP" -nt "''${ZCOMPDUMP}.zwc") ]]; then
+      zcompile "$ZCOMPDUMP" &!
+    fi
+  '';
+
   programs.zsh.initContent = lib.mkAfter ''
     source <(docker completion zsh)
     source <(kubectl completion zsh)
