@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, utils, ... }:
 
 {
   imports = [ inputs.impermanence.nixosModules.impermanence ];
@@ -60,46 +60,53 @@
     Defaults lecture = never
   '';
 
-  boot.initrd.systemd.services.rollback = {
-    description = "Rollback BTRFS root subvolume to a pristine state";
-    wantedBy = [ "initrd.target" ];
-    before = [ "sysroot.mount" ];
-    unitConfig.DefaultDependencies = "no";
-    serviceConfig.Type = "oneshot";
-    script = ''
-      mkdir -p /mnt
+  boot.initrd.systemd.services.rollback =
+    let
+      device = "/dev/vg/root";
+      mountPoint = "/btrfs_tmp";
+      oldRootsDir = "old_roots";
+    in
+    {
+      description = "Rollback BTRFS root subvolume to a pristine state";
 
-      mount -o subvol=/ /dev/vg/root /mnt
+      # Specify dependencies explicitly
+      unitConfig.DefaultDependencies = false;
+      # The script needs to run to completion before this service is done
+      serviceConfig.Type = "oneshot";
+      # This service is required for boot to succeed
+      wantedBy = [ "initrd.target" ];
+      # Should complete before any file systems are mounted
+      before = [ "sysroot.mount" ];
 
-      # remove auto-created subvolumes in /root subvolume
-      # - /root/srv
-      # - /root/var/lib/portables # from systemd
-      # - /root/var/lib/machines # from systemd
-      btrfs subvolume list -o /mnt/root \
-        | cut -f9 -d' ' \
-        | while read subvolume; do
-          echo "deleting /$subvolume subvolume..."
-          btrfs subvolume delete "/mnt/$subvolume"
+      # Wait for the disk to appear
+      requires = [ "${utils.escapeSystemdPath device}.device" ];
+      after = [
+        "${utils.escapeSystemdPath device}.device"
+        # Allow hibernation to resume before trying to alter any data
+        "local-fs-pre.target"
+      ];
+
+      script = ''
+        mkdir --parents ${mountPoint}
+        mount ${device} ${mountPoint}
+        trap 'umount ${mountPoint}' EXIT
+
+        echo "creating /root snapshot..."
+        mkdir --parents ${mountPoint}/${oldRootsDir}
+        timestamp="$(date --date="@$(stat -c %Y ${mountPoint}/root)" "+%Y-%m-%d_%H:%M:%S")"
+        mv ${mountPoint}/root "${mountPoint}/${oldRootsDir}/$timestamp"
+
+        echo "creating blank /root subvolume..."
+        btrfs subvolume create ${mountPoint}/root
+
+        echo "deleting previous /root snapshots..."
+        # keep last 5 entries
+        for i in $(ls -1dtr ${mountPoint}/${oldRootsDir}/* | head -n -5); do
+          echo "deleting $i..."
+          btrfs subvolume delete --recursive "$i"
         done
-
-      echo "creating /root snapshot..."
-      btrfs subvolume snapshot -r /mnt/root "/mnt/root-$(date +"%Y-%m-%d-%H-%M-%S")"
-
-      echo "deleting previous /root snapshots..."
-      # keep last 5 entries
-      ls -1dtr /mnt/root-20* \
-        | head -n -5 \
-        | xargs btrfs subvolume delete
-
-      echo "deleting /root subvolume..."
-      btrfs subvolume delete /mnt/root
-
-      echo "restoring blank /root subvolume..."
-      btrfs subvolume snapshot /mnt/root-blank /mnt/root
-
-      umount /mnt
-    '';
-  };
+      '';
+    };
 
   users = {
     mutableUsers = false;
