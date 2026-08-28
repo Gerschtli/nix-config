@@ -45,14 +45,6 @@ echo
 # clone repos
 _clone "nix-config" git@github.com:Gerschtli/nix-config.git "${nix_config}"
 
-if _read_boolean "Install gnupg-setup repo?"; then
-    _clone "gnupg repo" gitea@git.tobias-happ.de:Gerschtli/gnupg-setup.git "${HOME}/.gnupg-setup"
-
-    if _read_boolean "Install password-store?"; then
-        _clone "password store" gitea@git.tobias-happ.de:Gerschtli/pass.git "${HOME}/.password-store"
-    fi
-fi
-
 if _read_boolean "Install files?"; then
     _clone "files" git@github.com:Gerschtli/files.git "${HOME}/.files"
 fi

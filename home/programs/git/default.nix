@@ -261,8 +261,6 @@ in
               [ pkgs.age ]
               { HOME = config.home.homeDirectory; }
           );
-
-          gpg.textconv = "${pkgs.gnupg}/bin/gpg --use-agent -q --batch --decrypt";
         };
 
         difftool = {

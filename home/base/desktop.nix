@@ -48,11 +48,6 @@ in
       development.direnv.enable = true;
 
       programs = {
-        pass = mkIf cfg.private {
-          enable = true;
-          browserpass = true;
-        };
-
         ssh.modules = [ "private" ];
         tmux.urlview = !config.custom.base.general.darwin;
       };

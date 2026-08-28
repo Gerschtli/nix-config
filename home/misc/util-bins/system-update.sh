@@ -73,7 +73,6 @@ fi
 # update projects
 _pull_changes "nix-config"  "${nix_config}"
 _pull_changes "files"       "${HOME}/.files"
-_pull_changes "pass"        "${HOME}/.password-store"
 
 
 # nix updates
