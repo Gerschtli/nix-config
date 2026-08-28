@@ -7,8 +7,6 @@
 
   custom = {
     applications = {
-      original-chattengauer.enable = true;
-
       vaultwarden.enable = true;
 
       vereinsmanager.enable = true;

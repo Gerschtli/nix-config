@@ -2,13 +2,7 @@
 
 {
   custom = {
-    applications = {
-      actual.enable = true;
-
-      downloads.enable = true;
-
-      #tobias-happ.enable = true;
-    };
+    applications.actual.enable = true;
 
     base.server = {
       enable = true;
