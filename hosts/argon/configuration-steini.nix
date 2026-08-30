@@ -1,7 +1,10 @@
-{ config, lib, pkgs, rootPath, ... }:
+{ config, lib, pkgs, rootPath, ... }@configArgs:
 
+let
+  commonConfig = config.lib.custom.commonConfig configArgs;
+in
 {
-  home-manager.users.steini = import "${rootPath}/hosts/${config.custom.base.general.hostname}/home-steini.nix";
+  home-manager.users.steini = commonConfig.homeManager.userConfig config.custom.base.general.hostname "steini";
 
   security.sudo.extraRules = [
     {
