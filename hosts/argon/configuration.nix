@@ -1,10 +1,6 @@
 { config, lib, pkgs, rootPath, ... }:
 
 {
-  imports = [
-    ./configuration-steini.nix
-  ];
-
   custom = {
     applications = {
       vaultwarden.enable = true;
