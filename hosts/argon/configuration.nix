@@ -4,24 +4,12 @@
   custom = {
     applications = {
       vaultwarden.enable = true;
-
-      vereinsmanager.enable = true;
     };
 
     base.server.enable = true;
 
-    programs.docker = {
-      enable = true;
-
-      autoPrune.enable = true;
-    };
-
     services = {
       backup.enable = true;
-
-      minecraft-server.enable = true;
-
-      openssh.enable = true;
     };
 
     system.boot.mode = "efi";
