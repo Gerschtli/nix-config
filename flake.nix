@@ -20,7 +20,6 @@
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
     };
     agenix-cli = {
       url = "github:cole-h/agenix-cli";
@@ -67,9 +66,15 @@
     sem = {
       url = "github:Ataraxy-Labs/sem";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "agenix-cli/flake-utils";
+      inputs.rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    impermanence.url = "github:nix-community/impermanence";
+    impermanence = {
+      url = "github:nix-community/impermanence";
+      inputs.home-manager.follows = "home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, nix-formatter-pack, ... } @ inputs:
