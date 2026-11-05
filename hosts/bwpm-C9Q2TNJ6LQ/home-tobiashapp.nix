@@ -71,10 +71,10 @@
       mob
       natscli
       nixpkgs-fmt
-      nodejs_22
+      nodejs_26
       pnpm
       postgresql_15
-      python3
+      python315
       sem
       uv
     ];
