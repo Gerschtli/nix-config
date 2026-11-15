@@ -44,7 +44,11 @@ in
 
       virtualHosts._ = {
         default = true;
+        rejectSSL = true;
         root = "/var/empty";
+        extraConfig = ''
+          return 403;
+        '';
       };
 
     };
